@@ -1,0 +1,109 @@
+<div class="col-lg-12 col-md-12">
+	<div class="panel">
+	<div class="panel-heading">
+			<h3 class="panel-title">
+				到货查看
+			</h3>
+		</div>
+		<div class="panel-body">
+		<div class="control-group">
+			<label class="control-label">到货单号：</label>
+			<div class="controls">
+			<input type="text"  name="id" hidden="true" id="payId" style="width:30%  !important;"  />
+				<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:30%  !important;"  maxlength="32" id="arrivalnum" class="form-control" /> 
+			</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">订货单号：</label>
+				<div class="controls">
+					<input name="ordernum" id="ordernum" readonly="true" htmlEscape="false" style="width:30%  !important;"  maxlength="32" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">供应商名称：</label>
+				<div class="controls">
+					<input type="text" hidden="true" id="suppliernum" style="width:30%  !important;"  /> 
+					<input type="text" readonly="true" id="supplierDetail" style="width:30%  !important;"  class="form-control"  /></span>
+				</div>
+			</div>
+			<div class="control-group" hidden="true">
+					<label class="control-label">到货状态：</label>
+					<div class="controls">
+						<input name="arrivalstatus" id="arrivalstatus" style="width:30%  !important;"  htmlEscape="false" style="width:30%;"  maxlength="32" class="form-control" />
+					</div>
+				</div>
+			<div class="control-group">
+				<label class="control-label">到货日期：</label>
+				<div class="controls">
+					<input size="16" type="text"  readonly="true" class="form_datetime form-control" style="width:30%  !important;"  name="arrivalDate" id="arrivalDate">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">备注信息：</label>
+				<div class="controls">
+					<textarea name="remarks" id="remarks" readonly="true" htmlEscape="false" style="width:30%  !important;"  rows="4" maxlength="255" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">到货原料：</label>
+				<table class="table table-bordered table-condensed table-hover" id="contentTable">
+					<thead>
+						<tr>
+							<th>物资名称</th>
+							<th>规格型号</th>
+							<th>单价</th>
+							<th>总价</th>
+							<th>订货数量</th>
+							<th>到货数量</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+		$(function() {
+			if ($.cookie("accountArrivalList_id2") != "null") {
+				$("#payId").val($.cookie("accountArrivalList_id2"));
+				$.ajax({
+					url : IP_config + "accountArrivalController/getById",
+					type : "post",
+					dataType : "json",
+					data : {
+						"id" : $.cookie("accountArrivalList_id2")
+					},
+					success : function(data) {
+						if (data.success && data.obj != null && data.obj != "") {
+							$("#arrivalnum").val(data.obj.arrivalnum);
+							$("#ordernum").val(data.obj.ordernum);
+							$("#suppliernum").val(data.obj.suppliernum);
+							$("#supplierDetail").val(data.obj.supplier);
+							$("#arrivalDate").val(data.obj.arrivalDate);
+							$("#arrivalstatus").val(data.obj.arrivalstatus);
+							$("#remarks").val(data.obj.remarks);
+						}
+					}
+				});
+			}
+			$.ajax({
+				url : IP_config + "accountArrivalController/getByArrivalId",
+				type : "post",
+				data : {
+					"id" : $.cookie("accountArrivalList_id2")
+				},
+				async : false,
+				success : function(data) {
+					$("#contentTable>tbody").empty();
+					var html = "";
+					for (i in data.obj) {
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td>"+data.obj[i].num+"</td></tr>";
+						}
+					$("#contentTable>tbody").html(html);
+					$.cookie("accountArrivalList_id2", null);
+				}
+			})
+		})
+	</script>
