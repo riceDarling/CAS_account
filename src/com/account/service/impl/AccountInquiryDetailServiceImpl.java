@@ -19,6 +19,7 @@ import com.account.entity.Admin;
 import com.account.service.AccountInquiryDetailService;
 
 @Service
+@Transactional
 public class AccountInquiryDetailServiceImpl implements AccountInquiryDetailService {
 
 	@Autowired

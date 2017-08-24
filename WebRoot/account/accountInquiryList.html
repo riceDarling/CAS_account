@@ -39,33 +39,6 @@
             </div>
         </div>
 	</div>
-<!--<div class="col-md-12">
-	<div class="panel">
-		<div class="panel-body">
-			<table class="table table-bordered table-condensed table-hover">
-				<thead>
-					<tr>
-						<th class="visible-lg">物资</th>
-						<th class="visible-lg">型号</th>
-						<th class="visible-lg">供应商</th>
-						<th class="visible-lg">价格</th>
-						<th class="visible-lg">期限</th>
-					</tr>
-				</thead>
-				<tbody id="secondPageTbody">
-				
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
-<div class="panel-footer">
-	<div class="row">
-		<div class="col-sm-6 col-sm-offset-11">
-			<input id="btnCancel" class="btn btn-primary" type="button" value="保存" />
-		</div>
-	</div>
-</div>-->
 <script>
 $(".form_datetime").datetimepicker({
 	language:  'zh-CN', 
@@ -85,7 +58,7 @@ function dataTable( table_data , data_total ){
 		for ( var c in table_data ) {
 			var tempObj = new Object();
 			tempObj.title = table_data[ c ].title;  
-			tempObj.createDate = new Date( table_data[ c ].createDate ).format( 'yyyy-MM-dd hh:mm:ss' );
+			tempObj.createDate = new Date( table_data[ c ].createDate ).format( 'yyyy-MM-dd' );
 			
 			if ( $( '#procInsId' ).val() == 1 ) {
 				tempObj.status = '待办';
@@ -189,10 +162,11 @@ function dataTable( table_data , data_total ){
 				nowpage_in = nowpage_in -1;
 			}
 			$.ajax( {
-				url : IP_config + "accountRequisition/selectView",
-				type : "post",
-				data : {
-					title : $("#pName").val(),
+				url : IP_config + 'accountInquiry/selectView',
+				dataType: "json",
+				type: "POST",
+				data :  {
+					title : $("#inquiry_title").val(),
 					checker : userid,
 					procInsId : $( '#procInsId' ).val(),
 					startTime : $( '#startTime' ).val(),
@@ -201,14 +175,18 @@ function dataTable( table_data , data_total ){
 					currentPage : nowpage_in
 				},
 				async : false,
-				success : function ( data1 ) {
-					var data_total = data1.obj.totalCount;
-					var table_data = data1.obj.list;
-					
-					dataTable( table_data , data_total );
-					$( '.paginate_button.active a' ).html( nowpage_in );
+				success: function( data1 ) {
+					if ( data1.success ) {
+						var data_total = data1.obj.totalCount;
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					} else {
+						$( 'body' ).RemindWokenError( '查询失败' );
+					}
 				}
-			} );
+			});
 			
 		} );
 		
@@ -221,10 +199,11 @@ function dataTable( table_data , data_total ){
 			}
 			
 			$.ajax( {
-				url : IP_config + 'accountInquiry/requisition',
-				type : "post",
-				data : {
-					title : $("#pName").val(),
+				url : IP_config + 'accountInquiry/selectView',
+				dataType: "json",
+				type: "POST",
+				data :  {
+					title : $("#inquiry_title").val(),
 					checker : userid,
 					procInsId : $( '#procInsId' ).val(),
 					startTime : $( '#startTime' ).val(),
@@ -233,23 +212,28 @@ function dataTable( table_data , data_total ){
 					currentPage : nowpage_in
 				},
 				async : false,
-				success : function ( data1 ) {
-					var data_total = data1.obj.totalCount;
-					var table_data = data1.obj.list;
-					
-					dataTable( table_data , data_total );
-					$( '.paginate_button.active a' ).html( nowpage_in );
+				success: function( data1 ) {
+					if ( data1.success ) {
+						var data_total = data1.obj.totalCount;
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					} else {
+						$( 'body' ).RemindWokenError( '查询失败' );
+					}
 				}
-			} );
+			});
 			
 		} );
 		$( '.page-jump-btn' ).click( function () {
 			var nowpage_in = $( '.page-jump-input' ).val();
 			$.ajax( {
-				url : IP_config + 'accountInquiry/requisition',
-				type : "post",
-				data : {
-					title : $("#pName").val(),
+				url : IP_config + 'accountInquiry/selectView',
+				dataType: "json",
+				type: "POST",
+				data :  {
+					title : $("#inquiry_title").val(),
 					checker : userid,
 					procInsId : $( '#procInsId' ).val(),
 					startTime : $( '#startTime' ).val(),
@@ -258,14 +242,19 @@ function dataTable( table_data , data_total ){
 					currentPage : nowpage_in
 				},
 				async : false,
-				success : function ( data1 ) {
-					var data_total = data1.obj.totalCount;
-					var table_data = data1.obj.list;
-					
-					dataTable( table_data , data_total );
-					$( '.paginate_button.active a' ).html( nowpage_in );
+				success: function( data1 ) {
+					if ( data1.success ) {
+						var data_total = data1.obj.totalCount;
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					} else {
+						$( 'body' ).RemindWokenError( '查询失败' );
+					}
 				}
-			} );
+			});
+			
 		} );
 		
 	}
@@ -351,7 +340,7 @@ $( '#sub_search' ).click( function () {
 		dataType: "json",
 		type: "POST",
 		data : {
-			title : $("#pName").val(),
+			title : $("#inquiry_title").val(),
 			checker : userid,
 			procInsId : $( '#procInsId' ).val(),
 			startTime : $( '#startTime' ).val(),
@@ -361,14 +350,15 @@ $( '#sub_search' ).click( function () {
 		},
 		async : false,
 		success: function( data1 ) {
-			
-			var data_total = data1.obj.totalCount;
-			var table_data = data1.obj.list;
-			
-			dataTable( table_data , data_total );
+			if ( data1.success ) {
+				var data_total = data1.obj.totalCount;
+				var table_data = data1.obj.list;
+				
+				dataTable( table_data , data_total );
+			} else {
+				$( 'body' ).RemindWokenError( '查询失败' );
+			}
 		}
-		
-		
 	});
 } );
 
@@ -378,7 +368,7 @@ $.ajax( {
 	dataType: "json",
 	type: "POST",
 	data :  {
-		title : $("#pName").val(),
+		title : $("#inquiry_title").val(),
 		checker : userid,
 		procInsId : $( '#procInsId' ).val(),
 		startTime : $( '#startTime' ).val(),
@@ -388,14 +378,15 @@ $.ajax( {
 	},
 	async : false,
 	success: function( data1 ) {
-		
-		var data_total = data1.obj.totalCount;
-		var table_data = data1.obj.list;
-		
-		dataTable( table_data , data_total );
+		if ( data1.success ) {
+			var data_total = data1.obj.totalCount;
+			var table_data = data1.obj.list;
+			
+			dataTable( table_data , data_total );
+		} else {
+			$( 'body' ).RemindWokenError( '查询失败' );
+		}
 	}
-	
-	
 });
 
 </script>

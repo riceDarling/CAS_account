@@ -35,6 +35,7 @@ import com.account.utils.RandomUtils;
  * @version 2017-07-26
  */
 @Service
+@Transactional
 public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 
 	@Autowired
@@ -210,14 +211,14 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 			next_act.setStartTime(new Date());
 			next_act.setStep(now_act.getStep() - 1);
 			next_act.setState(0);
-			next_act.setCheckerName(now_act.getRequisitionName());
+			next_act.setCheckerName(previous_act.getRequisitionName());
 			accountRequisitionActDao.insert(next_act);
 			
-			String inquirynum=accountPurchase.getInquirynum();
+			/*String inquirynum=accountPurchase.getInquirynum();
 			AccountInquiry accountInquiry=new AccountInquiry();
 			accountInquiry.setOrdernum(inquirynum);
 			accountInquiry.setStatus("1");
-			accountInquiryDao.setAccountInquiryStatus(accountInquiry);
+			accountInquiryDao.setAccountInquiryStatus(accountInquiry);*/
 		}
 	}
 	/*public List<AccountPurchaseDetail> getAccountSupplierByPurchasenum(AccountPurchaseDetail accountPurchaseDetail){

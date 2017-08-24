@@ -208,7 +208,7 @@
 								$("#contentTable>tbody").empty();
 								var html = "";
 								for (i in data.obj) {
-									 html += '<tr><td  value="'+data.obj[i].materialcode+'">' + data.obj[i].materialname + '</td><td>' + data.obj[i].size + '</td><td><input type="text" class="form-control"   onchange="money()" /></td><td><input type="text"   onchange="money()" class="form-control" /></td><td><input class="form-control" type="text" /></td></tr>';
+									 html += '<tr><td  name="'+data.obj[i].materialcode+'">' + data.obj[i].materialname + '</td><td>' + data.obj[i].size + '</td><td><input type="text" class="form-control"   onchange="money()" /></td><td><input type="text"   onchange="money()" class="form-control" /></td><td><input class="form-control" type="text" /></td></tr>';
 								}
 								$("#contentTable>tbody").html(html);
 							}
@@ -251,7 +251,7 @@
 						var aiArr = new Array();
 						for(var i = 0;i < len;i++){
 							var accountContractDetail = {};
-							var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
+							var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("name");
 							var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
 							var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
 							var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(2) input").val();

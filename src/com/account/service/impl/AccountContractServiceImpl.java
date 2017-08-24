@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.AccountContractDao;
 import com.account.dao.AccountContractDetailDao;
@@ -15,6 +16,7 @@ import com.account.service.AccountContractService;
 import com.account.utils.PageUtil;
 
 @Service
+@Transactional
 public class AccountContractServiceImpl implements AccountContractService {
 	@Autowired
 	private AccountContractDao accountContractDao;

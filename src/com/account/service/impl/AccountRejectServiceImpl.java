@@ -20,6 +20,7 @@ import com.account.utils.FormatDateUtils;
 import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 @Service
+@Transactional
 public class AccountRejectServiceImpl implements AccountRejectService {
 
 	@Autowired

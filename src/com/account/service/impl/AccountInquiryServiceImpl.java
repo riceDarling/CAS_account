@@ -27,6 +27,7 @@ import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 
 @Service
+@Transactional
 public class AccountInquiryServiceImpl implements AccountInquiryService {
 
 	@Autowired

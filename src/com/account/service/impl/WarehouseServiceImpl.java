@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.WarehouseMapper;
 import com.account.entity.Warehouse;
@@ -15,6 +16,7 @@ import com.account.utils.PageUtil;
 import com.account.utils.pagebean.WarehousePage;
 
 @Service
+@Transactional
 public class WarehouseServiceImpl implements WarehouseService{
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

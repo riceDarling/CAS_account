@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.SupplierInputMapper;
 import com.account.entity.SupplierInput;
@@ -14,6 +15,7 @@ import com.account.utils.GetUUID;
 import com.account.utils.pagebean.SupplierInputPage;
 
 @Service
+@Transactional
 public class SupplierInputServiceImpl implements SupplierInputService {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -397,7 +397,8 @@
 				$( this ).parent().parent().remove();
 			} );
 			$.cookie( "accountPurchaseAudit_id" , $(this).attr("name") );
-			var createBy=$(this).attr("createBy")
+			var createBy=$(this).attr("createby");
+		
 			//如果创建人是当前节点办理人，则说明处于修改阶段，跳转到修改页Edited
 			if(userid==createBy){
 				$(".account-panel-content").load( 'accountPurchaseEdited.html' );

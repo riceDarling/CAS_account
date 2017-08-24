@@ -6,12 +6,14 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.AccountPaymentDao;
 import com.account.entity.AccountPayment;
 import com.account.service.AccountPaymentService;
 
 @Service
+@Transactional
 public class AccountPaymentServiceImpl implements AccountPaymentService {
 	@Autowired
 	private AccountPaymentDao accountPaymentDao;

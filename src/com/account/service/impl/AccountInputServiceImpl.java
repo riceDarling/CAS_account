@@ -16,6 +16,7 @@ import com.account.entity.AccountInputInfo;
 import com.account.service.AccountInputService;
 
 @Service
+@Transactional
 public class AccountInputServiceImpl implements AccountInputService {
 	@Autowired
 	private AccountInputDao accountInputDao;

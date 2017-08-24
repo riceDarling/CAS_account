@@ -234,6 +234,7 @@ function dataTable( table_data , data_total ){
 			} );
 			
 		} );
+		
 		$( '.page-jump-btn' ).click( function () {
 			var nowpage_in = $( '.page-jump-input' ).val();
 			$.ajax( {
@@ -348,7 +349,6 @@ $.ajax( {
 		}
 		
 	}
-	
 });
 
 $( '#sub_search' ).click( function () {
@@ -373,9 +373,7 @@ $( '#sub_search' ).click( function () {
 			var table_data = data1.obj.list;
 			
 			dataTable( table_data , data_total );
-		}
-		
-		
+		}	
 	});
 } );
 
@@ -413,7 +411,7 @@ $("#requisitionList_example").on("click",".revoke_view",function(){
 						
 						dataTable( table_data , data_total );
 					} else {
-						$( 'body' ).RemindWokenError( '查询失败' );
+						$( 'body' ).RemindWokenError( '撤回失败' );
 					}
 					
 				}

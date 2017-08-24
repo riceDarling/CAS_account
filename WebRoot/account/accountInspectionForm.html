@@ -7,16 +7,54 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;padding-left: 0;padding-right: 0;">到货单号：</label> 
-				<div class="col-lg-2 col-md-6">
-				<select class="form-control" name="orderNumtitle" id="orderNumtitleName">
-				</select>
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">到货单号：</label> 
+				<div class="col-lg-3 col-md-6">
+					<select class="form-control" name="orderNumtitle" id="orderNumtitleName">
+					</select>
 				</div>
 				<div class="col-lg-1 col-md-2">
-					<input class="btn btn-info" type="button"  id="btnSubmit" style="margin-left: 11px;" value="查询">
+					<input class="btn btn-info" type="button"  id="btnSubmit" style="margin-left: -14px;" value="查询">
 				</div>
-			</div><br/>
-			<div class="control-group">
+			<!-- </div>
+			<div class="form-group"> -->
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">送检单号：</label> 
+				<div class="col-lg-5 col-md-6">
+					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:273px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
+					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">到货单号：</label> 
+				<div class="col-lg-4 col-md-6">
+					<input name="arrivalnum" id="arrivalnumInsp" style="margin-top: 5px;" readonly="true"  htmlEscape="false" maxlength="32" class="form-control" />
+				</div>
+			</div>
+			
+			
+			
+			<div class="form-group">
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">供应商名称：</label> 
+				<div class="col-lg-5 col-md-6">
+					<input type="text" hidden="true" id="suppliernumInsp" /> 
+					<input type="text"  id="supplierInsp" style="margin-top: 5px;"  class="form-control" /></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">送检日期：</label> 
+				<div class="col-lg-4 col-md-6">
+					<input size="16" type="text" readonly  style="margin-top: 5px;" class="form_datetime form-control" name="inspectiondate">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">备注信息：</label> 
+				<div class="col-lg-5 col-md-6">
+					<textarea name="remarks" htmlEscape="false"  style="margin-top: 5px;" class="form-control" />
+				</div>
+			</div>
+			<!-- <div class="control-group">
 				<label class="control-label" style="width:14% !important;">送检单号：</label>
 				<div class="controls">
 					<input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;display:inline-block;
@@ -48,7 +86,8 @@
 				<div class="controls">
 					<textarea name="remarks" htmlEscape="false" style="width:30% !important;"  class="form-control" />
 				</div>
-			</div>
+			</div> -->
+			<br/>
 			<div class="control-group">
 				<label class="control-label" >送检原料：</label>
 				<table class="table table-bordered table-condensed table-hover" id="contentTable" >

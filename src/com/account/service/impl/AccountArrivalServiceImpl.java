@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.AccountArrivalDao;
 import com.account.dao.AccountArrivalDetailDao;
@@ -17,6 +18,7 @@ import com.account.service.AccountArrivalService;
 import com.account.utils.PageUtil;
 
 @Service
+@Transactional
 public class AccountArrivalServiceImpl implements AccountArrivalService {
 	@Autowired
 	private AccountArrivalDao accountArrivalDao;

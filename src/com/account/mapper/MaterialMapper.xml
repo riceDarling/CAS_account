@@ -174,7 +174,7 @@
   </select>
   
     
-  <select id="selectView" resultType="com.account.entity.AccountReject">
+  <select id="selectView" resultType="com.account.entity.Material">
 		SELECT 
 			
 			<include refid="Material_List" />

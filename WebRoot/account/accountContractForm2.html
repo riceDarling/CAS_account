@@ -161,42 +161,6 @@
 				}
 			});
 		}
-		//获取采购订货单标题
-		/*$.ajax({
-			url :  IP_config + "accountRequisition/getAccountPurchaseTitle",
-			type : "post",
-			async : false,
-			success : function(data) {
-				var html = "";
-				for (i in data.obj) {
-					if ($("#title-purchasenumtitle").val() != data.obj[i].title) {
-						
-						html += "<option value="+data.obj[i].id+">" + data.obj[i].title + "</option>";
-					}
-				}
-				$("#title-purchasenumtitle").append( html );
-			}
-		});*/
-		//获取供应商列表
-		/*$.ajax({
-			url :  IP_config + "accountInquiry/getAccountSupplierByPurchasenumtitle",
-			type : "post",
-			data : {
-				"purchasenumtitle" : _accountContract_title
-			},
-			async : false,
-			success : function(data) {
-				$.cookie("accountContract_title", null);
-				var html = "";
-				for (i in data.obj) {
-					if ($("#titles-supplier").val() != data.obj[i].supplier) {
-						html += "<option value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
-					}
-				}
-				$("#titles-supplier").append(html);
-
-			}
-		})*/
 		$.ajax({
 			url :  IP_config + "accountContractController/getByContractId",
 			type : "post",
@@ -236,7 +200,7 @@
 				$("#contentTable>tbody").empty();
 				var html = "";
 				for (i in data.obj) {
-					html += "<tr><td value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'   onchange='money()' /></td><td><input type='text'   onchange='money()' /></td><td><input type='text' /></td></tr>";
+					html += "<tr><td name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'   onchange='money()' /></td><td><input type='text'   onchange='money()' /></td><td><input type='text' /></td></tr>";
 				}
 				$("#contentTable>tbody").html(html);
 			}
@@ -244,63 +208,69 @@
 	})
 	//提交保存合同
 	$("#submitbtn").click(function() {
-		if ($("#title-contractnum").val() != null && $("#title-contractnum").val() != "") {
-			if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
-				$("#submitbtn").attr("disabled", true);
-				var accountContract = {};
-				accountContract.id = _accountContract_id;
-				accountContract.contractnum = $("#title-contractnum").val();
-				accountContract.papercontract = $("#title-papercontract").val();
-				accountContract.contracttitle = $("#title-contracttitle").val();
-				accountContract.purchasenum = $("#title-purchasenum").val();
-				accountContract.supplierNum = $("#title-supplierNum").val();
-				accountContract.caigouname = $("#title-caigouname").val();
-				accountContract.createdate = $("#title-createdate").val();
-				//accountContract.file = $("#file").val();
-				accountContract.remarks = $("#title-remarks").val();
-				var len = $("#contentTable>tbody>tr").length;
-				var aiArr = new Array();
-				for (var i = 0; i < len; i++) {
-					var accountContractDetail = {};
-					var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
-					var materialname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(0)").text();
-					var size = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(1)").text();
-					var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2) input").val();
-					var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
-					var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
-					accountContractDetail.materialcode = materialcode;
-					accountContractDetail.materialname = materialname;
-					accountContractDetail.size = size;
-					accountContractDetail.quantity = quantity;
-					accountContractDetail.unitprice = unitprice;
-					accountContractDetail.money = money;
-					aiArr.push(accountContractDetail);
-				}
-				accountContract.accountContractDetail = aiArr;
-				$.ajax({
-					url :  IP_config + "accountContractController/save",
-					type : "post",
-					contentType : "application/json;charset=UTF-8",
-					data : JSON.stringify(accountContract),
-					async : false
-				});
-				$.cookie("accountContract_id", null);
-				if (accountContract != null && accountContract != "") {
-					$( 'body' ).RemindWokenSuccess("保存成功");
-					$("#index_content").load("accountContractList.html");
-					setTimeout(function(){
-						$(".account-panel").remove();
-					},600);
+		$( 'body' ).RemindWokenSelect({
+			title : '确定提交？',
+			istrue : function () {
+				if ($("#title-contractnum").val() != null && $("#title-contractnum").val() != "") {
+					if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
+						$("#submitbtn").attr("disabled", true);
+						var accountContract = {};
+						accountContract.id = _accountContract_id;
+						accountContract.contractnum = $("#title-contractnum").val();
+						accountContract.papercontract = $("#title-papercontract").val();
+						accountContract.contracttitle = $("#title-contracttitle").val();
+						accountContract.purchasenum = $("#title-purchasenum").val();
+						accountContract.supplierNum = $("#title-supplierNum").val();
+						accountContract.caigouname = $("#title-caigouname").val();
+						accountContract.createdate = $("#title-createdate").val();
+						//accountContract.file = $("#file").val();
+						accountContract.remarks = $("#title-remarks").val();
+						var len = $("#contentTable>tbody>tr").length;
+						var aiArr = new Array();
+						for (var i = 0; i < len; i++) {
+							var accountContractDetail = {};
+							var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("name");
+							var materialname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(0)").text();
+							var size = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(1)").text();
+							var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2) input").val();
+							var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
+							var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+							accountContractDetail.materialcode = materialcode;
+							accountContractDetail.materialname = materialname;
+							accountContractDetail.size = size;
+							accountContractDetail.quantity = quantity;
+							accountContractDetail.unitprice = unitprice;
+							accountContractDetail.money = money;
+							aiArr.push(accountContractDetail);
+						}
+						accountContract.accountContractDetail = aiArr;
+						$.ajax({
+							url :  IP_config + "accountContractController/save",
+							type : "post",
+							contentType : "application/json;charset=UTF-8",
+							data : JSON.stringify(accountContract),
+							async : false
+						});
+						$.cookie("accountContract_id", null);
+						if (accountContract != null && accountContract != "") {
+							$( 'body' ).RemindWokenSuccess("保存成功");
+							$("#index_content").load("accountContractList.html");
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600);
+						} else {
+							$( 'body' ).RemindWokenError("保存失败");
+							$("#index_content").load("accountContractForm.html");
+						};
+					} else {
+						$( 'body' ).RemindWoken("请添写合同名称!");
+					}
 				} else {
-					$( 'body' ).RemindWokenError("保存失败");
-					$("#index_content").load("accountContractForm.html");
-				};
-			} else {
-				$( 'body' ).RemindWoken("请添写合同名称!");
+					$( 'body' ).RemindWoken("请添写合同编号!");
+				}
 			}
-		} else {
-			$( 'body' ).RemindWoken("请添写合同编号!");
-		}
+		});
+		
 	})
 
 </script>

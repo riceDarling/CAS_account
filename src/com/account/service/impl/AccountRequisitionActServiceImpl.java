@@ -23,6 +23,7 @@ import com.account.service.AccountRequisitionActService;
 
 
 @Service
+@Transactional
 public class AccountRequisitionActServiceImpl implements AccountRequisitionActService {
 	
 	@Autowired

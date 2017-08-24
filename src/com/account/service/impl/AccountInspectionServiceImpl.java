@@ -19,6 +19,7 @@ import com.account.service.AccountInspectionService;
 import com.account.utils.PageUtil;
 
 @Service
+@Transactional
 public class AccountInspectionServiceImpl implements AccountInspectionService {
 	@Autowired
 	private AccountInspectionDao accountInspectionDao;

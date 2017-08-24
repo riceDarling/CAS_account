@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.AccountReceiptDao;
 import com.account.entity.AccountReceipt;
@@ -15,6 +16,7 @@ import com.account.service.AccountReceiptService;
 import com.account.utils.PageUtil;
 
 @Service
+@Transactional
 public class AccountReceiptServiceImpl implements AccountReceiptService {
 	@Autowired
 	private AccountReceiptDao accountReceiptDao;

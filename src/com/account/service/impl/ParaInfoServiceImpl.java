@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.account.dao.ParaInfoMapper;
 import com.account.entity.ParaInfo;
@@ -12,6 +13,7 @@ import com.account.utils.PageUtil;
 import com.account.utils.pagebean.ParaInfoPage;
 
 @Service
+@Transactional
 public class ParaInfoServiceImpl implements ParaInfoService {
 
 	@Autowired

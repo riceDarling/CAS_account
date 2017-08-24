@@ -36,6 +36,7 @@ import com.account.utils.RandomUtils;
  * @version 2017-07-24
  */
 @Service
+@Transactional
 public class AccountRequisitionServiceImpl implements AccountRequisitionService {
 
 	@Autowired

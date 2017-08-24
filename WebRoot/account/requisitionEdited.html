@@ -19,27 +19,27 @@
 									<input type="text" class="form-control form-cascade-control input-small required" name="id" id="id">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 col-md-3 control-label">标题：</label>
-								<div class="col-lg-4 col-md-3">
+							<div class="form-group" style="width:50%; float:left;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">标题：</label>
+								<div class="col-lg-4 col-md-3" style="width:300px;">
 									<input type="text" class="form-control  input-small required" name="title" id="title">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 col-md-3 control-label">期望到货日期：</label>
-								<div class="col-lg-4 col-md-3">
+							<div class="form-group" style="width:50%; float:left;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">期望到货日期：</label>
+								<div class="col-lg-4 col-md-3" style="width:300px;">
 									<input size="16" type="text" value="" readonly class="form_datetime form-control" id="receivedate">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 col-md-3 control-label">申请原因：</label>
-								<div class="col-lg-4 col-md-3">
+							<div class="form-group" style="width:50%; float:left;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">申请原因：</label>
+								<div class="col-lg-4 col-md-3" style="width:300px;">
 									<input type="text" class="form-control  input-small" name="reason" id="reason">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 col-md-3 control-label">审核人(下一节点办理人)：</label>
-								<div class="col-lg-4 col-md-3">
+							<div class="form-group" style="width:50%; float:left;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">审核人(必选)：</label>
+								<div class="col-lg-4 col-md-3" style="width:300px;">
 									<select  tabindex="1" name="checker" id="requisitionForm_checker" class="form-control">
 										 <option value=""></option>
                    						
@@ -47,88 +47,86 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 col-md-3 control-label">申请物资：</label>
-								
-									<div class="col-lg-9 col-md-7">
+								<div class="col-lg-9 col-md-7" style="width:970px;">
 
-										<div class="panel-body ">
-											<table class="table table-striped" id="requisitionForm_table">
-												<thead>
-													<tr>
-														<th >#</th>
-														<th>物资编码</th>
-														<th>物资名称</th>
-														<th>规格型号</th>
-														<th>申请数量</th>
-														<th>计量单位</th>
-														<th>备注信息</th>
-														<th><i class="fa fa-plus-circle" id="requisitionForm_table_add_tr"></i></th>
-													</tr>
-												</thead>
-												<tbody>
-													 <tr>
-														<td>0</td>
-														<td></td>
-														<td>
-															<select  tabindex="1" class="materialname_select form-control">
-														 		 <option value=""></option>
-														 		 <option value="牛奶" materialnum="25-20170809-hmupt" materialsize="007">牛奶</opption>
-														 		 <option value="可乐" materialnum="25-20170721-28312" materialsize="450ml">可乐</opption>
-														 	 </select>
-														</td>
-														<td></td>
-														<td>
-														<input type="text" class="input-small required form-control" name="">
-														</td>
-														<td>
-														 <select  tabindex="1" class="form-control">
-														 		 <option value=""></option>
-                   												
-														  </select>
-														</td>
-														<td>
-														<input type="text" class="input-small required form-control" name="">
-														</td>
-														<td>
-															<i class="fa fa-minus-circle requisitionForm_table_del_tr" ></i>
-														</td>
-													</tr> 
-												</tbody>
-											</table>							
-										</div>
-									</div>
+                                    <div class="panel-body ">
+                                        <table class="table table-striped" id="requisitionForm_table">
+                                            <thead>
+                                                <tr>
+                                                    <th >#</th>
+                                                    <th>物资编码</th>
+                                                    <th>物资名称</th>
+                                                    <th>规格型号</th>
+                                                    <th>申请数量</th>
+                                                    <th>计量单位</th>
+                                                    <th>备注信息</th>
+                                                    <th><i class="fa fa-plus-circle" id="requisitionForm_table_add_tr"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 <tr>
+                                                    <td>0</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <select  tabindex="1" class="materialname_select form-control">
+                                                             <option value=""></option>
+                                                             <option value="牛奶" materialnum="25-20170809-hmupt" materialsize="007">牛奶</opption>
+                                                             <option value="可乐" materialnum="25-20170721-28312" materialsize="450ml">可乐</opption>
+                                                         </select>
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                    <input type="text" class="input-small required form-control" name="">
+                                                    </td>
+                                                    <td>
+                                                     <select  tabindex="1" class="form-control">
+                                                             <option value=""></option>
+                                                            
+                                                      </select>
+                                                    </td>
+                                                    <td>
+                                                    <input type="text" class="input-small required form-control" name="">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-minus-circle requisitionForm_table_del_tr" ></i>
+                                                    </td>
+                                                </tr> 
+                                            </tbody>
+                                        </table>							
+                                    </div>
+                                </div>
 							</div>
-							<div class="form-actions">
-								<input type="button" value="提交" class="btn bg-primary text-white btn-lg" id="requisitionFormSubmit">
-								<input type="button" value="删除" class="btn btn-danger text-white btn-lg" id="requisitionFormDanger">
-							</div>
+							
 						</form>
 					</div>
 				</div>
-						<div class="panel-body ">
-							<table class="table table-striped" id="requisitionAudit_act_table">
-								<thead>
-									<tr>
-										<th>申请人</th>
-										<th>审核人</th>
-										<th>开始时间</th>
-										<th>结束时间</th>
-										<th>结论</th>
-										<th>意见</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
+                <div class="panel-body " style="padding-top:0;">
+                    <table class="table table-striped" id="requisitionAudit_act_table">
+                        <thead>
+                            <tr>
+                                <th>申请人</th>
+                                <th>审核人</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>结论</th>
+                                <th>意见</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-actions">
+                	
+                    <input type="button" value="提交" class="btn bg-primary text-white btn-lg" style="padding-top:6px;padding-bottom:6px;font-size:15px;float:right;" id="requisitionFormSubmit">
+                    <input type="button" value="删除" class="btn btn-danger text-white btn-lg" style="padding-top:6px;padding-bottom:6px;font-size:15px;float:right;margin-right: 10px;" id="requisitionFormDanger">
+                </div>
 			</div>
 		</div>
 	</div>
 <script>
 var userid = $.cookie("login_userid");
-$("[href_1]").click(function(){
-	$("#index_content").load($(this).attr("href_1"));
-});	
+
 $(".form_datetime").datetimepicker({
 	language:  'zh-CN', 
 	minView: "month", //选择日期后，不会再跳转去选择时分秒 
@@ -160,7 +158,7 @@ $.ajax(IP_config+"admin/getAdminList", {
 			$("#requisitionForm_checker").html(html);
 		}else{
 			//获取失败提示
-			layer.alert(data.msg);
+			$( 'body' ).RemindWokenError( data.msg );
 		}
 	}
 });
@@ -186,7 +184,7 @@ $.ajax(IP_config+"material/findAllList", {
 			$(".materialname_select").html(html); */
 		}else{
 			//获取失败提示
-			layer.alert(data.msg);
+			$( 'body' ).RemindWokenError( data.msg );
 		}
 	}
 });
@@ -215,7 +213,7 @@ $.ajax(IP_config+"paraInfo/getParaInfoList", {
 			$(".unit_select").html(html); */
 		}else{
 			//获取失败提示
-			layer.alert(data.msg);
+			$( 'body' ).RemindWokenError( data.msg );
 		}
 	}
 });
