@@ -18,7 +18,7 @@
 							</div>
 						
 							<div class="form-group"   style="display:none" id="checker_div">
-								<label class="col-lg-2 col-md-3 control-label" id="requisitionAudit_checker_label">审核人(下一节点办理人)：</label>
+								<label class="col-lg-2 col-md-3 control-label" id="requisitionAudit_checker_label">审核人：</label>
 								<div class="col-lg-4 col-md-3" >
 									<select  tabindex="1" name="checker" id="requisitionAudit_checker" class="form-control">
 										 <option value=""></option>
@@ -96,7 +96,17 @@ var userid = $.cookie("login_userid");
 }); */
 
 $("#requisitionAudit_next").click(function(){
-	audit_submit('yes');
+	$( 'body' ).RemindWokenSelect({
+		title : '确定提交？',
+		istrue : function () {
+			if ( $( '#requisitionAudit_checker_label' ).val() == null || $( '#requisitionAudit_checker_label' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须选择审核人' );
+					return;
+				}
+			audit_submit('yes');
+		}
+	});
+	
 });
 
 $("#requisitionAudit_previous").click(function(){
@@ -227,7 +237,7 @@ $("#requisitionAudit_end").click(function(){
 	function audit_submit(conclusion){
 		//alert(conclusion);
 		//alert($("#requisitionAudit_checker").val());
-		
+	
 		$.ajax("../accountPurchase/saveAudit", {
 			dataType: "json",
 			data:{

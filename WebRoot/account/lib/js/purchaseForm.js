@@ -2,6 +2,10 @@ $("#accountPurchaseSubmit").click(function(){
 	$( 'body' ).RemindWokenSelect({
 		title : '确定提交？',
 		istrue : function () {
+			if ( $( '#accountPurchaseForm_checker' ).val() == null || $( '#accountPurchaseForm_checker' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须选择审核人' );
+				return;
+			}
 			var data_json={};
 			var inquirynum=$("#accountPurchaseForm_contract").val();
 			var title=$("#title").val();

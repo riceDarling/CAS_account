@@ -124,7 +124,7 @@
 		and
 		a.del_flag='0'
 		<if test="supplier != null and supplier != ''">
-			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+			and b.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
 		</if>
 		<if test="status != null and status != ''">
 			and a.status = #{status}
@@ -155,7 +155,7 @@
 		and
 		a.del_flag='0'
 		<if test="supplier != null and supplier != ''">
-			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+			and b.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
 		</if>
 		<if test="status != null and status != ''">
 			and a.status = #{status}
