@@ -1,0 +1,182 @@
+<div class="row">
+	<div class="col-md-12">
+	<div class="panel panel-cascade">
+		<div class="panel panel-cascade">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					申购单
+				</h3>
+			</div>
+			<div class="panel-body " style="border-radius:0;border-top:1px solid #b9c4d5">
+				<div class="ro">
+					<div class="col-mol-md-offset-2">
+						<form class="form-horizontal cascade-forms" method="post" action="#" name="signup_form" id="signup_form" novalidate="novalidate">
+							<div class="form-group" style="float:left;width:60%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:150px;padding:7px 0;">标题：</label>
+								<div class="col-lg-4 col-md-3" style="width:395px;">
+									<input type="text" class="form-control  input-small required" name="title" id="title" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group" style="float:left;width:40%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:170px;padding:7px 0;">期望到货日期：</label>
+								<div class="col-lg-4 col-md-3" style="width:195px;">
+									<input size="16" type="text" value="" class="form_datetime form-control" id="receivedate" readonly="readonly" >
+								</div>
+							</div>
+							<div class="form-group" style="float:left;width:60%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:150px;padding:7px 0;">申请原因：</label>
+								<div class="col-lg-4 col-md-3" style="width:395px;">
+									<input type="text" class="form-control" name="reason" id="reason" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group" style="float:left;width:40%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:170px;padding:7px 0;">审核人（必选）：</label>
+								<div class="col-lg-4 col-md-3" style="width:195px;">
+                                	<input type="text" name="checker" id="checker" class="form-control"  readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group" style="display:table;background:#eee;width:100%;margin-left:0;margin-right:0;">
+								<label class="col-lg-6 col-md-6 control-label"><h3 style="text-align:left;padding:0;margin:0;font-size:15px;font-weight:bold;">申请物资明细表</h3></label>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel-body " style="padding-left:0;padding-right:0;">
+                                        <table class="table table-striped" id="requisitionView_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th style="display:none">物资编码</th>
+                                                    <th>物资名称</th>
+                                                    <th>规格型号</th>
+                                                    <th>申请数量</th>
+                                                    <th>计量单位</th>
+                                                    <th>备注信息</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel-body ">
+                                    <table class="table table-striped" id="requisitionView_act_table">
+                                        <thead>
+                                            <tr>
+                                                <th>申请人</th>
+                                                <th>审核人</th>
+                                                <th>开始时间</th>
+                                                <th>结束时间</th>
+                                                <th>结论</th>
+                                                <th>意见</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+							</div>
+							<div class="form-actions">
+                            	
+                            </div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+	
+	var requisitionView_id = $.cookie("requisitionView_id");
+	$.ajax({
+		url : IP_config + "accountRequisition/formView",
+		dataType : "json",
+		data : {
+			"requisitionid" : requisitionView_id
+		},
+		type : "POST",
+		async : false,
+		success : function( data ) {
+	
+			if ( data.success ) {
+				//$( 'body' ).RemindWokenSuccess( '操作成功' );
+				//获取成功
+				if ( data.obj.accountRequisition != null ) {
+					var aq = data.obj.accountRequisition;
+					$("#title").val( aq.title );
+					$("#receivedate").val( aq.receivedate );
+					$("#reason").val( aq.reason );
+					//$("#checker").val(  );
+					$.ajax( {
+						url : IP_config+"admin/getAdminList",
+						dataType: "json",
+						type: "POST",
+						async : false,
+						success: function(data) {
+							if ( data.success ) {
+								var html = "<option value=''></option>";
+								for ( i in data.obj ) {
+									var admin = data.obj[ i ];
+									if ( admin.id == aq.checker ) {
+										$("#checker").val( admin.username );
+									}
+								}
+							}else{
+								$( 'body' ).RemindWoken( data.msg );
+							}
+						}
+					});
+					
+				}
+				if ( data.obj.detailMapList.length > 0 ) {
+					var html = "";
+					for ( i in data.obj.detailMapList ) {
+						var detail = data.obj.detailMapList[ i ];
+						html += '<tr>' + '<td>' + i + '</td>' + '<td style="display:none;">'
+								+ detail.materialNum + '</td>' + '<td>'
+								+ detail.materialName + '</td>' + '<td>'
+								+ detail.size + '</td>' + '<td>'
+								+ detail.quantitiy + '</td>' + '<td>'
+								+ detail.name + '</td>' + '<td>'
+								+ detail.remarks + '</td>' + '</tr>';
+					}
+					$( "#requisitionView_table tbody" ).html( html );
+				}
+				
+				if ( data.obj.actList.length > 0 ) {
+					var html = "";
+					for ( i in data.obj.actList ) {
+						var act = data.obj.actList[ i ];
+						html += '<tr><td>'
+								+ act.requisitionName + '</td>' + '<td>'
+								+ act.checkerName + '</td>' + '<td>'
+								+ formatDateTime(act.start_time) + '</td>' + '<td>';
+								if(act.end_time!=null){
+									html+= formatDateTime(act.end_time) + '</td>' + '<td>';
+								}else{
+									html+='</td>' + '<td>';
+								}
+							
+								if(act.conclusion==1){
+									html+='同意</td>' + '<td>';
+								}else if(act.conclusion==0){
+									html+='不同意</td>' + '<td>';
+								}else {
+									html+='</td>' + '<td>';
+								}
+								
+								html+= ( act.remarks == undefined ? '' : act.remarks ) + '</td>' + '</tr>';
+					}
+					$( "#requisitionView_act_table tbody" ).html(html);
+				}
+
+			} else {
+				//获取信息提示
+				$( 'body' ).RemindWokenError( data.msg );
+			}
+		}
+	});
+	
+</script>

@@ -9,15 +9,14 @@
 		<div class="panel-body" style="border:0;border-top:1px solid #ccc;">
 			<form action class="form-horizontal row-border">
 				<div class="form-group">
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;">申购单（必选）：</label> 
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;">申购单：</label> 
 					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<select class="form-control" name="purchasenumtitle" id="title-purchasenumtitle">
-						</select>
+						<select class="form-control" name="purchasenumtitle" readonly="readonly" id="title-purchasenumtitle" ></select>
 					</div>
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 165px !important;padding-right:0;">供应商（必选）：</label> 
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 165px !important;padding-right:0;">供应商：</label> 
 					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<select class="form-control" name="supplier" id="titles-supplier">
-							<option value="">请选择</option>
+						<select class="form-control" readonly name="supplier" id="titles-supplier">
+							
 						</select>
 					</div>
 				</div>
@@ -130,10 +129,10 @@
 	$.cookie( "accountContract_supplier" , null )
 	
 	
-		if (_accountContract_id != "null" && _accountContract_title != "null") {alert(123)
+		if (_accountContract_id != "null" && _accountContract_title != "null") {
 			//$("#payId").val( _accountContract_id );
 			
-			var _html = "<option value='" + _accountContract_id + "' >" + _accountContract_id + "</option>";
+			var _html = "<option value='" + _accountContract_id + "' >" + _accountContract_title + "</option>";
 			$("#title-purchasenumtitle").html( _html );
 			var _htmls = "<option value='" + _accountContract_supplier + "' >" + _accountContract_supplier + "</option>";
 			
@@ -163,7 +162,7 @@
 			});
 		}
 		//获取采购订货单标题
-		$.ajax({
+		/*$.ajax({
 			url :  IP_config + "accountRequisition/getAccountPurchaseTitle",
 			type : "post",
 			async : false,
@@ -171,14 +170,15 @@
 				var html = "";
 				for (i in data.obj) {
 					if ($("#title-purchasenumtitle").val() != data.obj[i].title) {
-						html += "<option value="+data.obj[i].title+">" + data.obj[i].title + "</option>";
+						
+						html += "<option value="+data.obj[i].id+">" + data.obj[i].title + "</option>";
 					}
 				}
-				$("#title-purchasenumtitle").append(html);
+				$("#title-purchasenumtitle").append( html );
 			}
-		});
+		});*/
 		//获取供应商列表
-		$.ajax({
+		/*$.ajax({
 			url :  IP_config + "accountInquiry/getAccountSupplierByPurchasenumtitle",
 			type : "post",
 			data : {
@@ -196,7 +196,7 @@
 				$("#titles-supplier").append(html);
 
 			}
-		})
+		})*/
 		$.ajax({
 			url :  IP_config + "accountContractController/getByContractId",
 			type : "post",

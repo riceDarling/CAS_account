@@ -1,0 +1,237 @@
+
+
+<div class="row">
+	<div class="col-md-12">
+	<div class="panel panel-cascade">
+	
+		<div class="panel panel-cascade">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					询价单明细
+				</h3>
+			</div>
+			<div class="panel-body " style="border-radius:0;border-top:1px solid #b9c4d5;">
+				<div class="ro">
+					<div class="col-mol-md-offset-2">
+						<form class="form-horizontal cascade-forms" method="post" action="#" name="signup_form" id="signup_form" novalidate="novalidate">
+							<div class="form-group" style="display:table;background:#eee;width:100%;margin-left:0;margin-right:0;">
+								<label class="col-lg-6 col-md-6 control-label"><h3 style="text-align:left;padding:0;margin:0;font-size:15px;font-weight:bold;">申请物资明细表</h3></label>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel-body " style="padding-left:0;padding-right:0;">
+                                        <table class="table table-striped" id="requisitionView_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>物资名称</th>
+                                                    <th>型号</th>
+                                                    <th>供应商</th>
+                                                    <th>价格（必填）</th>
+                                                    <th>期限（必填）</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+							</div>
+							<div class="form-actions">
+                            	<input type="button" value="报价" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="requisitionFormSubmit-uec">
+								<input type="button" value="保存" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="requisitionFormSubmit-talk">
+                            </div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+
+	var requisitionView_id = $.cookie("requisitionView_id");
+	
+	$.ajax({
+		url : IP_config + "accountInquiry/selectDetail",
+		dataType : "json",
+		data : {
+			"ordernum" : requisitionView_id
+		},
+		type : "POST",
+		async : false,
+		success : function( data ) {
+			
+			if ( data.success ) {
+				
+				if ( data.obj.length > 0 ) {
+					var _html = "";
+					//debugger;
+					for ( var i = 0; i < data.obj.length; i++ ) {
+						var aprice = '' , astime = '', aetime = '';
+						if ( data.obj[ i ].unitprice != undefined && data.obj[ i ].unitprice != null && data.obj[ i ].unitprice != '' ) {
+							aprice = data.obj[ i ].unitprice;
+						}
+						if ( data.obj[ i ].inquiryTime != undefined && data.obj[ i ].inquiryTime != null && data.obj[ i ].inquiryTime != '' ) {
+							astime = data.obj[ i ].inquiryTime;
+						}
+						if ( data.obj[ i ].validdate != undefined && data.obj[ i ].validdate != null && data.obj[ i ].validdate != '' ) {
+							aetime = data.obj[ i ].validdate;
+						}
+						
+						_html += '<tr>' + '<td c-nid="' + data.obj[ i ].id + '">' + data.obj[ i ].materialname + '</td>' + '<td>'
+								+ data.obj[ i ].size + '</td>' + '<td>'
+								+ data.obj[ i ].supplier + '</td>' + '<td>'
+								+ '<input style="width:115px;" type="text" class="price_input form-control" value="' + aprice + '"  /></td>' + '<td>'
+								+ '<input style="width:135px;float:left;" type="text" class="startTime form-control form_datetime" value="' + astime + '" readonly/><input style="width:135px;float:left;margin-left:7px;" type="text" class="endTime form-control form_datetime" value="' + aetime + '" readonly></td>' + '</tr>';
+						
+						
+					}
+					$( "#requisitionView_table tbody" ).html( _html );
+					$(".form_datetime").datetimepicker({
+						language:  'zh-CN', 
+						minView: "month", 
+						format: 'yyyy-mm-dd',
+						todayBtn:  1,
+						autoclose: 1
+					});
+				}
+				
+
+			} else {
+				//获取信息提示
+				$( 'body' ).RemindWokenError( data.msg );
+			}
+		}
+	});
+	
+	//保存
+	$( '#requisitionFormSubmit-talk' ).click( function () {
+		$( 'body' ).RemindWokenSelect({
+			title : '确定保存询价？',
+			istrue : function () {
+				var _arr = new Array();
+				for ( var k = 0 ; k < $( '#requisitionView_table' ).find( 'tbody tr' ).length ; k++ ) {
+					var _tr = $( '#requisitionView_table' ).find( 'tbody tr' ).eq( k ).children();
+					if ( _tr.eq( 3 ).find( '.price_input' ).val() != '' && _tr.eq( 4 ).find( '.startTime' ).val() + '-' + _tr.eq( 4 ).find( '.endTime' ).val() != '' ) {
+						_arr.push( {
+							id : _tr.eq( 0 ).attr( 'c-nid' ),
+							unitprice : _tr.eq( 3 ).find( '.price_input' ).val(),
+							inquiryTime : _tr.eq( 4 ).find( '.startTime' ).val(),
+							validdate : _tr.eq( 4 ).find( '.endTime' ).val()
+						} );	
+					}
+				}
+				
+				if ( _arr.length < 1 ) {
+					$( 'body' ).RemindWoken( '价格和期限必须填写' );
+					return;
+				}
+				var data_json = {};
+				data_json["detailList"]=_arr;
+				data_json["id"] = $.cookie( "requisitionView_cid" );
+				$.ajax( {
+					url : IP_config + "accountInquiry/saveDetail",
+					dataType: "json",
+					contentType:"application/json;charset=UTF-8",
+					data : JSON.stringify(data_json),
+					xhrFields: {
+						withCredentials: true
+					},
+					type: "POST",
+					success : function( data ) {
+						if(data.success){
+							$( 'body' ).RemindWokenSuccess( '操作成功' );
+							$.ajax( {
+								url : IP_config + 'accountInquiry/selectView',
+								dataType: "json",
+								type: "POST",
+								data :  {
+									title : $("#pName").val(),
+									checker : userid,
+									procInsId : $( '#procInsId' ).val(),
+									startTime : $( '#startTime' ).val(),
+									endTime : $( '#endTime' ).val(),
+									pageSize : 30,
+									currentPage : 1
+								},
+								async : false,
+								success: function( data1 ) {
+									
+									var data_total = data1.obj.totalCount;
+									var table_data = data1.obj.list;
+									
+									dataTable( table_data , data_total );
+								}
+								
+								
+							});
+						} else{
+							$( 'body' ).RemindWokenError( '操作失败' );
+						}
+						
+					},
+					error : function (  ) {
+						$( 'body' ).RemindWokenError( '操作失败' );
+					}
+				} );
+			}
+		});
+	} );
+	
+	//报价
+	$( '#requisitionFormSubmit-uec' ).click( function () {
+		$( 'body' ).RemindWokenSelect({
+			title : '确定提交报价？',
+			istrue : function () {
+				
+				$.ajax( {
+					url : IP_config + "accountInquiry/saveEnd",
+					dataType : "json",
+					contentType:"application/json;charset=UTF-8",
+					data : {
+							"accountInquiryid": $.cookie( "requisitionView_cid" )
+					},
+					type : "GET",
+					success : function( data ) {
+						$( 'body' ).RemindWokenSuccess( '操作成功' );
+						$.ajax( {
+							url : IP_config + 'accountInquiry/selectView',
+							dataType: "json",
+							type: "POST",
+							data :  {
+								title : $("#pName").val(),
+								checker : userid,
+								procInsId : $( '#procInsId' ).val(),
+								startTime : $( '#startTime' ).val(),
+								endTime : $( '#endTime' ).val(),
+								pageSize : 30,
+								currentPage : 1
+							},
+							async : false,
+							success: function( data1 ) {
+								
+								var data_total = data1.obj.totalCount;
+								var table_data = data1.obj.list;
+								
+								dataTable( table_data , data_total );
+							}
+							
+							
+						});
+					},
+					error : function (  ) {
+						$( 'body' ).RemindWokenError( '操作失败' );
+					}
+				} );
+			}
+		});
+	} );
+	//退回
+	$( '#requisitionFormSubmit-back' ).click( function () {
+		$( 'body' ).RemindWoken( '此功能待完善' );
+	} );
+	
+</script>

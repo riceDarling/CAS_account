@@ -189,6 +189,7 @@
 			}
 		});
 	}); */
+	
 	var userid = $.cookie("login_userid");
 	
 
@@ -210,7 +211,7 @@
 				
 				if ( $( '#procInsId' ).val() == 0 ) {
 					tempObj.status = '未完成';
-					tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" value="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
+					tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" values="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
 				}
 				if ( $( '#procInsId' ).val() == 1 ) {
 					tempObj.status = '已完成';
@@ -482,8 +483,9 @@
 			//$.cookie( "requisitionView_cid" , $(this).attr("c-name") );
 			
 			$.cookie("accountContract_id", _selfs.attr( 'name' ) );
-			$.cookie("accountContract_title", _selfs.attr( 'title' ));
+			$.cookie("accountContract_title", _selfs.attr( 'values' ));
 			$.cookie("accountContract_supplier", _selfs.attr( 'supplier' ));
+			
 			$(".account-panel-content").load( 'accountContractForm2.html' );
 		} );
 		

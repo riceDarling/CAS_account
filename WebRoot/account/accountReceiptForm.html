@@ -1,14 +1,12 @@
 <div class="col-lg-12 col-md-12">
-	<div class="panel panel-cascade">
+	<div class="panel panel-cascade" style=" margin-bottom:0; border-radius:0;">
 		<div class="panel-heading">
-			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountReceiptList.html"> 发票列表</a> <i class="fa fa-pencil-square"></i>发票添加
-			</h3>
+			<h3 class="panel-title"><i class="fa fa-pencil-square"></i>发票列表</h3>
 		</div>
 	</div>
 </div>
 <div class="col-lg-12 col-md-12">
-	<div class="col-lg-12 col-md-6">
+	<div class="col-lg-12 col-md-6" style="background:#fff;">
 		<div class="panel">
 			<div class="panel-body">
 				<div class="control-group">
@@ -19,20 +17,20 @@
 								<input type="text" name="id" id="payId" /><input name="ordernum" id="ordernum" htmlEscape="false" maxlength="32" class="form-control" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">供应商名称：</label>
 							<div class="controls">
 								<select name="supplier" class="form-control" id="supplierform">
 								</select>
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">开票日期：</label>
 							<div class="controls">
 								<input size="16" type="text" class="form_datetime form-control" readonly name="billingdate" id="billingdate" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">物资名称：</label>
 							<div class="controls">
 								<select name="materialname" class="form-control" id="materialname">
@@ -41,19 +39,19 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">规格型号：</label>
 							<div class="controls">
 								<input name="size" htmlEscape="false" maxlength="35" class="form-control" id="size" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">含税单价 ：</label>
 							<div class="controls">
 								<input name="pricefee" value="0" htmlEscape="false" class="form-control" id="pricefee" onchange="money()" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">不含税单价 ：</label>
 							<div class="controls">
 								<input name="pricenotfee" value="0" htmlEscape="false" class="form-control" id="pricenotfee" onchange="money()" />
@@ -61,19 +59,19 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">数量：</label>
 							<div class="controls">
 								<input name="quantity" value="0" htmlEscape="false" maxlength="11" class="form-control" id="quantity" onchange="money()" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">含税金额：</label>
 							<div class="controls">
 								<input name="moneyfee" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="moneyfee" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">不含税金额：</label>
 							<div class="controls">
 								<input name="moneynotfee" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="moneynotfee" />
@@ -81,19 +79,19 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">税率：</label>
 							<div class="controls">
 								<input name="taxrte" value="0" htmlEscape="false" class="form-control" id="taxrte" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">税款：</label>
 							<div class="controls">
 								<input name="tax" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="tax" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">发票号码：</label>
 							<div class="controls">
 								<input name="receiptnum" htmlEscape="false" class="form-control" id="receiptnum" />
@@ -101,21 +99,21 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">发票类别：</label>
 							<div class="controls">
 								<select name="category" class="form-control" id="category">
 								</select>
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">到货单号：</label>
 							<div class="controls">
 								<select name="arrivalnum" class="form-control" id="arrivalnum">
 								</select>
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">制单人：</label>
 							<div class="controls">
 								<input name="maker" htmlEscape="false" class="form-control" id="maker" />
@@ -123,13 +121,13 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">审核人：</label>
 							<div class="controls">
 								<input name="auditor" htmlEscape="false" class="form-control" id="auditor" />
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">备注信息：</label>
 							<div class="controls">
 								<textarea name="remarks" id="remarks" htmlEscape="false" rows="4" maxlength="255" class="form-control" />
@@ -142,7 +140,7 @@
 		<div class="panel-footer">
 			<div class="row">
 				<div class="col-lg-12 col-sm-6 col-sm-offset-10">
-					<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" /> <input id="btnCancel" class="btn" type="button" value="返 回" />
+					<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
 				</div>
 			</div>
 		</div>
