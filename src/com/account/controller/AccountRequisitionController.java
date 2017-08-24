@@ -87,6 +87,7 @@ public class AccountRequisitionController {
 			rm.isSuccessMsg("","提交成功");
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			rm.isErrorMsg("提交失败");
 		}
 		

@@ -136,7 +136,10 @@
   <select id="findList" resultType="com.account.entity.Admin">
     select 
     *
-    from admin
+    from admin ad
+    
+    where 
+    <![CDATA[ad.aType < 1]]>
   </select>
   
 </mapper>

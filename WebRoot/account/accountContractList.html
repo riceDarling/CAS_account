@@ -70,17 +70,6 @@
 				tempObj.contractnum = table_data[ c ].contractnum;
 				tempObj.papercontract = table_data[ c ].papercontract;
 				tempObj.summoney = table_data[ c ].summoney;
-				tempObj.status = table_data[ c ].status;
-				
-				if ( $( '#procInsId' ).val() == 0 ) {
-					//tempObj.status = '未完成';
-					tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" values="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
-				}
-				if ( $( '#procInsId' ).val() == 1 ) {
-					//tempObj.status = '已完成';
-					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  class="btn watch-btn-sel btn-success" >查看</a>';  
-				}
-				if ( $( '#procInsId' ).val() == '' ) {
 					if ( table_data[ c ].status == '0' ) {
 						tempObj.status = '未完成';
 						tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" values="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
@@ -88,7 +77,7 @@
 						tempObj.status = '已完成';
 						tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  class="btn watch-btn-sel btn-success" >查看</a>';  
 					}
-				}
+				
 				
 				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
 			}
@@ -114,7 +103,7 @@
 					},
 					{  
 						"mDataProp" : "contracttitle",  
-						"sTitle" : "合同标题",  
+						"sTitle" : "合同名称",  
 						"sDefaultContent" : "",  
 						"sClass" : "left"  
 					},
@@ -454,6 +443,12 @@
 				if ( data1.success ) {
 					var data_total = data1.obj.totalCount;
 					var table_data = data1.obj.list;
+					if ( data1.obj.list.length < 1 ) {
+						data_total = 0;
+						table_data = [];
+						dataTable( table_data , data_total );
+						return;
+					}
 					if ( data1.obj.list.length < 2 && data1.obj.list[ 0 ].contractnum == null ) {
 						data_total = 0;
 						table_data = [];

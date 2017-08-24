@@ -163,8 +163,8 @@ var userid = $.cookie("login_userid");
 					var _step = data.obj.actList[ data.obj.actList.length - 1 ].step;
 					if ( _step == 1 ) {
 						$( '.form-actions-btn-label' ).html(
-							'<input type="button" value="同意" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-deil">' +
-                            '<input type="button" value="驳回" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-arg">'
+							'<input type="button" nc-value="1" value="同意" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-deil">' +
+                            '<input type="button" nc-value="2" value="驳回" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-arg">'
 						);
 					}
 					if ( _step == 2 ) {
@@ -340,7 +340,12 @@ var userid = $.cookie("login_userid");
 	
 	
 	function audit_submit(conclusion , _text){
-	
+		if ( $( '#audit_submit-deil' ).attr( 'nc-value' ) == 1 && conclusion == 'yes' ) {
+			if ( $( '#checker' ).val() == null || $( '#checker' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须选择审核人' );
+				return;
+			}
+		}
 		$( 'body' ).RemindWokenSelect({
 			title : '确定' + _text + '？',
 			istrue : function () {
@@ -359,6 +364,7 @@ var userid = $.cookie("login_userid");
 					success: function(data) {
 						//console.log(data);
 						if(data.success){
+							
 							//获取成功
 							$( 'body' ).RemindWokenSuccess( data.msg );
 							$.ajax( {
