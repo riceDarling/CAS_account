@@ -1,9 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-cascade">
-				<div class="panel-heading">
-					<h3 class="panel-title" >修改退货单</h3>
-				</div>
 				<div class="panel-body ">
 				<div class="control-group">
 					<label class="col-lg-1 col-md-2 control-label"style="width: 14% !important;">供应商名称：</label>
@@ -78,7 +75,8 @@
 				$("#accountRejectTbody").html(html);
 			}else{
 				//提交失败提示
-				layer.alert(data.msg);
+				//layer.alert(data.msg);
+				$( 'body' ).RemindWokenError( '操作失败' );
 			}
 		}
 	});
@@ -117,11 +115,16 @@
 				//console.log(data);
 				if(data.success){
 					//提交成功
-					layer.alert(data.msg);
+					//layer.alert(data.msg);
+					$( 'body' ).RemindWokenSuccess( '操作成功' );
+					setTimeout(function(){
+						$(".account-panel").remove();
+					},600);
 					$("#index_content").load("accountRejectList.html");
 				}else{
 					//提交失败提示
-					layer.alert(data.msg);
+					//layer.alert(data.msg);
+					$( 'body' ).RemindWokenError( '操作失败' );
 				}
 			}
 		});
@@ -145,6 +148,9 @@
 					//提交成功
 					//layer.alert(data.msg);
 					$( 'body' ).RemindWokenSuccess( '操作成功' );
+					setTimeout(function(){
+						$(".account-panel").remove();
+					},600);
 					$("#index_content").load("accountRejectList.html");
 				}else{
 					//提交失败提示

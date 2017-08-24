@@ -1,5 +1,7 @@
 package com.account.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -43,6 +45,10 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 			}
 		} else {
 			accountArrival.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			if(accountArrival.getArrivalDate()==null||accountArrival.getArrivalDate().trim().length()<=0)
+			{
+				accountArrival.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountArrivalDao.save(accountArrival);
 			int sumquantity = 0;
 			int sumnum = 0;

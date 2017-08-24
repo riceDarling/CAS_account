@@ -335,6 +335,9 @@
 						});
 						if (accountReceipt != null && accountReceipt != "") {
 							$('body').RemindWokenSuccess('操作成功');
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600);
 							$("#index_content").load("accountReceiptList.html");
 						} else {
 							$('body').RemindWokenError('操作失败');

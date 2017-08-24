@@ -288,10 +288,13 @@
 				if (accountContract != null && accountContract != "") {
 					$( 'body' ).RemindWokenSuccess("保存成功");
 					$("#index_content").load("accountContractList.html");
+					setTimeout(function(){
+						$(".account-panel").remove();
+					},600);
 				} else {
 					$( 'body' ).RemindWokenError("保存失败");
 					$("#index_content").load("accountContractForm.html");
-				}
+				};
 			} else {
 				$( 'body' ).RemindWoken("请添写合同名称!");
 			}

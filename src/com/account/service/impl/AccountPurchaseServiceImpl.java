@@ -35,7 +35,6 @@ import com.account.utils.RandomUtils;
  * @version 2017-07-26
  */
 @Service
-@Transactional
 public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 
 	@Autowired
@@ -59,7 +58,6 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 		return accountPurchase;
 	}
 
-	@Transactional
 	public void save(AccountPurchase accountPurchase) {
 		Subject subject = SecurityUtils.getSubject();
 		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");
@@ -160,7 +158,6 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 		accountPurchase.setAccountPurchaseDetailList(accountPurchaseDetailDao.findList(new AccountPurchaseDetail(accountPurchase)));	
 	}
 
-	@Transactional
 	public void saveAudit(AccountPurchase accountPurchase) {
 		Subject subject = SecurityUtils.getSubject();
 		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");

@@ -36,7 +36,6 @@ import com.account.utils.RandomUtils;
  * @version 2017-07-24
  */
 @Service
-@Transactional(readOnly = true)
 public class AccountRequisitionServiceImpl implements AccountRequisitionService {
 
 	@Autowired
@@ -63,7 +62,6 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 		return accountRequisition;
 	}
 
-	@Transactional(readOnly = false)
 	public void save(AccountRequisition accountRequisition) {
 		Subject subject = SecurityUtils.getSubject();
 		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");
@@ -141,7 +139,6 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 		return accountRequisitionDetailDao.getDetailMapByparentid(parentid);
 	}
 
-	@Transactional(readOnly = false)
 	public void saveAudit(AccountRequisition accountRequisition) {
 		AccountRequisitionAct now_act = new AccountRequisitionAct();
 		now_act.setActindex(0);
@@ -267,7 +264,6 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 
 	}
 
-	@Transactional(readOnly = false)
 	public void delete(String requisitionid) {
 		accountRequisitionDao.delete(requisitionid);
 		accountRequisitionActDao.deleteByRequisitionId(requisitionid);

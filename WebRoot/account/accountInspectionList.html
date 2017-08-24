@@ -1,9 +1,9 @@
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade">
-		<div class="panel-heading">
+		<div class="panel-heading" style="padding:10px 0;letter-spacing:2px;">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i>送检单列表 <!-- <i class="fa fa-pencil-square"></i> <a href_1="accountInspectionForm.html">送检单添加</a> -->
-			</h3>
+				<i class="fa fa-pencil-square"></i>送检单列表 
+				</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
@@ -19,12 +19,9 @@
 						<option value="1">已完成</option>
 					</select>
 				</div>
-				<!-- <label class="col-lg-1 col-md-3 control-label"style="width:14% !important;margin-top:5px;">开始日期：</label> -->
 				<div class="col-lg-2 col-md-3" style="width:140px;padding-right:5px;">
-					<!-- <input size="16" type="text" readonly style="margin-top:5px;" class="form_datetime form-control" name="beginDate"> -->
                         <input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" name="beginDate" id="startTime" readonly="">
                     </div>
-				<!-- <label class="col-lg-2 col-sm-3 control-label"style="width:10% !important;margin-top:5px;">结束日期：</label> -->
 				<div style="float:left;line-height:33px;">-</div>
 				<div class="col-lg-1 col-md-3" style="width:140px;padding-left:5px;">
                      <input size="16" type="text" value="" placeholder="结束时间" class="form_datetime form-control" name="endDate" id="endTime" readonly="">
@@ -40,120 +37,9 @@
                 <table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
             </div>
         </div>
-		<!-- <div class="panel-body">
-			<table class="table table-bordered table-condensed table-hover" id="example">
-				<thead>
-					<tr>
-						<th class="visible-lg">到货单号</th>
-						<th class="visible-lg">送检单号</th>
-						<th class="visible-lg">供应商名称</th>
-						<th class="visible-lg">送检日期</th>
-						<th class="visible-lg">状态</th>
-						<th class="visible-lg">操作</th>
-					</tr>
-				</thead>
-				<tbody id="secondPageTbody">
-				</tbody>
-			</table>
-		</div> -->
 	</div>
 </div>
 <script>
-	/* $("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	}); */
-	
-	/* $("#btnCancel").click(function() {
-		var supplier = $("[name='supplier']").val();
-		var status = $("[name='status']").val();
-		var beginDate = $("[name='beginDate']").val();
-		var endDate = $("[name='endDate']").val();
-		$.ajax({
-			url :"/account/accountInspectionController/findList",
-			type : "post",
-			async : false,
-			data : {
-				"supplier" : supplier,
-				"status":status,
-				"beginDate" : beginDate,
-				"endDate" : endDate,
-			},
-			success : function(data) {
-				if (data.success) {
-					$("#secondPageTbody").empty();
-					var content ;
-					for ( var index in data.obj) {
-						content += "<tr>"
-						content += "<td>" + data.obj[index].arrivalnum + "</td>"
-						content += "<td>" + data.obj[index].ordernum + "</td>"
-						content += "<td>" + data.obj[index].supplier + "</td>"
-						content += "<td>" + data.obj[index].inspectiondate + "</td>"
-						if(data.obj[index].status == 0) {
-							content += "<td>未完成</td>"
-						} else {
-							content += "<td>已完成</td>"
-						}
-						content += "<td><button  value='"+data.obj[index].supplier+"' name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-						content += "</tr>"
-					}
-					$("#secondPageTbody").html(content);
-				}
-			}
-		})
-	});
-	$(function() {
-		$.ajax({
-			url :"/account/accountInspectionController/findList",
-			type : "post",
-			success : function(data) {
-				if (data.success) {
-					var content ;
-						for ( var index in data.obj) {
-							content += "<tr>"
-							content += "<td>" + data.obj[index].arrivalnum + "</td>"
-							content += "<td>" + data.obj[index].ordernum + "</td>"
-							content += "<td>" + data.obj[index].supplier + "</td>"
-							content += "<td>" + data.obj[index].inspectiondate + "</td>"
-							if(data.obj[index].status == 0) {
-								content += "<td>未完成</td>"
-							} else {
-								content += "<td>已完成</td>"
-							}
-							content += "<td><button value='"+data.obj[index].supplier+"' name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button  name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-							content += "</tr>"
-						}
-					$("#secondPageTbody").html(content);
-				}
-			}
-		})
-	});
-
-	$("#secondPageTbody").on("click", ".selectCon", function() {
-		var id = $(this).attr("name");
-		var supplier = $(this).val();
-		$.cookie("accountInspectionNextList_id", id);
-		$.cookie("accountInspectionNextList_supplier", supplier);
-		$("#index_content").load("accountInspectionNextList.html");
-	});
-	$("#DataTables_Table_3").on("click", ".selfback-btn-sel", function() {
-		var id = $(this).attr("name");
-		$.ajax({
-			url : IP_config + "accountInspectionController/delete",
-			type : "post",
-			dataType : "json",
-			data : {
-				"id" : id
-			},
-			success : function(data) {
-				if (data.success) {
-					layer.alert(data.msg);
-					$("#index_content").load("accountInspectionList.html");
-				} else {
-					layer.alert(data.msg);
-				}
-			}
-		});
-	}); */
 	$(".form_datetime").datetimepicker({
 		language : 'zh-CN',
 		minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -171,7 +57,6 @@
 			'</div>' 
 		);
 		$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
-		//$.cookie("material_edit",'');
 		$( '.account-panel-content' ).load( 'accountInspectionForm.html' );
 		$( '.account-panel-container-closes' ).click( function () {
 			$( this ).parent().parent().remove();
@@ -194,27 +79,24 @@
 		
 	} );
 
-
-	var userid = $.cookie("login_userid");
-	//var material_editId = $.cookie("material_edit");
-	//$.cookie("material_edit",'');
 	function dataTable( table_data , data_total ){
 		
 		var	total_arr = new Array();
 		if ( table_data.length > 0 ) {
 			for ( var c in table_data ) {
 				var tempObj = new Object();
+				tempObj.arrivalnum = table_data[ c ].arrivalnum; 
 				tempObj.ordernum = table_data[ c ].ordernum; 
-				tempObj.inspectiondate = new Date( table_data[ c ].inspectiondate ).format( 'yyyy-MM-dd hh:mm:ss' );  
-				//tempObj.inspectiondate = table_data[ c ].inspectiondate;  
+				tempObj.supplier = table_data[ c ].supplier; 
+				tempObj.inspectiondate = table_data[ c ].inspectiondate;  
 				
-				if ( $( '#status' ).val() == 0 ) {
+				if ( table_data[ c ].status == 0 ) {
 					tempObj.status = '未完成';
 					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn work-btn-sel btn-info" >修改</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="'+table_data[ c ].id+'" class="btn btn-danger selfback-btn-sel">删除</a>';  
 				}
-				if ( $( '#status' ).val() == 1 ) {
-					tempObj.status = '完成';
-					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn watch-btn-sel btn-success" >修改</a>';  
+				else if ( table_data[ c ].status == 1 ) {
+					tempObj.status = '已完成';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn watch-btn-sel btn-success" >查看</a>';  
 				}
 				
 				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
@@ -233,8 +115,20 @@
 						"bVisible" : false //此列不显示  
 					},
 					{  
+						"mDataProp" : "arrivalnum",  
+						"sTitle" : "到货单号",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
 						"mDataProp" : "ordernum",  
 						"sTitle" : "送检单编号",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "supplier",  
+						"sTitle" : "供应商名称",  
 						"sDefaultContent" : "",  
 						"sClass" : "left"  
 					},
@@ -305,9 +199,8 @@
 					url : IP_config + "accountInspectionController/selectView",
 					type : "post",
 					data : {
-						title : $("#supplier").val(),
-						checker : userid,
-						procInsId : $( '#procInsId' ).val(),
+						supplier : $("#supplier").val(),
+						status:$("#status").val(),
 						startTime : $( '#startTime' ).val(),
 						endTime : $( '#endTime' ).val(),
 						pageSize : 30,
@@ -338,9 +231,8 @@
 					url : IP_config + "accountInspectionController/selectView",
 					type : "post",
 					data : {
-						title : $("#supplier").val(),
-						checker : userid,
-						procInsId : $( '#procInsId' ).val(),
+						supplier : $("#supplier").val(),
+						status:$("#status").val(),
 						startTime : $( '#startTime' ).val(),
 						endTime : $( '#endTime' ).val(),
 						pageSize : 30,
@@ -364,9 +256,8 @@
 					url : IP_config + "accountInspectionController/selectView",
 					type : "post",
 					data : {
-						title : $("#supplier").val(),
-						checker : userid,
-						procInsId : $( '#procInsId' ).val(),
+						supplier : $("#supplier").val(),
+						status:$("#status").val(),
 						startTime : $( '#startTime' ).val(),
 						endTime : $( '#endTime' ).val(),
 						pageSize : 30,
@@ -443,23 +334,24 @@
 			$.cookie( "accountInspectionNextList_supplier" ,$(this).attr("supName") );
 			$(".account-panel-content").load( 'accountInspectionNextList.html' );
 		} );
-		
-		
-		/* $( '.selfback-btn-sel' ).click( function () {
-			$( 'body' ).append( 
-				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
-					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
-					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
-					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
-				'</div>'
-			);
-			$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
-			$( '.account-panel-container-closes' ).click( function () {
-				$( this ).parent().parent().remove();
+			$( '.watch-btn-sel' ).click( function () {
+				$( 'body' ).append( 
+					'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+						'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
+						'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+						'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+					'</div>'
+				);
+				$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+				$( '.account-panel-container-closes' ).click( function () {
+					$( this ).parent().parent().remove();
+				} );
+				$.cookie( "accountInspectionNextList_id2" , $(this).attr("name") );
+				$.cookie( "accountInspectionNextList_supplier2" ,$(this).attr("supName") );
+				$(".account-panel-content").load( 'accountInspectionNextList2.html' );
+				
 			} );
-			$.cookie( "requisitionView_id" , $(this).attr("name") );
-			$(".account-panel-content").load( 'requisitionInView.html' );
-		} );   */
+			
 	}
 
 	$.ajax( {
@@ -467,9 +359,8 @@
 		dataType: "json",
 		type: "POST",
 		data :  {
-			title : $("#supplier").val(),
-			checker : userid,
-			procInsId : $( '#procInsId' ).val(),
+			supplier : $("#supplier").val(),
+			status:$("#status").val(),
 			startTime : $( '#startTime' ).val(),
 			endTime : $( '#endTime' ).val(),
 			pageSize : 30,
@@ -499,10 +390,8 @@
 			dataType: "json",
 			type: "POST",
 			data : {
-				title : $("#supplier").val(),
-				checker : userid,
+				supplier : $("#supplier").val(),
 				status:$("#status").val(),
-				procInsId : $( '#procInsId' ).val(),
 				startTime : $( '#startTime' ).val(),
 				endTime : $( '#endTime' ).val(),
 				pageSize : 30,

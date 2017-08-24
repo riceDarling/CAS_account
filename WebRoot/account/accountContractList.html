@@ -20,6 +20,7 @@
                 <label class="col-lg-1 col-md-6 control-label"  style="width:60px; !important;top:6px;padding-right:0px;">状态：</label>
                 <div class="col-lg-2 col-md-3" style="width:110px;padding-left:0;padding-right:0;">
                     <select name="status" class="form-control" id="procInsId" style="width:110px;">
+                    	<option value="">请选择</option>
                         <option value="0">未完成</option>
                         <option value="1">已完成</option>
                     </select>
@@ -55,143 +56,6 @@
 		todayBtn:  1,
 		autoclose: 1
 	});
-	/* $("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	});
-	
-	/*	$( '.flowadd-btn' ).click( function () {
-		$( 'body' ).append( 
-			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
-				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
-				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
-				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
-			'</div>' 
-		);
-		$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
-		//$.cookie("material_edit",'');
-		$( '.account-panel-content' ).load( 'accountContractForm.html' );
-		$( '.account-panel-container-closes' ).click( function () {
-			$( this ).parent().parent().remove();
-		} );
-	} );
-	$(function() {
-		//获取采购订货单标题
-		$.ajax({
-			url:  IP_config + "accountRequisition/getAccountPurchaseTitle",
-			type: "post",
-			success: function(data) {
-				var html = "<option value=''>请选择</option>";
-				for(i in data.obj) {
-					html += "<option value=" + data.obj[i].title + ">" + data.obj[i].title + "</option>";
-				}
-				$("#purchasenumtitle").html(html);
-
-			}
-		});
-		$.ajax({
-			url:  IP_config + "accountContractController/findList",
-			type: "post",
-			success: function(data) {
-				var content ;
-				for(var index in data.obj) {
-					content += "<tr>"
-					content += "<td>" + data.obj[index].title + "</td>"
-					content += "<td>" + data.obj[index].supplier + "</td>"
-					content += "<td>" + data.obj[index].contracttitle + "</td>"
-					content += "<td>" + data.obj[index].contractnum + "</td>"
-					content += "<td>" + data.obj[index].papercontract + "</td>"
-					content += "<td>" + data.obj[index].summoney + "</td>"
-					content += "<td>" + data.obj[index].createdate + "</td>"
-					//	content += "<td type='file' value='"+ data.obj[index].file +"'>"+ data.obj[index].file +"</td>"
-					if(data.obj[index].status == 0) {
-						content += "<td>未完成</td>"
-					} else {
-						content += "<td>已完成</td>"
-					}
-					content += "<td><button name='" + data.obj[index].id + "' supplier='" + data.obj[index].supplier + "' value='" + data.obj[index].title + "' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button  name='" + data.obj[index].id + "' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-					content += "</tr>"
-				}
-				$("#secondPageTbody").html(content)
-			}
-		})
-	});
-
-	$("#btnCancel").click(function() {
-		var purchasenumtitle = $("[name='purchasenumtitle'] option:selected").val();
-		var contracttitle = $("[name='contracttitle']").val();
-		var status = $("[name='status'] option:selected").val();
-		var beginDate = $("[name='beginDate']").val();
-		var endDate = $("[name='endDate']").val();
-		$.ajax({
-			url:  IP_config + "accountContractController/findList",
-			type: "post",
-			async: false,
-			data: {
-				"purchasenumtitle": purchasenumtitle,
-				"contracttitle": contracttitle,
-				"status": status,
-				"beginDate": beginDate,
-				"endDate": endDate
-			},
-			success: function(data) {
-				if(data.success) {
-					$("#secondPageTbody").empty();
-					var content ;
-						for(var index in data.obj) {
-							content += "<tr>"
-							content += "<td>" + data.obj[index].title + "</td>"
-							content += "<td>" + data.obj[index].supplier + "</td>"
-							content += "<td>" + data.obj[index].contracttitle + "</td>"
-							content += "<td>" + data.obj[index].contractnum + "</td>"
-							content += "<td>" + data.obj[index].papercontract + "</td>"
-							content += "<td>" + data.obj[index].summoney + "</td>"
-							content += "<td>" + data.obj[index].createdate + "</td>"
-							//	content += "<td type='file' value='"+ data.obj[index].file +"'>"+ data.obj[index].file +"</td>"
-							if(data.obj[index].status == 0) {
-								content += "<td>未完成</td>"
-							} else {
-								content += "<td>已完成</td>"
-							}
-							content += "<td><button name='" + data.obj[index].id + "' supplier='" + data.obj[index].supplier + "' value='" + data.obj[index].title + "' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button  name='" + data.obj[index].id + "' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-							content += "</tr>"
-						}
-					$("#secondPageTbody").html(content)
-				}
-			}
-		})
-	});
-
-	$("#secondPageTbody").on("click", ".selectCon", function() {
-		var id = $(this).attr("name");
-		$.cookie("accountContract_id", id);
-		var title = $(this).val();
-		$.cookie("accountContract_title", title);
-		var supplier = $(this).attr("supplier");
-		$.cookie("accountContract_supplier", supplier);
-		$("#index_content").load("accountContractForm2.html");
-	});
-	$("#secondPageTbody").on("click", ".selectCon2", function() {
-		var id = $(this).attr("name");
-		$.ajax({
-			url:  IP_config + "accountContractController/delete",
-			type: "post",
-			dataType: "json",
-			data: {
-				"id": id
-			},
-			success: function(data) {
-				if(data.success) {
-					layer.alert(data.msg);
-					$("#index_content").load("accountContractList.html");
-				} else {
-					layer.alert(data.msg);
-				}
-			}
-		});
-	}); */
-	
-	var userid = $.cookie("login_userid");
-	
 
 	function dataTable( table_data , data_total ){
 
@@ -202,7 +66,6 @@
 				var tempObj = new Object();
 				tempObj.title = table_data[ c ].title;  
 				tempObj.createdate = table_data[ c ].createdate;
-				tempObj.supplier = table_data[ c ].createdate;
 				tempObj.contracttitle = table_data[ c ].contracttitle;
 				tempObj.contractnum = table_data[ c ].contractnum;
 				tempObj.papercontract = table_data[ c ].papercontract;
@@ -210,12 +73,21 @@
 				tempObj.status = table_data[ c ].status;
 				
 				if ( $( '#procInsId' ).val() == 0 ) {
-					tempObj.status = '未完成';
+					//tempObj.status = '未完成';
 					tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" values="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
 				}
 				if ( $( '#procInsId' ).val() == 1 ) {
-					tempObj.status = '已完成';
+					//tempObj.status = '已完成';
 					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  class="btn watch-btn-sel btn-success" >查看</a>';  
+				}
+				if ( $( '#procInsId' ).val() == '' ) {
+					if ( table_data[ c ].status == '0' ) {
+						tempObj.status = '未完成';
+						tempObj.dataopt = '<a name="' + table_data[ c ].id + '" supplier="' + table_data[ c ].supplier + '" values="' + table_data[ c ].title + '"  class="btn work-btn-sel btn-info" >修改</a><a  style="margin-left:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-del btn-danger" >删除</a>';  
+					} else if ( table_data[ c ].status == '1' ) {
+						tempObj.status = '已完成';
+						tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  class="btn watch-btn-sel btn-success" >查看</a>';  
+					}
 				}
 				
 				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
@@ -237,12 +109,6 @@
 					{  
 						"mDataProp" : "title",  
 						"sTitle" : "申购标题",  
-						"sDefaultContent" : "",  
-						"sClass" : "left"  
-					},
-					{  
-						"mDataProp" : "supplier",  
-						"sTitle" : "供应商",  
 						"sDefaultContent" : "",  
 						"sClass" : "left"  
 					},
@@ -479,9 +345,6 @@
 			$( '.account-panel-container-closes' ).click( function () {
 				$( this ).parent().parent().remove();
 			} );
-			//$.cookie( "requisitionView_id" , $(this).attr("name") );
-			//$.cookie( "requisitionView_cid" , $(this).attr("c-name") );
-			
 			$.cookie("accountContract_id", _selfs.attr( 'name' ) );
 			$.cookie("accountContract_title", _selfs.attr( 'values' ));
 			$.cookie("accountContract_supplier", _selfs.attr( 'supplier' ));
@@ -546,6 +409,7 @@
 		
 		
 		$( '.watch-btn-sel' ).click( function () {
+			var _selfs = $( this );
 			$( 'body' ).append( 
 				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
 					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
@@ -557,8 +421,11 @@
 			$( '.account-panel-container-closes' ).click( function () {
 				$( this ).parent().parent().remove();
 			} );
-			$.cookie( "requisitionView_id" , $(this).attr("name") );
-			$(".account-panel-content").load( 'accountInquiryInView.html' );
+			//$.cookie( "requisitionView_id" , $(this).attr("name") );
+			$.cookie("accountContract_id", _selfs.attr( 'name' ) );
+			$.cookie("accountContract_title", _selfs.attr( 'values' ));
+			$.cookie("accountContract_supplier", _selfs.attr( 'supplier' ));
+			$(".account-panel-content").load( 'accountContractInView.html' );
 		} );
 		
 		$( '.selfback-btn-sel' ).click( function () {

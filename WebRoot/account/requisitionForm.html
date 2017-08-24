@@ -270,6 +270,7 @@ $( '#requisitionFormSubmit-talk' ).click( function () {
 	$( 'body' ).RemindWokenSelect({
 		title : '确定提交？',
 		istrue : function () {
+			
 			var _title = $( '#title' ).val(),
 				_receivedate = $( '#receivedate' ).val(),
 				_reason = $( '#reason' ).val(),
@@ -354,9 +355,10 @@ $( '#requisitionFormSubmit-talk' ).click( function () {
 								
 								dataTable( table_data , data_total );
 							}
-							
-							
 						});
+						setTimeout(function(){
+							$(".account-panel").remove();
+						},600);
 					} else {
 						$( 'body' ).RemindWokenError( '操作失败' );
 					}

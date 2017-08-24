@@ -19,7 +19,6 @@ import com.account.entity.Admin;
 import com.account.service.AccountInquiryDetailService;
 
 @Service
-@Transactional
 public class AccountInquiryDetailServiceImpl implements AccountInquiryDetailService {
 
 	@Autowired
@@ -34,7 +33,6 @@ public class AccountInquiryDetailServiceImpl implements AccountInquiryDetailServ
 		return accountInquiryDetailDao.selectInquiryDetailByOrdernum(accountInquiryOrdernum);
 	}
 
-	@Transactional(readOnly = false)
 	public void save(AccountInquiryDetail entity) {
 		entity.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		accountInquiryDetailDao.insert(entity);

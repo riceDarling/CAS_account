@@ -49,32 +49,35 @@ $("#accountPurchaseSubmit").click(function(){
 					if(data.success){
 						//提交成功
 						$( 'body' ).RemindWokenSuccess( '操作成功' );
-						$.ajax( {
-							url : IP_config + "accountPurchase/selectView",
-							dataType: "json",
-							type: "POST",
-							data :  {
-								title : $("#purchase_title").val(),
-								checker : userid,
-								procInsId : $( '#procInsId' ).val(),
-								startTime : $( '#startTime' ).val(),
-								endTime : $( '#endTime' ).val(),
-								pageSize : 30,
-								currentPage : 1
-							},
-							async : false,
-							success: function( data1 ) {
-								if ( data1.success ) {
-									
-									var data_total = data1.obj.totalCount;
-									var table_data = data1.obj.list;
-									
-									dataTable( table_data , data_total );
-								} else {
-									$( 'body' ).RemindWoken( '查询失败' );
+							$.ajax( {
+								url : IP_config + "accountPurchase/selectView",
+								dataType: "json",
+								type: "POST",
+								data :  {
+									title : $("#purchase_title").val(),
+									checker : userid,
+									procInsId : $( '#procInsId' ).val(),
+									startTime : $( '#startTime' ).val(),
+									endTime : $( '#endTime' ).val(),
+									pageSize : 30,
+									currentPage : 1
+								},
+								async : false,
+								success: function( data1 ) {
+									if ( data1.success ) {
+										
+										var data_total = data1.obj.totalCount;
+										var table_data = data1.obj.list;
+										
+										dataTable( table_data , data_total );
+									} else {
+										$( 'body' ).RemindWoken( '查询失败' );
+									}
 								}
-							}
-						});
+							});
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600);
 					}else{
 						//提交失败提示
 						$( 'body' ).RemindWokenError( '操作失败' );
@@ -110,6 +113,9 @@ $("#accountPurchaseDanger").click(function(){
 					//提交成功
 					$( 'body' ).RemindWokenSuccess( '操作成功' );
 					$("#index_content").load("accountPurchaseList.html");
+					setTimeout(function(){
+						$(".account-panel").remove();
+					},600);
 				}else{
 					//提交失败提示
 					$( 'body' ).RemindWokenError( '操作失败' );

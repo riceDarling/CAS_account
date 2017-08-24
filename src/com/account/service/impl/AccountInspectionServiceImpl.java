@@ -1,5 +1,7 @@
 package com.account.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,6 @@ import com.account.service.AccountInspectionService;
 import com.account.utils.PageUtil;
 
 @Service
-@Transactional
 public class AccountInspectionServiceImpl implements AccountInspectionService {
 	@Autowired
 	private AccountInspectionDao accountInspectionDao;
@@ -33,21 +34,20 @@ public class AccountInspectionServiceImpl implements AccountInspectionService {
 			accountInspectionDetailDao.delete(accountInspection.getId());
 			for (int i = 0; i < size; i++) {
 				accountInspectionDetail = accountInspection.getAccountInspectionDetail().get(i);
-				if (!accountInspectionDetail.getStatus().equals("0")&&accountInspectionDetail.getStatus().length()>0) {
-					accountInspectionDao.upSatus(accountInspection.getId());
-				}
 				accountInspectionDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				accountInspectionDetail.setParent_Id(accountInspection.getId());
 				accountInspectionDetailDao.add(accountInspectionDetail);
 			}
 		} else {
 			accountInspection.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			if(accountInspection.getInspectiondate()==null||accountInspection.getInspectiondate().trim().length()<=0)
+			{
+				accountInspection.setInspectiondate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountInspectionDao.save(accountInspection);
+			accountInspectionDao.updateArrivalStatus(accountInspection.getArrivalnum());
 			for (int i = 0; i < size; i++) {
 				accountInspectionDetail = accountInspection.getAccountInspectionDetail().get(i);
-				if (!accountInspectionDetail.getStatus().equals("0")&&accountInspectionDetail.getStatus().length()>0) {
-					accountInspectionDao.upSatus(accountInspection.getId());
-				}
 				accountInspectionDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				accountInspectionDetail.setParent_Id(accountInspection.getId());
 				accountInspectionDetailDao.add(accountInspectionDetail);

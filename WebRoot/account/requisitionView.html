@@ -38,6 +38,13 @@
 									</select>	
 								</div>
 							</div>
+                            <div class="form-group" style="float:left;width:60%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:150px;padding:7px 0;">备注：</label>
+								<div class="col-lg-4 col-md-3" style="width:395px;">
+									<input type="text" class="form-control" name="comment" id="comment" >
+								</div>
+							</div>
+                            
 							<div class="form-group" style="display:table;background:#eee;width:100%;margin-left:0;margin-right:0;">
 								<label class="col-lg-6 col-md-6 control-label"><h3 style="text-align:left;padding:0;margin:0;font-size:15px;font-weight:bold;">申请物资明细表</h3></label>
                                 <div class="col-lg-12 col-md-12">
@@ -163,7 +170,7 @@ var userid = $.cookie("login_userid");
 					if ( _step == 2 ) {
 						$( '#checker' ).parent().parent().css( 'display' , 'none' );
 						$( '.form-actions-btn-label' ).html(
-							'<input type="button" value="完成" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-comp">' +
+							'<input type="button" value="同意" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-comp">' +
                             '<input type="button" value="驳回" style="float:right;margin-right:15px;font-size:14px;padding:7px 15px;" class="btn bg-primary text-white btn-lg" id="audit_submit-arg">'
 						);
 					}
@@ -192,7 +199,7 @@ var userid = $.cookie("login_userid");
 							
 								if(act.conclusion==1){
 									html+='同意</td>' + '<td>';
-								}else if(act.conclusion==0){
+								}else if( act.conclusion==0 ){
 									html+='不同意</td>' + '<td>';
 								}else {
 									html+='</td>' + '<td>';
@@ -254,9 +261,10 @@ var userid = $.cookie("login_userid");
 								
 								dataTable( table_data , data_total );
 							}
-							
-							
 						});
+						setTimeout(function(){
+							$(".account-panel").remove();
+						},600);
 					},
 					error : function (  ) {
 						$( 'body' ).RemindWokenError( '操作失败' );
@@ -313,9 +321,10 @@ var userid = $.cookie("login_userid");
 								
 								dataTable( table_data , data_total );
 							}
-							
-							
 						});
+						setTimeout(function(){
+							$(".account-panel").remove();
+						},600);
 					},
 					error : function (  ) {
 						$( 'body' ).RemindWokenError( '操作失败' );
@@ -341,7 +350,7 @@ var userid = $.cookie("login_userid");
 						"id":requisitionView_id,
 						"conclusion":conclusion,
 						"checker":$("#checker").val(),
-						"comment":''
+						"comment":$( '#comment' ).val()
 					},
 					xhrFields: {
 						withCredentials: true
@@ -373,9 +382,10 @@ var userid = $.cookie("login_userid");
 								
 								dataTable( table_data , data_total );
 							}
-							
-							
-						});
+							});
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600);
 						}else{
 							//获取失败提示
 							$( 'body' ).RemindWokenError( data.msg );

@@ -3,7 +3,6 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				添加送检单
-				<!-- <i class="fa fa-pencil-square"></i><a href_1="accountInspectionList.html">送检单列表</a> <i class="fa fa-pencil-square"></i>送检单添加 -->
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -73,83 +72,13 @@
 				<form class="form-horizontal row-border">
 					<div class="control-group">
 						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
-						<input id="btnCancel" class="btn" type="button" value="返 回" />
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- <div class="col-lg-12 col-md-12">
-	<div class="panel">
-		<div class="panel-body">
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">送检单号：</label>
-				<div class="controls">
-					<input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;display:inline-block;
-						" maxlength="32" id="ordernum" class="form-control" /> 
-					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">到货单号：</label>
-				<div class="controls">
-					<input name="arrivalnum" id="arrivalnum" readonly="true" style="width:30% !important;" htmlEscape="false" maxlength="32" class="form-control" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">供应商名称：</label>
-				<div class="controls">
-					<input type="text" hidden="true" id="suppliernum" /> 
-					<input type="text" readonly="true" id="supplier" style="width:30% !important;" class="form-control" /></span>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">送检日期：</label>
-				<div class="controls">
-					<input size="16" type="text" readonly style="width:30% !important;" class="form_datetime form-control" name="inspectiondate">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">备注信息：</label>
-				<div class="controls">
-					<textarea name="remarks" htmlEscape="false" style="width:30% !important;"  class="form-control" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" >送检原料：</label>
-				<table class="table table-bordered table-condensed table-hover" id="contentTable" >
-					<thead>
-						<tr>
-							<th>物资名称</th>
-							<th>规格型号</th>
-							<th>到货数量</th>
-							<th>成分含量</th>
-							<th>粒度</th>
-							<th>外观</th>
-							<th>检验状态</th>
-							<th>检验方式</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-			<div class="panel-body">
-				<form class="form-horizontal row-border">
-					<div class="control-group">
-						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
-						<input id="btnCancel" class="btn" type="button" value="返 回" />
-					</div>
-				</form>
-			</div>
-		</div>
-	</div> -->
 	<script type="text/javascript">
-	/* 	$("[href_1]").click(function() {
-			$("#index_content").load($(this).attr("href_1"));
-		}); */
-		
 		//日期插件
 		$(".form_datetime").datetimepicker({
 			language : 'zh-CN',
@@ -179,10 +108,6 @@
 			}
 			ordernum += ordernumRandom;
 			$("#ordernum").val(ordernum);
-		});
-		//返回
-		$("#btnCancel").click(function() {
-			$("#index_content").load("accountInspectionList.html");
 		});
 		$(function() {
 			//获取到货单号 
@@ -226,7 +151,7 @@
 						success : function(data) {
 							var html = "";
 							for (i in data.obj) {
-								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td>" + "<td> <select name='status' id='status'><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode' id='inspectionmode'></select></td></tr>";
+								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td>" + "<td> <select name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode' id='inspectionmode'></select></td></tr>";
 							}
 							$("#contentTable>tbody").html(html);
 						}
@@ -303,6 +228,9 @@
 							});
 							if (aiArr != null && aiArr != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
+								setTimeout(function(){
+									$(".account-panel").remove();
+								},600);
 								$("#index_content").load("accountInspectionList.html");
 							} else {
 								$( 'body' ).RemindWoken( '查询失败' );

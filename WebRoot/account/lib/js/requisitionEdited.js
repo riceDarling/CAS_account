@@ -86,11 +86,14 @@ $("#signup_form").on("click","#requisitionFormSubmit",function(){
 			//console.log(data);
 			if(data.success){
 				//提交成功
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenSuccess( '操作成功' );
 				$("#index_content").load("requisitionList.html");
+				setTimeout(function(){
+					$(".account-panel").remove();
+				},600);
 			}else{
 				//提交失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenError( '操作失败' );
 			}
 		}
 	});
@@ -110,11 +113,14 @@ $("#signup_form").on("click","#requisitionFormDanger",function(){
 			//console.log(data);
 			if(data.success){
 				//提交成功
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenSuccess( '操作成功' );
+				setTimeout(function(){
+					$(".account-panel").remove();
+				},600);
 				$("#index_content").load("requisitionList.html");
 			}else{
 				//提交失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenError( '操作失败' );
 			}
 		}
 	});

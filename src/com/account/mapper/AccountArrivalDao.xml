@@ -105,7 +105,7 @@
 		id,a.arrivalnum as arrivalnum,b.title as title
 		FROM account_arrival
 		a,account_purchase b
-		where a.ordernum=b.ordernum
+		where a.ordernum=b.ordernum and a.arrivalstatus = '1'
 	</select>
 	<select id="selectView" parameterType="java.lang.String"
 		resultType="com.account.entity.AccountArrival">

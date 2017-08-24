@@ -57,9 +57,9 @@
 							</div>
 						
 							<div class="panel-body">
-								 <a href="#"  style="display:none" class="btn btn-success btn-sm btn-animate-demo" id="requisitionAudit_next" onclick="audit_submit('yes')">同意</a>
-								 <a href="#"  style="display:none" class="btn btn-warning btn-sm btn-animate-demo" id="requisitionAudit_previous" onclick="audit_submit('no')">驳回</a>
-								 <a href="#"  style="display:none" class="btn btn-primary btn-sm btn-animate-demo" id="requisitionAudit_end" onclick="audit_submit('end')">完成</a>
+								 <a href="#"  style="display:none" class="btn btn-success btn-sm btn-animate-demo" id="requisitionAudit_next" >同意</a>
+								 <a href="#"  style="display:none" class="btn btn-warning btn-sm btn-animate-demo" id="requisitionAudit_previous" >驳回</a>
+								 <a href="#"  style="display:none" class="btn btn-primary btn-sm btn-animate-demo" id="requisitionAudit_end" >完成</a>
 							</div>
 
 
@@ -91,9 +91,22 @@
 
 <script>
 var userid = $.cookie("login_userid");
-$("[href_1]").click(function() {
+/* $("[href_1]").click(function() {
 	$("#index_content").load($(this).attr("href_1"));
+}); */
+
+$("#requisitionAudit_next").click(function(){
+	audit_submit('yes');
 });
+
+$("#requisitionAudit_previous").click(function(){
+	audit_submit('no');
+});
+$("#requisitionAudit_end").click(function(){
+	audit_submit('end');
+});
+
+
 	var accountPurchaseAudit_id = $.cookie("accountPurchaseAudit_id");
 	
 	$.ajax("../accountPurchase/formView", {
@@ -232,6 +245,9 @@ $("[href_1]").click(function() {
 				if(data.success){
 					//获取成功
 					//layer.alert(data.msg);
+					setTimeout(function(){
+					$(".account-panel").remove();
+					},600);
 					$("#index_content").load("accountPurchaseList.html");
 				}else{
 					//获取失败提示

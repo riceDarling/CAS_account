@@ -23,7 +23,6 @@ import com.account.service.AccountRequisitionActService;
 
 
 @Service
-@Transactional(readOnly = true)
 public class AccountRequisitionActServiceImpl implements AccountRequisitionActService {
 	
 	@Autowired
@@ -63,7 +62,6 @@ public class AccountRequisitionActServiceImpl implements AccountRequisitionActSe
 		return entity;
 	}
 
-	@Transactional(readOnly = false)
 	public String revoke(String requisitionId) {
 		Subject subject = SecurityUtils.getSubject();
 		Admin loginAdmin =(Admin) subject.getSession().getAttribute("loginAdmin");

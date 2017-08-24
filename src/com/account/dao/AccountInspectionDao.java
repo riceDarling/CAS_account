@@ -20,7 +20,7 @@ public interface AccountInspectionDao {
 
 	void update(AccountInspection accountInspection);
 	void upSatus(String id);
-
+    void updateArrivalStatus(String arrivalnum);
 	List<AccountInspection> findList(Map<String, Object> map);
 	
 	List<Map<String,Object>> getArrivalNum();

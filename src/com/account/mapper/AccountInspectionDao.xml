@@ -94,6 +94,12 @@
 		status = '1'
 		WHERE id = #{id}
 	</update>
+		<update id="updateArrivalStatus" parameterType="java.lang.String">
+		UPDATE account_arrival
+		SET
+		arrivalstatus = '2'
+		WHERE arrivalnum = #{arrivalnum}
+	</update>
 	<update id="delete" parameterType="java.lang.String">
 		UPDATE account_inspection SET
 		del_flag = '1'

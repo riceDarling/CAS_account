@@ -20,7 +20,6 @@ import com.account.utils.RandomUtils;
 import com.account.utils.pagebean.MaterialPage;
 
 @Service
-@Transactional
 public class MaterialServiceImpl implements MaterialService{
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

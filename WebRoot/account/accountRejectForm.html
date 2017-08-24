@@ -1,10 +1,10 @@
 	<div class="col-md-12">
 		<div class="panel panel-cascade">
-			<div class="panel-heading">
+			<!-- <div class="panel-heading">
 				<h3 class="panel-title">
 					<i class="fa fa-pencil-square"></i> 退货单添加
 				</h3>
-			</div>
+			</div> -->
 			<div class="panel panel-cascade">
 				<div class="panel-heading">
 					<h3 class="panel-title">创建退货单</h3>
@@ -47,17 +47,13 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="col-sm-6 col-sm-offset-11">
+			<input id="btnCancel_Submit" class="btn btn-primary" type="button" value="保存" />
+		</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<div class="panel-footer">
-	<div class="row">
-		<div class="col-sm-6 col-sm-offset-11">
-			<input id="btnCancel_Submit" class="btn btn-primary" type="button" value="保存" />
-		</div>
-	</div>
-</div>
 <script>
 	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
@@ -165,6 +161,9 @@
 					//提交成功
 					//layer.alert(data.msg);
 					$( 'body' ).RemindWokenSuccess( '操作成功' );
+					setTimeout(function(){
+						$(".account-panel").remove();
+					},600);
 					$("#index_content").load("accountRejectList.html");
 				}else{
 					//提交失败提示

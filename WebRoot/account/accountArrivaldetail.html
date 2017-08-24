@@ -3,7 +3,6 @@
 	<div class="panel-heading">
 			<h3 class="panel-title">
 				到货修改
-				<!-- <i class="fa fa-pencil-square"></i><a href_1="accountArrivalList.html"> 到货列表</a> <i class="fa fa-pencil-square"></i>到货修改 -->
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -74,9 +73,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-		$("[href_1]").click(function() {
-			$("#index_content").load($(this).attr("href_1"));
-		});
 		$(".form_datetime").datetimepicker({
 			language : 'zh-CN',
 			minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -90,7 +86,7 @@
 				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
 				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
 				if(num>quantity||num<0){
-					layer.alert("到货数量输入有误,请重新输入!");
+					$( 'body' ).RemindWokenError( '到货数量输入有误,请重新输入!' );
 					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val("");
 					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").focus();
 				} 
@@ -188,6 +184,9 @@
 							$.cookie("accountArrivalList_id", null);
 							if (accountArrival != null && accountArrival != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
+								setTimeout(function(){
+									$(".account-panel").remove();
+								},600);
 								$("#index_content").load("accountArrivalList.html");
 							} else {
 								$( 'body' ).RemindWokenError( '操作失败' );

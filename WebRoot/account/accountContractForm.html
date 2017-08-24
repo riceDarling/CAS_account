@@ -305,8 +305,9 @@
 									
 								}
 							});
-						
-							
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600)	
 						} else {
 							$( 'body' ).RemindWokenError("保存失败");
 							

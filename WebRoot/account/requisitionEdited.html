@@ -6,7 +6,6 @@
 		<div class="panel panel-cascade">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					<i class="fa fa-pencil-square"></i><a href_1="requisitionList.html">申购单列表</a>
 					<i class="fa fa-pencil-square"></i> 申请单修改
 				</h3>
 			</div>
@@ -152,7 +151,7 @@ $.ajax(IP_config+"admin/getAdminList", {
 			var html="<option value=''></option>";
 			for (i in data.obj) {
 				var admin = data.obj[i];
-				if(userid==admin.id){
+				if(userid==admin.id||admin.id==1){
 					
 				}else{
 					html+='<option value="' + admin.id + '">' + admin.userrole + '</option>';
@@ -326,7 +325,7 @@ $.ajax(IP_config + "accountRequisition/formView", {
 
 		} else {
 			//获取信息提示
-			layer.alert(data.msg);
+			$( 'body' ).RemindWoken( data.msg );
 		}
 	}
 });

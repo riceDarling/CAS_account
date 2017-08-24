@@ -2,16 +2,12 @@
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
 			修改送检单
-			<!-- <h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountInspectionList.html">送检单列表</a> <i class="fa fa-pencil-square"></i>送检单修改
-			</h3> -->
 		</div>
 		<div class="panel-body">
 			<div class="control-group">
 				<label class="control-label">送检单号：</label>
 				<div class="controls">
-					<input type="text" hidden="true" name="id"  id="payId" style="width:30%;"  />
-					<input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;" maxlength="32" id="ordernum" class="form-control" /> 
+					<input type="text" hidden="true" name="id" id="payId" style="width:30%;" /> <input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;" maxlength="32" id="ordernum" class="form-control" />
 				</div>
 			</div>
 			<div class="control-group">
@@ -20,17 +16,16 @@
 					<input name="arrivalnum" id="arrivalnum" readonly="true" style="width:30% !important;" htmlEscape="false" maxlength="32" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group" hidden="true" >
-					<label class="control-label">送检状态：</label>
-					<div class="controls">
-						<input name="status" id="status" htmlEscape="false" style="width:30% !important;"  maxlength="32" class="form-control" />
-					</div>
+			<div class="control-group" hidden="true">
+				<label class="control-label">送检状态：</label>
+				<div class="controls">
+					<input name="status" id="status" htmlEscape="false" style="width:30% !important;" maxlength="32" class="form-control" />
 				</div>
+			</div>
 			<div class="control-group">
 				<label class="control-label">供应商名称：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="suppliernumInsp" /> 
-					<input type="text"  id="supplierInsp" style="width:30% !important;" class="form-control" /></span>
+					<input type="text" hidden="true" id="suppliernumInsp" /> <input type="text" id="supplierInsp" style="width:30% !important;" class="form-control" /></span>
 				</div>
 			</div>
 			<div class="control-group">
@@ -44,7 +39,7 @@
 			<div class="control-group">
 				<label class="control-label">备注信息：</label>
 				<div class="controls">
-					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:30% !important;"  class="form-control" />
+					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:30% !important;" class="form-control" />
 				</div>
 			</div>
 			<div class="control-group">
@@ -68,18 +63,14 @@
 			<div class="panel-body">
 				<form class="form-horizontal row-border">
 					<div class="control-group">
-						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
-						<input id="btnCancel" class="btn" type="button" value="返 回" />
+						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" /> 
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-	<script type="text/javascript">
-		/* $("[href_1]").click(function() {
-			$("#index_content").load($(this).attr("href_1"));
-		}); */
+<script type="text/javascript">
 		$(".form_datetime").datetimepicker({
 			language : 'zh-CN',
 			minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -87,15 +78,11 @@
 			todayBtn : 1,
 			autoclose : 1,
 		});
-		//返回
-		$("#btnCancel").click(function() {
-			$("#index_content").load("accountInspectionList.html");
-		});
 		
 		$(function() {
 			if ($.cookie("accountInspectionNextList_id") != "null") {
 				$("#payId").val($.cookie("accountInspectionNextList_id"));
-				$("#supplier").val($.cookie("accountInspectionNextList_supplier"));
+				$("#supplierInsp").val($.cookie("accountInspectionNextList_supplier"));
 				$.ajax({
 					url : IP_config + "accountInspectionController/getById",
 					type : "post",
@@ -109,7 +96,6 @@
 							$("#arrivalnum").val(data.obj.arrivalnum);
 							$("#status").val(data.obj.status);
 							$("#suppliernumInsp").val(data.obj.suppliernum);
-							$("#supplierInsp").val($.cookie("accountInspectionNextList_supplier"));
 							$("#inspectiondate").val(data.obj.inspectiondate);
 							$("#remarks").val(data.obj.remarks);
 						}
@@ -135,8 +121,11 @@
 						else if(data.obj[i].status==2){
 							html+="<option value='2'>合格</option><option value='1'>不合格</option><option value='3'>免检</option></select></td>";	
 						}
-						else{
+						else if(data.obj[i].status==3){
 							html+="<option value='3'>免检</option><option value='1'>不合格</option><option value='2'>合格</option></select></td>";	
+						}
+						else {
+							html+="<option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>";	
 						}
 						if(data.obj[i].inspectionmode==14){
 							html+="<td name='"+data.obj[i].inspectionmode+"'>高温检验</td></tr>";	
@@ -146,6 +135,9 @@
 						}
 						else if(data.obj[i].inspectionmode==16){
 							html+="<td name='"+data.obj[i].inspectionmode+"'>低温检验</td></tr>";	
+						}
+						else {
+							html+="<td name=''></td></tr>";	
 						}
 							}
 					$("#contentTable>tbody").html(html);
@@ -200,6 +192,9 @@
 							$.cookie("accountInspectionNextList_supplier", null);
 							if (accountInspection != null && accountInspection != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
+								setTimeout(function(){
+									$(".account-panel").remove();
+								},600);
 								$("#index_content").load("accountInspectionList.html");
 							} else {
 								$( 'body' ).RemindWoken( '查询失败' );

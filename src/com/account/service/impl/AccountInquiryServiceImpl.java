@@ -27,7 +27,6 @@ import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 
 @Service
-@Transactional
 public class AccountInquiryServiceImpl implements AccountInquiryService {
 
 	@Autowired
@@ -52,7 +51,6 @@ public class AccountInquiryServiceImpl implements AccountInquiryService {
 		accountInquiry.getPage().setList(accountInquiryDao.findList(accountInquiry));
 	}
 
-	@Transactional(readOnly = false)
 	public void commit1(String ordernum) {
 		accountInquiryDao.commit1(ordernum);
 	}

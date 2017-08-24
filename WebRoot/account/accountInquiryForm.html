@@ -144,6 +144,7 @@
 					success : function( data ) {
 						if(data.success){
 							$( 'body' ).RemindWokenSuccess( '操作成功' );
+						
 							$.ajax( {
 								url : IP_config + 'accountInquiry/selectView',
 								dataType: "json",
@@ -165,9 +166,10 @@
 									
 									dataTable( table_data , data_total );
 								}
-								
-								
 							});
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600)
 						} else{
 							$( 'body' ).RemindWokenError( '操作失败' );
 						}
@@ -218,9 +220,11 @@
 								
 								dataTable( table_data , data_total );
 							}
-							
-							
+
 						});
+						setTimeout(function(){
+							$(".account-panel").remove();
+						},600)
 					},
 					error : function (  ) {
 						$( 'body' ).RemindWokenError( '操作失败' );

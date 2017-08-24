@@ -75,51 +75,143 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.account.entity.AccountInquiryDetail">
-		INSERT INTO account_inquiry_detail(
-			id,
-			inquirydetailnum,
-			ordernum,
-			validdate,
-			supplier,
-			materialname,
-			size,
-			unit,
-			unitprice,
-			requisition,
-			maker,
-			create_by,
-			create_date,
-			update_by,
-			update_date,
-			remarks,
-			del_flag,
-			brand,
-			suppliercode,
-			inquiry_time,
-			materialcode
-		) VALUES (
-			#{id},
-			#{inquirydetailnum},
-			#{ordernum},
-			#{validdate},
-			#{supplier},
-			#{materialname},
-			#{size},
-			#{unit},
-			#{unitprice},
-			#{requisition},
-			#{maker},
-			#{createBy},
-			#{createDate},
-			#{updateBy},
-			#{update},
-			#{remarks},
-			#{delFlag},
-			#{brand},
-			#{suppliercode},
-			#{inquiryTime},
-			#{materialcode}
-		)
+	 insert into account_inquiry_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inquirydetailnum != null">
+        inquiryDetailNum,
+      </if>
+      <if test="ordernum != null">
+        orderNum,
+      </if>
+      <if test="validdate != null">
+        validDate,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="materialname != null">
+        materialName,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="unitprice != null">
+        unitPrice,
+      </if>
+      <if test="requisition != null">
+        requisition,
+      </if>
+      <if test="maker != null">
+        maker,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="update != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="suppliercode != null">
+        suppliercode,
+      </if>
+      <if test="inquiryTime != null">
+        inquiry_time,
+      </if>
+      <if test="materialcode != null">
+        materialcode,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="inquirydetailnum != null">
+        #{inquirydetailnum,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="validdate != null">
+        #{validdate,jdbcType=DATE},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null">
+        #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="unitprice != null">
+        #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="requisition != null">
+        #{requisition,jdbcType=VARCHAR},
+      </if>
+      <if test="maker != null">
+        #{maker,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliercode != null">
+        #{suppliercode,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryTime != null">
+        #{inquiryTime,jdbcType=DATE},
+      </if>
+      <if test="materialcode != null">
+        #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
 	</insert>
 	<!-- 
 	<update id="update" parameterType="com.account.entity.AccountInquiryDetail">
