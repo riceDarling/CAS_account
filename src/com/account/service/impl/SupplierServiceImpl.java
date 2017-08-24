@@ -11,6 +11,7 @@ import com.account.dao.SupplierMapper;
 import com.account.entity.AccountSupplier;
 import com.account.service.SupplierService;
 import com.account.utils.GetUUID;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.SupplierPage;
 
 @Service
@@ -67,6 +68,18 @@ public class SupplierServiceImpl implements SupplierService{
 	public List<AccountSupplier> findAllList() {
 		// TODO Auto-generated method stub
 		return sDao.findAllList();
+	}
+
+	@Override
+	public List<AccountSupplier> selectView(String title, String checker, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return sDao.selectView(title, checker, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return sDao.selectViewCount(title, checker, startTime, endTime);
 	}
 	
 }

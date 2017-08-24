@@ -61,7 +61,7 @@
 		$("#submitbtn").click(function() {
 			var data = $("#warehouse_form").serialize();
 			$.ajax({
-				url : "../warehouse/insert",
+				url : IP_config + "warehouse/insert",
 				type : "post",
 				data : data,
 				dataType : "json",
@@ -76,7 +76,7 @@
 		$(document).ready(function(){
 			if(warehouse_editId != null) {
 				$.ajax({
-					url : "../warehouse/selectById",
+					url : IP_config + "warehouse/selectById",
 					type : "post",
 					data : {
 						"id" : warehouse_editId,

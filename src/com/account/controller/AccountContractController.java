@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.account.entity.AccountContract;
 import com.account.entity.AccountContractDetail;
 import com.account.service.AccountContractService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 
 /**
@@ -96,10 +97,9 @@ public class AccountContractController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "delete")
-	public ResponseModel<String> delete(HttpServletRequest req) {
+	public ResponseModel<String> delete(String id) {
 		ResponseModel<String> rm = new ResponseModel<String>();
 		try {
-			String id = req.getParameter("id");
 			accountContractService.delete(id);
 			rm.isSuccessMsg("", "删除成功");
 		} catch (Exception e) {
@@ -123,4 +123,21 @@ public class AccountContractController {
 		}
 		return rm;
 	}
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String purchasenumtitle, String contracttitle, String status, PageUtil paging , String beginDate, String endDate) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountContract> list= accountContractService.selectView( purchasenumtitle, contracttitle, status, paging, beginDate, endDate );
+			int total = accountContractService.selectViewCount( purchasenumtitle, contracttitle, status, beginDate, endDate );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
+		return rm;
+	}
+	
 }

@@ -1,4 +1,15 @@
-IP_config="localhost:8080";
+
+function getUrl(){
+	var str = document.URL;
+	var re = /.*?\:\/\/.*?\/.*?\//i;
+	var url = str.match( re );
+	return url[ 0 ];
+}
+
+IP_config = getUrl();
+
+//IP_config="localhost:7000";
+
 
 function formatDateTime(inputTime) {    
     var date = new Date(inputTime);  
@@ -16,3 +27,24 @@ function formatDateTime(inputTime) {
     //return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;  
     return y + '-' + m + '-' + d;
 };  
+
+
+Date.prototype.format = function(format) {
+	var o = {
+		"M+" : this.getMonth() + 1, // month
+		"d+" : this.getDate(), // day
+		"h+" : this.getHours(), // hour
+		"m+" : this.getMinutes(), // minute
+		"s+" : this.getSeconds(), // second
+		"q+" : Math.floor((this.getMonth() + 3) / 3), // quarter
+		"S" : this.getMilliseconds()// millisecond
+	}
+	if (/(y+)/.test(format))
+		format = format.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	for ( var k in o)
+		if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+					: ("00" + o[k]).substr(("" + o[k]).length));
+	return format;
+}

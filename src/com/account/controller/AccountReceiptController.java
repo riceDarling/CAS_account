@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.account.entity.AccountReceipt;
 import com.account.service.AccountReceiptService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 
 /**
@@ -44,7 +46,7 @@ public class AccountReceiptController {
 
 	@ResponseBody
 	@RequestMapping(value = "save")
-	public ResponseModel<String> save(AccountReceipt accountReceipt) {
+	public ResponseModel<String> save(@RequestBody AccountReceipt accountReceipt) {
 		ResponseModel<String> rm = new ResponseModel<String>();
 		try {
 			accountReceiptService.save(accountReceipt);
@@ -79,6 +81,22 @@ public class AccountReceiptController {
 			rm.isSuccessMsg("", "删除成功");
 		} catch (Exception e) {
 			rm.isErrorMsg("失败");
+		}
+		return rm;
+	}
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String supplier, PageUtil paging , String beginDate, String endDate) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountReceipt> list= accountReceiptService.selectView( supplier, paging, beginDate, endDate );
+			int total = accountReceiptService.selectViewCount( supplier, beginDate, endDate );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
 		}
 		return rm;
 	}

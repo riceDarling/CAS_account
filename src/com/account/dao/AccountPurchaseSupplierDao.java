@@ -6,8 +6,6 @@ import com.account.entity.AccountPurchaseSupplier;
 /**
  * 订货供应商DAO接口
  * 
- * @author admin
- * @version 2017-07-26
  */
 public interface AccountPurchaseSupplierDao {
 	

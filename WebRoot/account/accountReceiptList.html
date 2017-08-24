@@ -1,61 +1,37 @@
 
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade">
-		<div class="panel-heading">
+		<div class="panel-heading" style="padding:10px 0;letter-spacing:2px;">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i>发票列表 <i class="fa fa-pencil-square"></i> <a href_1="accountReceiptForm.html">发票添加</a>
+				<i class="fa fa-pencil-square"></i>发票列表
 			</h3>
 		</div>
 		<div class="panel-body">
-			<form class="form-horizontal row-border">
-				<label class="col-lg-1 col-md-2 control-label" style="width: 14% !important;">供应商名称：</label>
-				<div class="col-lg-2 col-md-2">
-					<input name="supplier" type="text" htmlEscape="false" class="form-control" />
+			<div class="form-group">
+				<label class="col-lg-1 col-md-2 control-label" style="width:86px; !important;top:6px;padding-right:0px;">供应商：</label>
+				<div class="col-lg-2 col-md-6" style="padding-left:0;">
+					<input name="supplier" type="text" htmlEscape="false" class="form-control " id="supplier" style="width:150px;padding-left:0;padding-right:0;" />
 				</div>
-				<label class="col-lg-1 col-md-3 control-label" style="width: 10% !important;">开始日期：</label>
-				<div class="col-lg-2 col-md-3">
-					<input size="16" type="text" readonly class="form_datetime form-control" name="beginDate">
+				<div class="col-lg-2 col-md-6" style="width:125px;padding-right:1px;">
+					<input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" name="beginDate" id="startTime" readonly>
 				</div>
-				<label class="col-lg-1 col-md-3 control-label"style="width: 10% !important;">结束日期：</label>
-				<div class="col-lg-2 col-md-3">
-					<input size="16" type="text" readonly class="form_datetime form-control" name="endDate">
+				<div style="float:left;line-height:33px;">-</div>
+				<div class="col-lg-2 col-md-6" style="width:125px;padding-left:1px;">
+					<input size="16" type="text" value="" placeholder="结束时间" class="form_datetime form-control" name="endDate" id="endTime" readonly>
 				</div>
-				<!-- <div class="col-lg-1 col-md-2">
-					<input class="btn btn-info" id="btnCancel" type="button" value="查询">
-				</div> -->
-				<div class="col-lg-1 col-sm-6">
-					<input id="btnCancel" class="btn btn-primary" type="button" value="查询" />
-				</div>
-			</form>
+			</div>
+			<div class="col-lg-1 col-sm-6">
+				<input id="btnCancel" class="btn btn-info" type="button" value="查询" style="margin-top:-18px;" />
+			</div>
+			<input class="btn btn-info btn-animate-demo flowadd-btn" style="margin-top: -19px !important;" type="button" value="添加发票">
 		</div>
-		<div class="panel-body">
-			<table class="table table-bordered table-condensed table-hover" id="example">
-				<thead>
-					<tr>
-						<th>供应商名称</th>
-						<th>开票日期</th>
-						<th>物资名称</th>
-						<th>规格型号</th>
-						<th>含税单价</th>
-						<th>不含税单价</th>
-						<th>数量</th>
-						<th>含税金额</th>
-						<th>不含税金额</th>
-						<th>制单人</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody id="secondPageTbody">
-				</tbody>
-			</table>
+		<div class="panel-body table-wrap-t" style="padding-left:0;padding-right:0;border:0;">
+			<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
 		</div>
 	</div>
 </div>
-
+</div>
 <script>
-	$("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	});
 	$(".form_datetime").datetimepicker({
 		language : 'zh-CN',
 		minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -63,90 +39,385 @@
 		todayBtn : 1,
 		autoclose : 1,
 	});
+	function dataTable(table_data, data_total) {
+		var total_arr = new Array();
+		if (table_data.length > 0) {
+			for ( var c in table_data) {
+				var tempObj = new Object();
+				tempObj.supplier = table_data[c].supplier;
+				tempObj.billingdate = table_data[c].billingdate;
+				tempObj.materialname = table_data[c].materialname;
+				tempObj.size = table_data[c].size;
+				tempObj.pricefee = table_data[c].pricefee;
+				tempObj.pricenotfee = table_data[c].pricenotfee;
+				tempObj.quantity = table_data[c].quantity;
+				tempObj.moneyfee = table_data[c].moneyfee;
+				tempObj.moneynotfee = table_data[c].moneynotfee;
+				tempObj.moneyfee = table_data[c].moneyfee;
+				tempObj.maker = table_data[c].maker;
+
+				tempObj.dataopt = '<a style="margin-right:6px;" name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-info"  >修改</a><a name="'+table_data[ c ].id+'" class="btn selfback-btn-del btn-danger" >删除</a>';
+
+				total_arr.push(JSON.parse(JSON.stringify(tempObj)));
+			}
+		}
+		var ccx = function() {
+
+			$('.table-container').DataTable({
+				searching : false,
+				data : total_arr,
+				lengthMenu : [ 30, 50, 100, 150 ],
+				aoColumns : [ {
+					"mDataProp" : "USERID",
+					"sDefaultContent" : "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错  
+					"bVisible" : false
+				//此列不显示  
+				}, {
+					"mDataProp" : "supplier",
+					"sTitle" : "供应商名称",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "billingdate",
+					"sTitle" : "开票日期",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "materialname",
+					"sTitle" : "物资名称",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "size",
+					"sTitle" : "规格型号",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "pricefee",
+					"sTitle" : "含税单价",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "pricenotfee",
+					"sTitle" : "不含税单价",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "quantity",
+					"sTitle" : "数量",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "moneyfee",
+					"sTitle" : "含税金额",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "moneynotfee",
+					"sTitle" : "不含税金额",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "maker",
+					"sTitle" : "制单人",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "dataopt",
+					"sTitle" : "操作",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				} ],
+				sScrollY : $(window).height() - 350,
+				bPaginate : true, //翻页功能
+				bLengthChange : true, //改变每页显示数据数量
+				bFilter : true, //过滤功能
+				bSort : false, //排序功能
+				bInfo : true,//页脚信息
+				bScrollInfinite : true,
+				bAutoWidth : true,//自动宽度
+				language : {
+					"sInfo" : "显示第 _START_ 至 _END_ ，共 _TOTAL_ 条",
+					"oPaginate" : {
+						"sPrevious" : "上页",
+						"sNext" : "下页",
+					}
+				}
+			});
+			$('.dataTables_paginate.paging_simple_numbers').parent().append('<div class="page-jump" style="width:110px;float:right;margin-right:20px;margin-top:20px;">' + '<div><input class="btn btn-info btn-animate-demo page-jump-btn" id="" style="width:50px;float:left;" type="submit" value="跳转"></div>' + '<div><input class="form-control page-jump-input" style="float:left;width:50px;margin-left:5px;" type="text" value="1" id=""></div>' + '</div>');
+			var _tpage = 0;
+			var nowpagesize = $('.dataTables_length .form-control.input-sm').val();
+			var newpage = $('.paginate_button.active a').text();
+			var endpagesize = 0;
+			var allpage = parseInt(data_total / nowpagesize);
+			if (data_total % nowpagesize > 0 && data_total > nowpagesize) {
+				allpage = allpage + 1;
+				endpagesize = newpage * nowpagesize;
+			} else if (data_total <= nowpagesize) {
+				allpage = 1;
+				endpagesize = data_total;
+			}
+
+			$('.dataTables_info').html('显示 ' + endpagesize + ' 条 ，共 ' + data_total + ' 条 ' + allpage + ' 页');
+
+			$('.paginate_button.previous a').click(function(e) {
+
+				var nowpage_in = $('.paginate_button.active a').text();
+				if (nowpage_in != 1) {
+					nowpage_in = nowpage_in - 1;
+				}
+				$.ajax({
+					url : IP_config + "accountReceiptController/selectView",
+					type : "post",
+					data : {
+						supplier : $("#supplier").val(),
+						beginDate : $('#startTime').val(),
+						endDate : $('#endTime').val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function(data1) {
+						if (data1.success) {
+							//debugger;
+							var data_total = data1.obj.totalCount;
+							var table_data = data1.obj.list;
+
+							dataTable(table_data, data_total);
+							$('.paginate_button.active a').html(nowpage_in);
+						} else {
+							$('body').RemindWokenError('查询失败');
+						}
+
+						//$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				});
+
+			});
+
+			$('.paginate_button.next a').click(function(e) {
+
+				var nowpage_in = $('.paginate_button.active a').text();
+				if (nowpage_in < allpage) {
+					nowpage_in = parseInt(nowpage_in - 0 + 1);
+				}
+
+				$.ajax({
+					url : IP_config + "accountReceiptController/selectView",
+					type : "post",
+					data : {
+						supplier : $("#supplier").val(),
+						beginDate : $('#startTime').val(),
+						endDate : $('#endTime').val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function(data1) {
+						if (data1.success) {
+							//debugger;
+							var data_total = data1.obj.totalCount;
+							var table_data = data1.obj.list;
+
+							dataTable(table_data, data_total);
+							$('.paginate_button.active a').html(nowpage_in);
+						} else {
+							$('body').RemindWokenError('查询失败');
+						}
+
+						//$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				});
+
+			});
+			$('.page-jump-btn').click(function() {
+				var nowpage_in = $('.page-jump-input').val();
+				$.ajax({
+					url : IP_config + "accountReceiptController/selectView",
+					type : "post",
+					data : {
+						supplier : $("#supplier").val(),
+						beginDate : $('#startTime').val(),
+						endDate : $('#endTime').val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function(data1) {
+						if (data1.success) {
+							//debugger;
+							var data_total = data1.obj.totalCount;
+							var table_data = data1.obj.list;
+
+							dataTable(table_data, data_total);
+							$('.paginate_button.active a').html(nowpage_in);
+						} else {
+							$('body').RemindWokenError('查询失败');
+						}
+
+						//$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				});
+
+			});
+
+		}
+
+		if ($('.table-container').children().length > 0) {
+			if (data_total == 0) {
+				$('.table-wrap-t').children().remove();
+				$('.table-wrap-t').append('<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>');
+				ccx();
+			} else {
+
+				$('.table-wrap-t').children().remove();
+				$('.table-wrap-t').append('<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>');
+				ccx();
+			}
+		} else {
+			$('.table-wrap-t').children().remove();
+			$('.table-wrap-t').append('<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>');
+			ccx();
+		}
+
+		$('.watch-btn-sel').click(function() {
+			$('body').append('<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' + '<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' + '<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' + '<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' + '</div>');
+			$('.account-panel-container').css('margin-top', ($(window).height() - $('.account-panel-container').height()) / 2);
+			$('.account-panel-container-closes').click(function() {
+				$(this).parent().parent().remove();
+			});
+			$.cookie("accountReceipt_id", $(this).attr("name"));
+			$(".account-panel-content").load('accountReceiptForm.html');
+
+		});
+
+		$('.selfback-btn-sel').click(function() {
+			$('body').RemindWoken('此功能待完善');
+		});
+
+		/* 	$( '.watch-btn-sel' ).click(function () {
+				$( 'body' ).RemindWoken( '此功能未完善' );
+				return;
+			}); */
+
+		$('.selfback-btn-del').click(function() {
+			/* $( 'body' ).RemindWoken( '此功能未完善' );
+			return; */
+			var _selfs = $(this);
+			$('body').RemindWokenSelect({
+				title : '确定删除？',
+				istrue : function() {
+					var _id = _selfs.attr("name");
+					$.ajax({
+						url : IP_config + "accountReceiptController/delete",
+						type : "post",
+						dataType : "json",
+						data : {
+							"id" : _id
+						},
+						success : function(data) {
+							if (data.success) {
+								$('body').RemindWokenSuccess('操作成功');
+								$.ajax({
+									url : IP_config + "accountReceiptController/selectView",
+									type : "post",
+									data : {
+										supplier : $("#supplier").val(),
+										beginDate : $('#startTime').val(),
+										endDate : $('#endTime').val(),
+										pageSize : 30,
+										currentPage : 1
+									},
+									async : false,
+									success : function(data1) {
+										if (data1.success) {
+											//debugger;
+											var data_total = data1.obj.totalCount;
+											var table_data = data1.obj.list;
+
+											dataTable(table_data, data_total);
+										} else {
+											$('body').RemindWokenError('查询失败');
+										}
+
+										//$( '.paginate_button.active a' ).html( nowpage_in );
+									}
+								});
+							} else {
+								$('body').RemindWokenError('操作失败');
+							}
+						},
+						error : function() {
+							$('body').RemindWokenError('操作失败');
+						}
+					});
+				}
+			});
+		});
+	}
+
+	$('.flowadd-btn').click(function() {
+		$('body').append('<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' + '<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' + '<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' + '<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' + '</div>');
+		$('.account-panel-container').css('margin-top', ($(window).height() - $('.account-panel-container').height()) / 2);
+		//$.cookie("material_edit",'');
+		$('.account-panel-content').load('accountReceiptForm.html');
+		$('.account-panel-container-closes').click(function() {
+			$(this).parent().parent().remove();
+		});
+	});
+
+	//查询
 	$("#btnCancel").click(function() {
-		var supplier = $("[name='supplier']").val();
-		var beginDate = $("[name='beginDate']").val();
-		var endDate = $("[name='endDate']").val();
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountReceiptController/findList",
+			url : IP_config + "accountReceiptController/selectView",
 			type : "post",
+			data : {
+				supplier : $("#supplier").val(),
+				beginDate : $('#startTime').val(),
+				endDate : $('#endTime').val(),
+				pageSize : 30,
+				currentPage : 1
+			},
 			async : false,
-			data : {
-				"supplier" : supplier,
-				"beginDate" : beginDate,
-				"endDate" : endDate
-			},
-			success : function(data) {
-				if (data.success) {
-					$("#secondPageTbody").empty();
-					var content = "<tr>"
-					for ( var index in data.obj) {
-						content += "<td>" + data.obj[index].supplier + "</td>"
-						content += "<td>" + data.obj[index].billingdate + "</td>"
-						content += "<td>" + data.obj[index].materialname + "</td>"
-						content += "<td>" + data.obj[index].size + "</td>"
-						content += "<td>" + data.obj[index].pricefee + "</td>"
-						content += "<td>" + data.obj[index].pricenotfee + "</td>"
-						content += "<td>" + data.obj[index].quantity + "</td>"
-						content += "<td>" + data.obj[index].moneyfee + "</td>"
-						content += "<td>" + data.obj[index].moneynotfee + "</td>"
-						content += "<td>" + data.obj[index].maker + "</td>"
-						content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-						content += "</tr>"
-					}
-					$("#secondPageTbody").html(content);
-				}
-			}
-		})
-	});
-	$(function() {
-		$.ajax({
-			url : "http://" + IP_config + "/account/accountReceiptController/findList",
-			type : "post",
-			success : function(data) {
-				if (data.success) {
-					var content = "<tr>"
-					for ( var index in data.obj) {
-						content += "<td>" + data.obj[index].supplier + "</td>"
-						content += "<td>" + data.obj[index].billingdate + "</td>"
-						content += "<td>" + data.obj[index].materialname + "</td>"
-						content += "<td>" + data.obj[index].size + "</td>"
-						content += "<td>" + data.obj[index].pricefee + "</td>"
-						content += "<td>" + data.obj[index].pricenotfee + "</td>"
-						content += "<td>" + data.obj[index].quantity + "</td>"
-						content += "<td>" + data.obj[index].moneyfee + "</td>"
-						content += "<td>" + data.obj[index].moneynotfee + "</td>"
-						content += "<td>" + data.obj[index].maker + "</td>"
-						content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-						content += "</tr>"
-					}
-					$("#secondPageTbody").html(content);
-				}
-			}
-		})
-	});
-	$("#secondPageTbody").on("click", ".selectCon", function() {
-		var id = $(this).attr("name");
-		$.cookie("accountReceipt_id", id);
-		$("#index_content").load("accountReceiptForm.html");
-	});
-	$("#secondPageTbody").on("click", ".selectCon2", function() {
-		var id = $(this).attr("name");
-		$.ajax({
-			url : "http://" + IP_config + "/account/accountReceiptController/delete",
-			type : "post",
-			dataType : "json",
-			data : {
-				"id" : id
-			},
-			success : function(data) {
-				if (data.success) {
-					layer.alert(data.msg);
-					$("#index_content").load("accountReceiptList.html");
+			success : function(data1) {
+				if (data1.success) {
+					//debugger;
+					var data_total = data1.obj.totalCount;
+					var table_data = data1.obj.list;
+
+					dataTable(table_data, data_total);
 				} else {
-					layer.alert(data.msg);
+					$('body').RemindWokenError('查询失败');
 				}
+
+				//$( '.paginate_button.active a' ).html( nowpage_in );
 			}
 		});
+	});
+
+	$.ajax({
+		url : IP_config + "accountReceiptController/selectView",
+		type : "post",
+		data : {
+			supplier : $("#supplier").val(),
+			beginDate : $('#startTime').val(),
+			endDate : $('#endTime').val(),
+			pageSize : 30,
+			currentPage : 1
+		},
+		async : false,
+		success : function(data1) {
+			if (data1.success) {
+				//debugger;
+				var data_total = data1.obj.totalCount;
+				var table_data = data1.obj.list;
+
+				dataTable(table_data, data_total);
+			} else {
+				$('body').RemindWokenError('查询失败');
+			}
+
+			//$( '.paginate_button.active a' ).html( nowpage_in );
+		}
 	});
 </script>

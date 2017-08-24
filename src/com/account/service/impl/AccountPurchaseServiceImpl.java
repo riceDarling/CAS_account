@@ -25,6 +25,7 @@ import com.account.entity.AccountRequisitionAct;
 import com.account.entity.Admin;
 import com.account.service.AccountPurchaseService;
 import com.account.utils.FormatDateUtils;
+import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 
 /**
@@ -176,7 +177,7 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 		accountRequisitionActDao.update(now_act);
 		if ("yes".equals(accountPurchase.getConclusion())) {
 			//如果有人进行审核并且通过，修改主表状态为"examine"
-			accountPurchase.setProcInsId("examine");
+			//accountPurchase.setProcInsId("examine");
 			accountPurchase.setAct_checker(accountPurchase.getChecker());
 			accountPurchaseDao.update(accountPurchase);
 			// 如果同意则，进入下一个节点
@@ -257,6 +258,18 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 	@Override
 	public List<AccountPurchase> findAllorderNum() {
 		return accountPurchaseDao.findAllorderNum();
+	}
+
+	@Override
+	public List<AccountPurchase> selectView(String title, String checker, String procInsId, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountPurchaseDao.selectView(title, checker, procInsId, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String procInsId, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountPurchaseDao.selectViewCount(title, checker, procInsId, startTime, endTime);
 	}
 
 }

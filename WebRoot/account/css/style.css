@@ -1,4 +1,4 @@
-@import "../css/jRating.jquery.css";
+/*@import "../css/jRating.jquery.css";
 @import "../css/animate.css";
 @import "../css/nvd3.css";
 @import "../css/morris-0.4.3.min.css";
@@ -32,7 +32,7 @@
 @import "../css/icheck/skins/square/all.css";
 @import "../css/icheck/skins/minimal/all.css";
 @import "../css/icheck/skins/line/all.css";
-@import "../css/bootstrap-wysihtml5.css";
+@import "../css/bootstrap-wysihtml5.css";*/
 /*
 *	 Author: Vijay Kumar
 *	 Template: Cascade - Flat & Responsive Bootstrap Admin Template
@@ -134,7 +134,7 @@
 ---------------------------------------------------------------------------------------------- */
 body {
   font-family: 'Open Sans';
-  /* background: url('http://newevolutiondesigns.com/images/freebies/abstract-background-19.jpg') no-repeat center center fixed; */
+  /*background: url('http://newevolutiondesigns.com/images/freebies/abstract-background-19.jpg') no-repeat center center fixed;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -151,17 +151,9 @@ td{
 }
 .site-holder {
   overflow: hidden;
-  min-height: 700px;
   position: relative;
   background: #FFFFFF;
 }
-textarea {
-	resize:none !important;
-	/* height: 150px !important; */
-}
-/* 
-label{margin-top: 8px;}
- */
 .site-holder.mini-sidebar li.submenu ul {
   width: 200px;
   display: block;
@@ -180,7 +172,7 @@ label{margin-top: 8px;}
   margin: 0px auto;
 }
 .box-holder {
-  min-height: 700px !important;
+	padding-top: 80px;
 }
 .btn:focus,
 a {
@@ -566,8 +558,8 @@ a {
 .left-sidebar {
   position: absolute;
   background-color: #ebeff2;
-  border-right: 2px solid #ccd6de;
-  width: 240px;
+  border-right: 1px solid #ccd6de;
+  width: 200px;
   height: 100%;
 }
 .sidebar-holder {
@@ -581,6 +573,9 @@ a {
   background: none;
   border-color: #ccd6de;
   border-radius: 0px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top: 0;
 }
 .sidebar-holder .nav li.nav-toggle i {
   font-size: 20px;
@@ -654,7 +649,7 @@ a {
   font-size: 14px;
   font-weight: 400;
   padding: 10px 5px;
-  border-left: 1px solid #ebeff2;
+  border-left: 0;
   display: block;
   color: #495b79;
 }
@@ -711,7 +706,7 @@ a {
 /*	Content
 ---------------------------------------------------------------------------------------------- */
 .content {
-  margin-left: 260px;
+  margin-left: 215px;
   margin-bottom: 30px;
 }
 .content.navbar-fixed {
@@ -1878,7 +1873,7 @@ table.todo-table i.finish-task:hover {
   margin-top: 10px;
 }
 .btn-animate-demo {
-  margin-top: 10px;
+  margin-top: 0;
 }
 /* WYSIWYG Editor
 ---------------------------------------------------------------------------------------------- */
@@ -2190,12 +2185,11 @@ div[data-role="editor-toolbar"] {
 ---------------------------------------------------------------------------------------------- */
 .footer {
   background: #ebeff2;
-  border-top: 2px solid #ccd6de;
+  border-top: 1px solid #ccd6de;
   z-index: 20;
-  margin-left: -20px;
-  margin-right: -20px;
   text-align: center;
   padding: 10px;
+  left:0;
   bottom: 0px !important;
   margin-bottom: 0px !important;
   position: absolute;
@@ -2571,6 +2565,10 @@ float:right; */
 }
 .navbar {
   z-index: 99999;
+  position:fixed;
+  top:0;
+  width:100%;
+  height:80px;
 }
 .navbar .navbar-toggle .icon-bar {
   background-color: #cccccc;
@@ -3086,3 +3084,26 @@ ul.icheck-buttons > li {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
+
+.dataTables_empty{
+	display:none;
+	}
+.dataTables_scrollBody{
+	overflow-x:hidden !important;
+	}
+.dataTables_length{
+	display:none !important;
+	}
+.sidebar-holder .nav > li ul > li > a,.sidebar-holder .nav li > a{
+	cursor:pointer;
+	}
+.sidebar-holder .nav > li ul > li > a.active{
+	background-color:#495b79;
+	color:#fff;
+	}
+#requisitionForm_table tbody td{
+	padding:4px 2px;
+	}
+#requisitionForm_table tbody td input,#requisitionForm_table tbody td select{
+	background:none;
+	}

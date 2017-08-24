@@ -137,4 +137,22 @@ public class AccountRequisitionController {
 		}
 		return rm;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String title, String checker, String procInsId, PageUtil paging , String startTime, String endTime) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountRequisition> list= accountRequisitionService.selectView( title, checker, procInsId, paging, startTime, endTime );
+			int total = accountRequisitionService.selectViewCount( title, checker, procInsId, startTime, endTime );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
+		return rm;
+	}
+	
 }

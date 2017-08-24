@@ -9,3 +9,8 @@
 *	 You can find our other themes on: https://bootstrapguru.com/themes/
 ---------------------------------------------------------------------------------------------- */
 
+html,body{
+	width:100% !important;
+	height:100% !important;
+	}
+	

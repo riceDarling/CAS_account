@@ -74,7 +74,7 @@ $("#signup_form").on("click","#requisitionFormSubmit",function(){
 	listjson["accountRequisitionDetailList"]=listjsonlist;
 	console.log(listjson);
 	
-	$.ajax("http://"+IP_config+"/account/accountRequisition/save", {
+	$.ajax(IP_config+"accountRequisition/save", {
 		dataType: "json",
 		contentType:"application/json;charset=UTF-8",
 		data:JSON.stringify(listjson),
@@ -97,7 +97,7 @@ $("#signup_form").on("click","#requisitionFormSubmit",function(){
 });
 //删除
 $("#signup_form").on("click","#requisitionFormDanger",function(){
-	$.ajax("http://"+IP_config+"/account/accountRequisition/delete", {
+	$.ajax(IP_config+"accountRequisition/delete", {
 		dataType: "json",
 		data:{
 			"requisitionid":$("#id").val()

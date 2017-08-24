@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.account.dao;
 
 import java.util.List;
@@ -11,8 +8,6 @@ import com.account.entity.AccountRequisitionDetail;
 
 /**
  * 申请单DAO接口
- * @author admin
- * @version 2017-07-24
  */
 public interface AccountRequisitionDetailDao  {
 	List<AccountRequisitionDetail> getAccountRequisitionDetailsByid(String parentid);

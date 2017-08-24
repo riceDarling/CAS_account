@@ -101,10 +101,18 @@
 	
 	<update id="update" parameterType="com.account.entity.AccountInquiry">
 		UPDATE account_inquiry SET 	
-			validdate = #{validdate},
-			inquiry=#{inquiry},
-			maker = #{maker},
-			status=#{status},
+			 <if test="validdate != null">
+		  		validdate = #{validdate},
+		    </if>
+		     <if test="inquiry != null">
+		  		inquiry=#{inquiry},
+		    </if>
+			  <if test="maker != null">
+		  		maker = #{maker},
+		    </if>
+		     <if test="status != null">
+		  		status=#{status},
+		    </if>
 			update_by = #{updateBy},
 			update_date = #{update}
 		WHERE id = #{id}
@@ -182,5 +190,74 @@
 		<where>
 			a.del_flag = 0
 		</where>		
+	</select>
+	
+	<select id="selectView" resultType="com.account.entity.AccountInquiry">
+		SELECT 
+			
+			<include refid="accountInquiryColumns"/>
+			
+		FROM 
+			account_inquiry a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				and a.title = #{title}
+			</if>
+			<if test='procInsId != null and procInsId != ""'>
+				<if test='procInsId =="1"'>
+					and ( a.status = 'start')
+				</if>
+				<if test='procInsId =="2"'>
+					and ( a.status = 'examine')
+				</if>
+				<if test='procInsId =="3"'>
+					and ( a.status = 'end' )
+				</if>
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			GROUP BY a.id
+			order by a.create_date desc
+			<if test="paging != null">
+	        	<include refid="com.account.dao.SqlFragment.paging" />
+	      	</if>
+	      	;
+	</select>
+	
+	<select id="selectViewCount" resultType="int">
+		SELECT 
+			ifnull( count(DISTINCT a.id) , 0 )
+		FROM 
+			account_inquiry a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				and a.title = #{title}
+			</if>
+			<if test='procInsId != null and procInsId != ""'>
+				<if test='procInsId =="1"'>
+					and ( a.status = 'start')
+				</if>
+				<if test='procInsId =="2"'>
+					and ( a.status = 'examine')
+				</if>
+				<if test='procInsId =="3"'>
+					and ( a.status = 'end' )
+				</if>
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			
+			
+	      	;
 	</select>
 </mapper>

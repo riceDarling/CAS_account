@@ -1,6 +1,5 @@
 package com.account.entity;
 
-import java.util.Date;
 
 public class AccountInputInfo {
 	private String materialname;		// 物资名称

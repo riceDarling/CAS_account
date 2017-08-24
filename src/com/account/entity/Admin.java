@@ -18,6 +18,9 @@ public class Admin {
     private Date logintime;
 
     private Boolean atype;
+    
+    private String usename;
+    private String userrole;
 
     public Integer getId() {
         return id;
@@ -82,4 +85,20 @@ public class Admin {
     public void setAtype(Boolean atype) {
         this.atype = atype;
     }
+
+	public String getUsename() {
+		return usename;
+	}
+
+	public void setUsename(String usename) {
+		this.usename = usename;
+	}
+
+	public String getUserrole() {
+		return userrole;
+	}
+
+	public void setUserrole(String userrole) {
+		this.userrole = userrole;
+	}
 }

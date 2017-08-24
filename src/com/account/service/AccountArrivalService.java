@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.account.entity.AccountArrival;
 import com.account.entity.AccountArrivalDetail;
+import com.account.utils.PageUtil;
 
 public interface AccountArrivalService {
 	void save(AccountArrival accountArrival);
@@ -20,4 +21,9 @@ public interface AccountArrivalService {
 	List<AccountArrivalDetail> getByArrivalId(String id);
 
 	public List<AccountArrival> findAllorderNum();
+	
+	List<AccountArrival> selectView(String supplier, String arrivalstatus,  PageUtil paging, String beginDate, String endDate);
+	
+	int selectViewCount(String supplier, String arrivalstatus, String beginDate, String endDate);
+
 }

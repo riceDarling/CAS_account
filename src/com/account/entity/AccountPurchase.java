@@ -37,6 +37,16 @@ public class AccountPurchase extends BaseModel {
 
 	private String supplier;// 供应商名称，查询使用
 
+	private String contracttitle;// 合同名称
+
+	public String getContracttitle() {
+		return contracttitle;
+	}
+
+	public void setContracttitle(String contracttitle) {
+		this.contracttitle = contracttitle;
+	}
+
 	public String getSupplierNum() {
 		return supplierNum;
 	}

@@ -11,10 +11,12 @@
 		a.purchasenum AS "purchasenum",
 		a.supplierNum AS "supplierNum",
 		a.caigouname AS "caigouname",
-		date_format(a.create_date,'%Y-%c-%d')AS "createdate",
+		date_format(a.create_date,'%Y-%c-%d')AS
+		"createdate",
 		a.file AS "file",
 		a.status AS "status",
-		a.remarks AS "remarks",
+		a.remarks AS
+		"remarks",
 		a.del_flag AS "delFlag"
 	</sql>
 
@@ -34,9 +36,11 @@
 		SELECT
 		<include refid="accountContractColumns" />
 		, b.title as title,d.supplier as supplier,sum(c.money) as summoney
-		FROM account_contract a ,account_inquiry b,account_contract_detail c,account_supplier d
+		FROM account_contract a ,account_inquiry b,account_contract_detail
+		c,account_supplier d
 		where
-		a.purchaseNum=b.orderNum and a.id=c.parent_id AND a.supplierNum=d.supplierNum
+		a.purchaseNum=b.orderNum and a.id=c.parent_id
+		AND a.supplierNum=d.supplierNum
 		and a.del_flag = '0'
 
 		<if test="purchasenumtitle != null and purchasenumtitle != ''">
@@ -59,7 +63,8 @@
 	</select>
 
 	<select id="getAllAccountContractInfo" resultType="com.account.entity.AccountContract">
-		SELECT * FROM account_contract a WHERE a.`status`='0' and a.del_flag='0'
+		SELECT * FROM
+		account_contract a WHERE a.`status`='0' and a.del_flag='0'
 	</select>
 	<insert id="save" parameterType="com.account.entity.AccountContract">
 		INSERT INTO account_contract(
@@ -91,11 +96,13 @@
 		)
 	</insert>
 	<update id="updateContractStatus" parameterType="String">
-		UPDATE account_contract a SET a.`status`='1'
+		UPDATE
+		account_contract a SET a.`status`='1'
 		WHERE a.contractnum=#{id}
 	</update>
 	<update id="updateContractStatustwo" parameterType="String">
-		UPDATE account_contract a SET a.`status`='0'
+		UPDATE
+		account_contract a SET a.`status`='0'
 		WHERE a.contractnum=#{id}
 	</update>
 	<update id="delete" parameterType="java.lang.String">
@@ -111,206 +118,79 @@
 		purchasenum = #{purchasenum},
 		supplierNum = #{supplierNum},
 		caigouname = #{caigouname},
-		create_date = #{createdate},
+		create_date =
+		#{createdate},
 		file = #{file},
 		status = #{status},
 		remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
-	
+
 	<select id="findAllTitle" resultType="map">
-		SELECT a.id,a.contractTitle FROM account_contract a
-	</select>
-<!-- 
-	供应商物资采购合同修改查询统计表
-	<select id="findTotalModifyQuery" parameterType="AccuuntMaterialPurchasingModifyQuery"
-		resultType="AccuuntMaterialPurchasingModifyQuery">
-		SELECT
-		a.id AS "id",
-		a.contractnum AS "contractnum",
-		a.contracttitle AS "contracttitle",
-		bd.materialcode AS "materialcode",
-		am.materialname AS "materialname",
-		am.size AS "size",
-		bd.totlemoney AS "totalmoney",
-		b.maker AS "maker",
-		b.checker AS "checker"
-		FROM
-		account_contract a
-		LEFT JOIN account_purchase b
-		ON a.purchaseNum=b.orderNum
-		LEFT JOIN account_purchase_detail bd
-		ON b.`id` = bd.`parent_Id`
-		LEFT JOIN
-		account_material am
-		ON bd.materialCode=am.materialNum
-		LEFT JOIN
-		account_supplier asl ON
-		bd.supplierCode=asl.supplierNum
-		<where>
-		<if test="suppliercode != null and suppliercode != ''">
-				AND bd.suppliercode LIKE CONCAT('%', #{suppliercode}, '%')
-			</if>
-			<if test="supplier != null and supplier != ''">
-				AND asl.supplier LIKE CONCAT('%', #{supplier}, '%')
-			</if>
-			<if test="beginDate != null and beginDate != ''">
-				AND a.create_date &gt; #{beginDate}
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND a.create_date &lt; #{endDate}
-			</if>
-		</where>
-	</select>
-	供应商明细账
-	<select id="findTotalSubsidiaryLedger" parameterType="AccuuntMaterialPurchasingSubsidiaryLedger"
-	resultType="AccuuntMaterialPurchasingSubsidiaryLedger">
-	SELECT ap.create_date as billingdate,ap.receiptnum as
-	receiptnum,ap.paydate as paydate,
-	ap.ordernum as ordernum ,ap.payamount as payamount ,ac.money as
-	moneyfee,(ac.money-ap.payamount) as balance FROM account_payment ap
-	LEFT JOIN account_contract ac ON ap.contract=ac.id
-	LEFT JOIN account_purchase a on ac.purchaseNum=a.orderNum
-		LEFT JOIN
-		account_purchase_detail ad
-		ON a.`id` = ad.`parent_Id`
-		LEFT JOIN
-		account_supplier asl ON
-		ad.supplierCode=asl.supplierNum
-		LEFT JOIN
-		account_material am
-		ON ad.materialCode=am.materialNum
-	<where>
-	<if test="suppliercode != null and suppliercode != ''">
-				AND ad.suppliercode LIKE CONCAT('%', #{suppliercode}, '%')
-			</if>
-			<if test="supplier != null and supplier != ''">
-				AND asl.supplier LIKE CONCAT('%', #{supplier}, '%')
-		</if>
-		<if test="beginDate != null and beginDate != ''">
-			AND ap.create_date &gt; #{beginDate}
-		</if>
-		<if test="endDate != null and endDate != ''">
-			AND ap.create_date &lt; #{endDate}
-		</if>
-	</where>
-</select>
-	供应商采购退货原因分析
-	<select id="findTotalPurchaseReturnReason" parameterType="AccountMaterialPurchaseReturnReason"
-		resultType="AccountMaterialPurchaseReturnReason">
-		SELECT
-		ad.materialcode AS "materialcode",
-		am.materialname AS "materialname",
-		am.size AS "size",
-		ad.quantity AS "quantity",
-		ad.unitPrice,
-		ad.quantity AS purnum
-		FROM
-		account_purchase a
-		LEFT JOIN account_purchase_detail ad
-		ON a.id = ad.`parent_Id`
-		LEFT JOIN
-		account_material am
-		ON ad.materialCode=am.materialNum
-		LEFT JOIN
-		account_supplier asl ON
-		ad.supplierCode=asl.supplierNum
-		<where>
-		<if test="suppliercode != null and suppliercode != ''">
-				AND ad.suppliercode LIKE CONCAT('%', #{suppliercode}, '%')
-			</if>
-			<if test="supplier != null and supplier != ''">
-				AND asl.supplier LIKE CONCAT('%', #{supplier}, '%')
-			</if>
-			<if test="beginDate != null and beginDate != ''">
-				AND a.create_date &gt; #{beginDate}
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND a.create_date &lt; #{endDate}
-			</if>
-		</where>
-		GROUP BY materialCode
+		SELECT a.id,a.contractTitle
+		FROM account_contract a
 	</select>
 
-	供应商采购损耗分析其一
-	<select id="findTotalPurchasingLossAnalysisOne" parameterType="AccountMaterialPurchasingLossAnalysis"
-		resultType="AccountMaterialPurchasingLossAnalysis">
+	<select id="selectView" parameterType="java.lang.String"
+		resultType="com.account.entity.AccountContract">
 		SELECT
-		ad.materialcode AS "materialcode",
-		am.materialname AS
-		"materialname",
-		am.size AS "size",
-		ad.quantity AS "quantity",
-		(ad.quantity * ad.unitprice) AS "purchaseAmount"
-		FROM
-		account_purchase a
-		LEFT JOIN account_purchase_detail ad
-		ON a.`id` = ad.`parent_Id`
-		LEFT
-		JOIN
-		account_material am
-		ON ad.materialCode=am.materialNum
-		LEFT JOIN
-		account_supplier asl ON
-		ad.supplierCode=asl.supplierNum
-		<where>
-		<if test="suppliercode != null and suppliercode != ''">
-				AND ad.suppliercode LIKE CONCAT('%', #{suppliercode}, '%')
-			</if>
-			<if test="supplier != null and supplier != ''">
-				AND asl.supplier LIKE CONCAT('%', #{supplier}, '%')
-			</if>
-			<if test="beginDate != null and beginDate != ''">
-				AND a.create_date &gt; #{beginDate}
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND a.create_date &lt; #{endDate}
-			</if>
-		</where>
+		<include refid="accountContractColumns" />
+		, b.title as title,d.supplier as supplier,sum(c.money) as summoney
+		FROM account_contract a ,account_inquiry b,account_contract_detail
+		c,account_supplier d
+		where
+		a.purchaseNum=b.orderNum and a.id=c.parent_id
+		AND a.supplierNum=d.supplierNum
+		and a.del_flag = '0'
+		<if test="purchasenumtitle != null and purchasenumtitle != ''">
+			AND b.title LIKE CONCAT('%',#{purchasenumtitle},'%' )
+		</if>
+		<if test="contracttitle != null and contracttitle != ''">
+			AND a.contracttitle LIKE CONCAT('%',#{contracttitle},'%' )
+		</if>
+		<if test="status != null and status != ''">
+			AND a.status = #{status}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		group by a.id ORDER BY a.create_date DESC
+		<if test="paging != null">
+			<include refid="com.account.dao.SqlFragment.paging" />
+		</if>
+		;
 	</select>
-	供应商采购损耗分析其二
-	<select id="findTotalPurchasingLossAnalysisTwo" parameterType="AccountMaterialPurchasingLossAnalysis"
-		resultType="AccountMaterialPurchasingLossAnalysis">
+
+	<select id="selectViewCount" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(id) from (
 		SELECT
-		ad.suppliercode AS "suppliercode",
-		asl.supplier AS "supplier",
-		ad.quantity AS rejectnum,
-		(ad.quantity * ad.unitprice) AS rejectmoney,
-		ad.quantity AS "quantity",
-		(ad.quantity * ad.unitprice) AS
-		"purchaseAmount",
-		(ad.quantity / ad.quantity) AS COUNT,
-		(
-		(ad.quantity *
-		ad.unitprice) / ad.totlemoney
-		) AS money
-		FROM
-		account_purchase a
-		LEFT JOIN
-		account_purchase_detail ad
-		ON a.`id` = ad.`parent_Id`
-		LEFT JOIN
-		account_supplier asl ON
-		ad.supplierCode=asl.supplierNum
-		LEFT JOIN
-		account_material am
-		ON ad.materialCode=am.materialNum
-		<where>
-			<if test="materialcode != null and materialcode != ''">
-				AND ad.materialcode LIKE CONCAT('%', #{materialcode}, '%')
-			</if>
-			<if test="materialname != null and materialname != ''">
-				AND am.materialname LIKE CONCAT('%', #{materialname}, '%')
-			</if>
-			<if test="size != null and size != ''">
-				AND am.size LIKE CONCAT('%', #{size}, '%')
-			</if>
-			<if test="beginDate != null and beginDate != ''">
-				AND a.create_date &gt; #{beginDate}
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND a.create_date &lt; #{endDate}
-			</if>
-		</where>
-	</select> -->
+		<include refid="accountContractColumns" />
+		, b.title as title,d.supplier as supplier,sum(c.money) as summoney
+		FROM account_contract a ,account_inquiry b,account_contract_detail
+		c,account_supplier d
+		where
+		a.purchaseNum=b.orderNum and a.id=c.parent_id
+		AND a.supplierNum=d.supplierNum
+		and a.del_flag = '0'
+		<if test="purchasenumtitle != null and purchasenumtitle != ''">
+			AND b.title LIKE CONCAT('%',#{purchasenumtitle},'%' )
+		</if>
+		<if test="contracttitle != null and contracttitle != ''">
+			AND a.contracttitle LIKE CONCAT('%',#{contracttitle},'%' )
+		</if>
+		<if test="status != null and status != ''">
+			AND a.status = #{status}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		group by a.id ) as num
+	</select>
 </mapper>

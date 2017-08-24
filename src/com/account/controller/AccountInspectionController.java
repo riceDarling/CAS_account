@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.account.entity.AccountInspection;
 import com.account.entity.AccountInspectionDetail;
 import com.account.service.AccountInspectionService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 
 /**
@@ -132,6 +133,22 @@ public class AccountInspectionController {
 			rm.isSuccessMsg(li, "获取送检单详细信息成功");
 		} catch (Exception e) {
 			rm.isErrorMsg("获取送检单详细信息失败");
+		}
+		return rm;
+	}
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String supplier, String status, PageUtil paging , String beginDate, String endDate) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountInspection> list= accountInspectionService.selectView( supplier, status, paging, beginDate, endDate );
+			int total = accountInspectionService.selectViewCount( supplier,status, beginDate, endDate );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
 		}
 		return rm;
 	}

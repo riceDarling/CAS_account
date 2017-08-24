@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.account.entity.AccountArrival;
 import com.account.entity.AccountArrivalDetail;
 import com.account.service.AccountArrivalService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 
 /**
@@ -128,4 +129,21 @@ public class AccountArrivalController {
 		}
 		return rm;
 	}
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String supplier,  String arrivalstatus, PageUtil paging , String beginDate, String endDate) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountArrival> list= accountArrivalService.selectView( supplier, arrivalstatus, paging, beginDate, endDate );
+			int total = accountArrivalService.selectViewCount( supplier, arrivalstatus, beginDate, endDate );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
+		return rm;
+	}
+	
 }

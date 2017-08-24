@@ -1,6 +1,5 @@
 package com.account.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -233,6 +232,42 @@ public class AccountInquiryController {
 			rm.isSuccessMsg(accountInquiryDetail, "成功");
 		} catch (Exception e) {
 			rm.isErrorMsg("失败");
+		}
+		return rm;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String title, String checker, String procInsId, PageUtil paging , String startTime, String endTime) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountInquiry> list= accountInquiryService.selectView( title, checker, procInsId, paging, startTime, endTime );
+			int total = accountInquiryService.selectViewCount( title, checker, procInsId, startTime, endTime );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
+		return rm;
+	}
+	
+	/**
+	 * 报价，结束
+	 * 
+	 * @param accountInquiryid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "saveEnd")
+	public ResponseModel<String> saveEnd(String accountInquiryid) {
+		ResponseModel<String> rm = new ResponseModel<String>();
+		try {
+			accountInquiryService.saveEnd(accountInquiryid);
+			rm.isSuccessMsg("", "报价成功");
+		} catch (Exception e) {
+			rm.isErrorMsg("报价失败");
 		}
 		return rm;
 	}

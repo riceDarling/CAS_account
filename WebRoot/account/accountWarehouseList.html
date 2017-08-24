@@ -67,7 +67,7 @@ $(".form_datetime").datetimepicker({
 			eTime:$("#eTime").val()
 		};
 		 $.ajax({
-			 url:"http://"+IP_config+"/account/warehouse/findList",
+			 url:IP_config + "warehouse/findList",
 				type:"post",
 				async:false,
 				data:wPage,
@@ -100,7 +100,7 @@ $(".form_datetime").datetimepicker({
 		var id = $(this).attr("del_id");
 		
 		$.ajax({
-			url:"http://"+IP_config+"/account/warehouse/delete",
+			url:IP_config + "warehouse/delete",
 			type:"post",
 			data:{
 				"id" : id

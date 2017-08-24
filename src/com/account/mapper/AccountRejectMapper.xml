@@ -1,191 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.account.dao.AccountRejectDao">
-  <resultMap id="BaseResultMap" type="com.account.entity.AccountReject">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="orderNum" jdbcType="VARCHAR" property="ordernum" />
-    <result column="supplierNum" jdbcType="VARCHAR" property="suppliernum" />
-    <result column="arrivalNum" jdbcType="VARCHAR" property="arrivalnum" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="update" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,title, orderNum, supplierNum, arrivalNum, create_by, create_date, update_by, update_date, 
-    remarks, del_flag
-  </sql>
-  
-  <sql id="my_Base_Column_List">
-    id,title, orderNum, supplierNum, arrivalNum, create_by AS 'createBy', create_date AS 'createDate', update_by AS 'updateBy', update_date AS 'update', 
-    remarks, del_flag AS 'delFlag'
-  </sql>
-  
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from account_reject
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from account_reject
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.account.entity.AccountReject">
-    insert into account_reject (id,title, orderNum, supplierNum, 
-      arrivalNum, create_by, create_date, 
-      update_by, update_date, remarks, 
-      del_flag)
-    values (#{id,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{ordernum,jdbcType=VARCHAR}, #{suppliernum,jdbcType=VARCHAR}, 
-      #{arrivalnum,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{update,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.account.entity.AccountReject">
-    insert into account_reject
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="ordernum != null">
-        orderNum,
-      </if>
-      <if test="suppliernum != null">
-        supplierNum,
-      </if>
-      <if test="arrivalnum != null">
-        arrivalNum,
-      </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="update != null">
-        update_date,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="delFlag != null">
-        del_flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="ordernum != null">
-        #{ordernum,jdbcType=VARCHAR},
-      </if>
-      <if test="suppliernum != null">
-        #{suppliernum,jdbcType=VARCHAR},
-      </if>
-      <if test="arrivalnum != null">
-        #{arrivalnum,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="update != null">
-        #{update,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        #{delFlag,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.account.entity.AccountReject">
-    update account_reject
-    <set>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="ordernum != null">
-        orderNum = #{ordernum,jdbcType=VARCHAR},
-      </if>
-      <if test="suppliernum != null">
-        supplierNum = #{suppliernum,jdbcType=VARCHAR},
-      </if>
-      <if test="arrivalnum != null">
-        arrivalNum = #{arrivalnum,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="update != null">
-        update_date = #{update,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.account.entity.AccountReject">
-    update account_reject
-    set title= #{title,jdbcType=VARCHAR},
-      orderNum = #{ordernum,jdbcType=VARCHAR},
-      supplierNum = #{suppliernum,jdbcType=VARCHAR},
-      arrivalNum = #{arrivalnum,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{update,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=CHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  
-  <select id="list" parameterType="com.account.entity.AccountReject" resultType="com.account.entity.AccountReject">
-    select 
-     <include refid="my_Base_Column_List" />
-    from account_reject 
-    WHERE  del_flag = 0
-    	<if test="title!=null and title!=''">
+	<resultMap id="BaseResultMap" type="com.account.entity.AccountReject">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="orderNum" jdbcType="VARCHAR" property="ordernum" />
+		<result column="supplierNum" jdbcType="VARCHAR" property="suppliernum" />
+		<result column="arrivalNum" jdbcType="VARCHAR" property="arrivalnum" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="update" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,title, orderNum, supplierNum, arrivalNum, create_by, create_date, update_by,
+		update_date,
+		remarks, del_flag
+	</sql>
+
+	<sql id="my_Base_Column_List">
+		id,title, orderNum, supplierNum, arrivalNum, create_by AS 'createBy',
+		create_date AS 'createDate', update_by AS 'updateBy', update_date AS
+		'update',
+		remarks, del_flag AS 'delFlag'
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from account_reject
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from account_reject
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.account.entity.AccountReject">
+		insert into account_reject (id,title, orderNum, supplierNum,
+		arrivalNum, create_by, create_date,
+		update_by, update_date, remarks,
+		del_flag)
+		values
+		(#{id,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{ordernum,jdbcType=VARCHAR},
+		#{suppliernum,jdbcType=VARCHAR},
+		#{arrivalnum,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR}, #{update,jdbcType=TIMESTAMP},
+		#{remarks,jdbcType=VARCHAR},
+		#{delFlag,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.account.entity.AccountReject">
+		insert into account_reject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="ordernum != null">
+				orderNum,
+			</if>
+			<if test="suppliernum != null">
+				supplierNum,
+			</if>
+			<if test="arrivalnum != null">
+				arrivalNum,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="update != null">
+				update_date,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="ordernum != null">
+				#{ordernum,jdbcType=VARCHAR},
+			</if>
+			<if test="suppliernum != null">
+				#{suppliernum,jdbcType=VARCHAR},
+			</if>
+			<if test="arrivalnum != null">
+				#{arrivalnum,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="update != null">
+				#{update,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.account.entity.AccountReject">
+		update account_reject
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="ordernum != null">
+				orderNum = #{ordernum,jdbcType=VARCHAR},
+			</if>
+			<if test="suppliernum != null">
+				supplierNum = #{suppliernum,jdbcType=VARCHAR},
+			</if>
+			<if test="arrivalnum != null">
+				arrivalNum = #{arrivalnum,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="update != null">
+				update_date = #{update,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.account.entity.AccountReject">
+		update account_reject
+		set title= #{title,jdbcType=VARCHAR},
+		orderNum = #{ordernum,jdbcType=VARCHAR},
+		supplierNum = #{suppliernum,jdbcType=VARCHAR},
+		arrivalNum = #{arrivalnum,jdbcType=VARCHAR},
+		create_by = #{createBy,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_by = #{updateBy,jdbcType=VARCHAR},
+		update_date = #{update,jdbcType=TIMESTAMP},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		del_flag = #{delFlag,jdbcType=CHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="list" parameterType="com.account.entity.AccountReject"
+		resultType="com.account.entity.AccountReject">
+		select
+		<include refid="my_Base_Column_List" />
+		from account_reject
+		WHERE del_flag = 0
+		<if test="title!=null and title!=''">
 			AND title LIKE concat('%',#{title},'%')
 		</if>
 		<if test="suppliernum and suppliernum!=''">
 			AND supplierNum LIKE concat('%',#{suppliernum},'%')
 		</if>
-		
-  </select>
-  
-    <update id="delete" parameterType="string">
-    update account_reject
-    set 
-      del_flag = 1
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+		ORDER BY create_date DESC
+	</select>
+
+	<update id="delete" parameterType="string">
+		update account_reject
+		set
+		del_flag = 1
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectView" parameterType="string"
+		resultType="com.account.entity.AccountReject">
+		select
+		<include refid="my_Base_Column_List" />
+		from account_reject
+		WHERE del_flag = 0
+		<if test="title!=null and title!=''">
+			AND title LIKE concat('%',#{title},'%')
+		</if>
+		<if test="supplier and supplier!=''">
+			AND supplierNum LIKE concat('%',#{suppliernum},'%')
+		</if>
+		<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
+		</if>
+		<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+		</if>
+		group by id order by create_date desc
+		<if test="paging != null">
+			<include refid="com.account.dao.SqlFragment.paging" />
+		</if>
+		;
+	</select>
+
+	<select id="selectViewCount" resultType="int">
+		SELECT count(id) from (
+		select
+		<include refid="my_Base_Column_List" />
+		from account_reject
+		WHERE del_flag = 0
+		<if test="title!=null and title!=''">
+			AND title LIKE concat('%',#{title},'%')
+		</if>
+		<if test="supplier and supplier!=''">
+			AND supplierNum LIKE concat('%',#{supplier},'%')
+		</if>
+		<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
+		</if>
+		<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+		</if>
+		group by id )as num
+	</select>
 </mapper>

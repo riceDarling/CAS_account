@@ -2,12 +2,13 @@ package com.account.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.account.entity.AccountRequisition;
+import com.account.utils.PageUtil;
 
 /**
  * 申请单DAO接口
- * @author admin
- * @version 2017-07-24
  */
 public interface AccountRequisitionDao  {
 	AccountRequisition getDataByProcId(String procInsId);
@@ -24,4 +25,24 @@ public interface AccountRequisitionDao  {
 	void delete(String id);
 	
 	public List<AccountRequisition> getAccountPurchaseTitle();
+	
+	
+	public List<AccountRequisition> selectView(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("procInsId") String procInsId ,
+			@Param("paging") PageUtil paging,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
+	
+	
+	
+	public int selectViewCount(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("procInsId") String procInsId ,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
 }

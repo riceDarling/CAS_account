@@ -12,7 +12,6 @@ import com.account.entity.SupplierInput;
 import com.account.service.SupplierInputService;
 import com.account.utils.GetUUID;
 import com.account.utils.pagebean.SupplierInputPage;
-import com.account.utils.pagebean.SupplierPage;
 
 @Service
 public class SupplierInputServiceImpl implements SupplierInputService {

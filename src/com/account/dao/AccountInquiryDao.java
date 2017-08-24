@@ -1,18 +1,18 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package com.account.dao;
 
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.account.entity.AccountInquiry;
+import com.account.entity.AccountRequisition;
+import com.account.utils.PageUtil;
 
 
 /**
  * 询价单DAO接口
- * @author 宿通
- * @version 2017-06-25
  */
 public interface AccountInquiryDao {
 	public void commit1(String ordernum);
@@ -37,4 +37,23 @@ public interface AccountInquiryDao {
 	
 	
 	List<Map<String,Object>> selectAllTitle();
+	
+	public List<AccountInquiry> selectView(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("procInsId") String procInsId ,
+			@Param("paging") PageUtil paging,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
+	
+	
+	
+	public int selectViewCount(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("procInsId") String procInsId ,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
 }

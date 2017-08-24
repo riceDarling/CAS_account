@@ -1,10 +1,10 @@
 
 $("#requisitionForm_table_add_tr").click(function(){
-	var tr_num = $("#requisitionForm_table tbody tr").length;
+	var tr_num = $("#requisitionForm_table tbody tr").length + 1;
 	var html="";
 	html+='<tr>'
 		+'<td>'+tr_num+'</td>'
-		+'<td></td><td>'
+		+'<td style="display:none"></td><td>'
 		+'<select  tabindex="1" class="materialname_select form-control">'
 		+'<option value=""></option>';
 		for (i in materials) {
@@ -54,7 +54,7 @@ $("#signup_form table tbody").on("change",".materialname_select",function(){
 	$(this).parent("td").siblings("td").eq(2).text(materialsize);
 });
 $("#signup_form").on("click","#requisitionFormSubmit",function(){
-	var listjson = {};
+	/*var listjson = {};
 	listjson["title"]=$("#title").val();
 	listjson["receivedate"]=$("#receivedate").val();
 	listjson["reason"]=$("#reason").val();
@@ -92,5 +92,5 @@ $("#signup_form").on("click","#requisitionFormSubmit",function(){
 				layer.alert(data.msg);
 			}
 		}
-	});
+	});*/
 });

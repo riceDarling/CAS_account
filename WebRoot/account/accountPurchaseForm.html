@@ -3,21 +3,26 @@
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountPurchaseList.html">订货单列表</a> <i class="fa fa-pencil-square"></i>订货单添加
+				添加订货单
 			</h3>
 		</div>
 		<div class="panel-body">
-				<label class="col-lg-1 col-md-2 control-label" style="width: 14% !important;">合同名称：</label>
-				<div class="col-lg-2 col-md-2">
-					<select name="status" class="form-control" id="accountPurchaseForm_contract">
-						<option value="">请选择</option>
-			
-					</select>
-				</div>
-				<label class="col-lg-1 col-md-2 control-label"style="width: 14% !important;">订货单名称：</label>
-				<div class="col-lg-2 col-md-2">
-					<input name="supplier" type="text" htmlEscape="false" class="form-control" id="title" />
-				</div>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">订货单标题（必填）：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" class="form-control" id="title" />
+            </div>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 135px;padding-right:0;text-align:right;margin-top:7px;">合同（必选）：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;width:155px;padding-left:0;">
+                <select name="status" class="form-control" style="width:155px;padding-left:0;margin-left:0;" id="accountPurchaseForm_contract">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+            <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">审核人（必选）：</label>
+			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+                <select  tabindex="1" name="checker" style="width:100px;padding-left:0;margin-left:0;" id="accountPurchaseForm_checker" class="form-control">
+                     <option value=""></option>
+                 </select>	
+			</div>
 		</div>
 		<div class="panel-body">
 			<table class="table table-bordered table-condensed table-hover">
@@ -34,31 +39,37 @@
 					
 				</tbody>
 			</table>
+			
+			<div class="col-lg-12 col-sm-6 col-sm-offset-11">
+			<input id="accountPurchaseSubmit" class="btn btn-primary" type="button" value="提交" />
+			</div>
 		</div>
+		
 	</div>
 </div>
-<div class="form-group">
+<!-- <div class="form-group">
 	<label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;">审核人(下一节点办理人)：</label>
 		<div class="col-lg-3 col-md-3">
 			<select  tabindex="1" name="checker" id="accountPurchaseForm_checker" class="form-control">
 				 <option value=""></option>
 			 </select>	
 		</div>
-</div>
-<div class="panel-footer">
+</div> -->
+<!-- <div class="panel-footer">
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-11">
 			<input id="accountPurchaseSubmit" class="btn btn-primary" type="button" value="提交" />
 		</div>
 	</div>
-</div>
+</div> -->
 <script>
-var userid = $.cookie("login_userid");
-	$("[href_1]").click(function() {
+	var userid = $.cookie("login_userid");
+	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
-	});
+	}); */
 	
-	$.ajax("../admin/getAdminList", {
+	$.ajax({
+		url : IP_config+"admin/getAdminList",
 		dataType: "json",
 		xhrFields: {
 			withCredentials: true
@@ -75,18 +86,19 @@ var userid = $.cookie("login_userid");
 					if(userid==admin.id){
 						
 					}else{
-						html+='<option value="'+admin.id+'">'+admin.username+'</option>';
+						html+='<option value="' + admin.id + '">' + admin.userrole + '</option>';
 					}
 				}
 				$("#accountPurchaseForm_checker").html(html);
 			}else{
 				//获取失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWoken( data.msg );
 			}
 		}
 	});
 	//获取合同标题列表
-	$.ajax("../accountContractController/findAllTitle", {
+	$.ajax({
+		url : IP_config+"accountContractController/findAllTitle",
 		dataType: "json",
 		xhrFields: {
 			withCredentials: true
@@ -105,14 +117,15 @@ var userid = $.cookie("login_userid");
 				$("#accountPurchaseForm_contract").html(html);
 			}else{
 				//获取失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWoken( data.msg );
 			}
 		}
 	});
 	$("#accountPurchaseForm_contract").change(function(){
 		var contract_id=$(this).val();
 		//获取合同子表详细信息
-		$.ajax("../accountContractController/getByContractId", {
+		$.ajax({
+			url : IP_config+"accountContractController/getByContractId",
 			dataType: "json",
 			xhrFields: {
 				withCredentials: true
@@ -140,7 +153,7 @@ var userid = $.cookie("login_userid");
 					$("#secondPageTbody").html(html);
 				}else{
 					//获取失败提示
-					layer.alert(data.msg);
+					$( 'body' ).RemindWoken( data.msg );
 				}
 			}
 		});

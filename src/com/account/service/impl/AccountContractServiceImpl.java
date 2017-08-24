@@ -12,6 +12,7 @@ import com.account.dao.AccountContractDetailDao;
 import com.account.entity.AccountContract;
 import com.account.entity.AccountContractDetail;
 import com.account.service.AccountContractService;
+import com.account.utils.PageUtil;
 
 @Service
 public class AccountContractServiceImpl implements AccountContractService {
@@ -88,8 +89,17 @@ public class AccountContractServiceImpl implements AccountContractService {
 
 	@Override
 	public List<Map<String, Object>> findAllTitle() {
-		// TODO Auto-generated method stub
 		return accountContractDao.findAllTitle();
+	}
+
+	@Override
+	public List<AccountContract> selectView(String title, String checker, String procInsId, PageUtil paging, String beginDate, String endDate) {
+		return accountContractDao.selectView(title, checker, procInsId, paging, beginDate, endDate);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String procInsId, String beginDate, String endDate) {
+		return accountContractDao.selectViewCount(title, checker, procInsId, beginDate, endDate);
 	}
 
 }

@@ -7,8 +7,6 @@ import com.account.entity.AccountInquiryDetail;
 
 /**
  * 询价单子表DAO接口
- * @author yang
- * @version 2017-07-13
  */
 public interface AccountInquiryDetailDao {
 	

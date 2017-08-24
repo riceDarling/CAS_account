@@ -3,6 +3,7 @@ package com.account.service;
 import java.util.List;
 
 import com.account.entity.ParaInfo;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.ParaInfoPage;
 
 public interface ParaInfoService {	
@@ -48,5 +49,9 @@ public interface ParaInfoService {
     int findListCount(ParaInfoPage piPage);
     
     public List<ParaInfo> getParaInfoList(int pId);
+
+	List<ParaInfo> selectView(String title, String checker, PageUtil paging, String startTime, String endTime);
+
+	int selectViewCount(String title, String checker, String startTime, String endTime);
     
 }

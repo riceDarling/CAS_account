@@ -1,6 +1,5 @@
 package com.account.service.impl;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ import com.account.entity.MaterialSupplier;
 import com.account.service.MaterialService;
 import com.account.utils.FormatDateUtils;
 import com.account.utils.GetUUID;
+import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 import com.account.utils.pagebean.MaterialPage;
 
@@ -94,5 +94,17 @@ public class MaterialServiceImpl implements MaterialService{
 	@Override
 	public List<Material> findAllList() {
 		return mDao.findAllList();
+	}
+
+	@Override
+	public List<Material> selectView(String title, String checker, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return mDao.selectView(title, checker, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return mDao.selectViewCount(title, checker, startTime, endTime);
 	}
 }

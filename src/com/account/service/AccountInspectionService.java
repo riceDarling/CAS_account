@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.account.entity.AccountInspection;
 import com.account.entity.AccountInspectionDetail;
+import com.account.utils.PageUtil;
 
 public interface AccountInspectionService {
 
@@ -22,5 +23,7 @@ public interface AccountInspectionService {
 	
 	List<AccountInspectionDetail> getArrivalDetail(String pid);
 	List<AccountInspectionDetail> getByInspectionId(String id);
+     List<AccountInspection> selectView(String supplier, String status,  PageUtil paging, String beginDate, String endDate);
+	int selectViewCount(String supplier, String status, String beginDate, String endDate);
 
 }

@@ -70,7 +70,7 @@
 			eTime:$("#eTime").val()
 		};
 		$.ajax({
-			 url:"http://"+IP_config+"/account/supplier/findList",
+			 url:IP_config + "supplier/findList",
 				type:"post",
 				async:false,
 				data:sPage,
@@ -102,7 +102,7 @@
 		var id = $(this).attr("del_id");
 		
 		$.ajax({
-			url:"http://"+IP_config+"/account/supplier/delete",
+			url:IP_config + "supplier/delete",
 			type:"post",
 			data:{
 				"id" : id

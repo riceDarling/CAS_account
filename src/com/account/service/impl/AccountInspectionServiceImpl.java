@@ -14,6 +14,7 @@ import com.account.dao.AccountInspectionDetailDao;
 import com.account.entity.AccountInspection;
 import com.account.entity.AccountInspectionDetail;
 import com.account.service.AccountInspectionService;
+import com.account.utils.PageUtil;
 
 @Service
 @Transactional
@@ -96,5 +97,15 @@ public class AccountInspectionServiceImpl implements AccountInspectionService {
 	@Override
 	public List<AccountInspectionDetail> getByInspectionId(String id) {
 		return accountInspectionDetailDao.getByInspectionId(id);
+	}
+
+	@Override
+	public List<AccountInspection> selectView(String supplier, String status, PageUtil paging, String beginDate, String endDate) {
+		return accountInspectionDao.selectView(supplier, status, paging, beginDate, endDate);
+	}
+
+	@Override
+	public int selectViewCount(String supplier, String status, String beginDate, String endDate) {
+		return accountInspectionDao.selectViewCount(supplier, status, beginDate, endDate);
 	}
 }

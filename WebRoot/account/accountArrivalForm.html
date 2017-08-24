@@ -2,12 +2,13 @@
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountArrivalList.html"> 到货列表</a> <i class="fa fa-pencil-square"></i>到货添加
+				到货添加
+				<!-- <i class="fa fa-pencil-square"></i><a href_1="accountArrivalList.html"> 到货列表</a> <i class="fa fa-pencil-square"></i>到货添加 -->
 			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label"style="width: 14% !important;">订货单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label"style="width: 11% !important;padding-left: 0;padding-right: 0;">订货单号：</label> 
 				<div class="col-lg-3 col-md-2">
 					<select class="form-control" name="orderNumtitle" id="orderNumtitle">
 					</select>
@@ -16,11 +17,59 @@
 					<input class="btn btn-info" type="button" id="btnSubmit" value="查询">
 				</div>
 			</div>
+			<br/>
+			<div class="control-group">
+				<label class="control-label">到货单号：</label>
+				<div class="controls">
+					<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:30% !important;display:inline-block;
+							" maxlength="32" id="arrivalnum" class="form-control" /> 
+					<input class="btn btn-info" type="button" value="自动生成" id="automatic" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">订货单号：</label>
+				<div class="controls">
+					<input name="ordernum" id="ordernum" readonly="true" style="width:30% !important;" htmlEscape="false" maxlength="32" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">供应商名称：</label>
+				<div class="controls">
+					<input type="text" hidden="true" id="suppliernumList" />
+					<input type="text" readonly="true" style="width:30% !important;" id="supplierList" class="form-control"  /></span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">到货日期：</label>
+				<div class="controls">
+					<input size="16" type="text" readonly="true" style="width:30% !important;" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">采购原料：</label>
+				<table class="table table-bordered table-condensed table-hover"  id="contentTable" style="width:70%">
+					<thead>
+						<tr>
+							<th>物资名称</th>
+							<th>规格型号</th>
+							<th>单价</th>
+							<th>总价</th>
+							<th>订货数量</th>
+							<th>到货数量</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			
+			<input id="submitbtn" class="btn btn-primary" style="margin-right:5px;" type="button" value="保 存" />
+			<input id="btnCancel" class="btn" type="button" value="返 回" />
 		</div>
 	</div>
 </div>
 </div>
-<div class="col-lg-12 col-md-12">
+<!-- <div class="col-lg-12 col-md-12">
 	<div class="panel">
 		<div class="panel-body">
 		<div class="control-group">
@@ -47,7 +96,7 @@
 			<div class="control-group">
 				<label class="control-label">到货日期：</label>
 				<div class="controls">
-					<input size="16" type="text" style="width:30% !important;" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">
+					<input size="16" type="text" readonly="true" style="width:30% !important;" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">
 				</div>
 			</div>
 			<div class="control-group">
@@ -66,7 +115,7 @@
 					<tbody>
 					</tbody>
 				</table>
-			</div>
+			</div> 
 		</div>
 		<div class="panel-body">
 			<form class="form-horizontal row-border">
@@ -75,7 +124,7 @@
 					<input id="btnCancel" class="btn" type="button" value="返 回" />
 				</div>
 			</form>
-		</div>
+		</div>-->
 	</div>
 </div>
 <script type="text/javascript">
@@ -114,7 +163,7 @@
 		$(function() {
 			//获取订货单号 
 			$.ajax({
-				url : "http://" + IP_config + "/account/accountPurchase/findAllorderNum",
+				url : IP_config + "accountPurchase/findAllorderNum",
 				type : "post",
 				success : function(data) {
 					var html = "<option value=''>请选择</option>";
@@ -149,13 +198,13 @@
 			$("#ordernum").val($("#orderNumtitle").find("option:selected").val());
 			//获取数据
 			$.ajax({
-				url : "http://" + IP_config + "/account/accountPurchase/formView",
+				url : IP_config + "accountPurchase/formView",
 				type : "post",
 				data : {"accountPurchaseid":$("#orderNumtitle").find("option:selected").attr("class")},
 				async : false,
 				success : function(data) {
-					$("#suppliernum").val(data.obj.purchase.supplierNum);
-					$("#supplier").val(data.obj.purchase.supplier);
+					$("#suppliernumList").val(data.obj.purchase.supplierNum);
+					$("#supplierList").val(data.obj.purchase.supplier);
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj.purchase.accountPurchaseDetailList) {
@@ -167,56 +216,61 @@
 		})
 		//提交保存
 		$("#submitbtn").click(function() {
-			if ($("#arrivalnum").val() != null && $("#arrivalnum").val() != "") {
-				if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
-					$("#submitbtn").attr("disabled", true);
-					var accountArrival = {};
-					accountArrival.ordernum = $("#ordernum").val();
-					accountArrival.arrivalnum = $("#arrivalnum").val();
-					accountArrival.supplier = $("#supplier").val();
-					accountArrival.suppliernum= $("#suppliernum").val();
-					accountArrival.arrivalDate= $("#arrivalDate").val();
-					accountArrival.remarks = $("#remarks").val();
-					var len = $("#contentTable>tbody>tr").length;
-					var aiArr = new Array();
-					for(var i = 0;i < len;i++){
-						var accountArrivalDetail = {};
-						var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
-						var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
-						var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
-						var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
-						var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
-						var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
-						var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
-						accountArrivalDetail.materialcode = materialcode;
-						accountArrivalDetail.materialname = materialname;
-						accountArrivalDetail.size = size;
-						accountArrivalDetail.quantity = quantity;
-						accountArrivalDetail.unitprice = unitprice;
-						accountArrivalDetail.money = money;
-						accountArrivalDetail.num = num;
-						aiArr.push(accountArrivalDetail);
-					}
-					accountArrival.accountArrivalDetail=aiArr;
-					$.ajax({
-						url : "http://" + IP_config + "/account/accountArrivalController/save",
-						type : "post",
-						contentType:"application/json;charset=UTF-8",
-						data:JSON.stringify(accountArrival), 
-						async : false
-					});
-					if (accountArrival != null && accountArrival != "") {
-						layer.alert("保存成功");
-						$("#index_content").load("accountArrivalList.html");
+			$( 'body' ).RemindWokenSelect({
+				title : '确定提交？',
+				istrue : function () {
+					if ($("#arrivalnum").val() != null && $("#arrivalnum").val() != "") {
+						if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
+							$("#submitbtn").attr("disabled", true);
+							var accountArrival = {};
+							accountArrival.ordernum = $("#ordernum").val();
+							accountArrival.arrivalnum = $("#arrivalnum").val();
+							accountArrival.supplier = $("#supplierList").val();
+							accountArrival.suppliernum= $("#suppliernumList").val();
+							accountArrival.arrivalDate= $("#arrivalDate").val();
+							accountArrival.remarks = $("#remarks").val();
+							var len = $("#contentTable>tbody>tr").length;
+							var aiArr = new Array();
+							for(var i = 0;i < len;i++){
+								var accountArrivalDetail = {};
+								var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
+								var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
+								var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
+								var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
+								var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
+								var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
+								var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+								accountArrivalDetail.materialcode = materialcode;
+								accountArrivalDetail.materialname = materialname;
+								accountArrivalDetail.size = size;
+								accountArrivalDetail.quantity = quantity;
+								accountArrivalDetail.unitprice = unitprice;
+								accountArrivalDetail.money = money;
+								accountArrivalDetail.num = num;
+								aiArr.push(accountArrivalDetail);
+							}
+							accountArrival.accountArrivalDetail=aiArr;
+							$.ajax({
+								url : IP_config + "accountArrivalController/save",
+								type : "post",
+								contentType:"application/json;charset=UTF-8",
+								data:JSON.stringify(accountArrival), 
+								async : false
+							});
+							if (accountArrival != null && accountArrival != "") {
+								$( 'body' ).RemindWokenSuccess( '操作成功' );
+								$("#index_content").load("accountArrivalList.html");
+							} else {
+								$( 'body' ).RemindWokenError( '操作失败' );
+								$("#index_content").load("accountArrivalForm.html");
+							}
+						} else {
+							$( 'body' ).RemindWokenError( '请选择订货单号!' );
+						}
 					} else {
-						layer.alert("保存失败");
-						$("#index_content").load("accountArrivalForm.html");
+						$( 'body' ).RemindWokenError( '请添写到货编号!' );
 					}
-				} else {
-					layer.alert("请选择订货单号!");
 				}
-			} else {
-				layer.alert("请添写到货编号!");
-			}
 		})
+	});
 	</script>

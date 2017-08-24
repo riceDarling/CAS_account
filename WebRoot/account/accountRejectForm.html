@@ -2,9 +2,7 @@
 		<div class="panel panel-cascade">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					<i class="fa fa-pencil-square"></i><a
-						href_1="accountRejectList.html">退货单列表</a> <i
-						class="fa fa-pencil-square"></i> 退货单添加
+					<i class="fa fa-pencil-square"></i> 退货单添加
 				</h3>
 			</div>
 			<div class="panel panel-cascade">
@@ -24,13 +22,13 @@
 						style="width: 14% !important;">供应商名称：</label>
 					<div class="col-lg-2 col-md-2">
 						<input name="supplier" type="text" htmlEscape="false"
-							class="form-control" id="supplier" readonly  suppliernum=""/>
+							class="form-control" id="form_supplier" readonly  suppliernum=""/>
 					</div>
 					<label class="col-lg-1 col-md-2 control-label"
 						style="width: 14% !important;">退货单名称：</label>
 					<div class="col-lg-2 col-md-2">
-						<input name="supplier" type="text" htmlEscape="false"
-							class="form-control" id="title" />
+						<input name="" type="text" htmlEscape="false"
+							class="form-control" id="form_title" />
 					</div>
 				</div>
 				<div class="panel-body">
@@ -44,7 +42,7 @@
 									<th>备注</th>
 								</tr>
 							</thead>
-							<tbody id="accountRejectTbody">
+							<tbody id="accountRejectFormTbody">
 
 							</tbody>
 						</table>
@@ -56,14 +54,14 @@
 <div class="panel-footer">
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-11">
-			<input id="btnCancel" class="btn btn-primary" type="button" value="保存" />
+			<input id="btnCancel_Submit" class="btn btn-primary" type="button" value="保存" />
 		</div>
 	</div>
 </div>
 <script>
-	$("[href_1]").click(function() {
+	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
-	});
+	}); */
 	
 	$.ajax("../accountInspectionController/getArrivalNum", {
 		dataType: "json",
@@ -95,7 +93,7 @@
 		var supplier=$("#inspection_select").children("option:selected").attr("supplier");
 		//alert(requisition_id);
 		//alert(supplier);
-		$("#supplier").val(supplier);
+		$("#form_supplier").val(supplier);
 		$.ajax("../accountInspectionController/getArrivalDetail", {
 			dataType: "json",
 			contentType:"application/json;charset=UTF-8",
@@ -118,7 +116,7 @@
 						html+='	<input type="text" class="form-control" name="quantity" id=""></td><td>';
 						html+='<input type="text" class="form-control" name="remarks" id=""></td></tr>';
 					}
-					$("#accountRejectTbody").html(html);
+					$("#accountRejectFormTbody").html(html);
 				}else{
 					//提交失败提示
 					layer.alert(data.msg);
@@ -127,20 +125,23 @@
 		});
 	});
 	
-	$("#btnCancel").click(function(){
+	$("#btnCancel_Submit").click(function(){
+		$( 'body' ).RemindWokenSelect({
+			title : '确定提交？',
+			istrue : function () {
 		var data_json = {};
 		//到货单号
 		//var arrivalnum=$("#inspection_select").children("option:selected").attr("arrivalnum");
 		var arrivalnum=$("#inspection_select").val();
 		var supplier=$("#inspection_select").children("option:selected").attr("supplier");
 		//var suppliernum=$("#inspection_select").children("option:selected").attr("suppliernum");
-		var title=$("#title").val();
+		var title=$("#form_title").val();
 		data_json["arrivalnum"]=arrivalnum;
 		data_json["suppliernum"]=supplier;
 		data_json["title"]=title;
 		
 		var listjson = new Array();
-		$("#accountRejectTbody tr").each(function(){
+		$("#accountRejectFormTbody tr").each(function(){
 				var json={};
 				//json["materialcode"]=$(this).children("td").eq(0).attr("materialcode");
 				json["materialname"]=$(this).children("td").eq(0).text();
@@ -158,17 +159,21 @@
 				withCredentials: true
 			},
 			type: "POST",
-			success: function(data) {
+			 success: function(data) {
 				//console.log(data);
 				if(data.success){
 					//提交成功
-					layer.alert(data.msg);
+					//layer.alert(data.msg);
+					$( 'body' ).RemindWokenSuccess( '操作成功' );
 					$("#index_content").load("accountRejectList.html");
 				}else{
 					//提交失败提示
-					layer.alert(data.msg);
+					//layer.alert(data.msg);
+					$( 'body' ).RemindWokenError( '操作失败' );
 				}
-			}
+			} 
 		});
+			}
+		})
 	});
 </script>

@@ -2,7 +2,11 @@ package com.account.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.account.entity.AccountSupplier;
+import com.account.entity.Material;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.SupplierPage;
 
 public interface SupplierMapper {
@@ -48,4 +52,21 @@ public interface SupplierMapper {
     int findListCount(SupplierPage sPage);
     
     public List<AccountSupplier> findAllList();
+    
+    public List<AccountSupplier> selectView(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("paging") PageUtil paging,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
+	
+	
+	
+	public int selectViewCount(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
 }

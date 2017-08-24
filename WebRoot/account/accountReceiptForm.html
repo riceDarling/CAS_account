@@ -12,319 +12,337 @@
 		<div class="panel">
 			<div class="panel-body">
 				<div class="control-group">
-					<form id="warehouse_form" class="form-horizontal row-border">
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group" hidden="true">
-								<label class="control-label">单据编号：</label>
-								<div class="controls">
-									<input type="text" name="id" id="payId" /><input name="ordernum" id="ordernum" htmlEscape="false" maxlength="32" class="form-control" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">供应商名称：</label>
-								<div class="controls">
-									<select name="supplier" class="form-control" id="supplier">
-									</select>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">开票日期：</label>
-								<div class="controls">
-									<input size="16" type="text" class="form_datetime form-control" readonly name="billingdate" id="billingdate" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">物资名称：</label>
-								<div class="controls">
-									<select name="materialname" class="form-control" id="materialname">
-									</select>
-								</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group" hidden="true">
+							<label class="control-label">单据编号：</label>
+							<div class="controls">
+								<input type="text" name="id" id="payId" /><input name="ordernum" id="ordernum" htmlEscape="false" maxlength="32" class="form-control" />
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group">
-								<label class="control-label">规格型号：</label>
-								<div class="controls">
-									<input name="size" htmlEscape="false" maxlength="35" class="form-control" id="size" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">含税单价 ：</label>
-								<div class="controls">
-									<input name="pricefee" htmlEscape="false" class="form-control" id="pricefee" onchange="money()" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">不含税单价 ：</label>
-								<div class="controls">
-									<input name="pricenotfee" htmlEscape="false" class="form-control" id="pricenotfee" onchange="money()" />
-								</div>
+						<div class="control-group">
+							<label class="control-label">供应商名称：</label>
+							<div class="controls">
+								<select name="supplier" class="form-control" id="supplierform">
+								</select>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group">
-								<label class="control-label">数量：</label>
-								<div class="controls">
-									<input name="quantity" htmlEscape="false" maxlength="11" class="form-control" id="quantity" onchange="money()" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">含税金额：</label>
-								<div class="controls">
-									<input name="moneyfee" htmlEscape="false" readonly="readonly" class="form-control" id="moneyfee" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">不含税金额：</label>
-								<div class="controls">
-									<input name="moneynotfee" htmlEscape="false" readonly="readonly" class="form-control" id="moneynotfee" />
-								</div>
+						<div class="control-group">
+							<label class="control-label">开票日期：</label>
+							<div class="controls">
+								<input size="16" type="text" class="form_datetime form-control" readonly name="billingdate" id="billingdate" />
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group">
-								<label class="control-label">税率：</label>
-								<div class="controls">
-									<input name="taxrte" htmlEscape="false" class="form-control" id="taxrte" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">税款：</label>
-								<div class="controls">
-									<input name="tax" htmlEscape="false" readonly="readonly" class="form-control" id="tax" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">发票号码：</label>
-								<div class="controls">
-									<input name="receiptnum" htmlEscape="false" class="form-control" id="receiptnum" />
-								</div>
+						<div class="control-group">
+							<label class="control-label">物资名称：</label>
+							<div class="controls">
+								<select name="materialname" class="form-control" id="materialname">
+								</select>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group">
-								<label class="control-label">发票类别：</label>
-								<div class="controls">
-									<select name="category" class="form-control" id="category">
-									</select>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">到货单号：</label>
-								<div class="controls">
-									<select name="arrivalnum" class="form-control" id="arrivalnum">
-									</select>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">制单人：</label>
-								<div class="controls">
-									<input name="maker" htmlEscape="false" class="form-control" id="maker" />
-								</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group">
+							<label class="control-label">规格型号：</label>
+							<div class="controls">
+								<input name="size" htmlEscape="false" maxlength="35" class="form-control" id="size" />
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="control-group">
-								<label class="control-label">审核人：</label>
-								<div class="controls">
-									<input name="auditor" htmlEscape="false" class="form-control" id="auditor" />
-								</div>
+						<div class="control-group">
+							<label class="control-label">含税单价 ：</label>
+							<div class="controls">
+								<input name="pricefee" value="0" htmlEscape="false" class="form-control" id="pricefee" onchange="money()" />
 							</div>
-							<div class="control-group">
-								<label class="control-label">备注信息：</label>
-								<div class="controls">
-									<textarea name="remarks" id="remarks" htmlEscape="false" rows="4" maxlength="255" class="form-control" />
-								</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">不含税单价 ：</label>
+							<div class="controls">
+								<input name="pricenotfee" value="0" htmlEscape="false" class="form-control" id="pricenotfee" onchange="money()" />
 							</div>
-					</form>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group">
+							<label class="control-label">数量：</label>
+							<div class="controls">
+								<input name="quantity" value="0" htmlEscape="false" maxlength="11" class="form-control" id="quantity" onchange="money()" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">含税金额：</label>
+							<div class="controls">
+								<input name="moneyfee" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="moneyfee" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">不含税金额：</label>
+							<div class="controls">
+								<input name="moneynotfee" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="moneynotfee" />
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group">
+							<label class="control-label">税率：</label>
+							<div class="controls">
+								<input name="taxrte" value="0" htmlEscape="false" class="form-control" id="taxrte" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">税款：</label>
+							<div class="controls">
+								<input name="tax" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="tax" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">发票号码：</label>
+							<div class="controls">
+								<input name="receiptnum" htmlEscape="false" class="form-control" id="receiptnum" />
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group">
+							<label class="control-label">发票类别：</label>
+							<div class="controls">
+								<select name="category" class="form-control" id="category">
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">到货单号：</label>
+							<div class="controls">
+								<select name="arrivalnum" class="form-control" id="arrivalnum">
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">制单人：</label>
+							<div class="controls">
+								<input name="maker" htmlEscape="false" class="form-control" id="maker" />
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group">
+							<label class="control-label">审核人：</label>
+							<div class="controls">
+								<input name="auditor" htmlEscape="false" class="form-control" id="auditor" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">备注信息：</label>
+							<div class="controls">
+								<textarea name="remarks" id="remarks" htmlEscape="false" rows="4" maxlength="255" class="form-control" />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="panel-footer">
-		<div class="row">
-			<div class="col-lg-12 col-sm-6 col-sm-offset-10">
-				<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" /> <input id="btnCancel" class="btn" type="button" value="返 回" />
+		<div class="panel-footer">
+			<div class="row">
+				<div class="col-lg-12 col-sm-6 col-sm-offset-10">
+					<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" /> <input id="btnCancel" class="btn" type="button" value="返 回" />
+				</div>
 			</div>
 		</div>
-	</div>
-	<script type="text/javascript">
-		$("[href_1]").click(function() {
-			$("#index_content").load($(this).attr("href_1"));
-		});
-		$(".form_datetime").datetimepicker({
-			language : 'zh-CN',
-			minView : "month", //选择日期后，不会再跳转去选择时分秒 
-			format : 'yyyy-mm-dd',
-			todayBtn : 1,
-			autoclose : 1,
-		});
+		<script type="text/javascript">
+			$("[href_1]").click(function() {
+				$("#index_content").load($(this).attr("href_1"));
+			});
+			$(".form_datetime").datetimepicker({
+				language : 'zh-CN',
+				minView : "month", //选择日期后，不会再跳转去选择时分秒 
+				format : 'yyyy-mm-dd',
+				todayBtn : 1,
+				autoclose : 1,
+			});
 
-		function money() {
-			$("#moneyfee").val($("#pricefee").val() * $("#quantity").val());
-			$("#moneynotfee").val($("#pricenotfee").val() * $("#quantity").val());
-			$("#tax").val($("#moneyfee").val() - $("#moneynotfee").val());
-		}
-		$(function() {
-			var ordernum = "30-";
-			var date = new Date();
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var day = date.getDate();
-			if (month < 10) {
-				month = "0" + month;
+			function money() {
+				$("#moneyfee").val($("#pricefee").val() * $("#quantity").val());
+				$("#moneynotfee").val($("#pricenotfee").val() * $("#quantity").val());
+				$("#tax").val($("#moneyfee").val() - $("#moneynotfee").val());
 			}
-			if (day < 10) {
-				day = "0" + day;
-			}
-			ordernum = ordernum + year + month + day + "-";
-			var ordernumRandom = "";
-			for (var i = 0; i < 5; ++i) {
-				var num = Math.random();
-				num = parseInt(num * 10);
-				ordernumRandom += num;
-			}
-			ordernum += ordernumRandom;
-			$("#ordernum").val(ordernum);
-			if ($.cookie("accountReceipt_id") != "null") {
+			$(function() {
+				var ordernum = "30-";
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				if (month < 10) {
+					month = "0" + month;
+				}
+				if (day < 10) {
+					day = "0" + day;
+				}
+				ordernum = ordernum + year + month + day + "-";
+				var ordernumRandom = "";
+				for (var i = 0; i < 5; ++i) {
+					var num = Math.random();
+					num = parseInt(num * 10);
+					ordernumRandom += num;
+				}
+				ordernum += ordernumRandom;
+				$("#ordernum").val(ordernum);
+				if ($.cookie("accountReceipt_id") != "null") {
+					$.ajax({
+						url : "/account/accountReceiptController/getById",
+						type : "post",
+						dataType : "json",
+						data : {
+							"id" : $.cookie("accountReceipt_id")
+						},
+						success : function(data) {
+							$("#payId").val($.cookie("accountReceipt_id"));
+							$.cookie("accountReceipt_id", null);
+							if (data.success && data.obj != null && data.obj != "") {
+								$("#supplierform").append("<option value='"+data.obj.supplier+"'>" + data.obj.supplier + "</option>");
+								$("#billingdate").val(data.obj.billingdate);
+								$("#materialname").append("<option value='"+data.obj.materialname+"'>" + data.obj.materialname + "</option>");
+								$("#size").val(data.obj.size);
+								$("#pricefee").val(data.obj.pricefee);
+								$("#pricenotfee").val(data.obj.pricenotfee);
+								$("#quantity").val(data.obj.quantity);
+								$("#moneyfee").val(data.obj.moneyfee);
+								$("#moneynotfee").val(data.obj.moneynotfee);
+								$("#taxrte").val(data.obj.taxrte);
+								$("#tax").val(data.obj.tax);
+								$("#receiptnum").val(data.obj.receiptnum);
+								$("#category").append("<option value='"+data.obj.category+"'>" + data.obj.category + "</option>");
+								$("#arrivalnum").append("<option value='"+data.obj.arrivalnum+"'>" + data.obj.arrivalnum + "</option>");
+								$("#maker").val(data.obj.maker);
+								$("#auditor").val(data.obj.auditor);
+								$("#remarks").val(data.obj.remarks);
+							}
+						}
+					});
+				}
+				//获取供应商
 				$.ajax({
-					url : "http://" + IP_config + "/account/accountReceiptController/getById",
+					url : "/account/supplier/findList",
 					type : "post",
 					dataType : "json",
-					data : {
-						"id" : $.cookie("accountReceipt_id")
+					xhrFields : {
+						withCredentials : true
 					},
 					success : function(data) {
-						$("#payId").val($.cookie("accountReceipt_id"));
-						$.cookie("accountReceipt_id", null);
-						if (data.success && data.obj != null && data.obj != "") {
-							$("#supplier").append("<option value='"+data.obj.supplier+"'>" + data.obj.supplier + "</option>");
-							$("#billingdate").val(data.obj.billingdate);
-							$("#materialname").append("<option value='"+data.obj.materialname+"'>" + data.obj.materialname + "</option>");
-							$("#size").val(data.obj.size);
-							$("#pricefee").val(data.obj.pricefee);
-							$("#pricenotfee").val(data.obj.pricenotfee);
-							$("#quantity").val(data.obj.quantity);
-							$("#moneyfee").val(data.obj.moneyfee);
-							$("#moneynotfee").val(data.obj.moneynotfee);
-							$("#taxrte").val(data.obj.taxrte);
-							$("#tax").val(data.obj.tax);
-							$("#receiptnum").val(data.obj.receiptnum);
-							$("#category").append("<option value='"+data.obj.category+"'>" + data.obj.category + "</option>");
-							$("#arrivalnum").append("<option value='"+data.obj.arrivalnum+"'>" + data.obj.arrivalnum + "</option>");
-							$("#maker").val(data.obj.maker);
-							$("#auditor").val(data.obj.auditor);
-							$("#remarks").val(data.obj.remarks);
+						var html = "<option value=''>请选择</option>";
+						for (i in data.obj.list) {
+							if ($("#supplierform>option").val() != data.obj.list[i].supplier) {
+								html += "<option value=" + data.obj.list[i].supplier + ">" + data.obj.list[i].supplier + "</option>";
+							}
+						}
+						$("#supplierform").append(html);
+
+					}
+				});
+				//获取物资名称
+				$.ajax({
+					url : "/account/material/findList",
+					type : "post",
+					dataType : "json",
+					xhrFields : {
+						withCredentials : true
+					},
+					success : function(data) {
+						var html = "<option value=''>请选择</option>";
+						for (i in data.obj.list) {
+							if ($("#materialname>option").val() != data.obj.list[i].materialName) {
+								html += "<option value=" + data.obj.list[i].materialName + ">" + data.obj.list[i].materialName + "</option>";
+							}
+						}
+						$("#materialname").append(html);
+
+					}
+				});
+				//获取到货单号
+				$.ajax({
+					url : "/account/accountArrivalController/findAllorderNum",
+					type : "post",
+					dataType : "json",
+					xhrFields : {
+						withCredentials : true
+					},
+					success : function(data) {
+						var html = "<option value=''>请选择</option>";
+						for (i in data.obj) {
+							if ($("#arrivalnum>option").val() != data.obj[i].arrivalnum) {
+								html += "<option value=" + data.obj[i].arrivalnum + ">" + data.obj[i].arrivalnum + "</option>";
+							}
+						}
+						$("#arrivalnum").append(html);
+
+					}
+				});
+				//计量单位
+				$.ajax({
+					url : "/account/paraInfo/getParaInfoList",
+					dataType : "json",
+					xhrFields : {
+						withCredentials : true
+					},
+					data : {
+						"pId" : 10
+					},
+					type : "POST",
+					success : function(data) {
+						if (data.success) {
+							//获取成功
+							var html = "<option value=''>请选择</option>";
+							for (i in data.obj) {
+								if ($("#category>option").val() != data.obj[i].name) {
+									html += "<option value='" + data.obj[i].name + "'>" + data.obj[i].name + "</option>";
+								}
+							}
+							$("#category").append(html);
+						} else {
+							//获取失败提示
+							layer.alert(data.msg);
 						}
 					}
 				});
-			}
-			//获取供应商
-			$.ajax({
-				url : "http://" + IP_config + "/account/supplier/findList",
-				type : "post",
-				dataType : "json",
-				xhrFields : {
-					withCredentials : true
-				},
-				success : function(data) {
-					var html = "<option value=''>请选择</option>";
-					for (i in data.obj.list) {
-						if ($("#supplier>option").val() != data.obj.list[i].supplier) {
-							html += "<option value=" + data.obj.list[i].supplier + ">" + data.obj.list[i].supplier + "</option>";
+			});
+
+			//提交
+			$("#submitbtn").click(function() {
+				$('body').RemindWokenSelect({
+					title : '确定提交？',
+					istrue : function() {
+						var accountReceipt = {};
+						accountReceipt.id = $("#payId").val();
+						accountReceipt.supplier = $("#supplierform").find("option:selected").val();
+						accountReceipt.billingdate = $("#billingdate").val();
+						accountReceipt.materialname = $("#materialname").find("option:selected").val();
+						accountReceipt.size = $("#size").val();
+						accountReceipt.pricefee = $("#pricefee").val();
+						accountReceipt.pricenotfee = $("#pricenotfee").val();
+						accountReceipt.quantity = $("#quantity").val();
+						accountReceipt.moneyfee = $("#moneyfee").val();
+						accountReceipt.moneynotfee = $("#moneynotfee").val();
+						accountReceipt.taxrte = $("#taxrte").val();
+						accountReceipt.tax = $("#tax").val();
+						accountReceipt.receiptnum = $("#receiptnum").val();
+						accountReceipt.category = $("#category").find("option:selected").val();
+						accountReceipt.ordernum = $("#ordernum").val();
+						accountReceipt.arrivalnum = $("#arrivalnum").find("option:selected").val();
+						accountReceipt.maker = $("#maker").val();
+						accountReceipt.auditor = $("#auditor").val();
+						accountReceipt.remarks = $("#remarks").val();
+						$.ajax({
+							url : "/account/accountReceiptController/save",
+							type : "post",
+							contentType : "application/json;charset=UTF-8",
+							data : JSON.stringify(accountReceipt),
+							async : false
+						});
+						if (accountReceipt != null && accountReceipt != "") {
+							$('body').RemindWokenSuccess('操作成功');
+							$("#index_content").load("accountReceiptList.html");
+						} else {
+							$('body').RemindWokenError('操作失败');
+							$("#index_content").load("accountReceiptForm.html");
 						}
 					}
-					$("#supplier").append(html);
-
-				}
+				})
 			});
-			//获取物资名称
-			$.ajax({
-				url : "http://" + IP_config + "/account/material/findList",
-				type : "post",
-				dataType : "json",
-				xhrFields : {
-					withCredentials : true
-				},
-				success : function(data) {
-					var html = "<option value=''>请选择</option>";
-					for (i in data.obj.list) {
-						if ($("#materialname>option").val() != data.obj.list[i].materialName) {
-							html += "<option value=" + data.obj.list[i].materialName + ">" + data.obj.list[i].materialName + "</option>";
-						}
-					}
-					$("#materialname").append(html);
-
-				}
-			});
-			//获取到货单号
-			$.ajax({
-				url : "http://" + IP_config + "/account/accountArrivalController/findAllorderNum",
-				type : "post",
-				dataType : "json",
-				xhrFields : {
-					withCredentials : true
-				},
-				success : function(data) {
-					var html = "<option value=''>请选择</option>";
-					for (i in data.obj) {
-						if ($("#arrivalnum>option").val() != data.obj[i].arrivalnum) {
-							html += "<option value=" + data.obj[i].arrivalnum + ">" + data.obj[i].arrivalnum + "</option>";
-						}
-					}
-					$("#arrivalnum").append(html);
-
-				}
-			});
-			//计量单位
-			$.ajax({
-				url : "http://" + IP_config + "/account/paraInfo/getParaInfoList",
-				dataType : "json",
-				xhrFields : {
-					withCredentials : true
-				},
-				data : {
-					"pId" : 10
-				},
-				type : "POST",
-				success : function(data) {
-					if (data.success) {
-						//获取成功
-						var html = "<option value=''>请选择</option>";
-						for (i in data.obj) {
-							if ($("#category>option").val() != data.obj[i].name) {
-								html += "<option value='" + data.obj[i].name + "'>" + data.obj[i].name + "</option>";
-							}
-						}
-						$("#category").append(html);
-					} else {
-						//获取失败提示
-						layer.alert(data.msg);
-					}
-				}
-			});
-		});
-
-		//提交
-		$("#submitbtn").click(function() {
-			var data = $("#warehouse_form").serialize();
-			$.ajax({
-				url : "http://" + IP_config + "/account/accountReceiptController/save",
-				type : "post",
-				data : data,
-				dataType : "json",
-				success : function(data) {
-					if (data.success) {
-						layer.alert(data.msg);
-						$("#index_content").load("accountReceiptList.html");
-					} else {
-						layer.alert(data.msg);
-					}
-				}
-			});
-
-		});
-		$("#btnCancel").click(function() {
-			$("#index_content").load("accountReceiptList.html");
-		});
-	</script>
+		</script>

@@ -17,6 +17,7 @@ import com.account.entity.AccountRejectDetail;
 import com.account.entity.Admin;
 import com.account.service.AccountRejectService;
 import com.account.utils.FormatDateUtils;
+import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 @Service
 @Transactional
@@ -78,6 +79,18 @@ public class AccountRejectServiceImpl implements AccountRejectService {
 	public void delete(String accountRejectId) {
 		accountRejectDao.delete(accountRejectId);
 		
+	}
+
+	@Override
+	public List<AccountReject> selectView(String title, String supplier,  PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountRejectDao.selectView(title, supplier, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String supplier,  String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountRejectDao.selectViewCount(title, supplier,  startTime, endTime);
 	}
 
 }

@@ -52,85 +52,89 @@
 	</div>
 </div>
 <script>
-	 $("[href_1]").click(function(){
-		  $("#index_content").load($(this).attr("href_1"));
-	  });
-	 $(".form_datetime").datetimepicker({
-			language : 'zh-CN',
-			minView : "month", //选择日期后，不会再跳转去选择时分秒 
-			format : 'yyyy-mm-dd',
-			todayBtn : 1,
-			autoclose : 1,
-		});
-	 $("#btnCancel").click(function() {
-		 var contracttitle = $("[name='contracttitle']").val();
-			var beginDate = $("[name='beginDate']").val();
-			var endDate = $("[name='endDate']").val();
-			$.ajax({
-				 url:"http://"+IP_config+"/account/accountInputController/findList",
-					type:"post",
-				async : false,
-				data : {
-					"contracttitle" : contracttitle,
-					"beginDate":beginDate,
-					"endDate":endDate
-				},
-				success : function(data) {
-					if (data.success) {
-						$("#secondPageTbody").empty();
-						 for (var index in data.obj) {
-					            var content = "<tr>"
-					            content += "<td>" + data.obj[index].contracttitle + "</td>"
-					            content += "<td>" + data.obj[index].inputdate + "</td>"
-					            content += "<td>" + data.obj[index].remarks + "</td>"
-					            content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-								 content += "</tr>"
-					            $("#secondPageTbody").html(content)
-					        }
+	$("[href_1]").click(function() {
+		$("#index_content").load($(this).attr("href_1"));
+	});
+	$(".form_datetime").datetimepicker({
+		language : 'zh-CN',
+		minView : "month", //选择日期后，不会再跳转去选择时分秒 
+		format : 'yyyy-mm-dd',
+		todayBtn : 1,
+		autoclose : 1,
+	});
+	$("#btnCancel").click(function() {
+		var contracttitle = $("[name='contracttitle']").val();
+		var beginDate = $("[name='beginDate']").val();
+		var endDate = $("[name='endDate']").val();
+		$.ajax({
+			url : "http://" + IP_config + "/account/accountInputController/findList",
+			type : "post",
+			async : false,
+			data : {
+				"contracttitle" : contracttitle,
+				"beginDate" : beginDate,
+				"endDate" : endDate
+			},
+			success : function(data) {
+				if (data.success) {
+					$("#secondPageTbody").empty();
+					var content;
+					for ( var index in data.obj) {
+						content += "<tr>"
+						content += "<td>" + data.obj[index].contracttitle + "</td>"
+						content += "<td>" + data.obj[index].inputdate + "</td>"
+						content += "<td>" + data.obj[index].remarks + "</td>"
+						content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
+						content += "</tr>"
 					}
+					$("#secondPageTbody").html(content);
 				}
-			})
-		});
-	 $(function(){
-		 $.ajax({
-				 url:"http://"+IP_config+"/account/accountInputController/findList",
-					type:"post",
-					success:function(data){
-						if (data.success) {
-						 for (var index in data.obj) {
-					            var content = "<tr>"
-					            content += "<td>" + data.obj[index].contracttitle + "</td>"
-					            content += "<td>" + data.obj[index].inputdate + "</td>"
-					            content += "<td>" + data.obj[index].remarks + "</td>"
-					            content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
-								 content += "</tr>"
-					            $("#secondPageTbody").html(content)
-					        }
-					}}
-		 })
-	 });
-	 $("#secondPageTbody").on("click", ".selectCon", function() {
-			var id = $(this).attr("name");
-			$.cookie("accountInput_id", id);
-			$("#index_content").load("accountInputForm2.html");
-		});
-	 $("#secondPageTbody").on("click", ".selectCon2", function() {
-				var id = $(this).attr("name");
-				$.ajax({
-					url:"http://"+IP_config+"/account/accountInputController/delete",
-					type:"post",
-					dataType:"json",
-					data:{
-						"id" : id
-					},
-					success : function(data) {
-						if(data.success){
-							layer.alert(data.msg);
-							$("#index_content").load("accountInputList.html");
-						}else{
-							layer.alert(data.msg);
-						}
+			}
+		})
+	});
+	$(function() {
+		$.ajax({
+			url : "http://" + IP_config + "/account/accountInputController/findList",
+			type : "post",
+			success : function(data) {
+				if (data.success) {
+					var content;
+					for ( var index in data.obj) {
+						content += "<tr>"
+						content += "<td>" + data.obj[index].contracttitle + "</td>"
+						content += "<td>" + data.obj[index].inputdate + "</td>"
+						content += "<td>" + data.obj[index].remarks + "</td>"
+						content += "<td><button name='"+data.obj[index].id+"' class='btn btn-warning selectCon' ><i class='fa fa-edit'></i></button><button name='"+data.obj[index].id+"' class='btn btn-success selectCon2'><i class='fa fa-trash-o'></i></button></td>"
+						content += "</tr>"
+
 					}
-				});
-			});
-	</script>
+					$("#secondPageTbody").html(content)
+				}
+			}
+		})
+	});
+	$("#secondPageTbody").on("click", ".selectCon", function() {
+		var id = $(this).attr("name");
+		$.cookie("accountInput_id", id);
+		$("#index_content").load("accountInputForm2.html");
+	});
+	$("#secondPageTbody").on("click", ".selectCon2", function() {
+		var id = $(this).attr("name");
+		$.ajax({
+			url : "http://" + IP_config + "/account/accountInputController/delete",
+			type : "post",
+			dataType : "json",
+			data : {
+				"id" : id
+			},
+			success : function(data) {
+				if (data.success) {
+					layer.alert(data.msg);
+					$("#index_content").load("accountInputList.html");
+				} else {
+					layer.alert(data.msg);
+				}
+			}
+		});
+	});
+</script>

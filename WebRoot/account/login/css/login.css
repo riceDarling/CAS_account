@@ -3,14 +3,14 @@ body {
 }
 .login-box {
   background: #FFFFFF;
-  min-height: 300px;
-  width: 350px;
-  margin: 0px auto;
-  margin-top: 200px;
+min-height: 335px;
+width: 535px;
+margin: 0px auto;
+margin-top: 200px;
 }
 .login-box h1 {
   color: #2f4051;
-  font-size: 25px;
+  font-size: 35px;
   padding-top: 10px;
   font-family: 'Raleway', Helvetica, Arial;
   font-weight: 600;

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.account.entity.AccountPurchase;
 import com.account.entity.AccountReject;
 import com.account.service.AccountRejectService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 import com.alibaba.fastjson.JSON;
 /**
@@ -83,6 +85,23 @@ public class AccountRejectController {
 
 		}
 
+		return rm;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String title, String supplier, PageUtil paging , String startTime, String endTime) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountReject> list= accountRejectService.selectView( title, supplier, paging, startTime, endTime );
+			int total = accountRejectService.selectViewCount( title, supplier, startTime, endTime );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
 		return rm;
 	}
 }

@@ -115,7 +115,7 @@
 	</update>
 	
 	<select id="getDetailMapByparentid" parameterType="String" resultType="map">
-		SELECT b.materialNum,b.materialName,b.size,a.quantitiy,c.`name`,a.remarks
+		SELECT b.materialNum,b.materialName,b.size,a.quantitiy,c.`name`,a.remarks,a.units
 			FROM account_requisition_detail a 
 			LEFT JOIN account_material b ON a.materialCode=b.materialNum
 			LEFT JOIN account_para_info c ON a.units=c.id

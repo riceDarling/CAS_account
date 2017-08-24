@@ -11,6 +11,7 @@ import com.account.dao.WarehouseMapper;
 import com.account.entity.Warehouse;
 import com.account.service.WarehouseService;
 import com.account.utils.GetUUID;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.WarehousePage;
 
 @Service
@@ -61,6 +62,18 @@ public class WarehouseServiceImpl implements WarehouseService{
 	@Override
 	public int findListCount(WarehousePage wPage) {
 		return wDao.findListCount(wPage);
+	}
+
+	@Override
+	public List<Warehouse> selectView(String title, String checker, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return wDao.selectView(title, checker, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return wDao.selectViewCount(title, checker, startTime, endTime);
 	}
 	
 }

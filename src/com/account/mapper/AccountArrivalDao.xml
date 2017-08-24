@@ -101,8 +101,70 @@
 		WHERE id = #{id}
 	</update>
 	<select id="findAllorderNum" resultType="com.account.entity.AccountArrival">
-		SELECT a.id as id,a.arrivalnum as arrivalnum,b.title as title
-		FROM account_arrival a,account_purchase b
+		SELECT a.id as
+		id,a.arrivalnum as arrivalnum,b.title as title
+		FROM account_arrival
+		a,account_purchase b
 		where a.ordernum=b.ordernum
+	</select>
+	<select id="selectView" parameterType="java.lang.String"
+		resultType="com.account.entity.AccountArrival">
+		SELECT
+		<include refid="accountArrivalColumns" />
+		,sum(b.quantity) as sumquantity,sum(b.num) as sumnum,sum(b.money) as
+		summoney
+		FROM
+		account_arrival a ,account_arrival_detail b
+		WHERE
+		a.id=b.parent_Id
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test="arrivalstatus != null and arrivalstatus != ''">
+			and a.arrivalstatus = #{arrivalstatus}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.arrival_date) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.arrival_date) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		GROUP BY a.id
+		ORDER BY a.arrival_date DESC
+		<if test="paging != null">
+			<include refid="com.account.dao.SqlFragment.paging" />
+		</if>
+		;
+	</select>
+
+	<select id="selectViewCount" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(id) from (
+		SELECT
+		<include refid="accountArrivalColumns" />
+		,sum(b.quantity) as sumquantity,sum(b.num) as sumnum,sum(b.money) as
+		summoney
+		FROM
+		account_arrival a ,account_arrival_detail b
+		WHERE
+		a.id=b.parent_Id
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test="arrivalstatus != null and arrivalstatus != ''">
+			and a.arrivalstatus = #{arrivalstatus}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.arrival_date) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.arrival_date) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		GROUP BY a.id
+		)as num
 	</select>
 </mapper>

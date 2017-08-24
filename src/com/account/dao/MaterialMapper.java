@@ -2,8 +2,11 @@ package com.account.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.account.entity.AccountReject;
 import com.account.entity.Material;
-import com.account.entity.MaterialSupplier;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.MaterialPage;
 
 public interface MaterialMapper {
@@ -54,5 +57,21 @@ public interface MaterialMapper {
      */
     List<Material> findAllList();
     
+    public List<Material> selectView(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("paging") PageUtil paging,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
+	
+	
+	
+	public int selectViewCount(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
   
 }

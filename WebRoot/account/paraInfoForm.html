@@ -51,7 +51,7 @@
 		$("#submitbtn").click(function() {
 			var data = $("#paraInfo_form").serialize();
 			$.ajax({
-				url : "../paraInfo/insert",
+				url : IP_config + "paraInfo/insert",
 				type : "post",
 				data : data,
 				dataType : "json",
@@ -70,7 +70,7 @@
 		
 		function getParaType(){
 			$.ajax({
-				url : "../accountPara/findList",
+				url : IP_config + "accountPara/findList",
 				type : "post",
 				success : function (data){
 					data = data.obj;
@@ -87,7 +87,7 @@
 		function selectById(){
 			if(paraInfo_editId != null) {
 				$.ajax({
-					url : "../paraInfo/selectById",
+					url : IP_config + "paraInfo/selectById",
 					type : "post",
 					data : {
 						"id" : paraInfo_editId,

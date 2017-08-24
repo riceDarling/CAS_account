@@ -23,7 +23,7 @@
     
 	<select id="get" resultType="com.account.entity.AccountPurchase">
 		SELECT 
-			<include refid="accountPurchaseColumns"/>,b.supplierNum,b.caigouname AS 'supplier'	
+			<include refid="accountPurchaseColumns"/>,b.supplierNum,b.caigouname AS 'supplier',b.contractTitle AS 'contracttitle'	
 		FROM account_purchase a
 		LEFT JOIN account_contract b ON a.inquirynum=b.id
 		WHERE a.id = #{id}
@@ -52,6 +52,7 @@
 			<otherwise>
 			</otherwise>
 		</choose>
+		ORDER BY a.create_date DESC
 	</select>
 	
 	<select id="findAllList" resultType="com.account.entity.AccountPurchase">
@@ -120,5 +121,101 @@
 	</update>
 	<select id="findAllorderNum" resultType="com.account.entity.AccountPurchase">
 	SELECT a.id as id,a.orderNum as ordernum,a.title as title FROM account_purchase a
+	</select>
+	
+	
+<select id="selectView" resultType="com.account.entity.AccountPurchase">
+		SELECT 
+			
+			<include refid="accountPurchaseColumns"/>
+			
+		FROM 
+			account_purchase a,
+			account_requisition_act act
+		where
+			a.del_flag = 0
+			and act.requisition_id = a.id
+			<if test='title != null and title != ""'>
+				and a.title  LIKE concat('%',#{title},'%')
+			</if>
+			<if test='procInsId != null and procInsId != ""'>
+				<if test='procInsId =="1"'>
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and act.state = 0
+					and a.act_checker = #{checker}
+				</if>
+				<if test='procInsId =="2"'>
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and act.state = 1
+					and ( act.checker_name = #{checker} )
+				</if>
+				<if test='procInsId =="3"'>
+					and ( a.proc_ins_id = 'end' )
+					and ( act.checker_name = #{checker} )
+				</if>
+				<if test='procInsId =="4"'>
+					and a.create_by = #{checker}
+				</if>
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			<if test='procInsId != null and procInsId =="2"'>
+				GROUP BY a.id
+			</if>
+			<if test='procInsId != null and procInsId =="3"'>
+				GROUP BY a.id
+			</if>
+			<if test='procInsId != null and procInsId =="4"'>
+				GROUP BY a.id
+			</if>
+			order by a.create_date desc
+			<if test="paging != null">
+	        	<include refid="com.account.dao.SqlFragment.paging" />
+	      	</if>
+	      	;
+	</select>
+	
+	<select id="selectViewCount" resultType="int">
+		SELECT 
+			ifnull( count(DISTINCT a.id) , 0 )
+		FROM 
+			account_purchase a,
+			account_requisition_act act
+		where
+			a.del_flag = 0
+			and act.requisition_id = a.id
+			<if test='title != null and title != ""'>
+				and a.title  LIKE concat('%',#{title},'%')
+			</if>
+			<if test='procInsId != null and procInsId != ""'>
+				<if test='procInsId =="1"'>
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and act.state = 0
+					and a.act_checker = #{checker}
+				</if>
+				<if test='procInsId =="2"'>
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and act.state = 1
+					and ( act.checker_name = #{checker} )
+				</if>
+				<if test='procInsId =="3"'>
+					and ( a.proc_ins_id = 'end' )
+					and ( act.checker_name = #{checker} )
+				</if>
+				<if test='procInsId =="4"'>
+					and a.create_by = #{checker}
+				</if>
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+	      	;
 	</select>
 </mapper>

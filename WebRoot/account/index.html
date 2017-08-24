@@ -6,64 +6,35 @@
     <title>铸金股份</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Loading Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- Loading Stylesheets -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-
-    <!-- Loading Custom Stylesheets -->
     <link href="css/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/favicon.ico">
     <link href="bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-
-   
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <![endif]-->
-	 
-	<!--  <script src="../lib/js/index.js"></script> -->
-	 
-	 
+	<link href="css/upload.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="site-holder">
+    <div class="site-holder" style="width:100%;height:100%;">
         <!-- this is a dummy text -->
         <!-- .navbar -->
         <nav class="navbar" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
+            
             <div class="navbar-header">
-                <a class="navbar-brand" href="#"><i class="fa fa-list btn-nav-toggle-responsive text-white"></i> <span class="logo"><i class="fa fa-bookmark"></i> 铸金股份</span></a>
+                <a class="navbar-brand" style="padding-top:10px;"><i class="fa fa-list btn-nav-toggle-responsive text-white"></i> <span class="logo"><i class="fa fa-bookmark"></i>铸金股份</span></a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav user-menu navbar-right ">
-
-                    <li><a href="#" class="user dropdown-toggle" data-toggle="dropdown"><span class="username" ><img src="images/profiles/eleven.png" class="user-avatar" alt="">&nbsp;&nbsp;<span id="index_username">admin</span></span></a>
+                    <li>
+                    	<a  class="user dropdown-toggle" data-toggle="dropdown"><span class="username" ><img src="images/profiles/eleven.png" class="user-avatar" alt="">&nbsp;&nbsp;<span id="index_username">admin</span></span></a>
                         <ul class="dropdown-menu">
-                           <!--  <li><a href="#"><i class="fa fa-user"></i> My Profile</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> Inbox</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-cogs"></i> Settings</a>
-                            </li> 
-                            <li class="divider"></li>-->
-                            <li><a id="admin_logout" class="text-danger"><i class="fa fa-lock"></i>  注销</a>
-                            </li>
+                            <li><a id="admin_logout" class="text-danger"><i class="fa fa-lock"></i> 退出</a></li>
                         </ul>
-                        <!--<li><a href="#" class="settings dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i></a>
-                            <ul class="dropdown-menu inbox">
-                                <li><a href="inbox.php" class="btn bg-primary">View All</a>
-                                </li>
-                            </ul>
-                            <li><a href="#" class="settings dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell animated "></i></a>
-                            </li>-->
+                   	</li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -80,25 +51,9 @@
 
                         <!-- sidebar to mini Sidebar toggle -->
                         <li class="nav-toggle">
-                            <button class="btn  btn-nav-toggle text-primary"><i class="fa fa-angle-double-left toggle-left"></i> 
-                            </button>
+                            <button class="btn  btn-nav-toggle text-primary"><i class="fa fa-angle-double-left toggle-left"></i></button>
                         </li>
-                         <li class="submenu">
-                            <a class="dropdown" href="#" data-original-title="Forms"><i class="fa fa-desktop"></i><span class="hidden-minibar">数据维护</a>
-                            <ul>
-                                <li><a href="#" data-original-title="accountMaterialList" class="menu"><i class="fa fa-archive"></i><span>物资</span></a>
-                                </li>
-                                <li><a href="#" data-original-title="accountSupplierList" class="menu"><i class="fa fa-suitcase"></i><span>供应商</span></a>
-                                </li>
-                                <li><a href="#" data-original-title="accountWarehouseList" class="menu"><i class="fa fa-home"></i><span>仓库</span></a>
-                                </li>
-                                <!-- <li><a href="#" data-original-title="accountSupplierInputList" class="menu"><i class="fa fa-pencil-square"></i><span>供应商初期余额录入</span></a>
-                                </li>
- -->                                <li><a href="#" data-original-title="paraInfoList" class="menu"><i class="fa fa-flask"></i><span>计量单位</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
+                          <li class="submenu">
                             <a class="dropdown" href="#" data-original-title="Forms"><i class="fa fa-list-alt"></i><span class="hidden-minibar">采购管理</a>
                             <ul>
                            		 <li><a href="#"  data-original-title="requisitionList" class="menu"><i class="fa fa-credit-card"></i><span>申购</span></a>
@@ -124,24 +79,22 @@
                                
                             </ul>
                         </li>
-
-                      <!--   <li class="submenu">
-                            <a class="dropdown" href="#" data-original-title="Charts"><i class="fa fa-bar-chart-o"></i><span class="hidden-minibar"> 统计  </a>
+                         <li class="submenu">
+                            <a class="dropdown" href="#" data-original-title="Forms"><i class="fa fa-desktop"></i><span class="hidden-minibar">数据维护</a>
                             <ul>
-                                <li><a href="#" data-original-title="Basic Charts"><i class="fa fa-bar-chart-o"></i><span>  Basic Charts</span></a>
+                                <li><a href="#" data-original-title="accountMaterialList" class="menu"><i class="fa fa-archive"></i><span>物资</span></a>
                                 </li>
-                                <li><a href="#" data-original-title="Live Charts"><i class="fa fa-bar-chart-o"></i><span> Live Charts</span></a>
+                                <li><a href="#" data-original-title="accountSupplierList" class="menu"><i class="fa fa-suitcase"></i><span>供应商</span></a>
                                 </li>
-                                <li><a href="#" data-original-title="Morris Charts"><i class="fa fa-bar-chart-o"></i><span> Morris Charts</span></a>
+                                <li><a href="#" data-original-title="accountWarehouseList" class="menu"><i class="fa fa-home"></i><span>仓库</span></a>
                                 </li>
-                                <li><a href="#" data-original-title="Pie Charts"><i class="fa fa-bar-chart-o"></i><span>  Pie Charts</span></a>
+                                <!-- <li><a href="#" data-original-title="accountSupplierInputList" class="menu"><i class="fa fa-pencil-square"></i><span>供应商初期余额录入</span></a>
                                 </li>
-                                <li><a href="#" data-original-title="Spark Lines"><i class="fa fa-bar-chart-o"></i><span>  Spark Lines</span></a>
-                                </li>
-                                <li><a href="#" data-original-title="NVD3"><i class="fa fa-bar-chart-o"></i><span>  NVD3</span></a>
+ -->                                <li><a href="#" data-original-title="paraInfoList" class="menu"><i class="fa fa-flask"></i><span>计量单位</span></a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
+                      
 
                     </ul>
                 </div>
@@ -150,137 +103,13 @@
 
             <!-- .content -->
          <div class="content">
-               <!--     <div class="row">
-                    <div class="col-mod-12">
-
-                        <ul class="breadcrumb">
-                            <li><a href="index.html">Dashboard</a>
-                            </li>
-                            <li><a href="template.html">Template</a>
-                            </li>
-                            <li class="active">DashBoard</li>
-                        </ul>
-
-                       div class="form-group hiddn-minibar pull-right">
-                            <input type="text" class="form-control form-cascade-control nav-input-search" size="20" placeholder="Search through site" />
-
-                            <span class="input-icon fui-search"></span>
-                        </div>
-
-                        <h3 class="page-header"><i class="fa fa fa-dashboard"></i> Dashboard</h3>
-
-                    </div>
-                </div> -->
-                <!-- content-top -->
-
 
                 <!-- Users widget -->
                 <div class="row" id="index_content">
-                    <!--div class="col-md-12">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <table class="table table-bordered table-condensed table-hover" id="example">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <input type="checkbox" />
-                                            </th>
-                                            <th class="visible-lg">#</th>
-                                            <th class="visible-lg">First Name</th>
-                                            <th class="visible-lg">Last Name</th>
-                                            <th class="visible-lg">Email</th>
-                                            <th>Username</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td class="visible-lg">1</td>
-                                            <td class="visible-lg">John</td>
-                                            <td class="visible-lg">Deo</td>
-                                            <td class="visible-lg">johndeo@example.com</td>
-                                            <td>@johndeo</td>
-                                            <td>
-                                                <a href="###" class="btn btn-warning"><i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="###" class="btn btn-success"><i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td class="visible-lg">2</td>
-                                            <td class="visible-lg">Jane</td>
-                                            <td class="visible-lg">Doe</td>
-                                            <td class="visible-lg">johndeo@example.com</td>
-                                            <td>@johndeo</td>
-                                            <td>
-                                                <a href="###" class="btn btn-warning"><i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="###" class="btn btn-success"><i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td class="visible-lg">3</td>
-                                            <td class="visible-lg">Jump</td>
-                                            <td class="visible-lg">Deo</td>
-                                            <td class="visible-lg">johndeo@example.com</td>
-                                            <td>@johndeo</td>
-                                            <td>
-                                                <a href="###" class="btn btn-warning"><i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="###" class="btn btn-success"><i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td class="visible-lg">4</td>
-                                            <td class="visible-lg">Jump</td>
-                                            <td class="visible-lg">Doe</td>
-                                            <td class="visible-lg">johndeo@example.com</td>
-                                            <td>@johndeo</td>
-                                            <td>
-                                                <a href="###" class="btn btn-warning"><i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="###" class="btn btn-success"><i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td class="visible-lg">5</td>
-                                            <td class="visible-lg">John</td>
-                                            <td class="visible-lg">Deo</td>
-                                            <td class="visible-lg">johndeo@example.com</td>
-                                            <td>@johndeo</td>
-                                            <td>
-                                                <a href="###" class="btn btn-warning"><i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="###" class="btn btn-success"><i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div-->
+                    <iframe id="home" scrolling="auto" frameborder="0"  src="" style="width:100%;height:100%;"></iframe>
                 </div>
                 <!-- / Users widget-->
+
 
                 <div class="footer">
                     © 2017铸金股份
@@ -293,35 +122,32 @@
             <div class="right-sidebar right-sidebar-hidden">
                 <div class="right-sidebar-holder">
 
-                    <!-- @Demo part only The part from here can be removed till end of the @demo  -->
-                    <a href="screens.html" class="btn btn-danger btn-block">Logout </a>
+                    <a href="screens.html" class="btn btn-danger btn-block">Logout </a>.
 
-
-                    <h4 class="page-header text-primary text-center">
-  								Theme Options
-  								<a  href="#"  class="theme-panel-close text-primary pull-right"><strong><i class="fa fa-times"></i></strong></a>
-  							</h4>
+                    <h4 class="page-header text-primary text-center">		
+                        <a  class="theme-panel-close text-primary pull-right"><strong><i class="fa fa-times"></i></strong></a>
+                    </h4>
 
                     <ul class="list-group theme-options">
                         <li class="list-group-item" href="#">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="fixedNavbar" value="">Fixed Top Navbar
+                                    <input type="checkbox" id="fixedNavbar" value="">
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="fixedNavbarBottom" value="">Fixed Bottom Navbar
+                                    <input type="checkbox" id="fixedNavbarBottom" value="">
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="boxed" value="">Boxed Version
+                                    <input type="checkbox" id="boxed" value="">
                                 </label>
                             </div>
 
                             <div class="form-group backgroundImage hidden">
-                                <label class="control-label">Paste Image Url and then hit enter</label>
+                                <label class="control-label"></label>
                                 <input type="text" class="form-control" id="backgroundImageUrl" />
                             </div>
                         </li>
@@ -337,10 +163,8 @@
     </div>
     <!-- /.site-holder -->
 
-
-
     <!-- Load JS here for Faster site load =============================-->
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-2.2.1.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <script src="lib/layer/layer.js"></script>
   	<script src="lib/js/config.js"></script>
@@ -359,22 +183,21 @@
     <script type="text/javascript" src="js/jquery.gritter.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/prettify.min.js"></script>
-    <script src="js/jquery.noty.js"></script>
+    <script src="js/jquery.noty.packaged.js"></script>
     <script src="js/jquery.accordion.js"></script>
     <script src="js/skylo.js"></script>
     <script src="js/theme-options.js"></script>
-	
+	<script src="js/upload.js"></script>
 	<script src="bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
-	
 	
     <!-- Core Jquery File  =============================-->
     <script src="js/core.js"></script>
  	<script>
-	/* $(function(){
-		$( '.site-holder' ).css( {'height' : $( window ).height(),'overflow': 'scroll',}) 
-	})  */
-	/* $( '.site-holder' ).css( {'height' : $( window ).height() })  */
+		$( '.sidebar-holder .nav > li ul > li > a' ).click( function () {
+			$( '.sidebar-holder .nav > li ul > li > a' ).removeClass( 'active' );
+			$( this ).addClass( 'active' );
+		} );
 	</script>
 </body>
 

@@ -3,6 +3,7 @@ package com.account.service;
 import java.util.List;
 
 import com.account.entity.Warehouse;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.WarehousePage;
 
 public interface WarehouseService {
@@ -47,4 +48,8 @@ public interface WarehouseService {
      * @return
      */
     int findListCount(WarehousePage wPage);
+
+	List<Warehouse> selectView(String title, String checker, PageUtil paging, String startTime, String endTime);
+
+	int selectViewCount(String title, String checker, String startTime, String endTime);
 }

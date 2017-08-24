@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.account.entity.AccountRequisition;
+import com.account.utils.PageUtil;
 
 public interface AccountRequisitionService {
 	public AccountRequisition get(String id);
@@ -21,4 +22,9 @@ public interface AccountRequisitionService {
 	
 	void findPage(AccountRequisition entity);
 	public List<AccountRequisition> getAccountPurchaseTitle();
+	
+	public List<AccountRequisition> selectView( String title, String checker, String procInsId, PageUtil paging , String startTime, String endTime );
+	
+	public int selectViewCount( String title, String checker, String procInsId , String startTime, String endTime );
+
 }

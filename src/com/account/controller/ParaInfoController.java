@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.account.entity.ParaInfo;
+import com.account.entity.Warehouse;
 import com.account.service.ParaInfoService;
 import com.account.utils.PageBean;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 import com.account.utils.pagebean.ParaInfoPage;
 
@@ -141,6 +143,23 @@ public class ParaInfoController  {
 			rm.setSuccessMessage("操作成功", map);
 		} catch (Exception e) {
 			rm.setErrorMessage("获取参数项失败", null);
+		}
+		return rm;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String title, String checker,PageUtil paging , String startTime, String endTime) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<ParaInfo> list= piService.selectView( title, checker,  paging, startTime, endTime );
+			int total = piService.selectViewCount( title, checker,  startTime, endTime );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
 		}
 		return rm;
 	}

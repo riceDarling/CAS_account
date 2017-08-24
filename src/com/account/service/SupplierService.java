@@ -2,8 +2,8 @@ package com.account.service;
 
 import java.util.List;
 
-import com.account.entity.Material;
 import com.account.entity.AccountSupplier;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.SupplierPage;
 
 public interface SupplierService {
@@ -50,4 +50,8 @@ public interface SupplierService {
     int findListCount(SupplierPage sPage);
     
     List<AccountSupplier> findAllList();
+
+	List<AccountSupplier> selectView(String title, String checker, PageUtil paging, String startTime, String endTime);
+
+	int selectViewCount(String title, String checker, String startTime, String endTime);
 }

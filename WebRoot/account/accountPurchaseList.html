@@ -1,54 +1,59 @@
 <div class="col-md-12">
 	<div class="panel panel-cascade">
-		<div class="panel-heading">
+		<div class="panel-heading" style="padding:10px 0;letter-spacing:2px;">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i>订货单列表 <i class="fa fa-pencil-square"></i> <a href_1="accountPurchaseForm.html">订货单添加</a>
+				<i class="fa fa-pencil-square"></i>订货单列表
 			</h3>
 		</div>
 		<div class="panel-body">
-				<label class="col-lg-1 col-md-2 control-label"style="width: 14% !important;">订货单标题：</label>
-				<div class="col-lg-2 col-md-2">
-					<input class="form-control" name="title" id="purchase_title"/>
-					<!-- <select name="status" class="form-control" id="title_select">
-						<option value="">请选择</option>
-						
-					</select> -->
-				</div>
-				<label class="col-lg-1 col-md-2 control-label" style="width: 10% !important;">状态：</label>
-				<div class="col-lg-2 col-md-2">
-					<select name="status" class="form-control" id="purchase_state">
-						<option value="">请选择</option>
-						<option value="0">未完成</option>
-						<option value="1">已完成</option>
-					</select>
-				</div>
-				<div class="col-lg-1 col-md-2">
-					<input class="btn btn-info " id="sub_search" type="submit" value="查询">
-				</div>
+            <label class="col-lg-1 col-md-2 control-label"style="width:110px; !important;top:6px;padding-right:0px;">订货单标题：</label>
+            <div class="col-lg-2 col-md-2">
+                <input class="form-control" name="title" id="purchase_title"/>
+                
+            </div>
+            <label class="col-lg-1 col-md-2 control-label" style="width:60px; !important;top:6px;padding-right:0px;">状态：</label>
+            <div class="col-lg-2 col-md-2">
+                
+                <select name="status" class="form-control" id="procInsId"  style="width:110px;">
+                    <option value="1">待办</option>
+                    <option value="2">已办</option>
+                    <option value="3">办结</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-3" style="width:140px;padding-right:5px;">
+                <input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" id="startTime" readonly>
+            </div>
+            <div style="float:left;line-height:33px;">-</div>
+            <div class="col-lg-4 col-md-3" style="width:140px;padding-left:5px;">
+                <input size="16" type="text" value=""  placeholder="结束时间" class="form_datetime form-control" id="endTime" readonly>
+            </div>
+            <div class="col-lg-1 col-md-2">
+                <input class="btn btn-info " id="sub_search" type="submit" value="查询">
+            </div>
+            <input class="btn btn-info btn-animate-demo flowadd-btn" style="margin-top: 0% !important;" type="button" value="添加订货单">
 		</div>
-		<div class="panel-body">
-			<table class="table table-bordered table-condensed table-hover" id="accountPurchaseList_example">
-				<thead>
-					<tr>
-						<th class="visible-lg">标题</th>
-						<th class="visible-lg">创建时间</th>
-						<th class="visible-lg">状态</th>
-						<th class="visible-lg">操作</th>
-					</tr>
-				</thead>
-				<tbody id="secondPageTbody">
-				
-				</tbody>
-			</table>
-		</div>
-		
+		 <div class="panel">
+            <div class="panel-body table-wrap-t" style="padding-left:0;padding-right:0;">
+                <table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
+            </div>
+        </div>
+       
 	</div>
 </div>
 
 <script>
-	$("[href_1]").click(function() {
+	$(".form_datetime").datetimepicker({
+		language:  'zh-CN', 
+		minView: "month", 
+		format: 'yyyy-mm-dd',
+		todayBtn:  1,
+		autoclose: 1
+	});
+
+	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
 	});	
+	
 	var userid = $.cookie("login_userid");
 	$(function(){
 		GetList();
@@ -103,9 +108,6 @@
 						var act_checker=$(this).attr("act_checker");
 						//登录人是创建人，但不是任务办理者
 						//如果当前登录人是创建人，跳转到修改页面，否则审核页面
-						/* console.log(userid==obj.act_checker);
-						console.log(obj.createBy==userid);
-						console.log(state!="end"); */
 						
 						if(userid==act_checker&&createBy==userid&&state!="end"){
 							$.cookie("accountPurchaseEdited_id",accountPurchaseAudit_id);
@@ -154,5 +156,358 @@
 		};
 		GetList(json_data);
 		
+	}); */
+	$( '.flowadd-btn' ).click( function () {
+		$( 'body' ).append( 
+			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
+				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
+				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+			'</div>' 
+		);
+		$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+		//$.cookie("material_edit",'');
+		$( '.account-panel-content' ).load( 'accountPurchaseForm.html' );
+		$( '.account-panel-container-closes' ).click( function () {
+			$( this ).parent().parent().remove();
+		} );
+	} );
+	var userid = $.cookie("login_userid");
+	//var material_editId = $.cookie("material_edit");
+	//$.cookie("material_edit",'');
+	function dataTable( table_data , data_total ){
+
+		var	total_arr = new Array();
+		if ( table_data.length > 0 ) {
+			for ( var c in table_data ) {
+				var tempObj = new Object();
+				tempObj.title = table_data[ c ].title;  
+				tempObj.createDate = new Date( table_data[ c ].createDate ).format( 'yyyy-MM-dd hh:mm:ss' );  
+				
+				if ( $( '#procInsId' ).val() == 1 ) {
+					tempObj.procInsId = '待办';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'" createBy="'+table_data[ c ].createBy+'" class="btn work-btn-sel btn-info" >办理</a>';  
+				}
+				if ( $( '#procInsId' ).val() == 2 ) {
+					tempObj.procInsId = '已办';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-success" >查看</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="'+table_data[ c ].id+'" class="btn btn-danger selfback-btn-sel">撤回</a>';  
+				}
+				if ( $( '#procInsId' ).val() == 3 ) {
+					tempObj.procInsId = '办结';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-success" >查看</a>';  
+				}
+				if ( $( '#procInsId' ).val() == 4 ) {
+					tempObj.procInsId = '已办';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-success" >查看</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="del_material" class="btn btn-danger selfback-btn-sel">撤回</a>';  
+				}
+				
+				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
+			}
+		}
+		var ccx = function () {
+			
+			$( '.table-container' ).DataTable({
+				searching : false,
+				data : total_arr,
+				lengthMenu : [30, 50, 100, 150],
+				aoColumns: [
+					{  
+						"mDataProp" : "USERID",  
+						"sDefaultContent" : "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错  
+						"bVisible" : false //此列不显示  
+					},
+					{  
+						"mDataProp" : "title",  
+						"sTitle" : "订货单标题",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "createDate",  
+						"sTitle" : "创建时间",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "procInsId",  
+						"sTitle" : "状态",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "dataopt",  
+						"sTitle" : "操作",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					}
+				],
+				sScrollY : $( window ).height() - 350,
+				bPaginate: true, //翻页功能
+				bLengthChange: true, //改变每页显示数据数量
+				bFilter: true, //过滤功能
+				bSort: false, //排序功能
+				bInfo: true,//页脚信息
+				bScrollInfinite : true,
+				bAutoWidth: true,//自动宽度
+				language: {
+					"sInfo": "显示第 _START_ 至 _END_ ，共 _TOTAL_ 条",
+					"oPaginate": {
+						"sPrevious": "上页",
+						"sNext":     "下页",
+					}
+				}
+			});
+			$( '.dataTables_paginate.paging_simple_numbers' ).parent().append( 
+				'<div class="page-jump" style="width:110px;float:right;margin-right:20px;margin-top:20px;">' +
+					'<div><input class="btn btn-info btn-animate-demo page-jump-btn" id="" style="width:50px;float:left;" type="submit" value="跳转"></div>' +
+					'<div><input class="form-control page-jump-input" style="float:left;width:50px;margin-left:5px;" type="text" value="1" id=""></div>' +
+				'</div>' 
+			);
+			var _tpage = 0;
+			var nowpagesize = $( '.dataTables_length .form-control.input-sm' ).val();
+			var newpage = $( '.paginate_button.active a' ).text();
+			var endpagesize = 0;
+			var allpage = parseInt( data_total/nowpagesize );
+			if ( data_total%nowpagesize > 0 && data_total > nowpagesize ) {
+				allpage = allpage + 1;
+				endpagesize = newpage * nowpagesize;
+			} else if ( data_total <= nowpagesize ) {
+				allpage = 1;
+				endpagesize = data_total;
+			}
+			
+			$( '.dataTables_info' ).html( '显示 ' + endpagesize + ' 条 ，共 ' + data_total + ' 条 ' + allpage + ' 页'  );
+			
+			
+			$( '.paginate_button.previous a' ).click( function ( e ) {
+				
+				var nowpage_in = $( '.paginate_button.active a' ).text();
+				if ( nowpage_in != 1 ) {
+					nowpage_in = nowpage_in -1;
+				}
+				$.ajax( {
+					url : IP_config + "accountPurchase/selectView",
+					type : "post",
+					data : {
+						title : $("#purchase_title").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.list.totalCount;
+						var table_data = data1.obj.list.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+				
+			} );
+			
+			
+			$( '.paginate_button.next a' ).click( function ( e ) {
+				
+				var nowpage_in = $( '.paginate_button.active a' ).text();
+				if ( nowpage_in < allpage ) {
+					nowpage_in = parseInt( nowpage_in - 0 + 1 );
+				}
+				
+				$.ajax( {
+					url : IP_config + "accountPurchase/selectView",
+					type : "post",
+					data : {
+						title : $("#purchase_title").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.list.totalCount;
+						var table_data = data1.obj.list.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+				
+			} );
+			$( '.page-jump-btn' ).click( function () {
+				var nowpage_in = $( '.page-jump-input' ).val();
+				$.ajax( {
+					url : IP_config + "accountPurchase/selectView",
+					type : "post",
+					data : {
+						title : $("#purchase_title").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.list.totalCount;
+						var table_data = data1.obj.list.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+			} );
+			
+		}
+		
+		if ( $( '.table-container' ).children().length > 0 ) {
+			if ( data_total == 0 ) {
+				$( '.table-wrap-t' ).children().remove();
+				$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+				ccx();
+			} else {
+				$( '.table-wrap-t' ).children().remove();
+				$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+				ccx();
+			}
+		} else {
+			$( '.table-wrap-t' ).children().remove();
+			$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+			ccx();
+		}
+		
+		
+		$( '.work-btn-sel' ).click( function () {
+			$( 'body' ).append( 
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
+					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+				'</div>'
+			);
+			$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+			$( '.account-panel-container-closes' ).click( function () {
+				$( this ).parent().parent().remove();
+			} );
+			$.cookie( "accountPurchaseAudit_id" , $(this).attr("name") );
+			var createBy=$(this).attr("createBy")
+			//如果创建人是当前节点办理人，则说明处于修改阶段，跳转到修改页Edited
+			if(userid==createBy){
+				$(".account-panel-content").load( 'accountPurchaseEdited.html' );
+			}else{
+				$(".account-panel-content").load( 'accountPurchaseAudit.html' );
+			}
+			
+		} );
+		
+		
+		$( '.watch-btn-sel' ).click( function () {
+			$( 'body' ).append( 
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
+					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+				'</div>'
+			);
+			$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+			$( '.account-panel-container-closes' ).click( function () {
+				$( this ).parent().parent().remove();
+			} );
+			$.cookie( "accountPurchase__id" , $(this).attr("name") );
+			$(".account-panel-content").load( 'accountPurchaseView.html' );
+		} );
+		
+		$( '.selfback-btn-sel' ).click( function () {
+			$( 'body' ).RemindWoken( '此功能待完善' );
+		} );
+	}
+	
+	$.ajax( {
+		url : IP_config + "accountPurchase/selectView",
+		dataType: "json",
+		type: "POST",
+		data :  {
+			title : $("#purchase_title").val(),
+			checker : userid,
+			procInsId : $( '#procInsId' ).val(),
+			startTime : $( '#startTime' ).val(),
+			endTime : $( '#endTime' ).val(),
+			pageSize : 30,
+			currentPage : 1
+		},
+		async : false,
+		success: function( data1 ) {
+			if ( data1.success ) {
+				
+				var data_total = data1.obj.totalCount;
+				var table_data = data1.obj.list;
+				
+				dataTable( table_data , data_total );
+			} else {
+				$( 'body' ).RemindWoken( '查询失败' );
+			}
+		}
+		
+		
 	});
+
+	$( '#sub_search' ).click( function () {
+		
+		$.ajax( {
+			url : IP_config + "accountPurchase/selectView",
+			dataType: "json",
+			type: "POST",
+			data : {
+				title : $("#purchase_title").val(),
+				checker : userid,
+				procInsId : $("#procInsId").val(),
+				startTime : $( "#startTime" ).val(),
+				endTime : $( "#endTime" ).val(),
+				pageSize : 30,
+				currentPage : 1
+			},
+			async : false,
+			success: function( data1 ) {
+				if ( data1.success ) {
+					var data_total = data1.obj.totalCount;
+					var table_data = data1.obj.list;
+					
+					dataTable( table_data , data_total );
+				} else {
+					$( 'body' ).RemindWoken( '查询失败' );
+				}
+				
+			}
+			
+		});
+	} );
+
+	//撤回操作
+	$("#requisitionList_example").on("click",".revoke_view",function(){
+		var requisitionId=$(this).attr("requisitionAudit_id");
+		$.ajax( IP_config + "act/revoke", {
+			dataType: "json",
+			type: "GET",
+			data:{
+				"requisitionid":requisitionId
+			},
+			success: function(data) {
+				//console.log(data);
+				if ( data.success ) {
+					$( 'body' ).RemindWokenSuccess( '操作成功' );
+				} else {
+					$( 'body' ).RemindWokenSuccess( '操作失败' );
+				}
+			},
+		})
+		
+	});
+	
 </script>

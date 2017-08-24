@@ -122,4 +122,36 @@
 		FROM account_para_info a
 		WHERE a.p_id=#{pId}
 	</select>
+	
+	  <select id="selectView" resultType="com.account.entity.ParaInfo">
+		SELECT 
+			
+			<include refid="ParaInfo_List" />
+			
+		FROM 
+			account_para_info  a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				a.name like CONCAT(CONCAT('%',#{pName}),'%') 
+			</if>
+			order by a.id desc
+			<if test="paging != null">
+	        	<include refid="com.account.dao.SqlFragment.paging" />
+	      	</if>
+	      	;
+	</select>
+	
+	<select id="selectViewCount" resultType="int">
+		SELECT 
+			ifnull( count(DISTINCT a.id) , 0 )
+		FROM 
+			account_para_info a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				a.name like CONCAT(CONCAT('%',#{pName}),'%') 
+			</if>	
+	      	;
+	</select>
 </mapper>

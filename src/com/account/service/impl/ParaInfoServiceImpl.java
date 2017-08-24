@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.account.dao.ParaInfoMapper;
 import com.account.entity.ParaInfo;
 import com.account.service.ParaInfoService;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.ParaInfoPage;
 
 @Service
@@ -56,6 +57,18 @@ public class ParaInfoServiceImpl implements ParaInfoService {
 	public List<ParaInfo> getParaInfoList(int pId) {
 		// TODO Auto-generated method stub
 		return piDao.getParaInfoList(pId);
+	}
+
+	@Override
+	public List<ParaInfo> selectView(String title, String checker, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return piDao.selectView(title, checker, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return piDao.selectViewCount(title, checker, startTime, endTime);
 	}
 	
 }

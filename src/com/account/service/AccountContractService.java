@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.account.entity.AccountContract;
 import com.account.entity.AccountContractDetail;
+import com.account.utils.PageUtil;
 
 public interface AccountContractService {
 	void save(AccountContract accountContract);
@@ -25,4 +26,10 @@ public interface AccountContractService {
 	List<AccountContractDetail> getByContractId(String id);
 
 	List<Map<String, Object>> findAllTitle();
+
+	
+	List<AccountContract> selectView(String purchasenumtitle, String contracttitle, String status, PageUtil paging, String beginDate, String endDate);
+
+	
+	int selectViewCount(String purchasenumtitle, String contracttitle, String status, String beginDate, String endDate);
 }

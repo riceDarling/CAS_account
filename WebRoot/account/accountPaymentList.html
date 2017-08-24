@@ -77,8 +77,9 @@
 			success : function(data) {
 				if (data.success) {
 					$("#secondPageTbody").empty();
-					var content = "<tr>"
+					var content;
 					for ( var index in data.obj) {
+						content += "<tr>"
 						content += "<td>" + data.obj[index].supplier + "</td>"
 						content += "<td>" + data.obj[index].contracttitle + "</td>"
 						content += "<td>" + data.obj[index].payamount + "</td>"
@@ -100,8 +101,9 @@
 			type : "post",
 			success : function(data) {
 				if (data.success) {
-					var content = "<tr>"
+					var content ;
 					for ( var index in data.obj) {
+						content += "<tr>"
 						content += "<td>" + data.obj[index].supplier + "</td>"
 						content += "<td>" + data.obj[index].contracttitle + "</td>"
 						content += "<td>" + data.obj[index].payamount + "</td>"

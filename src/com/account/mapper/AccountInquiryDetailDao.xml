@@ -211,8 +211,9 @@
 	
 	<select id="selectDetail" resultType="com.account.entity.AccountInquiryDetail" parameterType="com.account.entity.AccountInquiryDetail">
 		SELECT 
-			<include refid="accountInquiryDetailColumns"/>
-		FROM account_inquiry_detail a
+			<include refid="accountInquiryDetailColumns"/>,b.name AS 'unit_name'
+		FROM account_inquiry_detail a 
+		LEFT JOIN account_para_info b ON a.unit=b.id
 		<include refid="accountInquiryDetailJoins"/>
 		WHERE a.ordernum = #{ordernum}
 		<if test="materialcode!=null and materialcode!=''">

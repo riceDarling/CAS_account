@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.account.entity.AccountSupplier;
-import com.account.entity.Warehouse;
+import com.account.entity.Material;
 import com.account.service.SupplierService;
 import com.account.utils.PageBean;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 import com.account.utils.pagebean.SupplierPage;
 
@@ -117,6 +118,23 @@ public class SupplierController  {
 			rm.setSuccessMessage("操作成功", li);
 		} catch (Exception e) {
 			rm.setErrorMessage("操作失败", null);
+		}
+		return rm;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String title, String checker,PageUtil paging , String startTime, String endTime) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try{
+			List<AccountSupplier> list= sService.selectView( title, checker,  paging, startTime, endTime );
+			int total = sService.selectViewCount( title, checker,  startTime, endTime );
+			paging.setList( list );
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		}catch( Exception e ){
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
 		}
 		return rm;
 	}

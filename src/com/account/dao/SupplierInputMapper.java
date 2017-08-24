@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.account.entity.SupplierInput;
 import com.account.utils.pagebean.SupplierInputPage;
-import com.account.utils.pagebean.SupplierPage;
 
 public interface SupplierInputMapper {
 	/**

@@ -69,7 +69,7 @@
 	
 	<select id="getbyRequisitionId" resultType="map" parameterType="string">
 			SELECT 
-			a.*,b.`username` requisitionName,c.`username` checkerName
+			a.*,b.userrole AS 'requisitionName',c.userrole AS 'checkerName'
 		FROM account_requisition_act a 
 		LEFT JOIN admin b ON a.requisition_name=b.id
 		LEFT JOIN admin c ON a.checker_name=c.id

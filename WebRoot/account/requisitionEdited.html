@@ -138,7 +138,7 @@ $(".form_datetime").datetimepicker({
     autoclose: 1,});
     
     
-$.ajax("http://"+IP_config+"/account/admin/getAdminList", {
+$.ajax(IP_config+"admin/getAdminList", {
 	dataType: "json",
 	xhrFields: {
 		withCredentials: true
@@ -155,7 +155,7 @@ $.ajax("http://"+IP_config+"/account/admin/getAdminList", {
 				if(userid==admin.id){
 					
 				}else{
-					html+='<option value="'+admin.id+'">'+admin.username+'</option>';
+					html+='<option value="' + admin.id + '">' + admin.userrole + '</option>';
 				}
 			}
 			$("#requisitionForm_checker").html(html);
@@ -167,7 +167,7 @@ $.ajax("http://"+IP_config+"/account/admin/getAdminList", {
 });
 //获取全部物资
 var materials;
-$.ajax("http://"+IP_config+"/account/material/findAllList", {
+$.ajax(IP_config+"material/findAllList", {
 	dataType: "json",
 	xhrFields: {
 		withCredentials: true
@@ -193,7 +193,7 @@ $.ajax("http://"+IP_config+"/account/material/findAllList", {
 });
 //计量单位
 var units;
-$.ajax("http://"+IP_config+"/account/paraInfo/getParaInfoList", {
+$.ajax(IP_config+"paraInfo/getParaInfoList", {
 	dataType: "json",
 	xhrFields: {
 		withCredentials: true
@@ -221,8 +221,8 @@ $.ajax("http://"+IP_config+"/account/paraInfo/getParaInfoList", {
 	}
 });
 
-var requisitionEdited_id = $.cookie("requisitionEdited_id");
-$.ajax("http://" + IP_config + "/account/accountRequisition/formView", {
+var requisitionEdited_id = $.cookie("requisitionView_id");
+$.ajax(IP_config + "accountRequisition/formView", {
 	dataType : "json",
 	data : {
 		"requisitionid" : requisitionEdited_id

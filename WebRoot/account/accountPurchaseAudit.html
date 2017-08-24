@@ -3,7 +3,7 @@
 		<div class="panel panel-cascade">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-						<i class="fa fa-pencil-square"></i><a href_1="accountPurchaseList.html">订货单列表</a> <i class="fa fa-pencil-square"></i>订货单审核
+						<i class="fa fa-pencil-square"></i>订货单审核
 				</h3>
 			</div>
 			<div class="panel-body ">
@@ -199,7 +199,7 @@ $("[href_1]").click(function() {
 					if(userid==admin.id){
 						
 					}else{
-						html+='<option value="'+admin.id+'">'+admin.username+'</option>';
+						html+='<option value="' + admin.id + '">' + admin.userrole + '</option>';
 					}
 				}
 				$("#requisitionAudit_checker").html(html);
@@ -231,7 +231,7 @@ $("[href_1]").click(function() {
 				//console.log(data);
 				if(data.success){
 					//获取成功
-					layer.alert(data.msg);
+					//layer.alert(data.msg);
 					$("#index_content").load("accountPurchaseList.html");
 				}else{
 					//获取失败提示

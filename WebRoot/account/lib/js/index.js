@@ -1,6 +1,6 @@
 $(function(){
 	//获取当前登录用户
-	$.ajax("http://"+IP_config+"/account/admin/getLoginAdmin", {
+	$.ajax(IP_config+"admin/getLoginAdmin", {
 		dataType: "json",
 		xhrFields: {
 			withCredentials: true
@@ -10,11 +10,11 @@ $(function(){
 			//console.log(data);
 			if(data.success){
 				//获取用户成功
-				$("#index_username").text(data.obj.username);
+				$("#index_username").text(data.obj.userrole);
 				$.cookie("login_userid",data.obj.id);
 			}else{
 				//获取用户失败，跳转到登录页
-				location.href="login/login.html";
+				location.href=IP_config + "index.html";
 			}
 		}
 	});
@@ -25,18 +25,27 @@ $(function(){
 		$("#index_content").load(html+".html");
 	});
 	$("#admin_logout").click(function(){
-		$.ajax({
-			url:"http://"+IP_config+"/account/admin/exit",
-			dataType:"json",
-			type:"post",
-			timeout:1000,
-			success:function(data){
-				if (data.success) {
-					location.href="../account/login/login.html";
-				} else {
-					layer.alert(data.msg);
-				}
+		$( 'body' ).RemindWokenSelect({
+			title : '确定退出？',
+			istrue : function () {
+				
+				$.ajax({
+					url:IP_config+"admin/exit",
+					dataType:"json",
+					type:"post",
+					timeout:1000,
+					success:function(data){
+						if (data.success) {
+							location.href=IP_config + "index.html";
+						} else {
+							$( 'body' ).RemindWoken( data.msg );
+						
+						}
+					}
+				});
+				
 			}
 		});
+		
 	});
 });

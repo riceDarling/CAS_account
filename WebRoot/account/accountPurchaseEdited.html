@@ -2,17 +2,20 @@
 <div class="col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
-			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountPurchaseList.html">订货单列表</a> <i class="fa fa-pencil-square"></i>订货单修改
-			</h3>
+			<h3 class="panel-title"><i class="fa fa-pencil-square"></i>订货单修改</h3>
 		</div>
 		<div class="panel-body">
-				<label class="col-lg-1 col-md-2 control-label">订货单名称：</label>
-				<div class="col-lg-2 col-md-2">
-					<input name="supplier" type="text" htmlEscape="false" class="form-control" id="title" purchase_id=""/>
-				</div>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 100px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">订货单名称：</label>
+            <div class="col-lg-2 col-md-2" style="width:155px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" class="form-control" id="title" style="padding-left:0;width:155px;" purchase_id="" readonly="readonly"/>
+            </div>
+            <label class="col-lg-2 col-md-3 control-label" style="width: 160px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">审核人(必选)：</label>
+			<div class="col-lg-4 col-md-3">
+			<select  tabindex="1" name="checker" style="width:100px;" id="accountPurchaseForm_checker" class="form-control">
+				 <option value=""></option>       						
+			</select>	
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" style="margin-top:35px;">
 			<table class="table table-bordered table-condensed table-hover">
 				<thead>
 					<tr>
@@ -27,76 +30,58 @@
 					
 				</tbody>
 			</table>
+			
 		</div>
-	</div>
-</div>
-
-
-<div class="form-group">
-	<label class="col-lg-2 col-md-3 control-label">审核人(下一节点办理人)：</label>
-		<div class="col-lg-4 col-md-3">
-			<select  tabindex="1" name="checker" id="accountPurchaseForm_checker" class="form-control">
-				 <option value=""></option>
-                   						
-			 </select>	
+		<div class="panel-body" style="margin-top:35px;">
+			<table class="table table-striped" id="requisitionAudit_act_table">
+				<thead>
+                    <tr>
+                        <th>申请人</th>
+                        <th>审核人</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>结论</th>
+                        <th>意见</th>
+                    </tr>
+				</thead>
+                <tbody>
+                </tbody>
+			</table>	
 		</div>
-</div>
-<div class="panel-footer">
-	<div class="row">
-		<div class="col-sm-6 col-sm-offset-11">
+        <div class="col-sm-6 col-sm-offset-10 form-actions-btn-label">
 			<input id="accountPurchaseSubmit" class="btn btn-primary" type="button" value="提交" />
-			<input id="accountPurchaseDanger" class="btn btn-primary" type="button" value="删除" />
+			<input id="accountPurchaseDanger-back" class="btn btn-primary" type="button" value="删除" />
 		</div>
 	</div>
 </div>
-
-					<div class="panel-body ">
-							<table class="table table-striped" id="requisitionAudit_act_table">
-								<thead>
-									<tr>
-										<th>申请人</th>
-										<th>审核人</th>
-										<th>开始时间</th>
-										<th>结束时间</th>
-										<th>结论</th>
-										<th>意见</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
-						
 <script>
-var userid = $.cookie("login_userid");
-	$("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	});
+	var userid = $.cookie("login_userid");
 	
-	$.ajax("../admin/getAdminList", {
+	$.ajax({
+		url : IP_config + "admin/getAdminList",
 		dataType: "json",
 		xhrFields: {
 			withCredentials: true
 		},
 		type: "GET",
 		success: function(data) {
-			//console.log(data);
+			
 			if(data.success){
 				//获取成功
-				//layer.alert(data.msg);
+				
 				var html="<option value=''></option>";
-				for (i in data.obj) {
+				for ( var i in data.obj) {
 					var admin = data.obj[i];
 					if(userid==admin.id){
 						
 					}else{
-						html+='<option value="'+admin.id+'">'+admin.username+'</option>';
+						html+='<option value="' + admin.id + '">' + admin.userrole + '</option>';
 					}
 				}
 				$("#accountPurchaseForm_checker").html(html);
 			}else{
 				//获取失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenError( '操作失败' );
 			}
 		}
 	});
@@ -112,7 +97,8 @@ var userid = $.cookie("login_userid");
 	});
 	
 	var accountPurchaseAudit_id = $.cookie("accountPurchaseAudit_id");
-	$.ajax("../accountPurchase/formView", {
+	$.ajax({
+		url : IP_config + "accountPurchase/formView",
 		dataType : "json",
 		data : {
 			"accountPurchaseid" : accountPurchaseAudit_id
@@ -139,7 +125,7 @@ var userid = $.cookie("login_userid");
 								+ detail.materialname + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
 								+ detail.unitprice + '</td>' + '<td>';
-								html+='<input type="text"  value="'+detail.quantity+'" class="input-small required form-control money" name="quantity" >'+'</td><td>';
+								html+='<input type="text" readonly  value="'+detail.quantity+'" class="input-small required form-control money" name="quantity" >'+'</td><td>';
 								html+='<input type="text" value="'+detail.totlemoney+'" class="input-small  required form-control" name="totlemoney" readonly>'+'</td></tr>';
 					}
 					$("#secondPageTbody").html(html);
@@ -147,6 +133,24 @@ var userid = $.cookie("login_userid");
 				
 				if (data.obj.actlist.length > 0) {
 					var html = "";
+					var _step = data.obj.actlist[ data.obj.actlist.length - 1 ].step;
+					
+					if ( _step == 1 ) {
+						$( '.form-actions-btn-label' ).html(
+							'<input id="accountPurchaseSubmit" class="btn btn-primary" type="button" style="margin-right:10px;" value="同意" />' +
+							'<input id="accountPurchaseDanger-back" class="btn btn-primary" type="button" value="驳回" />'
+						);
+					}
+					if ( _step == 2 ) {
+						$( '#accountPurchaseForm_checker' ).parent().parent().css( 'display' , 'none' );
+						$( '.form-actions-btn-label' ).html(
+							'<input id="audit_submit-comp" class="btn btn-primary" type="button"  style="margin-right:10px;" value="完成" />' +
+							'<input id="accountPurchaseDanger-back" class="btn btn-primary" type="button" value="驳回" />'
+						);
+					}
+					$( '#audit_submit-comp' ).click( function () {
+						
+					} );
 					for (i in data.obj.actlist) {
 						var act = data.obj.actlist[i];
 						html += '<tr><td>'
@@ -175,6 +179,7 @@ var userid = $.cookie("login_userid");
 					var act=data.obj.actlist[data.obj.actlist.length-1];
 					//如果当前登录人是办理者，显示操作按钮
 					var userid = $.cookie("login_userid");
+				
 					if(act.state==0){
 						if(act.checker_name==userid){
 							$("#checker_div").show();
@@ -194,7 +199,7 @@ var userid = $.cookie("login_userid");
 
 			} else {
 				//获取信息提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWokenError( data.msg );
 			}
 		}
 	});

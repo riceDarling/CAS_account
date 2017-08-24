@@ -48,7 +48,7 @@
 		getParaType();
 	function getParaType(){
 		$.ajax({
-			url : "../accountPara/findList",
+			url : IP_config + "accountPara/findList",
 			type : "post",
 			success : function (data){
 				data = data.obj;
@@ -110,7 +110,7 @@
 			}
 		}); */
 		$.ajax({
-			 url:"http://"+IP_config+"/account/paraInfo/findList",
+			 url:IP_config + "paraInfo/findList",
 				type:"post",
 				data:piPage,
 				async:false,
@@ -142,7 +142,7 @@
 			var id = $(this).attr("del_id");
 			
 			$.ajax({
-				url:"http://"+IP_config+"/account/paraInfo/delete",
+				url:IP_config + "paraInfo/delete",
 				type:"post",
 				data:{
 					"id" : id

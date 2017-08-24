@@ -85,7 +85,7 @@
 		});
 		//获取供应商
 		$.ajax({
-			url : "http://" + IP_config + "/account/supplier/findList",
+			url : IP_config + "supplier/findList",
 			type : "post",
 			dataType : "json",
 			xhrFields : {
@@ -168,7 +168,7 @@
 			};	
 			//alert(data.id);
 			$.ajax({
-				url : "../material/insert",
+				url : IP_config + "material/insert",
 				type : "post",
 				contentType:"application/json;charset=UTF-8",
 				data:JSON.stringify(data),
@@ -190,7 +190,7 @@
 			//alert(material_editId);
 			if(material_editId != null&&material_editId !="null") {
 				$.ajax({
-					url : "../material/selectById",
+					url : IP_config + "material/selectById",
 					type : "post",
 					data : {
 						"id" : material_editId,

@@ -12,6 +12,7 @@ import com.account.dao.AccountArrivalDetailDao;
 import com.account.entity.AccountArrival;
 import com.account.entity.AccountArrivalDetail;
 import com.account.service.AccountArrivalService;
+import com.account.utils.PageUtil;
 
 @Service
 public class AccountArrivalServiceImpl implements AccountArrivalService {
@@ -88,6 +89,15 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 	@Override
 	public List<AccountArrival> findAllorderNum() {
 		return accountArrivalDao.findAllorderNum();
+	}
+
+	@Override
+	public List<AccountArrival> selectView(String supplier, String arrivalstatus, PageUtil paging, String beginDate, String endDate) {
+		return accountArrivalDao.selectView(supplier, arrivalstatus, paging, beginDate, endDate);
+	}
+	@Override
+	public int selectViewCount(String supplier, String arrivalstatus, String beginDate, String endDate) {
+		return accountArrivalDao.selectViewCount(supplier, arrivalstatus, beginDate, endDate);
 	}
 
 }

@@ -1,114 +1,111 @@
-<div class="col-lg-12 col-md-12">
-	<div class="panel panel-cascade">
+
+<div class="col-lg-12 col-md-12" >
+	<div class="panel panel-cascade" style="margin-bottom:0;border-radius:0;border:0;">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i><a href_1="accountContractList.html"> 合同列表</a><i class="fa fa-pencil-square"></i>合同修改
+				<i class="fa fa-pencil-square"></i>修改合同单
 			</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" style="border:0;border-top:1px solid #ccc;">
 			<form action class="form-horizontal row-border">
 				<div class="form-group">
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 14% !important;">申购标题：</label>
-					<div class="col-lg-3 col-md-6">
-						<select class="form-control" name="purchasenumtitle" id="purchasenumtitle">
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;">申购单（必选）：</label> 
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<select class="form-control" name="purchasenumtitle" id="title-purchasenumtitle">
 						</select>
 					</div>
-					<label class="col-lg-1 col-sm-3 control-label"style="width: 10% !important;">供应商：</label>
-					<div class="col-lg-3 col-md-6">
-						<select class="form-control" name="supplier" id="supplier">
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 165px !important;padding-right:0;">供应商（必选）：</label> 
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<select class="form-control" name="supplier" id="titles-supplier">
+							<option value="">请选择</option>
 						</select>
-					</div>
-					<div class="col-lg-1 col-sm-6">
-						<input id="btnSubmit" class="btn btn-primary" type="button" value="查询" />
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<div class="col-md-12">
-	<div class="panel">
-		<div class="panel-body">
-				<div class="control-group">
-					<label class="control-label">合同编号：</label>
-					<div class="controls">
-						<input type="text" hidden="true" name="id" id="payId" style="width:30%;" /> <input name="contractnum" readonly="true" htmlEscape="false" style="width:30%;" maxlength="32" id="contractnum" class="form-control" />
+<div class="col-lg-12 col-md-12">
+	<div class="panel" style="border:0;border-radius:0;">
+		<div class="panel-body" style="padding:0;padding-bottom:10px;">
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同编号：</label> 
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="title-contractnum"  htmlEscape="false" maxlength="32" id="title-contractnum" class="form-control" readonly style="width:305px !important;display:inline-block;" />
 					</div>
 				</div>
-				<div class="control-group" hidden="true">
-					<label class="control-label">采购单号：</label>
-					<div class="controls">
-						<input name="purchasenum" id="purchasenum" htmlEscape="false" style="width:30%;" maxlength="32" class="form-control" />
+				<div class="control-group" hidden="true" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">采购单号：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="purchasenum" id="title-purchasenum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group" hidden="true">
-					<label class="control-label">合同状态：</label>
-					<div class="controls">
-						<input name="status" id="status" htmlEscape="false" style="width:30%;" maxlength="32" class="form-control" />
+				<div class="control-group" hidden="true" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">供应商编号：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="supplierNum" id="title-supplierNum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group" hidden="true">
-					<label class="control-label">供应商编号：</label>
-					<div class="controls">
-						<input name="supplierNum" id="supplierNum" htmlEscape="false" style="width:30%;" maxlength="32" class="form-control" />
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同名称（必填）：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="contracttitle" id="title-contracttitle" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">合同名称：</label>
-					<div class="controls">
-						<input name="contracttitle" id="contracttitle" htmlEscape="false" style="width:30%;" maxlength="255" class="form-control" />
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">纸质合同编号：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="papercontract" id="title-papercontract" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">纸质合同编号：</label>
-					<div class="controls">
-						<input name="papercontract" id="papercontract" htmlEscape="false" style="width:30%;" maxlength="255" class="form-control" />
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">乙方：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input name="caigouname" id="title-caigouname" htmlEscape="false" style="width:305px;" maxlength="255" readonly="true" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">乙方：</label>
-					<div class="controls">
-						<input name="caigouname" id="caigouname" htmlEscape="false" style="width:30%;" maxlength="255" readonly="true" class="form-control" />
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">签订日期（必选）：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<input size="16" type="text" readonly="true" style="width:305px;" class="form_datetime form-control" name="createdate" id="title-createdate" />
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">签订日期：</label>
+				<!-- <div class="control-group">
+					<label class="control-label">附件上传：</label>
 					<div class="controls">
-						<input size="16" type="text" class="form_datetime form-control" style="width:30%;" name="createdate" id="createdate" />
+						<input name="file" id="file" type="file" htmlEscape="false" maxlength="255" class="form-control" />
+					</div>
+				</div> -->
+				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">备注信息：</label>
+					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+						<textarea name="remarks" id="title-remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">备注信息：</label>
-					<div class="controls">
-						<textarea name="remarks" id="remarks" htmlEscape="false" style="width:30%;" rows="4" maxlength="255" class="form-control" />
-					</div>
-				</div>
-				<div class="control-group">
+				<div class="control-group" style="padding-left:15px;">
 					<label class="control-label">采购原料：</label>
-					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:70%;">
+					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
 						<thead>
 							<tr>
-								<th>物资名称</th>
-								<th>规格型号</th>
-								<th>采购数量</th>
-								<th>采购单价</th>
-								<th>采购金额</th>
+								<th >物资名称</th>
+								<th >规格型号</th>
+								<th >采购数量</th>
+								<th >采购单价</th>
+								<th >采购金额</th>
 							</tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
 				</div>
-				<div class="form-actions" style="margin-top:10px;">
-					<input id="submitbtn" class="btn btn-primary" style="margin-right:10px;" type="button" value="保 存" /><input id="btnCancel" class="btn" type="button" value="返 回" />
+				<div class="form-actions">
+					<input id="submitbtn" style="margin-right:5px;float:right;" class="btn btn-primary" type="button" value="保 存" />
 				</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	$("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	});
+	
 	$(".form_datetime").datetimepicker({
 		language : 'zh-CN',
 		minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -124,78 +121,87 @@
 			var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val(quantity * unitprice);
 		}
 	}
-	$("#btnCancel").click(function() {
-		$("#index_content").load("accountContractList.html");
-	});
-	$(function() {
-		if ($.cookie("accountContract_id") != "null" && $.cookie("accountContract_title") != "null") {
-			$("#payId").val($.cookie("accountContract_id"));
-			html = "<option value='" + $.cookie("accountContract_title") + "' >" + $.cookie("accountContract_title") + "</option>";
-			$("#purchasenumtitle").html(html);
-			html = "<option value='" + $.cookie("accountContract_supplier") + "' >" + $.cookie("accountContract_supplier") + "</option>";
-			$("#supplier").html(html);
+	
+	var _accountContract_id = $.cookie("accountContract_id"),
+		_accountContract_title = $.cookie("accountContract_title"),
+		_accountContract_supplier = $.cookie("accountContract_supplier");
+	$.cookie( "accountContract_id" , null );
+	$.cookie( "accountContract_title" , null )
+	$.cookie( "accountContract_supplier" , null )
+	
+	
+		if (_accountContract_id != "null" && _accountContract_title != "null") {alert(123)
+			//$("#payId").val( _accountContract_id );
+			
+			var _html = "<option value='" + _accountContract_id + "' >" + _accountContract_id + "</option>";
+			$("#title-purchasenumtitle").html( _html );
+			var _htmls = "<option value='" + _accountContract_supplier + "' >" + _accountContract_supplier + "</option>";
+			
+			$("#titles-supplier").html( _htmls );
 			$.ajax({
-				url : "http://" + IP_config + "/account/accountContractController/getById",
+				url :  IP_config + "accountContractController/getById",
 				type : "post",
 				dataType : "json",
 				data : {
-					"id" : $.cookie("accountContract_id")
+					"id" : _accountContract_id
 				},
+				async : false,
 				success : function(data) {
 					if (data.success && data.obj != null && data.obj != "") {
-						$("#contractnum").val(data.obj.contractnum);
-						$("#papercontract").val(data.obj.papercontract);
-						$("#purchasenum").val(data.obj.purchasenum);
-						$("#supplierNum").val(data.obj.supplierNum);
-						$("#contracttitle").val(data.obj.contracttitle);
-						$("#caigouname").val(data.obj.caigouname);
-						$("#createdate").val(data.obj.createdate);
+						$("#title-contractnum").val(data.obj.contractnum);
+						$("#title-papercontract").val(data.obj.papercontract);
+						$("#title-purchasenum").val(data.obj.purchasenum);
+						$("#title-supplierNum").val(data.obj.supplierNum);
+						$("#title-contracttitle").val(data.obj.contracttitle);
+						$("#title-caigouname").val(data.obj.caigouname);
+						$("#title-createdate").val(data.obj.createdate);
 						//$("#file").val(data.obj.file);
-						$("#remarks").val(data.obj.remarks);
-						$("#status").val(data.obj.status);
+						$("#title-remarks").val(data.obj.remarks);
+						$("#title-status").val(data.obj.status);
 					}
 				}
 			});
 		}
 		//获取采购订货单标题
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountRequisition/getAccountPurchaseTitle",
+			url :  IP_config + "accountRequisition/getAccountPurchaseTitle",
 			type : "post",
+			async : false,
 			success : function(data) {
 				var html = "";
 				for (i in data.obj) {
-					if ($("#purchasenumtitle").val() != data.obj[i].title) {
+					if ($("#title-purchasenumtitle").val() != data.obj[i].title) {
 						html += "<option value="+data.obj[i].title+">" + data.obj[i].title + "</option>";
 					}
 				}
-				$("#purchasenumtitle").append(html);
+				$("#title-purchasenumtitle").append(html);
 			}
 		});
 		//获取供应商列表
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountInquiry/getAccountSupplierByPurchasenumtitle",
+			url :  IP_config + "accountInquiry/getAccountSupplierByPurchasenumtitle",
 			type : "post",
 			data : {
-				"purchasenumtitle" : $.cookie("accountContract_title")
+				"purchasenumtitle" : _accountContract_title
 			},
 			async : false,
 			success : function(data) {
 				$.cookie("accountContract_title", null);
 				var html = "";
 				for (i in data.obj) {
-					if ($("#supplier").val() != data.obj[i].supplier) {
+					if ($("#titles-supplier").val() != data.obj[i].supplier) {
 						html += "<option value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
 					}
 				}
-				$("#supplier").append(html);
+				$("#titles-supplier").append(html);
 
 			}
 		})
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountContractController/getByContractId",
+			url :  IP_config + "accountContractController/getByContractId",
 			type : "post",
 			data : {
-				"id" : $.cookie("accountContract_id")
+				"id" : _accountContract_id
 			},
 			async : false,
 			success : function(data) {
@@ -207,22 +213,22 @@
 				$("#contentTable tbody").html(html);
 			}
 		})
-	});
+
 
 	//选择供应商获取详细数据
 	$("#btnSubmit").click(function() {
 		//采购单号
-		$("#purchasenum").val($("#supplier").find("option:selected").val());
+		$("#title-purchasenum").val($("#titles-supplier").find("option:selected").val());
 		//供应商编号
-		$("#supplierNum").val($("#supplier").find("option:selected").attr("name"))
+		$("#title-supplierNum").val($("#titles-supplier").find("option:selected").attr("name"))
 		//乙方
-		$("#caigouname").val($("#supplier").find("option:selected").text());
+		$("#title-caigouname").val($("#titles-supplier").find("option:selected").text());
 		var dataline = {};
-		dataline["suppliercode"] = $("#supplier").find("option:selected").attr("name");
-		dataline["inquirydetailnum"] = $("#supplier").find("option:selected").attr("class");
+		dataline["suppliercode"] = $("#titles-supplier").find("option:selected").attr("name");
+		dataline["inquirydetailnum"] = $("#titles-supplier").find("option:selected").attr("class");
 		//获取采购具体原料列表
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountInquiry/getAccountSupplierByPurchasenum",
+			url :  IP_config + "accountInquiry/getAccountSupplierByPurchasenum",
 			type : "post",
 			data : dataline,
 			async : false,
@@ -238,20 +244,20 @@
 	})
 	//提交保存合同
 	$("#submitbtn").click(function() {
-		if ($("#contractnum").val() != null && $("#contractnum").val() != "") {
-			if ($("#contracttitle").val() != null && $("#contracttitle").val() != "") {
+		if ($("#title-contractnum").val() != null && $("#title-contractnum").val() != "") {
+			if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
 				$("#submitbtn").attr("disabled", true);
 				var accountContract = {};
-				accountContract.id = $.cookie("accountContract_id");
-				accountContract.contractnum = $("#contractnum").val();
-				accountContract.papercontract = $("#papercontract").val();
-				accountContract.contracttitle = $("#contracttitle").val();
-				accountContract.purchasenum = $("#purchasenum").val();
-				accountContract.supplierNum = $("#supplierNum").val();
-				accountContract.caigouname = $("#caigouname").val();
-				accountContract.createdate = $("#createdate").val();
+				accountContract.id = _accountContract_id;
+				accountContract.contractnum = $("#title-contractnum").val();
+				accountContract.papercontract = $("#title-papercontract").val();
+				accountContract.contracttitle = $("#title-supplierNum").val();
+				accountContract.purchasenum = $("#title-purchasenum").val();
+				accountContract.supplierNum = $("#title-supplierNum").val();
+				accountContract.caigouname = $("#title-caigouname").val();
+				accountContract.createdate = $("#title-createdate").val();
 				//accountContract.file = $("#file").val();
-				accountContract.remarks = $("#remarks").val();
+				accountContract.remarks = $("#title-remarks").val();
 				var len = $("#contentTable>tbody>tr").length;
 				var aiArr = new Array();
 				for (var i = 0; i < len; i++) {
@@ -272,7 +278,7 @@
 				}
 				accountContract.accountContractDetail = aiArr;
 				$.ajax({
-					url : "http://" + IP_config + "/account/accountContractController/save",
+					url :  IP_config + "accountContractController/save",
 					type : "post",
 					contentType : "application/json;charset=UTF-8",
 					data : JSON.stringify(accountContract),
@@ -280,17 +286,18 @@
 				});
 				$.cookie("accountContract_id", null);
 				if (accountContract != null && accountContract != "") {
-					layer.alert("保存成功");
+					$( 'body' ).RemindWokenSuccess("保存成功");
 					$("#index_content").load("accountContractList.html");
 				} else {
-					layer.alert("保存失败");
+					$( 'body' ).RemindWokenError("保存失败");
 					$("#index_content").load("accountContractForm.html");
 				}
 			} else {
-				layer.alert("请添写合同名称!");
+				$( 'body' ).RemindWoken("请添写合同名称!");
 			}
 		} else {
-			layer.alert("请添写合同编号!");
+			$( 'body' ).RemindWoken("请添写合同编号!");
 		}
 	})
+
 </script>

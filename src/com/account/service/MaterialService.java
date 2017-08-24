@@ -2,7 +2,9 @@ package com.account.service;
 
 import java.util.List;
 
+import com.account.entity.AccountReject;
 import com.account.entity.Material;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.MaterialPage;
 
 public interface MaterialService {
@@ -49,4 +51,8 @@ public interface MaterialService {
     int findListCount(MaterialPage mPage);
     
     public List<Material> findAllList();
+    
+    List<Material> selectView(String title, String checker,PageUtil paging, String startTime, String endTime);
+
+	int selectViewCount(String title, String checker, String startTime, String endTime);
 }

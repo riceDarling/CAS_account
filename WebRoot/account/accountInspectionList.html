@@ -2,37 +2,45 @@
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i>送检单列表 <i class="fa fa-pencil-square"></i> <a href_1="accountInspectionForm.html">送检单添加</a>
+				<i class="fa fa-pencil-square"></i>送检单列表 <!-- <i class="fa fa-pencil-square"></i> <a href_1="accountInspectionForm.html">送检单添加</a> -->
 			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label class="col-lg-1 col-md-2 control-label" style="width:14% !important;margin-top:5px;">供应商：</label>
-				<div class="col-lg-4 col-md-6">
-					<input name="supplier" type="text" htmlEscape="false" class="form-control " style="margin-top:5px;" />
+				<label class="col-lg-1 col-md-2 control-label" style="width:88px; !important;top:6px;padding-right:0px;">供应商：</label>
+				<div class="col-lg-2 col-md-6">
+					<input name="supplier" id="supplier" type="text" htmlEscape="false" class="form-control " style="width:150px;padding-left:0;padding-right:0;" />
 				</div>
-				<label class="col-lg-1 col-md-2 control-label"style="width:10% !important;margin-top:5px;">状态：</label>
-				<div class="col-lg-4 col-md-6">
-					<select name="status" class="form-control" style="margin-top:5px;">
+				<label class="col-lg-1 col-md-2 control-label" style="width:45px;padding-left:0;padding-right:0;margin-top: 6px;">状态：</label>
+				<div class="col-lg-2 col-md-6">
+					<select name="status" id="status" class="form-control" style="width:110px;">
 						<option value="">请选择</option>
 						<option value="0">未完成</option>
 						<option value="1">已完成</option>
 					</select>
 				</div>
-				<label class="col-lg-1 col-md-3 control-label"style="width:14% !important;margin-top:5px;">开始日期：</label>
-				<div class="col-lg-4 col-md-6">
-					<input size="16" type="text" readonly style="margin-top:5px;" class="form_datetime form-control" name="beginDate">
-				</div>
-				<label class="col-lg-2 col-sm-3 control-label"style="width:10% !important;margin-top:5px;">结束日期：</label>
-				<div class="col-lg-3 col-md-6">
-					<input size="16" type="text" readonly style="margin-top:5px;" class="form_datetime form-control" name="endDate">
-				</div>
+				<!-- <label class="col-lg-1 col-md-3 control-label"style="width:14% !important;margin-top:5px;">开始日期：</label> -->
+				<div class="col-lg-2 col-md-3" style="width:140px;padding-right:5px;">
+					<!-- <input size="16" type="text" readonly style="margin-top:5px;" class="form_datetime form-control" name="beginDate"> -->
+                        <input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" name="beginDate" id="startTime" readonly="">
+                    </div>
+				<!-- <label class="col-lg-2 col-sm-3 control-label"style="width:10% !important;margin-top:5px;">结束日期：</label> -->
+				<div style="float:left;line-height:33px;">-</div>
+				<div class="col-lg-1 col-md-3" style="width:140px;padding-left:5px;">
+                     <input size="16" type="text" value="" placeholder="结束时间" class="form_datetime form-control" name="endDate" id="endTime" readonly="">
+                </div>
 			</div>
 			<div class="col-lg-1 col-sm-6">
-				<input id="btnCancel" class="btn btn-primary" style="margin-top:5px;" type="button" value="查询" />
+				<input id="btnCancel" class="btn btn-info" style="margin-top:-20px;" type="button" value="查询" />
 			</div>
+			<input class="btn btn-info btn-animate-demo flowadd-btn" style="margin-top: -2% !important;" type="button" value="添加送检单">
 		</div>
-		<div class="panel-body">
+		 <div class="panel">
+            <div class="panel-body table-wrap-t" style="padding-left:0;padding-right:0;">
+                <table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
+            </div>
+        </div>
+		<!-- <div class="panel-body">
 			<table class="table table-bordered table-condensed table-hover" id="example">
 				<thead>
 					<tr>
@@ -47,27 +55,21 @@
 				<tbody id="secondPageTbody">
 				</tbody>
 			</table>
-		</div>
+		</div> -->
 	</div>
 </div>
 <script>
-	$("[href_1]").click(function() {
+	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
-	});
-	$(".form_datetime").datetimepicker({
-		language : 'zh-CN',
-		minView : "month", //选择日期后，不会再跳转去选择时分秒 
-		format : 'yyyy-mm-dd',
-		todayBtn : 1,
-		autoclose : 1,
-	});
-	$("#btnCancel").click(function() {
+	}); */
+	
+	/* $("#btnCancel").click(function() {
 		var supplier = $("[name='supplier']").val();
 		var status = $("[name='status']").val();
 		var beginDate = $("[name='beginDate']").val();
 		var endDate = $("[name='endDate']").val();
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountInspectionController/findList",
+			url :"/account/accountInspectionController/findList",
 			type : "post",
 			async : false,
 			data : {
@@ -79,8 +81,9 @@
 			success : function(data) {
 				if (data.success) {
 					$("#secondPageTbody").empty();
-					var content = "<tr>"
+					var content ;
 					for ( var index in data.obj) {
+						content += "<tr>"
 						content += "<td>" + data.obj[index].arrivalnum + "</td>"
 						content += "<td>" + data.obj[index].ordernum + "</td>"
 						content += "<td>" + data.obj[index].supplier + "</td>"
@@ -100,12 +103,13 @@
 	});
 	$(function() {
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountInspectionController/findList",
+			url :"/account/accountInspectionController/findList",
 			type : "post",
 			success : function(data) {
 				if (data.success) {
-					var content = "<tr>"
+					var content ;
 						for ( var index in data.obj) {
+							content += "<tr>"
 							content += "<td>" + data.obj[index].arrivalnum + "</td>"
 							content += "<td>" + data.obj[index].ordernum + "</td>"
 							content += "<td>" + data.obj[index].supplier + "</td>"
@@ -131,10 +135,10 @@
 		$.cookie("accountInspectionNextList_supplier", supplier);
 		$("#index_content").load("accountInspectionNextList.html");
 	});
-	$("#secondPageTbody").on("click", ".selectCon2", function() {
+	$("#DataTables_Table_3").on("click", ".selfback-btn-sel", function() {
 		var id = $(this).attr("name");
 		$.ajax({
-			url : "http://" + IP_config + "/account/accountInspectionController/delete",
+			url : IP_config + "accountInspectionController/delete",
 			type : "post",
 			dataType : "json",
 			data : {
@@ -149,5 +153,373 @@
 				}
 			}
 		});
+	}); */
+	$(".form_datetime").datetimepicker({
+		language : 'zh-CN',
+		minView : "month", //选择日期后，不会再跳转去选择时分秒 
+		format : 'yyyy-mm-dd',
+		todayBtn : 1,
+		autoclose : 1,
 	});
+	//添加
+	$( '.flowadd-btn' ).click( function () {
+		$( 'body' ).append( 
+			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
+				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
+				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+			'</div>' 
+		);
+		$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+		//$.cookie("material_edit",'');
+		$( '.account-panel-content' ).load( 'accountInspectionForm.html' );
+		$( '.account-panel-container-closes' ).click( function () {
+			$( this ).parent().parent().remove();
+		} );
+	} );
+	//查看
+	$( '.selectCon' ).click( function () {
+		$( 'body' ).append( 
+			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
+				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
+				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+			'</div>' 
+		);
+		$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+		$( '.account-panel-content' ).load( 'accountInspectionNextList.html' );
+		$( '.account-panel-container-closes' ).click( function () {
+			$( this ).parent().parent().remove();
+		} );
+		
+	} );
+
+
+	var userid = $.cookie("login_userid");
+	//var material_editId = $.cookie("material_edit");
+	//$.cookie("material_edit",'');
+	function dataTable( table_data , data_total ){
+		
+		var	total_arr = new Array();
+		if ( table_data.length > 0 ) {
+			for ( var c in table_data ) {
+				var tempObj = new Object();
+				tempObj.ordernum = table_data[ c ].ordernum; 
+				tempObj.inspectiondate = new Date( table_data[ c ].inspectiondate ).format( 'yyyy-MM-dd hh:mm:ss' );  
+				//tempObj.inspectiondate = table_data[ c ].inspectiondate;  
+				
+				if ( $( '#status' ).val() == 0 ) {
+					tempObj.status = '未完成';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn work-btn-sel btn-info" >修改</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="'+table_data[ c ].id+'" class="btn btn-danger selfback-btn-sel">删除</a>';  
+				}
+				if ( $( '#status' ).val() == 1 ) {
+					tempObj.status = '完成';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn watch-btn-sel btn-success" >修改</a>';  
+				}
+				
+				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
+			}
+		}
+		var ccx = function () {
+			
+			$( '.table-container' ).DataTable({
+				searching : false,
+				data : total_arr,
+				lengthMenu : [30, 50, 100, 150],
+				aoColumns: [
+					{  
+						"mDataProp" : "USERID",  
+						"sDefaultContent" : "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错  
+						"bVisible" : false //此列不显示  
+					},
+					{  
+						"mDataProp" : "ordernum",  
+						"sTitle" : "送检单编号",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "inspectiondate",  
+						"sTitle" : "创建时间",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "status",  
+						"sTitle" : "状态",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "dataopt",  
+						"sTitle" : "操作",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					}
+				],
+				sScrollY : $( window ).height() - 350,
+				bPaginate: true, //翻页功能
+				bLengthChange: true, //改变每页显示数据数量
+				bFilter: true, //过滤功能
+				bSort: false, //排序功能
+				bInfo: true,//页脚信息
+				bScrollInfinite : true,
+				bAutoWidth: true,//自动宽度
+				language: {
+					"sInfo": "显示第 _START_ 至 _END_ ，共 _TOTAL_ 条",
+					"oPaginate": {
+						"sPrevious": "上页",
+						"sNext":     "下页",
+					}
+				}
+			});
+			$( '.dataTables_paginate.paging_simple_numbers' ).parent().append( 
+				'<div class="page-jump" style="width:110px;float:right;margin-right:20px;margin-top:20px;">' +
+					'<div><input class="btn btn-info btn-animate-demo page-jump-btn" id="" style="width:50px;float:left;" type="submit" value="跳转"></div>' +
+					'<div><input class="form-control page-jump-input" style="float:left;width:50px;margin-left:5px;" type="text" value="1" id=""></div>' +
+				'</div>' 
+			);
+			var _tpage = 0;
+			var nowpagesize = $( '.dataTables_length .form-control.input-sm' ).val();
+			var newpage = $( '.paginate_button.active a' ).text();
+			var endpagesize = 0;
+			var allpage = parseInt( data_total/nowpagesize );
+			if ( data_total%nowpagesize > 0 && data_total > nowpagesize ) {
+				allpage = allpage + 1;
+				endpagesize = newpage * nowpagesize;
+			} else if ( data_total <= nowpagesize ) {
+				allpage = 1;
+				endpagesize = data_total;
+			}
+			
+			$( '.dataTables_info' ).html( '显示 ' + endpagesize + ' 条 ，共 ' + data_total + ' 条 ' + allpage + ' 页'  );
+			
+			//上一页
+			$( '.paginate_button.previous a' ).click( function ( e ) {
+				
+				var nowpage_in = $( '.paginate_button.active a' ).text();
+				if ( nowpage_in != 1 ) {
+					nowpage_in = nowpage_in -1;
+				}
+				$.ajax( {
+					url : IP_config + "accountInspectionController/selectView",
+					type : "post",
+					data : {
+						title : $("#supplier").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.totalCount;
+					
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+				
+			} );
+			
+			//下一页
+			$( '.paginate_button.next a' ).click( function ( e ) {
+				
+				var nowpage_in = $( '.paginate_button.active a' ).text();
+				if ( nowpage_in < allpage ) {
+					nowpage_in = parseInt( nowpage_in - 0 + 1 );
+				}
+				
+				$.ajax( {
+					url : IP_config + "accountInspectionController/selectView",
+					type : "post",
+					data : {
+						title : $("#supplier").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.totalCount;
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+				
+			} );
+			//跳页
+			$( '.page-jump-btn' ).click( function () {
+				var nowpage_in = $( '.page-jump-input' ).val();
+				$.ajax( {
+					url : IP_config + "accountInspectionController/selectView",
+					type : "post",
+					data : {
+						title : $("#supplier").val(),
+						checker : userid,
+						procInsId : $( '#procInsId' ).val(),
+						startTime : $( '#startTime' ).val(),
+						endTime : $( '#endTime' ).val(),
+						pageSize : 30,
+						currentPage : nowpage_in
+					},
+					async : false,
+					success : function ( data1 ) {
+						var data_total = data1.obj.totalCount;
+						var table_data = data1.obj.list;
+						
+						dataTable( table_data , data_total );
+						$( '.paginate_button.active a' ).html( nowpage_in );
+					}
+				} );
+			} );
+			
+		}
+		
+		if ( $( '.table-container' ).children().length > 0 ) {
+			if ( data_total == 0 ) {
+				$( '.table-wrap-t' ).children().remove();
+				$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+				ccx();
+			} else {
+				$( '.table-wrap-t' ).children().remove();
+				$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+				ccx();
+			}
+		} else {
+			$( '.table-wrap-t' ).children().remove();
+			$( '.table-wrap-t' ).append( '<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>' );
+			ccx();
+		}
+		
+		$(".table-bordered").on("click", ".selfback-btn-sel", function() {
+			var _this = this;
+			$( 'body' ).RemindWokenSelect({
+				title : '确定删除？',
+				istrue : function () {
+					var id = $(_this).attr("name");
+					$.ajax({
+						url : IP_config + "accountInspectionController/delete",
+						type : "post",
+						dataType : "json",
+						data : {
+							"id" : id
+						},
+						success : function(data) {
+							if (data.success) {
+								$( 'body' ).RemindWokenSuccess( '操作成功' );
+								$("#index_content").load("accountInspectionList.html");
+							} else {
+								$( 'body' ).RemindWokenError( '操作失败' );
+							}
+						}
+					});
+				}
+			})
+		}); 
+		 
+		 $( '.work-btn-sel' ).click( function () {
+			$( 'body' ).append( 
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
+					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+				'</div>'
+			);
+			$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+			$( '.account-panel-container-closes' ).click( function () {
+				$( this ).parent().parent().remove();
+			} );
+			$.cookie( "accountInspectionNextList_id" , $(this).attr("name") );
+			$.cookie( "accountInspectionNextList_supplier" ,$(this).attr("supName") );
+			$(".account-panel-content").load( 'accountInspectionNextList.html' );
+		} );
+		
+		
+		/* $( '.selfback-btn-sel' ).click( function () {
+			$( 'body' ).append( 
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
+					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
+					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
+				'</div>'
+			);
+			$( '.account-panel-container' ).css( 'margin-top' , ( $( window ).height() - $( '.account-panel-container' ).height() )/2 );
+			$( '.account-panel-container-closes' ).click( function () {
+				$( this ).parent().parent().remove();
+			} );
+			$.cookie( "requisitionView_id" , $(this).attr("name") );
+			$(".account-panel-content").load( 'requisitionInView.html' );
+		} );   */
+	}
+
+	$.ajax( {
+		url : IP_config + "accountInspectionController/selectView",
+		dataType: "json",
+		type: "POST",
+		data :  {
+			title : $("#supplier").val(),
+			checker : userid,
+			procInsId : $( '#procInsId' ).val(),
+			startTime : $( '#startTime' ).val(),
+			endTime : $( '#endTime' ).val(),
+			pageSize : 30,
+			currentPage : 1
+		},
+		async : false,
+		success: function( data1 ) {
+			if ( data1.success ) {
+				var data_total = data1.obj.totalCount;
+				
+				var table_data = data1.obj.list;
+				
+				dataTable( table_data , data_total );
+			} else {
+				$( 'body' ).RemindWokenError( '查询失败' );
+			}
+			
+		}
+		
+	});
+	
+	//查询
+	$( '#btnCancel' ).click( function () {
+		
+		$.ajax( {
+			url : IP_config + "accountInspectionController/selectView",
+			dataType: "json",
+			type: "POST",
+			data : {
+				title : $("#supplier").val(),
+				checker : userid,
+				status:$("#status").val(),
+				procInsId : $( '#procInsId' ).val(),
+				startTime : $( '#startTime' ).val(),
+				endTime : $( '#endTime' ).val(),
+				pageSize : 30,
+				currentPage : 1
+			},
+			async : false,
+			success: function( data1 ) {
+				
+				var data_total = data1.obj.totalCount;
+				
+				var table_data = data1.obj.list;
+				
+				dataTable( table_data , data_total );
+			}
+			
+			
+		});
+	} );
+
 </script>

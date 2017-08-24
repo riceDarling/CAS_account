@@ -99,11 +99,67 @@
 		del_flag = '1'
 		WHERE id = #{id}
 	</update>
-	
+
 	<select id="getArrivalNum" resultType="map">
-	SELECT a.id,a.orderNum,a.arrivalNum,a.supplierNum,c.supplier FROM account_inspection a 
-	LEFT JOIN account_arrival b ON a.arrivalNum=b.arrivalnum
-	LEFT JOIN account_supplier c ON a.supplierNum=c.supplierNum
+		SELECT a.id,a.orderNum,a.arrivalNum,a.supplierNum,c.supplier FROM
+		account_inspection a
+		LEFT JOIN account_arrival b ON a.arrivalNum=b.arrivalnum
+		LEFT JOIN account_supplier c ON a.supplierNum=c.supplierNum
 	</select>
-	
+	<select id="selectView" parameterType="java.lang.String"
+		resultType="com.account.entity.AccountInspection">
+		SELECT
+		<include refid="accountInspectionColumns" />
+		,b.supplier as supplier
+		FROM
+		account_inspection a ,account_supplier b
+		WHERE
+		a.suppliernum=b.suppliernum
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test="status != null and status != ''">
+			and a.status = #{status}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.inspectiondate) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.inspectiondate) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		group by a.id ORDER BY a.inspectiondate DESC
+		<if test="paging != null">
+			<include refid="com.account.dao.SqlFragment.paging" />
+		</if>
+		;
+	</select>
+
+	<select id="selectViewCount" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(id) from (
+		SELECT
+		<include refid="accountInspectionColumns" />
+		,b.supplier as supplier
+		FROM
+		account_inspection a ,account_supplier b
+		WHERE
+		a.suppliernum=b.suppliernum
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test="status != null and status != ''">
+			and a.status = #{status}
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.inspectiondate) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.inspectiondate) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		group by a.id) as num
+	</select>
 </mapper>

@@ -172,4 +172,51 @@
 	  account_material a 
 	WHERE a.`del_flag` = 0 
   </select>
+  
+    
+  <select id="selectView" resultType="com.account.entity.AccountReject">
+		SELECT 
+			
+			<include refid="Material_List" />
+			
+		FROM 
+			account_material  a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				and a.title  LIKE concat('%',#{title},'%')
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(reate_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			order by a.create_date desc
+			<if test="paging != null">
+	        	<include refid="com.account.dao.SqlFragment.paging" />
+	      	</if>
+	      	;
+	</select>
+	
+	<select id="selectViewCount" resultType="int">
+		SELECT 
+			ifnull( count(DISTINCT a.id) , 0 )
+		FROM 
+			account_material a
+		where
+			a.del_flag = 0
+			<if test='title != null and title != ""'>
+				and a.title  LIKE concat('%',#{title},'%')
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
+			</if>
+			<if test='endTime != null and endTime != ""'>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			
+			
+	      	;
+	</select>
 </mapper>

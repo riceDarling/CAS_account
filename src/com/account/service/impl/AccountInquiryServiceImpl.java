@@ -18,10 +18,12 @@ import com.account.dao.AccountRequisitionActDao;
 import com.account.entity.AccountInquiry;
 import com.account.entity.AccountInquiryDetail;
 import com.account.entity.AccountPurchase;
+import com.account.entity.AccountRequisition;
 import com.account.entity.AccountRequisitionAct;
 import com.account.entity.Admin;
 import com.account.service.AccountInquiryService;
 import com.account.utils.FormatDateUtils;
+import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 
 @Service
@@ -126,7 +128,7 @@ public class AccountInquiryServiceImpl implements AccountInquiryService {
 		} else if ("end".equals(entity.getConclusion())) {
 			String checker=entity.getChecker();
 			// 结束标识
-			entity.setStatus("2");
+			entity.setStatus("end");
 			accountInquiryDao.setInquiryStatusById(entity.getId(), "2");
 			entity =accountInquiryDao.get(entity.getId());
 			AccountPurchase accountPurchase=new AccountPurchase();
@@ -176,6 +178,34 @@ public class AccountInquiryServiceImpl implements AccountInquiryService {
 		// TODO Auto-generated method stub
 		return accountInquiryDao.selectAllTitle();
 	}
+
+	@Override
+	public List<AccountInquiry> selectView(String title, String checker, String procInsId, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountInquiryDao.selectView(title, checker, procInsId, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String procInsId, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountInquiryDao.selectViewCount(title, checker, procInsId, startTime, endTime);
+	}
+
+	@Override
+	public void saveEnd(String accountInquiryid) {
+		AccountInquiry accountInquiry=new AccountInquiry();
+		
+		Subject subject = SecurityUtils.getSubject();
+		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");
+		accountInquiry.setId(accountInquiryid);
+		accountInquiry.setStatus("end");
+		accountInquiry.setUpdate(new Date());
+		accountInquiry.setUpdateBy(loginAdmin.getId().toString());
+		accountInquiryDao.update(accountInquiry);
+		
+	}
+
+
 
 
 }

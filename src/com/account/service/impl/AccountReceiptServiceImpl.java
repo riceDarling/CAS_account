@@ -1,5 +1,7 @@
 package com.account.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.account.dao.AccountReceiptDao;
 import com.account.entity.AccountReceipt;
 import com.account.service.AccountReceiptService;
+import com.account.utils.PageUtil;
 
 @Service
 public class AccountReceiptServiceImpl implements AccountReceiptService {
@@ -22,6 +25,10 @@ public class AccountReceiptServiceImpl implements AccountReceiptService {
 			accountReceiptDao.update(accountReceipt);
 		} else {
 			accountReceipt.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			if(accountReceipt.getBillingdate()==null||accountReceipt.getBillingdate().trim().length()<=0)
+			{
+				accountReceipt.setBillingdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountReceiptDao.save(accountReceipt);
 		}
 	}
@@ -44,6 +51,16 @@ public class AccountReceiptServiceImpl implements AccountReceiptService {
 	@Override
 	public AccountReceipt getById(String id) {
 		return accountReceiptDao.getById(id);
+	}
+
+	@Override
+	public List<AccountReceipt> selectView(String supplier, PageUtil paging, String beginDate, String endDate) {
+		return accountReceiptDao.selectView(supplier, paging, beginDate, endDate);
+	}
+
+	@Override
+	public int selectViewCount(String supplier, String beginDate, String endDate) {
+		return accountReceiptDao.selectViewCount(supplier, beginDate, endDate);
 	}
 
 }

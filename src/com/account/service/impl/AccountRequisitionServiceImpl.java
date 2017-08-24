@@ -26,6 +26,7 @@ import com.account.entity.AccountRequisitionDetail;
 import com.account.entity.Admin;
 import com.account.service.AccountRequisitionService;
 import com.account.utils.FormatDateUtils;
+import com.account.utils.PageUtil;
 import com.account.utils.RandomUtils;
 
 /**
@@ -159,7 +160,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 		accountRequisitionActDao.update(now_act);
 		if ("yes".equals(accountRequisition.getConclusion())) {
 			// 如果有人进行审核并且通过，修改主表状态为"examine"
-			accountRequisition.setProcInsId("examine");
+			//accountRequisition.setProcInsId("examine");
 			accountRequisition.setAct_checker(accountRequisition.getChecker());
 			accountRequisitionDao.update(accountRequisition);
 			// 如果同意则，进入下一个节点
@@ -189,7 +190,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 			entity.setOrdernum(ordernum);
 			entity.setInquirynum(inquirynum);
 			entity.setRequisition(accountRequisition.getId());
-			entity.setStatus("0");
+			entity.setStatus("start");
 			entity.setTitle(accountRequisition.getTitle());
 
 			// 询价人
@@ -207,6 +208,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 			List<Map<String, Object>> list=accountRequisitionDetailDao.getDetailMapByparentid(accountRequisition.getId());
 			for (Map<String, Object> map : list) {
 				String materialNum=(String) map.get("materialNum");
+				Integer units=(Integer) map.get("units");
 				List<Map<String, Object>> materialSupplier=materialSupplierMapper.selectMapByMaterialNum(materialNum);
 				for (Map<String, Object> material : materialSupplier) {
 					String ai_supplierNum=(String) material.get("supplierNum");//供应商编号
@@ -220,6 +222,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 					accountInquiryDetail.setMaterialcode(ai_materialNum);
 					accountInquiryDetail.setMaterialname(ai_materialName);
 					accountInquiryDetail.setSize(ai_size);
+					accountInquiryDetail.setUnit(units);
 					
 					accountInquiryDetail.setMaker(loginAdmin.getId().toString());
 					accountInquiryDetail.setCreateBy(loginAdmin.getId().toString());
@@ -278,6 +281,18 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 	@Override
 	public List<AccountRequisition> getAccountPurchaseTitle() {
 		return accountRequisitionDao.getAccountPurchaseTitle();
+	}
+
+	@Override
+	public List<AccountRequisition> selectView(String title, String checker, String procInsId, PageUtil paging, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountRequisitionDao.selectView(title, checker, procInsId, paging, startTime, endTime);
+	}
+
+	@Override
+	public int selectViewCount(String title, String checker, String procInsId, String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		return accountRequisitionDao.selectViewCount(title, checker, procInsId, startTime, endTime);
 	}
 
 }

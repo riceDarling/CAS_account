@@ -73,7 +73,7 @@ label{margin-top: 8px;}
 			eTime:$("#eTime").val()
 		};
 		$.ajax({
-			 url:"http://"+IP_config+"/account/material/findList",
+			 url:IP_config+"material/findList",
 				type:"post",
 				data:mPage,
 				async:false,
@@ -108,7 +108,7 @@ label{margin-top: 8px;}
 		var id = $(this).attr("del_id");
 		
 		$.ajax({
-			url:"http://"+IP_config+"/account/material/delete",
+			url:IP_config+"material/delete",
 			type:"post",
 			data:{
 				"id" : id

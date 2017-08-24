@@ -2,7 +2,11 @@ package com.account.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.account.entity.ParaInfo;
+import com.account.entity.Warehouse;
+import com.account.utils.PageUtil;
 import com.account.utils.pagebean.ParaInfoPage;
 
 public interface ParaInfoMapper {
@@ -48,4 +52,21 @@ public interface ParaInfoMapper {
     int findListCount(ParaInfoPage piPage);
     
     public List<ParaInfo> getParaInfoList(int pId);
+    
+    public List<ParaInfo> selectView(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("paging") PageUtil paging,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
+	
+	
+	
+	public int selectViewCount(
+			@Param("title") String title ,
+			@Param("checker") String checker ,
+			@Param("startTime") String startTime,
+			@Param("endTime") String endTime
+	);
 }

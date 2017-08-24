@@ -15,7 +15,7 @@ public class AccountInquiryDetail extends BaseModel {
 	private String supplier; // 供应商名称
 	private String materialname; // 物资名称
 	private String size; // 规格型号
-	private String unit; // 计量单位
+	private Integer unit; // 计量单位
 	private String unitprice; // 单价(自动计算（保留两位）
 	private String requisition; // 申请单号
 	private String maker; // 制单人
@@ -28,6 +28,16 @@ public class AccountInquiryDetail extends BaseModel {
 	private int state;// 是否选中进行审批
 
 	private String remarks;
+
+	private String unit_name;// 计量单位名称
+
+	public String getUnit_name() {
+		return unit_name;
+	}
+
+	public void setUnit_name(String unit_name) {
+		this.unit_name = unit_name;
+	}
 
 	public int getState() {
 		return state;
@@ -142,12 +152,11 @@ public class AccountInquiryDetail extends BaseModel {
 		this.size = size;
 	}
 
-	@Length(min = 1, max = 35, message = "计量单位长度必须介于 1 和 35 之间")
-	public String getUnit() {
+	public Integer getUnit() {
 		return unit;
 	}
 
-	public void setUnit(String unit) {
+	public void setUnit(Integer unit) {
 		this.unit = unit;
 	}
 

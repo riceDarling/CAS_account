@@ -151,7 +151,7 @@
 		$("#submitbtn").click(function() {
 			var data = $("#supplier_form").serialize();
 			$.ajax({
-				url : "../supplier/insert",
+				url : IP_config + "supplier/insert",
 				type : "post",
 				data : data,
 				dataType : "json",
@@ -167,7 +167,7 @@
 			//alert(supplier_editId);
 			if(supplier_editId != null) {
 				$.ajax({
-					url : "../supplier/selectById",
+					url : IP_config + "supplier/selectById",
 					type : "post",
 					data : {
 						"id" : supplier_editId,
