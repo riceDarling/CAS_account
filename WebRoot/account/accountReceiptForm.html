@@ -335,13 +335,38 @@
 						});
 						if (accountReceipt != null && accountReceipt != "") {
 							$('body').RemindWokenSuccess('操作成功');
-							setTimeout(function(){
+							/*setTimeout(function(){
 								$(".account-panel").remove();
 							},600);
-							$("#index_content").load("accountReceiptList.html");
+							$("#index_content").load("accountReceiptList.html");*/
+							$.ajax({
+								url : IP_config + "accountReceiptController/selectView",
+								type : "post",
+								data : {
+									supplier : $("#supplier").val(),
+									beginDate : $('#startTime').val(),
+									endDate : $('#endTime').val(),
+									pageSize : 30,
+									currentPage : 1
+								},
+								async : false,
+								success : function(data1) {
+									if (data1.success) {
+										//debugger;
+										var data_total = data1.obj.totalCount;
+										var table_data = data1.obj.list;
+						
+										dataTable(table_data, data_total);
+									} else {
+										$('body').RemindWokenError('查询失败');
+									}
+						
+									//$( '.paginate_button.active a' ).html( nowpage_in );
+								}
+							});
 						} else {
 							$('body').RemindWokenError('操作失败');
-							$("#index_content").load("accountReceiptForm.html");
+							/*$("#index_content").load("accountReceiptForm.html");*/
 						}
 					}
 				})

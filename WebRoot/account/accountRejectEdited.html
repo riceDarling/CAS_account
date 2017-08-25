@@ -48,9 +48,7 @@
 </div>
 
 <script>
-	$("[href_1]").click(function() {
-		$("#index_content").load($(this).attr("href_1"));
-	});
+	
 	var accountRejectId=$.cookie("rejectEdited_id");
 	$.ajax("../accountReject/get", {
 		dataType: "json",
@@ -122,10 +120,35 @@
 					//提交成功
 					//layer.alert(data.msg);
 					$( 'body' ).RemindWokenSuccess( '操作成功' );
-					setTimeout(function(){
+					/*setTimeout(function(){
 						$(".account-panel").remove();
 					},600);
-					$("#index_content").load("accountRejectList.html");
+					$("#index_content").load("accountRejectList.html");*/
+					$.ajax( {
+						url : IP_config + "accountReject/selectView",
+						type : "post",
+						data : {
+							supplier : $("#supplier").val(),
+							beginDate : $( '#startTime' ).val(),
+							endDate : $( '#endTime' ).val(),
+							pageSize : 30,
+							currentPage : 1
+						},
+						async : false,
+						success : function ( data1 ) {
+							if ( data1.success ) {
+								//debugger;
+								var data_total = data1.obj.totalCount;
+								var table_data = data1.obj.list;
+							
+								dataTable( table_data , data_total );
+							} else {
+								$( 'body' ).RemindWokenError( '查询失败' );
+							}
+							
+							//$( '.paginate_button.active a' ).html( nowpage_in );
+						}
+					} );
 				}else{
 					//提交失败提示
 					//layer.alert(data.msg);
@@ -153,10 +176,35 @@
 					//提交成功
 					//layer.alert(data.msg);
 					$( 'body' ).RemindWokenSuccess( '操作成功' );
-					setTimeout(function(){
+					/*setTimeout(function(){
 						$(".account-panel").remove();
 					},600);
-					$("#index_content").load("accountRejectList.html");
+					$("#index_content").load("accountRejectList.html");*/
+					$.ajax( {
+						url : IP_config + "accountReject/selectView",
+						type : "post",
+						data : {
+							supplier : $("#supplier").val(),
+							beginDate : $( '#startTime' ).val(),
+							endDate : $( '#endTime' ).val(),
+							pageSize : 30,
+							currentPage : 1
+						},
+						async : false,
+						success : function ( data1 ) {
+							if ( data1.success ) {
+								//debugger;
+								var data_total = data1.obj.totalCount;
+								var table_data = data1.obj.list;
+							
+								dataTable( table_data , data_total );
+							} else {
+								$( 'body' ).RemindWokenError( '查询失败' );
+							}
+							
+							//$( '.paginate_button.active a' ).html( nowpage_in );
+						}
+					} );
 				}else{
 					//提交失败提示
 					//layer.alert(data.msg);

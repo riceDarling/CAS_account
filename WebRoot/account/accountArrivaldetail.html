@@ -135,7 +135,7 @@
 		//提交保存
 		$("#submitbtn").click(function() {
 			$( 'body' ).RemindWokenSelect({
-				title : '确定提交？',
+				title : '确定保存？',
 				istrue : function () {
 					if ($("#arrivalnum").val() != null && $("#arrivalnum").val() != "") {
 						if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
@@ -182,13 +182,39 @@
 							$.cookie("accountArrivalList_id", null);
 							if (accountArrival != null && accountArrival != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								setTimeout(function(){
+								$.ajax( {
+									url : IP_config + "accountArrivalController/selectView",
+									type : "post",
+									data : {
+										supplier : $("#supplier").val(),
+										arrivalstatus : $( '#procInsId' ).val(),
+										beginDate : $( '#startTime' ).val(),
+										endDate : $( '#endTime' ).val(),
+										pageSize : 30,
+										currentPage : 1
+									},
+									async : false,
+									success : function ( data1 ) {
+										if ( data1.success ) {
+											//debugger;
+											var data_total = data1.obj.totalCount;
+											var table_data = data1.obj.list;
+										
+											dataTable( table_data , data_total );
+										} else {
+											$( 'body' ).RemindWokenError( '查询失败' );
+										}
+										
+										//$( '.paginate_button.active a' ).html( nowpage_in );
+									}
+								} );
+								/*setTimeout(function(){
 									$(".account-panel").remove();
-								},600);
-								$("#index_content").load("accountArrivalList.html");
+								},600);*/
+								//$("#index_content").load("accountArrivalList.html");
 							} else {
-								$( 'body' ).RemindWokenError( '操作失败' );
-								$("#index_content").load("accountArrivalForm.html");
+								$( 'body' ).RemindWokenError( '保存失败' );
+								//$("#index_content").load("accountArrivalForm.html");
 							}
 						} else {
 							$( 'body' ).RemindWokenError( '请选择订货单!' );

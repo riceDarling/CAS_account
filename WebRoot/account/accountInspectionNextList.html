@@ -192,13 +192,38 @@
 							$.cookie("accountInspectionNextList_supplier", null);
 							if (accountInspection != null && accountInspection != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								setTimeout(function(){
+								/*setTimeout(function(){
 									$(".account-panel").remove();
-								},600);
-								$("#index_content").load("accountInspectionList.html");
+								},600);*/
+								$.ajax( {
+									url : IP_config + "accountInspectionController/selectView",
+									dataType: "json",
+									type: "POST",
+									data :  {
+										supplier : $("#supplier").val(),
+										status:$("#status").val(),
+										startTime : $( '#startTime' ).val(),
+										endTime : $( '#endTime' ).val(),
+										pageSize : 30,
+										currentPage : 1
+									},
+									async : false,
+									success: function( data1 ) {
+										if ( data1.success ) {
+											var data_total = data1.obj.totalCount;
+											
+											var table_data = data1.obj.list;
+											
+											dataTable( table_data , data_total );
+										} else {
+											$( 'body' ).RemindWokenError( '查询失败' );
+										}
+										
+									}
+									
+								});
 							} else {
 								$( 'body' ).RemindWoken( '查询失败' );
-								$("#index_content").load("accountInspectionForm.html");
 							}
 						} else {
 							$( 'body' ).RemindWokenError( '请选择到货单号!' );

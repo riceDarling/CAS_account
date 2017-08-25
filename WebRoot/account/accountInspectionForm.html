@@ -7,7 +7,7 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">到货单(必选)：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0; text-align:right;">到货单(必选)：</label> 
 				<div class="col-lg-3 col-md-6">
 					<select class="form-control" name="orderNumtitle" id="orderNumtitleName">
 					</select>
@@ -17,7 +17,7 @@
 				</div>
 			<!-- </div>
 			<div class="form-group"> -->
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">送检单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0;text-align:right;">送检单号：</label> 
 				<div class="col-lg-5 col-md-6">
 					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:210px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
 					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
@@ -25,14 +25,14 @@
 			</div>
 			
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">到货单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">到货单号：</label> 
 				<div class="col-lg-4 col-md-6">
 					<input name="arrivalnum" id="arrivalnumInsp" style="margin-top: 5px;" readonly="true"  htmlEscape="false" maxlength="32" class="form-control" />
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">供应商名称：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">供应商名称：</label> 
 				<div class="col-lg-5 col-md-6">
 					<input type="text" hidden="true" id="suppliernumInsp" /> 
 					<input type="text"  id="supplierInsp" style="margin-top: 5px;"  class="form-control" /></span>
@@ -40,13 +40,13 @@
 			</div>
 			
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">送检日期：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检日期：</label> 
 				<div class="col-lg-4 col-md-6">
 					<input size="16" type="text" readonly  style="margin-top: 5px;" class="form_datetime form-control" name="inspectiondate">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 13px;padding-left: 0;padding-right: 0;">备注信息：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">备注信息：</label> 
 				<div class="col-lg-5 col-md-6">
 					<textarea name="remarks" htmlEscape="false"  style="margin-top: 5px;" class="form-control" />
 				</div>
@@ -235,13 +235,39 @@
 							});
 							if (aiArr != null && aiArr != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								setTimeout(function(){
+								/*setTimeout(function(){
 									$(".account-panel").remove();
-								},600);
-								$("#index_content").load("accountInspectionList.html");
+								},600);*/
+								$.ajax( {
+									url : IP_config + "accountInspectionController/selectView",
+									dataType: "json",
+									type: "POST",
+									data :  {
+										supplier : $("#supplier").val(),
+										status:$("#status").val(),
+										startTime : $( '#startTime' ).val(),
+										endTime : $( '#endTime' ).val(),
+										pageSize : 30,
+										currentPage : 1
+									},
+									async : false,
+									success: function( data1 ) {
+										if ( data1.success ) {
+											var data_total = data1.obj.totalCount;
+											
+											var table_data = data1.obj.list;
+											
+											dataTable( table_data , data_total );
+										} else {
+											$( 'body' ).RemindWokenError( '查询失败' );
+										}
+										
+									}
+									
+								});
 							} else {
 								$( 'body' ).RemindWoken( '查询失败' );
-								$("#index_content").load("accountInspectionForm.html");
+								
 							}
 						} else {
 							$( 'body' ).RemindWokenError( '请选择到货单号!' );

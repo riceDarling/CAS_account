@@ -81,7 +81,7 @@
 						<textarea name="remarks" id="title-remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group" style="padding-left:15px;float:left;margin-bottom:15px;">
+				<div class="control-group" style="padding-left:15px;">
 					<label class="control-label">采购原料：</label>
 					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
 						<thead>
@@ -169,7 +169,7 @@
 					$("#contentTable tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input style='width:100%;' type='text'class='form-control' onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input style='width:100%;' type='text'  value='" + data.obj[i].unitprice + "' class='form-control' onchange='money()' ></td><td>" + "<input style='width:100%;' type='text' class='form-control'  value='"+ data.obj[i].money +"'></td></tr>";
+						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input style='width:100%;' type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input style='width:100%;' type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input style='width:100%;' type='text'  value='"+ data.obj[i].money +"'></td></tr>";
 					}
 					$("#contentTable tbody").html(html);
 				}
@@ -209,7 +209,7 @@
 	//提交保存合同
 	$("#submitbtn").click(function() {
 		$( 'body' ).RemindWokenSelect({
-			title : '确定提交？',
+			title : '确定保存？',
 			istrue : function () {
 				if ($("#title-contractnum").val() != null && $("#title-contractnum").val() != "") {
 					if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
@@ -258,13 +258,41 @@
 						$.cookie( "accountContract_supplier" , null )
 						if (accountContract != null && accountContract != "") {
 							$( 'body' ).RemindWokenSuccess("保存成功");
-							$("#index_content").load("accountContractList.html");
-							setTimeout(function(){
+							$.ajax( {
+								url : IP_config + 'accountContractController/selectView',
+								dataType: "json",
+								type: "POST",
+								data :  {
+									purchasenumtitle : $("#purchasenumtitle").val(),
+									contracttitle : $( '#contracttitle' ).val(),
+									status : $( '#procInsId' ).val(),
+									beginDate : $( '#startTime' ).val(),
+									endDate : $( '#endTime' ).val(),
+									pageSize : 30,
+									currentPage : 1
+								},
+								async : false,
+								success: function( data1 ) {
+								
+									if ( data1.success ) {
+										var data_total = data1.obj.totalCount;
+										var table_data = data1.obj.list;
+										if ( data1.obj.list.length < 2 && data1.obj.list[ 0 ].contractnum == null ) {
+											data_total = 0;
+											table_data = [];
+										}
+										dataTable( table_data , data_total );
+									} else {
+										$( 'body' ).RemindWoken( '查询失败' );
+									}
+								}
+							});
+							/*setTimeout(function(){
 								$(".account-panel").remove();
-							},600);
+							},600);*/
 						} else {
 							$( 'body' ).RemindWokenError("保存失败");
-							$("#index_content").load("accountContractForm.html");
+							
 						};
 					} else {
 						$( 'body' ).RemindWoken("请添写合同名称!");
