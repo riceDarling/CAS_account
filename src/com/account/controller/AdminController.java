@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.account.entity.Admin;
 import com.account.service.AdminService;
-import com.account.utils.MD5Util;
 import com.account.utils.ResponseModel;
 
 
@@ -44,7 +43,7 @@ public class AdminController {
 	public ResponseModel<String> insertSelective(Admin admin, HttpServletRequest req, HttpServletResponse resp) {
 		ResponseModel<String> rm = new ResponseModel<String>();
 		try {
-			admin.setPassword(MD5Util.encode2hex(admin.getPassword().trim()));
+			admin.setPassword(admin.getPassword());
 			adminService.insertSelective(admin);
 			rm.isSuccessMsg("","新增账号成功");
 		} catch (Exception e) {
@@ -58,7 +57,7 @@ public class AdminController {
 	public ResponseModel<Admin> login(Admin admin,HttpServletRequest request,HttpServletResponse response){
 		ResponseModel<Admin> rm=new ResponseModel<Admin>();
 		try{
-			UsernamePasswordToken token = new UsernamePasswordToken(admin.getUsername(), MD5Util.encode2hex(admin.getPassword()));
+			UsernamePasswordToken token = new UsernamePasswordToken(admin.getUsername(), admin.getPassword());
 			Subject subject = SecurityUtils.getSubject();
 			subject.login(token);
 			if (subject.isAuthenticated()) {

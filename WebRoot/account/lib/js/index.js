@@ -11,7 +11,9 @@ $(function(){
 			if(data.success){
 				//获取用户成功
 				$("#index_username").text(data.obj.userrole);
+				
 				$.cookie("login_userid",data.obj.id);
+				$.cookie("menu_0",data.obj.menu_0);
 			}else{
 				//获取用户失败，跳转到登录页
 				location.href=IP_config + "index.html";

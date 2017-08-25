@@ -169,7 +169,7 @@
 					$("#contentTable tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input type='text'  value='"+ data.obj[i].money +"'></td></tr>";
+						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input style='width:100%;' type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input style='width:100%;' type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input style='width:100%;' type='text'  value='"+ data.obj[i].money +"'></td></tr>";
 					}
 					$("#contentTable tbody").html(html);
 				}

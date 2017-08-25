@@ -56,6 +56,12 @@
 		todayBtn:  1,
 		autoclose: 1
 	});
+	
+	
+	if ( $.cookie( "menu_0" ) == 1 ) {
+	
+		$( '#add-contrack-btn' ).css( 'display' , 'none' );
+	}
 
 	function dataTable( table_data , data_total ){
 
