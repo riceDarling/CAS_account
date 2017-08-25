@@ -51,6 +51,7 @@
 						<tr>
 							<th>物资名称</th>
 							<th>规格型号</th>
+							<th>单位</th>
 							<th>单价</th>
 							<th>总价</th>
 							<th>订货数量</th>
@@ -99,7 +100,7 @@
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td>"+data.obj[i].num+"</td></tr>";
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td>"+data.obj[i].num+"</td></tr>";
 						}
 					$("#contentTable>tbody").html(html);
 					$.cookie("accountArrivalList_id2", null);

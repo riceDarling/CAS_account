@@ -39,7 +39,17 @@ public class AccountPurchaseDetail extends BaseModel {
 	private String materialname;// 物资名称
 	private String size;// 规格型号
 
+	private String units; // 计量单位
+
 	private PageUtil<AccountPurchaseDetail> page;
+
+	public String getUnits() {
+		return units;
+	}
+
+	public void setUnits(String units) {
+		this.units = units;
+	}
 
 	public String getSize() {
 		return size;

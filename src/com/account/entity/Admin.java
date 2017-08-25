@@ -19,10 +19,50 @@ public class Admin {
 
     private Boolean atype;
     
-    private String usename;
     private String userrole;
+    
+    private Integer menu_0;//采购模块，操作权限
+    
+    private Integer menu_1;
+    
+    private Integer menu_2;
+    
+    private Integer menu_3;
+    
 
-    public Integer getId() {
+    public Integer getMenu_0() {
+		return menu_0;
+	}
+
+	public void setMenu_0(Integer menu_0) {
+		this.menu_0 = menu_0;
+	}
+
+	public Integer getMenu_1() {
+		return menu_1;
+	}
+
+	public void setMenu_1(Integer menu_1) {
+		this.menu_1 = menu_1;
+	}
+
+	public Integer getMenu_2() {
+		return menu_2;
+	}
+
+	public void setMenu_2(Integer menu_2) {
+		this.menu_2 = menu_2;
+	}
+
+	public Integer getMenu_3() {
+		return menu_3;
+	}
+
+	public void setMenu_3(Integer menu_3) {
+		this.menu_3 = menu_3;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -86,13 +126,6 @@ public class Admin {
         this.atype = atype;
     }
 
-	public String getUsename() {
-		return usename;
-	}
-
-	public void setUsename(String usename) {
-		this.usename = usename;
-	}
 
 	public String getUserrole() {
 		return userrole;

@@ -39,6 +39,7 @@
 									<tr>
 										<th class="visible-lg">物资名称</th>
 										<th class="visible-lg">型号</th>
+										<th class="visible-lg">计量单位</th>
 										<th class="visible-lg">单价</th>
 										<th class="visible-lg">数量</th>
 										<th class="visible-lg">总价</th>
@@ -99,7 +100,7 @@ $("#requisitionAudit_next").click(function(){
 	$( 'body' ).RemindWokenSelect({
 		title : '确定提交？',
 		istrue : function () {
-			if ( $( '#requisitionAudit_checker_label' ).val() == null || $( '#requisitionAudit_checker_label' ).val() == '' ) {
+			if ( $( '#requisitionAudit_checker' ).val() == null || $( '#requisitionAudit_checker' ).val() == '' ) {
 				$( 'body' ).RemindWoken( '必须选择审核人' );
 					return;
 				}
@@ -144,6 +145,7 @@ $("#requisitionAudit_end").click(function(){
 						html += '<tr><td>'
 								+ detail.materialname + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
+								+ detail.units+'</td>' + '<td>'
 								+ detail.unitprice + '</td>' + '<td>'
 								+ detail.quantity + '</td>' + '<td>'
 								+ detail.totlemoney + '</td></tr>';

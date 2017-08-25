@@ -10,9 +10,13 @@
     <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
     <result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
     <result column="aType" jdbcType="BIT" property="atype" />
+     <result column="menu_0" jdbcType="INTEGER" property="menu_0" />
+      <result column="menu_1" jdbcType="INTEGER" property="menu_1" />
+       <result column="menu_2" jdbcType="INTEGER" property="menu_2" />
+        <result column="menu_3" jdbcType="INTEGER" property="menu_3" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, pid, username, password, startTime, endTime, loginTime, aType
+    id, pid, username, password, startTime, endTime, loginTime, aType,menu_0,menu_1,menu_2,menu_3
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

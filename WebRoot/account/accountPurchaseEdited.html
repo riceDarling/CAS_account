@@ -21,6 +21,7 @@
 					<tr>
 						<th class="visible-lg">物资名称</th>
 						<th class="visible-lg">型号</th>
+						<th class="visible-lg">计量单位</th>
 						<th class="visible-lg">单价</th>
 						<th class="visible-lg">数量</th>
 						<th class="visible-lg">总价</th>
@@ -89,10 +90,10 @@
 	
 	$("#secondPageTbody").on("change",".money",function(){
 		var	quantity=$(this).val();
-		var unitprice=$(this).parent().parent().children("td").eq(2).text();
+		var unitprice=$(this).parent().parent().children("td").eq(3).text();
 		var totlemoney=quantity*unitprice;
 		if(!isNaN(totlemoney)){
-			$(this).parent().parent().children("td").eq(4).find("input").val(totlemoney.toFixed(2));
+			$(this).parent().parent().children("td").eq(5).find("input").val(totlemoney.toFixed(2));
 		}
 	});
 	
@@ -124,6 +125,7 @@
 						html += '<tr><td materialcode="'+detail.materialcode+'">'
 								+ detail.materialname + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
+								+ detail.units+'</td>' + '<td>'
 								+ detail.unitprice + '</td>' + '<td>';
 								html+='<input type="text"   value="'+detail.quantity+'" class="input-small required form-control money" name="quantity" >'+'</td><td>';
 								html+='<input type="text" value="'+detail.totlemoney+'" class="input-small  required form-control" name="totlemoney" readonly>'+'</td></tr>';

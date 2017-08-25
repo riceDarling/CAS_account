@@ -25,6 +25,7 @@ public interface AccountArrivalDao {
 	AccountArrival getById(String id);
 
 	public List<AccountArrival> findAllorderNum();
+	public List<AccountArrival> findorderNum();
 	List<Map<String, Object>> findAllTitle();
 	  public List<AccountArrival> selectView(
 				@Param("supplier") String supplier ,

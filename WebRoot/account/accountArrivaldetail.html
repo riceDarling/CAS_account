@@ -6,51 +6,52 @@
 			</h3>
 		</div>
 		<div class="panel-body">
-		<div class="control-group">
+		<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 			<label class="control-label">到货单号：</label>
 			<div class="controls">
 			<input type="text"  name="id" hidden="true" id="payId" style="width:30%  !important;"  />
-				<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:30%  !important;"  maxlength="32" id="arrivalnum" class="form-control" /> 
+				<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:70%  !important;"  maxlength="32" id="arrivalnum" class="form-control" /> 
 			</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 				<label class="control-label">订货单号：</label>
 				<div class="controls">
-					<input name="ordernum" id="ordernum" readonly="true" htmlEscape="false" style="width:30%  !important;"  maxlength="32" class="form-control" />
+					<input name="ordernum" id="ordernum" readonly="true" htmlEscape="false" style="width:70%  !important;"  maxlength="32" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 				<label class="control-label">供应商名称：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="suppliernum" style="width:30%  !important;"  /> 
-					<input type="text" readonly="true" id="supplierDetail" style="width:30%  !important;"  class="form-control"  /></span>
+					<input type="text" hidden="true" id="suppliernum" style="width:70%  !important;"  /> 
+					<input type="text" readonly="true" id="supplierDetail" style="width:70%  !important;"  class="form-control"  /></span>
 				</div>
 			</div>
-			<div class="control-group" hidden="true">
+			<div class="control-group" hidden="true" style="width:310px;padding:10px 0; float:left;">
 					<label class="control-label">到货状态：</label>
 					<div class="controls">
-						<input name="arrivalstatus" id="arrivalstatus" style="width:30%  !important;"  htmlEscape="false" style="width:30%;"  maxlength="32" class="form-control" />
+						<input name="arrivalstatus" id="arrivalstatus" style="width:70%  !important;"  htmlEscape="false" style="width:30%;"  maxlength="32" class="form-control" />
 					</div>
 				</div>
-			<div class="control-group">
+			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 				<label class="control-label">到货日期：</label>
 				<div class="controls">
-					<input size="16" type="text"  readonly class="form_datetime form-control" style="width:30%  !important;"  name="arrivalDate" id="arrivalDate">
+					<input size="16" type="text"  readonly class="form_datetime form-control" style="width:70%  !important;"  name="arrivalDate" id="arrivalDate">
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 				<label class="control-label">备注信息：</label>
 				<div class="controls">
-					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:30%  !important;"  rows="4" maxlength="255" class="form-control" />
+					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:70%  !important;"  rows="4" maxlength="255" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="padding:10px 0; float:left;width: 100%;">
 				<label class="control-label">到货原料：</label>
 				<table class="table table-bordered table-condensed table-hover" id="contentTable">
 					<thead>
 						<tr>
 							<th>物资名称</th>
 							<th>规格型号</th>
+							<th>单位</th>
 							<th>单价</th>
 							<th>总价</th>
 							<th>订货数量</th>
@@ -61,14 +62,13 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div class="panel-body">
+			<div class="panel-body" style="clear:both;padding:10px 0; float:right;">
 			<form class="form-horizontal row-border">
 				<div class="control-group">
 					<input id="submitbtn" class="btn btn-primary" style="margin-right:5px;" type="button" value="保 存" />
-					<input id="btnCancel" class="btn" type="button" value="返 回" />
 				</div>
 			</form>
+		</div>
 		</div>
 	</div>
 </div>
@@ -83,19 +83,15 @@
 		function mathnum() {
 			var len = $("#contentTable>tbody>tr").length;
 			for(var i = 0;i < len;i++){
-				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
-				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
+				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
 				if(num>quantity||num<0){
 					$( 'body' ).RemindWokenError( '到货数量输入有误,请重新输入!' );
-					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val("");
-					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").focus();
+					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val("");
+					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").focus();
 				} 
 			}
 		}
-		//返回
-		$("#btnCancel").click(function() {
-			$("#index_content").load("accountArrivalList.html");
-		});
 		$(function() {
 			if ($.cookie("accountArrivalList_id") != "null") {
 				$("#payId").val($.cookie("accountArrivalList_id"));
@@ -130,7 +126,7 @@
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td><input type='text' value='"+data.obj[i].num+"' name='num'   onchange='mathnum()' /></td></tr>";
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td><input type='text' value='"+data.obj[i].num+"' name='num'   onchange='mathnum()' /></td></tr>";
 						}
 					$("#contentTable>tbody").html(html);
 				}
@@ -160,13 +156,15 @@
 								var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
 								var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
 								var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
-								var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
-								var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
-								var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
-								var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+								var unitname = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
+								var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
+								var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
+								var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
+								var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
 								accountArrivalDetail.materialcode = materialcode;
 								accountArrivalDetail.materialname = materialname;
 								accountArrivalDetail.size = size;
+								accountArrivalDetail.unitname = unitname;
 								accountArrivalDetail.quantity = quantity;
 								accountArrivalDetail.unitprice = unitprice;
 								accountArrivalDetail.money = money;
@@ -193,7 +191,7 @@
 								$("#index_content").load("accountArrivalForm.html");
 							}
 						} else {
-							$( 'body' ).RemindWokenError( '请选择订货单号!' );
+							$( 'body' ).RemindWokenError( '请选择订货单!' );
 						}
 					} else {
 						$( 'body' ).RemindWokenError( '请添写到货编号!' );

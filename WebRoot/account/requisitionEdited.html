@@ -1,5 +1,4 @@
-
- <script src="lib/js/requisitionEdited.js"></script>
+<script src="lib/js/requisitionEdited.js"></script>
  
 <!-- Form elements -->
 	<div class="col-md-12">
@@ -37,17 +36,17 @@
 									<input type="text" class="form-control  input-small" name="reason" id="reason">
 								</div>
 							</div>
-							<div class="form-group" style="width:50%; float:left;">
+							<div class="form-group" style="width:50%; float:left;display:none;">
 								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">审核人(必选)：</label>
 								<div class="col-lg-4 col-md-3" style="width:300px;">
-									<select  tabindex="1" name="checker" id="requisitionForm_checker" class="form-control">
+									<input type="text" class="form-control  input-small" name="checker" readonly id="requisitionForm_checker">
+									<!-- <select  tabindex="1" name="checker" id="requisitionForm_checker" class="form-control">
 										 <option value=""></option>
-                   						
-									 </select>	
+									 </select>	 -->
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="col-lg-9 col-md-7" style="width:970px;">
+								<div class="col-lg-9 col-md-7 " style="width:955px; height:235px;background: #eee;overflow-y:scroll;">
 
                                     <div class="panel-body ">
                                         <table class="table table-striped" id="requisitionForm_table">
@@ -96,11 +95,10 @@
                                     </div>
                                 </div>
 							</div>
-							
 						</form>
 					</div>
 				</div>
-                <div class="panel-body " style="padding-top:0;">
+                <div class="panel-body tablescrol-container" style="padding-top:0;height:115px;">
                     <table class="table table-striped" id="requisitionAudit_act_table">
                         <thead>
                             <tr>
@@ -125,6 +123,9 @@
 		</div>
 	</div>
 <script>
+
+
+
 var userid = $.cookie("login_userid");
 
 $(".form_datetime").datetimepicker({
@@ -240,6 +241,7 @@ $.ajax(IP_config + "accountRequisition/formView", {
 				$("#receivedate").val(aq.receivedate);
 				$("#reason").val(aq.reason);
 				$("#checker").val(aq.checker);
+				$("#requisitionForm_checker").val(aq.checker);
 			}
 			if (data.obj.detailMapList.length > 0) {
 				var html = "";

@@ -15,7 +15,6 @@
 				<div class="col-lg-2 col-md-6" style="width:130px;padding-left:0;">
 					<select name="arrivalstatus" class="form-control" id="procInsId" style="width:110px;">
 						<option value="">请选择</option>
-						<option value="0">未到货</option>
 						<option value="1">未送检</option>
 						<option value="2">已送检</option>
 					</select>
@@ -64,10 +63,7 @@
 				tempObj.summoney = table_data[ c ].summoney;
 				tempObj.createDate = new Date( table_data[ c ].createDate ).format( 'yyyy-MM-dd hh:mm:ss' );  
 				
-				if ( table_data[c].arrivalstatus == 0 ) {
-					tempObj.procInsId = '未到货';
-					tempObj.dataopt = '<a style="margin-right:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-sel btn-info"  >修改</a><a name="'+table_data[ c ].id+'" class="btn selfback-btn-del btn-danger" >删除</a>';  
-				} else if ( table_data[c].arrivalstatus == 1 ) {
+				 if ( table_data[c].arrivalstatus == 1 ) {
 					tempObj.procInsId = '未送检';
 					tempObj.dataopt = '<a style="margin-right:6px;" name="'+table_data[ c ].id+'" class="btn work-btn-sel btn-info" >修改</a><a name="'+table_data[ c ].id+'" class="btn selfback-btn-del btn-danger" >删除</a>';  
 				} else {
@@ -310,7 +306,7 @@
 		
 		$( '.work-btn-sel' ).click( function () {
 			$( 'body' ).append( 
-				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
 					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
@@ -326,7 +322,7 @@
 		} );
 		$( '.watch-btn-sel' ).click( function () {
 			$( 'body' ).append( 
-				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
 					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
@@ -408,7 +404,7 @@
 	
 	$( '.flowadd-btn' ).click( function () {
 		$( 'body' ).append( 
-			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
+			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
 				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +

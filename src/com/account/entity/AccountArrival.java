@@ -14,7 +14,7 @@ public class AccountArrival {
 	private String suppliernum;  //供应商编号
 	private String  arrivalDate;// 到货日期
 	private String remarks;		// 备注信息
-	private String arrivalstatus="0";//0:未到货 1:未送检  2:已送检 
+	private String arrivalstatus="1";// 1:未送检  2:已送检 
 	private String delFlag="0";//是否删除
 	private String sumquantity;//订货数量(总)
 	private String title;//标题 查询使用

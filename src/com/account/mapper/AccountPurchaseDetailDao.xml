@@ -19,7 +19,8 @@
 		a.update_by AS "updateBy",
 		a.update_date AS "update",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.units
 	</sql>
 	
 	<sql id="accountPurchaseDetailJoins">
@@ -90,7 +91,8 @@
 			update_by,
 			update_date,
 			remarks,
-			del_flag
+			del_flag,
+			units
 		) VALUES (
 			#{id},
 			#{parent.id},
@@ -108,7 +110,8 @@
 			#{updateBy},
 			#{update},
 			#{remarks},
-			#{delFlag}
+			#{delFlag},
+			#{units}
 		)
 	</insert>
 	
@@ -126,7 +129,8 @@
 			totlemoney = #{totlemoney},
 			update_by = #{updateBy},
 			update_date = #{update},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			units=#{units}
 		WHERE id = #{id}
 	</update>
 	

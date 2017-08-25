@@ -10,6 +10,7 @@ public class AccountArrivalDetail {
 	private String materialcode;//物资编号
 	private String materialname;		// 物资名称
 	private String size;			//规格型号
+	private String unitname; // 计量单位名称
 	private Double unitprice;		// 单价
 	private Double money;		// 总价
 	private int quantity;		// 订货数量
@@ -75,6 +76,19 @@ public class AccountArrivalDetail {
 	 */
 	public void setSize(String size) {
 		this.size = size;
+	}
+	
+	/**
+	 * @return the unitname
+	 */
+	public String getUnitname() {
+		return unitname;
+	}
+	/**
+	 * @param unitname the unitname to set
+	 */
+	public void setUnitname(String unitname) {
+		this.unitname = unitname;
 	}
 	/**
 	 * @return the quantity

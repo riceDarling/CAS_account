@@ -115,7 +115,18 @@ public class AccountArrivalController {
 		}
 		return rm;
 	}
-
+	@ResponseBody
+	@RequestMapping(value = "findorderNum")
+	public ResponseModel<List<AccountArrival>> findorderNum() {
+		ResponseModel<List<AccountArrival>> rm = new ResponseModel<List<AccountArrival>>();
+		try {
+			List<AccountArrival> accountArrival = accountArrivalService.findorderNum();
+			rm.isSuccessMsg(accountArrival, "成功");
+		} catch (Exception e) {
+			rm.isErrorMsg("失败");
+		}
+		return rm;
+	}
 	@ResponseBody
 	@RequestMapping(value = "delete")
 	public ResponseModel<String> delete(HttpServletRequest req) {

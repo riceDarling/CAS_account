@@ -32,19 +32,19 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 		if (accountArrival.getId() != null && accountArrival.getId().trim().length() > 0) {
 			accountArrivalDao.update(accountArrival);
 			accountArrivalDetailDao.delete(accountArrival.getId());
-			int sumquantity = 0;
-			int sumnum = 0;
+			//int sumquantity = 0;
+			//int sumnum = 0;
 			for (int i = 0; i < size; i++) {
 				accountArrivalDetail = accountArrival.getAccountArrivalDetail().get(i);
 				accountArrivalDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				accountArrivalDetail.setParent_Id(accountArrival.getId());
-				sumquantity += accountArrivalDetail.getQuantity();
-				sumnum += accountArrivalDetail.getNum();
+				//sumquantity += accountArrivalDetail.getQuantity();
+				//sumnum += accountArrivalDetail.getNum();
 				accountArrivalDetailDao.save(accountArrivalDetail);
 			}
-			if (sumnum == sumquantity) {
+			/*if (sumnum == sumquantity) {
 				accountArrivalDao.updateStatus(accountArrival.getId());
-			}
+			}*/
 		} else {
 			accountArrival.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 			if(accountArrival.getArrivalDate()==null||accountArrival.getArrivalDate().trim().length()<=0)
@@ -52,19 +52,19 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 				accountArrival.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			}
 			accountArrivalDao.save(accountArrival);
-			int sumquantity = 0;
-			int sumnum = 0;
+		/*	int sumquantity = 0;
+			int sumnum = 0;*/
 			for (int i = 0; i < size; i++) {
 				accountArrivalDetail = accountArrival.getAccountArrivalDetail().get(i);
 				accountArrivalDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 				accountArrivalDetail.setParent_Id(accountArrival.getId());
-				sumquantity += accountArrivalDetail.getQuantity();
-				sumnum += accountArrivalDetail.getNum();
+				//sumquantity += accountArrivalDetail.getQuantity();
+				//sumnum += accountArrivalDetail.getNum();
 				accountArrivalDetailDao.save(accountArrivalDetail);
 			}
-			if (sumnum == sumquantity) {
+		/*	if (sumnum == sumquantity) {
 				accountArrivalDao.updateStatus(accountArrival.getId());
-			}
+			}*/
 		}
 	}
 
@@ -106,6 +106,10 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 	@Override
 	public int selectViewCount(String supplier, String arrivalstatus, String beginDate, String endDate) {
 		return accountArrivalDao.selectViewCount(supplier, arrivalstatus, beginDate, endDate);
+	}
+	@Override
+	public List<AccountArrival> findorderNum() {
+		return accountArrivalDao.findorderNum();
 	}
 
 }

@@ -324,7 +324,7 @@
 		$( '.work-btn-sel' ).click( function () {
 			var _selfs = $( this );
 			$( 'body' ).append( 
-				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
 					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
@@ -400,7 +400,7 @@
 		$( '.watch-btn-sel' ).click( function () {
 			var _selfs = $( this );
 			$( 'body' ).append( 
-				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999999999999;">' +
+				'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 					'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:0 auto;">' +
 					'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 					'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +
@@ -410,10 +410,9 @@
 			$( '.account-panel-container-closes' ).click( function () {
 				$( this ).parent().parent().remove();
 			} );
-			//$.cookie( "requisitionView_id" , $(this).attr("name") );
-			$.cookie("accountContract_id", _selfs.attr( 'name' ) );
-			$.cookie("accountContract_title", _selfs.attr( 'values' ));
-			$.cookie("accountContract_supplier", _selfs.attr( 'supplier' ));
+			$.cookie("accountContract_id2", _selfs.attr( 'name' ) );
+			$.cookie("accountContract_title2", _selfs.attr( 'values' ));
+			$.cookie("accountContract_supplier2", _selfs.attr( 'supplier' ));
 			$(".account-panel-content").load( 'accountContractInView.html' );
 		} );
 		
@@ -495,7 +494,7 @@
 	
 	$( '#add-contrack-btn' ).click( function () {
 		$( 'body' ).append( 
-			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:9999999999999999;">' +
+			'<div class="account-panel" style="width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:1000;">' +
 				'<div class="account-panel-container" style="width:1000px;height:600px;position:relative;margin:160px auto 0;">' +
 				'<input class="btn btn-info btn-animate-demo account-panel-container-closes" style="position:absolute;right:20px;top:4px;z-index:15;" type="button" value="关闭" />' +
 				'<div class="account-panel-content" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;"></div></div>' +

@@ -2,10 +2,15 @@ $("#accountPurchaseSubmit").click(function(){
 	$( 'body' ).RemindWokenSelect({
 		title : '确定提交？',
 		istrue : function () {
+			if ( $( '#title' ).val() == null || $( '#title' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须填写订货单标题' );
+				return;
+			}
 			if ( $( '#accountPurchaseForm_checker' ).val() == null || $( '#accountPurchaseForm_checker' ).val() == '' ) {
 				$( 'body' ).RemindWoken( '必须选择审核人' );
 				return;
 			}
+			
 			var data_json={};
 			var inquirynum=$("#accountPurchaseForm_contract").val();
 			var title=$("#title").val();
@@ -30,9 +35,10 @@ $("#accountPurchaseSubmit").click(function(){
 			$("#secondPageTbody tr").each(function(){
 				var json={};
 				json["materialcode"]=$(this).children("td").eq(0).attr("materialcode");
-				json["unitprice"]=$(this).children("td").eq(2).text();
-				json["quantity"]=$(this).children("td").eq(3).find("input").val();
-				json["totlemoney"]=$(this).children("td").eq(4).find("input").val();
+				json["units"]=$(this).children("td").eq(2).text();
+				json["unitprice"]=$(this).children("td").eq(3).text();
+				json["quantity"]=$(this).children("td").eq(4).find("input").val();
+				json["totlemoney"]=$(this).children("td").eq(5).find("input").val();
 				listjson.push(json);
 			});
 			data_json["accountPurchaseDetailList"]=listjson;

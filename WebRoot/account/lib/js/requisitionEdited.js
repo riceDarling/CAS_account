@@ -37,7 +37,7 @@ $(function(){
 });
 $("#signup_form table tbody").on("click",".requisitionForm_table_del_tr",function(){
 	$(this).parent().parent().remove();
-	var num_xk=0;
+	var num_xk=1;
 	$("#requisitionForm_table tbody tr").each(function(){
 		$(this).children("td").eq(0).text(num_xk);
 		num_xk++;

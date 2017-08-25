@@ -88,6 +88,7 @@
 							<tr>
 								<th>物资名称</th>
 								<th>规格型号</th>
+								<th>单位</th>
 								<th>采购数量</th>
 								<th>采购单价</th>
 								<th>采购金额</th>
@@ -103,20 +104,17 @@
 <script type="text/javascript">
 	
 	
-	var _accountContract_id = $.cookie("accountContract_id"),
-		_accountContract_title = $.cookie("accountContract_title"),
-		_accountContract_supplier = $.cookie("accountContract_supplier");
-	$.cookie( "accountContract_id" , null );
-	$.cookie( "accountContract_title" , null )
-	$.cookie( "accountContract_supplier" , null )
+	var _accountContract_id2 = $.cookie("accountContract_id2"),
+		_accountContract_title2 = $.cookie("accountContract_title2"),
+		_accountContract_supplier2 = $.cookie("accountContract_supplier2");
 	
 	
-		if (_accountContract_id != "null" && _accountContract_title != "null") {
+		if (_accountContract_id2 != "null" && _accountContract_title2 != "null") {
 			//$("#payId").val( _accountContract_id );
 			
-			var _html = "<option value='" + _accountContract_id + "' >" + _accountContract_title + "</option>";
+			var _html = "<option value='" + _accountContract_id2 + "' >" + _accountContract_title2 + "</option>";
 			$("#title-purchasenumtitle").html( _html );
-			var _htmls = "<option value='" + _accountContract_supplier + "' >" + _accountContract_supplier + "</option>";
+			var _htmls = "<option value='" + _accountContract_supplier2 + "' >" + _accountContract_supplier2 + "</option>";
 			
 			$("#titles-supplier").html( _htmls );
 			$.ajax({
@@ -124,7 +122,7 @@
 				type : "post",
 				dataType : "json",
 				data : {
-					"id" : _accountContract_id
+					"id" : _accountContract_id2
 				},
 				async : false,
 				success : function(data) {
@@ -142,52 +140,24 @@
 					}
 				}
 			});
+			$.ajax({
+				url :  IP_config + "accountContractController/getByContractId",
+				type : "post",
+				data : {
+					"id" : _accountContract_id2
+				},
+				async : false,
+				success : function(data) {
+					$("#contentTable tbody").empty();
+					var html = "";
+					for (i in data.obj) {
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + data.obj[i].quantity + "</td><td>" + data.obj[i].unitprice + "</td><td>"+ data.obj[i].money +"</td></tr>";
+					}
+					$("#contentTable tbody").html(html);
+				}
+			})
+	        $.cookie( "accountContract_id2" , null );
+		    $.cookie( "accountContract_title2" , null )
+		    $.cookie( "accountContract_supplier2" , null )
 		}
-		
-		$.ajax({
-			url :  IP_config + "accountContractController/getByContractId",
-			type : "post",
-			data : {
-				"id" : _accountContract_id
-			},
-			async : false,
-			success : function(data) {
-				$("#contentTable tbody").empty();
-				var html = "";
-				for (i in data.obj) {
-					html += "<tr><td  value='"+data.obj[i].materialCode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].quantity + "</td><td>" + data.obj[i].unitprice + "</td><td>"+ data.obj[i].money +"</td></tr>";
-				}
-				$("#contentTable tbody").html(html);
-			}
-		})
-
-
-	//选择供应商获取详细数据
-	$("#btnSubmit").click(function() {
-		//采购单号
-		$("#title-purchasenum").val($("#titles-supplier").find("option:selected").val());
-		//供应商编号
-		$("#title-supplierNum").val($("#titles-supplier").find("option:selected").attr("name"))
-		//乙方
-		$("#title-caigouname").val($("#titles-supplier").find("option:selected").text());
-		var dataline = {};
-		dataline["suppliercode"] = $("#titles-supplier").find("option:selected").attr("name");
-		dataline["inquirydetailnum"] = $("#titles-supplier").find("option:selected").attr("class");
-		//获取采购具体原料列表
-		$.ajax({
-			url :  IP_config + "accountInquiry/getAccountSupplierByPurchasenum",
-			type : "post",
-			data : dataline,
-			async : false,
-			success : function(data) {
-				$("#contentTable>tbody").empty();
-				var html = "";
-				for (i in data.obj) {
-					html += "<tr><td name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'   onchange='money()' /></td><td><input type='text'   onchange='money()' /></td><td><input type='text' /></td></tr>";
-				}
-				$("#contentTable>tbody").html(html);
-			}
-		})
-	})
-
 </script>

@@ -271,10 +271,11 @@
 	<select id="getAccountSupplierByPurchasenum" parameterType="com.account.entity.AccountInquiryDetail"
 	resultType="com.account.entity.AccountInquiryDetail">
 	SELECT  b.materialNum  as materialcode,
-	b.materialName as materialname,b.size as size
+	b.materialName as materialname,b.size as size ,c.name as unit_name
 	FROM account_inquiry_detail a
 	LEFT JOIN account_material b
 	ON a.materialCode=b.materialNum
+	LEFT JOIN account_para_info c on a.unit=c.id
 	WHERE a.inquirydetailnum=#{inquirydetailnum} AND
 	a.supplierCode=#{suppliercode} group by materialname
 </select>
@@ -311,7 +312,7 @@
 		<if test="materialcode!=null and materialcode!=''">
 			AND materialcode=#{materialcode}
 		</if>
-		
+		ORDER  BY a.materialName
 	</select>
 	
 	

@@ -8,8 +8,8 @@
 		<div class="panel-body">
 			
 			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
-				<label class="control-label">订货单号：</label>
-				<div class="controls" style="height:45px;">
+				<label class="control-label">订货单(必选)：</label>
+				<div class="controls" style="">
 					<select class="form-control" style="width:190px; float:left;" name="orderNumtitle" id="orderNumtitle">
 					</select> 
                     <input class="btn btn-info" style="float:left;margin-left:7px;" type="button" id="btnSubmit" value="查询">
@@ -40,12 +40,20 @@
 					<input size="16" type="text" readonly="true" style="width:70%" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">
 				</div>
 			</div>
+			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
+                <label class="control-label">备注信息：</label>
+                <div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+                	<!--<input size="16" type="text" readonly="true" style="width:70%" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">-->
+                    <textarea name="remarks" id="remarks" htmlEscape="false" style="width:70%" rows="4" maxlength="255" class="form-control" />
+                </div>
+            </div>
 			<div class="control-group" style="margin-top:185px;">
 				<table class="table table-bordered table-condensed table-hover" id="contentTable" style="width:100%">
 					<thead>
 						<tr>
 							<th>物资名称</th>
 							<th>规格型号</th>
+							<th>单位</th>
 							<th>单价</th>
 							<th>总价</th>
 							<th>订货数量</th>
@@ -109,19 +117,15 @@
 		function mathnum() {
 			var len = $("#contentTable>tbody>tr").length;
 			for(var i = 0;i < len;i++){
-				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
-				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
+				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
 				if(num>quantity||num<0){
 					$( 'body' ).RemindWokenError( '到货数量输入有误,请重新输入!' );
-					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val("");
-					$("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").focus();
+					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val("");
+					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").focus();
 				} 
 			}
 		}
-		//返回
-		$("#btnCancel").click(function() {
-			$("#index_content").load("accountArrivalList.html");
-		});
 		//选择订货单号获取详细数据
 		$("#btnSubmit").click(function() {
 			//订货单号
@@ -138,7 +142,7 @@
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj.purchase.accountPurchaseDetailList) {
-						html += "<tr><td  value='"+data.obj.purchase.accountPurchaseDetailList[i].materialcode+"'>" + data.obj.purchase.accountPurchaseDetailList[i].materialname + "</td><td>" + data.obj.purchase.accountPurchaseDetailList[i].size + "</td><td>" +  data.obj.purchase.accountPurchaseDetailList[i].unitprice + "</td><td>" + data.obj.purchase.accountPurchaseDetailList[i].totlemoney +"</td><td>" +  data.obj.purchase.accountPurchaseDetailList[i].quantity + "</td><td><input type='text' name='num'   onchange='mathnum()' /></td></tr>";
+						html += "<tr><td  value='"+data.obj.purchase.accountPurchaseDetailList[i].materialcode+"'>" + data.obj.purchase.accountPurchaseDetailList[i].materialname + "</td><td>" + data.obj.purchase.accountPurchaseDetailList[i].size + "</td><td>" + data.obj.purchase.accountPurchaseDetailList[i].units + "</td><td>" +  data.obj.purchase.accountPurchaseDetailList[i].unitprice + "</td><td>" + data.obj.purchase.accountPurchaseDetailList[i].totlemoney +"</td><td>" +  data.obj.purchase.accountPurchaseDetailList[i].quantity + "</td><td><input type='text' name='num'   onchange='mathnum()' /></td></tr>";
 						}
 					$("#contentTable>tbody").html(html);
 				}
@@ -166,13 +170,15 @@
 								var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("value");
 								var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
 								var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
-								var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
-								var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
-								var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
-								var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+								var unitname = $("#contentTable>tbody>tr:eq("+i+") td:eq(2)").text();
+								var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(3)").text();
+								var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(4)").text();
+								var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
+								var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
 								accountArrivalDetail.materialcode = materialcode;
 								accountArrivalDetail.materialname = materialname;
 								accountArrivalDetail.size = size;
+								accountArrivalDetail.unitname = unitname;
 								accountArrivalDetail.quantity = quantity;
 								accountArrivalDetail.unitprice = unitprice;
 								accountArrivalDetail.money = money;

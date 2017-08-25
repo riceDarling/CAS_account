@@ -4,45 +4,45 @@
 			修改送检单
 		</div>
 		<div class="panel-body">
-			<div class="control-group">
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">送检单号：</label>
 				<div class="controls">
-					<input type="text" hidden="true" name="id" id="payId" style="width:30%;" /> <input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;" maxlength="32" id="ordernum" class="form-control" />
+					<input type="text" hidden="true" name="id" id="payId" style="width:70%;" /> <input name="ordernum" readonly="true" htmlEscape="false" style="width:70% !important;" maxlength="32" id="ordernum" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">到货单号：</label>
 				<div class="controls">
-					<input name="arrivalnum" id="arrivalnum" readonly="true" style="width:30% !important;" htmlEscape="false" maxlength="32" class="form-control" />
+					<input name="arrivalnum" id="arrivalnum" readonly="true" style="width:70% !important;" htmlEscape="false" maxlength="32" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group" hidden="true">
+			<div class="control-group" hidden="true" style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">送检状态：</label>
 				<div class="controls">
-					<input name="status" id="status" htmlEscape="false" style="width:30% !important;" maxlength="32" class="form-control" />
+					<input name="status" id="status" htmlEscape="false" style="width:70% !important;" maxlength="32" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group"  style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">供应商名称：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="suppliernumInsp" /> <input type="text" id="supplierInsp" style="width:30% !important;" class="form-control" /></span>
+					<input type="text" hidden="true" id="suppliernumInsp" /> <input type="text" id="supplierInsp" readonly="true" style="width:70% !important;" class="form-control" /></span>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
 				<div class="control-group">
 					<label class="control-label">送检日期：</label>
 					<div class="controls">
-						<input size="16" type="text" readonly style="width:30% !important;" class="form_datetime form-control" name="inspectiondate" id="inspectiondate">
+						<input size="16" type="text" readonly style="width:70% !important;" class="form_datetime form-control" name="inspectiondate" id="inspectiondate">
 					</div>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">备注信息：</label>
 				<div class="controls">
-					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:30% !important;" class="form-control" />
+					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:70% !important;" class="form-control" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" style="float:left;padding:10px 0;">
 				<label class="control-label">送检原料：</label>
 				<table class="table table-bordered table-condensed table-hover" id="contentTable">
 					<thead>
@@ -60,7 +60,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" style="clear:both;float:right;padding:10px 0;">
 				<form class="form-horizontal row-border">
 					<div class="control-group">
 						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" /> 
@@ -113,8 +113,8 @@
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' value='"+data.obj[i].ingredient+"'/></td><td><input type='text' value='"+data.obj[i].granularity+"'/></td><td><input type='text' value='"+data.obj[i].appearance+"'/></td>" ;
-						html+="<td> <select name='status' id='status'>";
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control' value='"+data.obj[i].ingredient+"'/></td><td><input type='text' class='form-control' value='"+data.obj[i].granularity+"'/></td><td><input type='text' class='form-control' value='"+data.obj[i].appearance+"'/></td>" ;
+						html+="<td> <select name='status'class='form-control' id='status'>";
 						if(data.obj[i].status==1){
 							html+="<option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>";	
 						}
@@ -204,7 +204,7 @@
 							$( 'body' ).RemindWokenError( '请选择到货单号!' );
 						}
 					} else {
-						$( 'body' ).RemindWokenError( '请添写送检编号!' );
+						$( 'body' ).RemindWokenError( '请添写送检单号!' );
 					}
 				}
 			})

@@ -7,7 +7,7 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">到货单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">到货单(必选)：</label> 
 				<div class="col-lg-3 col-md-6">
 					<select class="form-control" name="orderNumtitle" id="orderNumtitleName">
 					</select>
@@ -19,7 +19,7 @@
 			<div class="form-group"> -->
 				<label class="col-lg-1 col-md-6 control-label" style="width:11% !important;margin-top: 11px;padding-left: 0;padding-right: 0;">送检单号：</label> 
 				<div class="col-lg-5 col-md-6">
-					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:273px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
+					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:210px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
 					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
 				</div>
 			</div>
@@ -51,39 +51,7 @@
 					<textarea name="remarks" htmlEscape="false"  style="margin-top: 5px;" class="form-control" />
 				</div>
 			</div>
-			<!-- <div class="control-group">
-				<label class="control-label" style="width:14% !important;">送检单号：</label>
-				<div class="controls">
-					<input name="ordernum" readonly="true" htmlEscape="false" style="width:30% !important;display:inline-block;
-						" maxlength="32" id="ordernum" class="form-control" /> 
-					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">到货单号：</label>
-				<div class="controls">
-					<input name="arrivalnum" id="arrivalnumInsp" readonly="true" style="width:30% !important;" htmlEscape="false" maxlength="32" class="form-control" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">供应商名称：</label>
-				<div class="controls">
-					<input type="text" hidden="true" id="suppliernumInsp" /> 
-					<input type="text"  id="supplierInsp" style="width:30% !important;" class="form-control" /></span>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">送检日期：</label>
-				<div class="controls">
-					<input size="16" type="text" readonly style="width:30% !important;" class="form_datetime form-control" name="inspectiondate">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" style="width:14% !important;">备注信息：</label>
-				<div class="controls">
-					<textarea name="remarks" htmlEscape="false" style="width:30% !important;"  class="form-control" />
-				</div>
-			</div> -->
+			
 			<br/>
 			<div class="control-group">
 				<label class="control-label" >送检原料：</label>
@@ -104,7 +72,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" style="float: right;">
 				<form class="form-horizontal row-border">
 					<div class="control-group">
 						<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
@@ -187,7 +155,7 @@
 						success : function(data) {
 							var html = "";
 							for (i in data.obj) {
-								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td>" + "<td> <select name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode' id='inspectionmode'></select></td></tr>";
+								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td><td><input type='text'/></td>" + "<td> <select class='form-control' name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode'class='form-control' id='inspectionmode'></select></td></tr>";
 							}
 							$("#contentTable>tbody").html(html);
 						}
@@ -210,7 +178,10 @@
 								for (i in data.obj) {
 									html += "<option value='"+data.obj[i].id +"'>" + data.obj[i].name + "</option>";
 								}
-								$("#inspectionmode").html(html);
+								var len = $("#contentTable>tbody>tr").length;
+								for(var i = 0;i < len;i++){
+									$("#contentTable>tbody>tr:eq("+i+") td:eq(6) select").html(html);
+								}
 							} else {
 								//获取失败提示
 								$( 'body' ).RemindWokenError( data.msg );
@@ -276,7 +247,7 @@
 							$( 'body' ).RemindWokenError( '请选择到货单号!' );
 						}
 					} else {
-						$( 'body' ).RemindWokenError( '请添写送检编号!' );
+						$( 'body' ).RemindWokenError( '请添写送检单号!' );
 					}
 				}
 			});

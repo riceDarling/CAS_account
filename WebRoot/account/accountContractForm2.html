@@ -86,11 +86,12 @@
 					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
 						<thead>
 							<tr>
-								<th >物资名称</th>
-								<th >规格型号</th>
-								<th >采购数量</th>
-								<th >采购单价</th>
-								<th >采购金额</th>
+								<th>物资名称</th>
+								<th>规格型号</th>
+								<th>单位</th>
+								<th>采购数量</th>
+								<th>采购单价</th>
+								<th>采购金额</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -115,18 +116,15 @@
 	function money() {
 		var len = $("#contentTable>tbody>tr").length;
 		for (var i = 0; i < len; i++) {
-			var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2) input").val();
-			var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
-			var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val(quantity * unitprice);
+			var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
+			var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+			var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(5) input").val(quantity * unitprice);
 		}
 	}
 	
 	var _accountContract_id = $.cookie("accountContract_id"),
 		_accountContract_title = $.cookie("accountContract_title"),
 		_accountContract_supplier = $.cookie("accountContract_supplier");
-	$.cookie( "accountContract_id" , null );
-	$.cookie( "accountContract_title" , null )
-	$.cookie( "accountContract_supplier" , null )
 	
 	
 		if (_accountContract_id != "null" && _accountContract_title != "null") {
@@ -160,24 +158,26 @@
 					}
 				}
 			});
-		}
-		$.ajax({
-			url :  IP_config + "accountContractController/getByContractId",
-			type : "post",
-			data : {
-				"id" : _accountContract_id
-			},
-			async : false,
-			success : function(data) {
-				$("#contentTable tbody").empty();
-				var html = "";
-				for (i in data.obj) {
-					html += "<tr><td  value='"+data.obj[i].materialCode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + "<input type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input type='text'  value='"+ data.obj[i].money +"'></td></tr>";
+			$.ajax({
+				url :  IP_config + "accountContractController/getByContractId",
+				type : "post",
+				data : {
+					"id" : _accountContract_id
+				},
+				async : false,
+				success : function(data) {
+					$("#contentTable tbody").empty();
+					var html = "";
+					for (i in data.obj) {
+						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input type='text'  value='"+ data.obj[i].money +"'></td></tr>";
+					}
+					$("#contentTable tbody").html(html);
 				}
-				$("#contentTable tbody").html(html);
-			}
-		})
-
+			})
+			$.cookie("accountContract_id", null );
+			$.cookie( "accountContract_title" , null )
+			$.cookie( "accountContract_supplier" , null )
+		}
 
 	//选择供应商获取详细数据
 	$("#btnSubmit").click(function() {
@@ -200,7 +200,7 @@
 				$("#contentTable>tbody").empty();
 				var html = "";
 				for (i in data.obj) {
-					html += "<tr><td name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text'   onchange='money()' /></td><td><input type='text'   onchange='money()' /></td><td><input type='text' /></td></tr>";
+					html += "<tr><td name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td><input type='text' class='form-control'   onchange='money()' /></td><td><input type='text' class='form-control'  onchange='money()' /></td><td><input type='text' class='form-control' /></td></tr>";
 				}
 				$("#contentTable>tbody").html(html);
 			}
@@ -232,12 +232,14 @@
 							var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("name");
 							var materialname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(0)").text();
 							var size = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(1)").text();
-							var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2) input").val();
-							var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
-							var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+							var unitname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2)").text();
+							var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3) input").val();
+							var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+							var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(5) input").val();
 							accountContractDetail.materialcode = materialcode;
 							accountContractDetail.materialname = materialname;
 							accountContractDetail.size = size;
+							accountContractDetail.unitname = unitname;
 							accountContractDetail.quantity = quantity;
 							accountContractDetail.unitprice = unitprice;
 							accountContractDetail.money = money;
@@ -251,7 +253,9 @@
 							data : JSON.stringify(accountContract),
 							async : false
 						});
-						$.cookie("accountContract_id", null);
+						$.cookie("accountContract_id", null );
+						$.cookie( "accountContract_title" , null )
+						$.cookie( "accountContract_supplier" , null )
 						if (accountContract != null && accountContract != "") {
 							$( 'body' ).RemindWokenSuccess("保存成功");
 							$("#index_content").load("accountContractList.html");

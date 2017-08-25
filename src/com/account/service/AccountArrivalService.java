@@ -21,7 +21,7 @@ public interface AccountArrivalService {
 	List<AccountArrivalDetail> getByArrivalId(String id);
 
 	public List<AccountArrival> findAllorderNum();
-	
+	public List<AccountArrival> findorderNum();
 	List<AccountArrival> selectView(String supplier, String arrivalstatus,  PageUtil paging, String beginDate, String endDate);
 	
 	int selectViewCount(String supplier, String arrivalstatus, String beginDate, String endDate);
