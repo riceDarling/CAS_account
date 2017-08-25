@@ -81,7 +81,7 @@
 						<textarea name="remarks" id="title-remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group" style="padding-left:15px;">
+				<div class="control-group" style="padding-left:15px;float:left;margin-bottom:15px;">
 					<label class="control-label">采购原料：</label>
 					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
 						<thead>
@@ -169,7 +169,7 @@
 					$("#contentTable tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input style='width:100%;' type='text'  onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input style='width:100%;' type='text'  value='" + data.obj[i].unitprice + "'  onchange='money()' ></td><td>" + "<input style='width:100%;' type='text'  value='"+ data.obj[i].money +"'></td></tr>";
+						html += "<tr><td  name='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" + "<input style='width:100%;' type='text'class='form-control' onchange='money()' value='" + data.obj[i].quantity + "' ></td><td>" + "<input style='width:100%;' type='text'  value='" + data.obj[i].unitprice + "' class='form-control' onchange='money()' ></td><td>" + "<input style='width:100%;' type='text' class='form-control'  value='"+ data.obj[i].money +"'></td></tr>";
 					}
 					$("#contentTable tbody").html(html);
 				}

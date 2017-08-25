@@ -83,7 +83,7 @@
 						<textarea name="remarks" id="remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
 					</div>
 				</div>
-				<div class="control-group" style="padding-left:15px;">
+				<div class="control-group" style="padding-left:15px;float:left;margin-bottom:15px;">
 					<label class="control-label">采购原料：</label>
 					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
 						<thead>
@@ -219,6 +219,8 @@
 					$( '#title-supplier' ).change( function () {
 						dataline["suppliercode"] = $("#title-supplier").find("option:selected").attr("name");
 						dataline["inquirydetailnum"] = $("#title-supplier").find("option:selected").attr("class");
+						//供应商编号
+						$("#supplierNum").val($("#title-supplier").find("option:selected").attr("name"))
 						//乙方
 						$("#caigouname").val($("#title-supplier").find("option:selected").text());
 						creaatedetail_table( dataline );
