@@ -1,3 +1,5 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
@@ -6,48 +8,45 @@
 			</h3>
 		</div>
 		<div class="panel-body">
-			<div class="form-group">
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0; text-align:right;">到货单(必选)：</label> 
-				<div class="col-lg-3 col-md-6">
-					<select class="form-control" name="orderNumtitle" id="orderNumtitleName">
+				<div class="col-lg-3 col-md-6" style=" width:355px;">
+					<select class="form-control" name="orderNumtitle" style="width:325px;" id="orderNumtitleName">
 					</select>
 				</div>
-				<div class="col-lg-1 col-md-2">
-					<input class="btn btn-info" type="button"  id="btnSubmit" style="margin-left: -14px;" value="查询">
-				</div>
-			<!-- </div>
-			<div class="form-group"> -->
+			</div>
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0;text-align:right;">送检单号：</label> 
-				<div class="col-lg-5 col-md-6">
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
 					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:210px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
 					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
 				</div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">到货单号：</label> 
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-4 col-md-6" style=" width:355px;">
 					<input name="arrivalnum" id="arrivalnumInsp" style="margin-top: 5px;" readonly="true"  htmlEscape="false" maxlength="32" class="form-control" />
 				</div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">供应商名称：</label> 
-				<div class="col-lg-5 col-md-6">
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
 					<input type="text" hidden="true" id="suppliernumInsp" /> 
 					<input type="text"  id="supplierInsp" style="margin-top: 5px;"  class="form-control" /></span>
 				</div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检日期：</label> 
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-4 col-md-6" style=" width:355px;">
 					<input size="16" type="text" readonly  style="margin-top: 5px;" class="form_datetime form-control" name="inspectiondate">
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="float:left; width:50%;">
 				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">备注信息：</label> 
-				<div class="col-lg-5 col-md-6">
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
 					<textarea name="remarks" htmlEscape="false"  style="margin-top: 5px;" class="form-control" />
 				</div>
 			</div>
@@ -113,6 +112,29 @@
 			ordernum += ordernumRandom;
 			$("#ordernum").val(ordernum);
 		});
+		
+		//生成送检单号
+		var ordernum = "30-";
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+		var day = date.getDate();
+		if (month < 10) {
+			month = "0" + month;
+		}
+		if (day < 10) {
+			day = "0" + day;
+		}
+		ordernum = ordernum + year + month + day + "-";
+		var ordernumRandom = "";
+		for (var i = 0; i < 5; ++i) {
+			var num = Math.random();
+			num = parseInt(num * 10);
+			ordernumRandom += num;
+		}
+		ordernum += ordernumRandom;
+		$("#ordernum").val(ordernum);
+		
 		$(function() {
 			//获取到货单号 
 			$.ajax({
@@ -124,11 +146,12 @@
 						html += "<option value='"+data.obj[i].arrivalnum+"' class='"+data.obj[i].id+"'>" + data.obj[i].title + "</option>";
 					}
 					$("#orderNumtitleName").html(html);
+					$("#orderNumtitleName").select2();
 				}
 			});
 		});
 		//选择到货单号获取详细数据
-		$("#btnSubmit").click(function() {
+		$("#orderNumtitleName").change(function() {
 			//到货单号
 			$("#arrivalnumInsp").val($("#orderNumtitleName").find("option:selected").val());
 			//获取数据
@@ -155,7 +178,7 @@
 						success : function(data) {
 							var html = "";
 							for (i in data.obj) {
-								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td><td><input type='text'/></td>" + "<td> <select class='form-control' name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode'class='form-control' id='inspectionmode'></select></td></tr>";
+								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td>" + "<td> <select class='form-control' name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode'class='form-control' id='inspectionmode'></select></td></tr>";
 							}
 							$("#contentTable>tbody").html(html);
 						}

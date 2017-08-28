@@ -1,7 +1,11 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade" style=" margin-bottom:0; border-radius:0;">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-pencil-square"></i>发票列表</h3>
+			<h3 class="panel-title">
+				<i class="fa fa-pencil-square"></i>发票列表
+			</h3>
 		</div>
 	</div>
 </div>
@@ -18,6 +22,12 @@
 							</div>
 						</div>
 						<div class="control-group" style="padding:10px 0;">
+							<label class="control-label">供应商编码：</label>
+							<div class="controls">
+								<input name="suppliernum" readonly="true" htmlEscape="false" maxlength="35" class="form-control" id="suppliernum" />
+							</div>
+						</div>
+						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">供应商名称：</label>
 							<div class="controls">
 								<select name="supplier" class="form-control" id="supplierform">
@@ -30,6 +40,14 @@
 								<input size="16" type="text" class="form_datetime form-control" readonly name="billingdate" id="billingdate" />
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="control-group" style="padding:10px 0;">
+							<label class="control-label">物资编码：</label>
+							<div class="controls">
+								<input name="materialcode" readonly="true" htmlEscape="false" maxlength="35" class="form-control" id="materialcode" />
+							</div>
+						</div>
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">物资名称：</label>
 							<div class="controls">
@@ -37,14 +55,14 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">规格型号：</label>
 							<div class="controls">
 								<input name="size" htmlEscape="false" maxlength="35" class="form-control" id="size" />
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">含税单价 ：</label>
 							<div class="controls">
@@ -57,14 +75,14 @@
 								<input name="pricenotfee" value="0" htmlEscape="false" class="form-control" id="pricenotfee" onchange="money()" />
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">数量：</label>
 							<div class="controls">
 								<input name="quantity" value="0" htmlEscape="false" maxlength="11" class="form-control" id="quantity" onchange="money()" />
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">含税金额：</label>
 							<div class="controls">
@@ -77,14 +95,14 @@
 								<input name="moneynotfee" value="0" htmlEscape="false" readonly="readonly" class="form-control" id="moneynotfee" />
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">税率：</label>
 							<div class="controls">
 								<input name="taxrte" value="0" htmlEscape="false" class="form-control" id="taxrte" />
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">税款：</label>
 							<div class="controls">
@@ -97,8 +115,6 @@
 								<input name="receiptnum" htmlEscape="false" class="form-control" id="receiptnum" />
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">发票类别：</label>
 							<div class="controls">
@@ -106,6 +122,8 @@
 								</select>
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">到货单号：</label>
 							<div class="controls">
@@ -119,14 +137,14 @@
 								<input name="maker" htmlEscape="false" class="form-control" id="maker" />
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">审核人：</label>
 							<div class="controls">
 								<input name="auditor" htmlEscape="false" class="form-control" id="auditor" />
 							</div>
 						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">备注信息：</label>
 							<div class="controls">
@@ -145,9 +163,6 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			$("[href_1]").click(function() {
-				$("#index_content").load($(this).attr("href_1"));
-			});
 			$(".form_datetime").datetimepicker({
 				language : 'zh-CN',
 				minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -184,7 +199,7 @@
 				$("#ordernum").val(ordernum);
 				if ($.cookie("accountReceipt_id") != "null") {
 					$.ajax({
-						url : "/account/accountReceiptController/getById",
+						url : IP_config+"accountReceiptController/getById",
 						type : "post",
 						dataType : "json",
 						data : {
@@ -192,10 +207,11 @@
 						},
 						success : function(data) {
 							$("#payId").val($.cookie("accountReceipt_id"));
-							$.cookie("accountReceipt_id", null);
 							if (data.success && data.obj != null && data.obj != "") {
+								$("#suppliernum").val(data.obj.suppliernum);
 								$("#supplierform").append("<option value='"+data.obj.supplier+"'>" + data.obj.supplier + "</option>");
 								$("#billingdate").val(data.obj.billingdate);
+								$("#materialcode").val(data.obj.materialcode);
 								$("#materialname").append("<option value='"+data.obj.materialname+"'>" + data.obj.materialname + "</option>");
 								$("#size").val(data.obj.size);
 								$("#pricefee").val(data.obj.pricefee);
@@ -217,7 +233,7 @@
 				}
 				//获取供应商
 				$.ajax({
-					url : "/account/supplier/findList",
+					url : IP_config+"supplier/findList",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -227,16 +243,16 @@
 						var html = "<option value=''>请选择</option>";
 						for (i in data.obj.list) {
 							if ($("#supplierform>option").val() != data.obj.list[i].supplier) {
-								html += "<option value=" + data.obj.list[i].supplier + ">" + data.obj.list[i].supplier + "</option>";
+								html += "<option value=" + data.obj.list[i].supplier + " name="+data.obj.list[i].supplierNum+">" + data.obj.list[i].supplier + "</option>";
 							}
 						}
 						$("#supplierform").append(html);
-
+						$("#supplierform").select2();
 					}
 				});
 				//获取物资名称
 				$.ajax({
-					url : "/account/material/findList",
+					url : IP_config+"material/findList",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -246,16 +262,16 @@
 						var html = "<option value=''>请选择</option>";
 						for (i in data.obj.list) {
 							if ($("#materialname>option").val() != data.obj.list[i].materialName) {
-								html += "<option value=" + data.obj.list[i].materialName + ">" + data.obj.list[i].materialName + "</option>";
+								html += "<option value=" + data.obj.list[i].materialName + " name="+data.obj.list[i].materialNum+">" + data.obj.list[i].materialName + "</option>";
 							}
 						}
 						$("#materialname").append(html);
-
+						$("#materialname").select2();
 					}
 				});
 				//获取到货单号
 				$.ajax({
-					url : "/account/accountArrivalController/findorderNum",
+					url : IP_config+"accountArrivalController/findorderNum",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -269,12 +285,12 @@
 							}
 						}
 						$("#arrivalnum").append(html);
-
+						$("#arrivalnum").select2();
 					}
 				});
 				//计量单位
 				$.ajax({
-					url : "/account/paraInfo/getParaInfoList",
+					url : IP_config+"paraInfo/getParaInfoList",
 					dataType : "json",
 					xhrFields : {
 						withCredentials : true
@@ -295,12 +311,17 @@
 							$("#category").append(html);
 						} else {
 							//获取失败提示
-							layer.alert(data.msg);
+							$( 'body' ).RemindWoken( data.msg );
 						}
 					}
 				});
 			});
-
+			$("#supplierform").change(function() {
+				$("#suppliernum").val($("#supplierform").find("option:selected").attr("name"));
+			});
+			$("#materialname").change(function() {
+				$("#materialcode").val($("#materialname").find("option:selected").attr("name"));
+			});
 			//提交
 			$("#submitbtn").click(function() {
 				$('body').RemindWokenSelect({
@@ -308,8 +329,10 @@
 					istrue : function() {
 						var accountReceipt = {};
 						accountReceipt.id = $("#payId").val();
+						accountReceipt.suppliernum = $("#suppliernum").val();
 						accountReceipt.supplier = $("#supplierform").find("option:selected").val();
 						accountReceipt.billingdate = $("#billingdate").val();
+						accountReceipt.materialcode = $("#materialcode").val();
 						accountReceipt.materialname = $("#materialname").find("option:selected").val();
 						accountReceipt.size = $("#size").val();
 						accountReceipt.pricefee = $("#pricefee").val();
@@ -327,18 +350,15 @@
 						accountReceipt.auditor = $("#auditor").val();
 						accountReceipt.remarks = $("#remarks").val();
 						$.ajax({
-							url : "/account/accountReceiptController/save",
+							url : IP_config+"accountReceiptController/save",
 							type : "post",
 							contentType : "application/json;charset=UTF-8",
 							data : JSON.stringify(accountReceipt),
 							async : false
 						});
+						$.cookie("accountReceipt_id", null );
 						if (accountReceipt != null && accountReceipt != "") {
 							$('body').RemindWokenSuccess('操作成功');
-							/*setTimeout(function(){
-								$(".account-panel").remove();
-							},600);
-							$("#index_content").load("accountReceiptList.html");*/
 							$.ajax({
 								url : IP_config + "accountReceiptController/selectView",
 								type : "post",
@@ -355,18 +375,16 @@
 										//debugger;
 										var data_total = data1.obj.totalCount;
 										var table_data = data1.obj.list;
-						
+
 										dataTable(table_data, data_total);
 									} else {
 										$('body').RemindWokenError('查询失败');
 									}
-						
-									//$( '.paginate_button.active a' ).html( nowpage_in );
+
 								}
 							});
 						} else {
 							$('body').RemindWokenError('操作失败');
-							/*$("#index_content").load("accountReceiptForm.html");*/
 						}
 					}
 				})

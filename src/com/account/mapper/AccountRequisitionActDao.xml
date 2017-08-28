@@ -3,23 +3,31 @@
 <mapper namespace="com.account.dao.AccountRequisitionActDao">
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.account.entity.AccountRequisitionAct">
-		INSERT INTO account_requisition_act(
-			requisition_id,
-			requisition_name,
-			checker_name,
-			start_time,
-			state,
-			actindex,
-			step
-		) VALUES (
-			#{requisitionId},
-			#{requisitionName},
-			#{checkerName},
-			#{startTime},
-			#{state},
-			#{actindex},
-			#{step}
-		)
+		INSERT INTO 
+			account_requisition_act
+		set
+			<if test='requisitionId != null and requisitionId != ""'>
+				requisition_id = #{requisitionId}
+			</if>
+			<if test='requisitionName != null and requisitionName != ""'>
+				,requisition_name = #{requisitionName}
+			</if>
+			<if test='checkerName != null and checkerName != ""'>
+				,checker_name = #{checkerName}
+			</if>
+			<if test='startTime != null and startTime != ""'>
+				,start_time = #{startTime}
+			</if>
+			<if test='state != null and state != ""'>
+				,state = #{state}
+			</if>
+			<if test='actindex != null and actindex != ""'>
+				,actindex = #{actindex}
+			</if>
+			<if test='step != null and step != ""'>
+				,step = #{step}
+			</if>
+		;
 	</insert>
 	
 	<update id="update" parameterType="com.account.entity.AccountRequisitionAct">
@@ -57,14 +65,36 @@
 			
 		WHERE id = #{id}
 	</update>
-	 
+	
+	<select id="getbyRequisitionIdAndChecknameAndStates" resultType="com.account.entity.AccountRequisitionAct" parameterType="com.account.entity.AccountRequisitionAct">
+		SELECT 
+			a.id,
+			a.requisition_id AS requisitionId,
+			a.requisition_name AS requisitionName,
+			a.checker_name AS checkerName,
+			a.step
+		FROM 
+			account_requisition_act a 
+		WHERE 
+				a.requisition_id = #{requisitionId}
+			AND a.state=0
+		;
+	</select>
+	
 	<select id="getbyRequisitionIdAndChecknameAndState" resultType="com.account.entity.AccountRequisitionAct" parameterType="com.account.entity.AccountRequisitionAct">
-			SELECT 
-			a.id,a.requisition_id AS requisitionId,a.requisition_name AS requisitionName,a.checker_name AS checkerName,a.step
-			FROM account_requisition_act a 
+		SELECT 
+			a.id,
+			a.requisition_id AS requisitionId,
+			a.requisition_name AS requisitionName,
+			a.checker_name AS checkerName,
+			a.step
+		FROM 
+				account_requisition_act a 
 			WHERE a.requisition_id = #{requisitionId}
 			AND a.checker_name=#{checkerName}
 			AND a.state=0
+		order by id desc limit 1;
+		;
 	</select>
 	
 	<select id="getbyRequisitionId" resultType="map" parameterType="string">

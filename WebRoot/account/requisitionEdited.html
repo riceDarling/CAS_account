@@ -1,3 +1,5 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <script src="lib/js/requisitionEdited.js"></script>
  
 <!-- Form elements -->
@@ -36,13 +38,13 @@
 									<input type="text" class="form-control  input-small" name="reason" id="reason">
 								</div>
 							</div>
-							<div class="form-group" style="width:50%; float:left;display:none;">
+							<div class="form-group" style="width:50%; float:left;display:block;">
 								<label class="col-lg-2 col-md-3 control-label" style="width:145px;">审核人(必选)：</label>
 								<div class="col-lg-4 col-md-3" style="width:300px;">
-									<input type="text" class="form-control  input-small" name="checker" readonly id="requisitionForm_checker">
-									<!-- <select  tabindex="1" name="checker" id="requisitionForm_checker" class="form-control">
+									<!--<input type="text" class="form-control  input-small" name="checker" readonly id="requisitionForm_checker">-->
+									 <select  tabindex="1" name="checker" id="requisitionForm_checker" style="display:block;" readonly class="form-control">
 										 <option value=""></option>
-									 </select>	 -->
+									 </select>	 
 								</div>
 							</div>
 							<div class="form-group">
@@ -53,7 +55,7 @@
                                             <thead>
                                                 <tr>
                                                     <th >#</th>
-                                                    <th>物资编码</th>
+                                                    <th style="">物资编码</th>
                                                     <th>物资名称</th>
                                                     <th>规格型号</th>
                                                     <th>申请数量</th>
@@ -64,23 +66,20 @@
                                             </thead>
                                             <tbody>
                                                  <tr>
-                                                    <td>0</td>
-                                                    <td></td>
+                                                    <td>1</td>
+                                                    <td style="display:none;"></td>
                                                     <td>
                                                         <select  tabindex="1" class="materialname_select form-control">
                                                              <option value=""></option>
-                                                             <option value="牛奶" materialnum="25-20170809-hmupt" materialsize="007">牛奶</opption>
-                                                             <option value="可乐" materialnum="25-20170721-28312" materialsize="450ml">可乐</opption>
                                                          </select>
                                                     </td>
                                                     <td></td>
                                                     <td>
-                                                    <input type="text" class="input-small required form-control" name="">
+                                                    <input type="text" class="input-small required form-control " name="">
                                                     </td>
                                                     <td>
-                                                     <select  tabindex="1" class="form-control">
+                                                     <select  tabindex="1" class="unit_select form-control">
                                                              <option value=""></option>
-                                                            
                                                       </select>
                                                     </td>
                                                     <td>
@@ -117,6 +116,7 @@
                 <div class="form-actions">
                 	
                     <input type="button" value="提交" class="btn bg-primary text-white btn-lg" style="padding-top:6px;padding-bottom:6px;font-size:15px;float:right;" id="requisitionFormSubmit">
+                    <input type="button" value="保存" class="btn btn-primary text-white btn-lg" style="padding-top:6px;padding-bottom:6px;font-size:15px;float:right;margin-right: 10px;" id="requisitionFormSave">
                     <input type="button" value="删除" class="btn btn-danger text-white btn-lg" style="padding-top:6px;padding-bottom:6px;font-size:15px;float:right;margin-right: 10px;" id="requisitionFormDanger">
                 </div>
 			</div>
@@ -142,7 +142,8 @@ $(".form_datetime").datetimepicker({
 	minView: "month", //选择日期后，不会再跳转去选择时分秒 
     format: 'yyyy-mm-dd',
     todayBtn:  1,
-    autoclose: 1,});
+    autoclose: 1
+});
     
     
 $.ajax(IP_config+"admin/getAdminList", {
@@ -151,6 +152,7 @@ $.ajax(IP_config+"admin/getAdminList", {
 		withCredentials: true
 	},
 	type: "POST",
+	async : false,
 	success: function(data) {
 		//console.log(data);
 		if(data.success){
@@ -186,12 +188,13 @@ $.ajax(IP_config+"material/findAllList", {
 			//获取成功
 			//layer.alert(data.msg);
 			materials=data.obj;
-			/* var html="<option value=''></option>";
+			 var html="<option value=''></option>";
 			for (i in data.obj) {
 				var material = data.obj[i];
 				html+='<option value="'+material.materialName+'" materialnum="'+material.materialNum+'" materialsize="'+material.size+'">'+material.materialName+'</opption>';
 			}
-			$(".materialname_select").html(html); */
+			$(".materialname_select").html(html); 
+			$(".materialname_select").select2(); 
 		}else{
 			//获取失败提示
 			$( 'body' ).RemindWokenError( data.msg );
@@ -214,13 +217,15 @@ $.ajax(IP_config+"paraInfo/getParaInfoList", {
 		if(data.success){
 			//获取成功
 			//layer.alert(data.msg);
+			
 			units=data.obj;
-			/*var html="<option value=''></option>";
+			var html="<option value=''></option>";
 			 for (i in data.obj) {
 				var unit = data.obj[i];
 				html+='<option value="'+unit.id+'">'+unit.name+'</option>';
 			}
-			$(".unit_select").html(html); */
+			$(".unit_select").html(html); 
+			$(".unit_select").select2(); 
 		}else{
 			//获取失败提示
 			$( 'body' ).RemindWokenError( data.msg );
@@ -238,8 +243,9 @@ $.ajax(IP_config + "accountRequisition/formView", {
 		withCredentials : true
 	},
 	type : "POST",
+	async : false,
 	success : function(data) {
-		//console.log(data);
+	
 		if (data.success) {
 			//获取成功
 			//layer.alert(data.msg);
@@ -258,8 +264,8 @@ $.ajax(IP_config + "accountRequisition/formView", {
 					var detail = data.obj.detailMapList[i];
 					
 					html+='<tr>'
-						+'<td>'+i+'</td>'
-						+'<td>'+ detail.materialNum+'</td><td>'
+						+'<td>' + parseInt( i + 1 ) + '</td>'
+						+'<td style="">'+ detail.materialNum+'</td><td>'
 						+'<select  tabindex="1" class="materialname_select form-control">';
 						
 						for (i in materials) {
@@ -276,7 +282,7 @@ $.ajax(IP_config + "accountRequisition/formView", {
 						+'<td>'+detail.size+'</td><td>'
 						+'<input type="text" class="input-small required form-control" name="" value="'+detail.quantitiy+'">'
 						+'</td><td>'
-						+'<select  tabindex="1" class="form-control">';
+						+'<select  tabindex="1" class="unit_select form-control">';
 						
 						for (i in units) {
 							var unit = units[i];
@@ -291,7 +297,7 @@ $.ajax(IP_config + "accountRequisition/formView", {
 							
 						html+='</select>'
 						+'</td><td>'
-						+'<input type="text" class="input-small required form-control" name="" value="'+detail.remarks+'">'
+						+'<input type="text" class="input-small required form-control" name="" value="'+ ( detail.remarks == undefined ? '' : detail.remarks ) +'">'
 						+'</td><td>'
 						+'<i class="fa fa-minus-circle requisitionForm_table_del_tr"></i>'
 						+'</td>'
@@ -309,7 +315,7 @@ $.ajax(IP_config + "accountRequisition/formView", {
 					var act = data.obj.actList[i];
 					html += '<tr><td>'
 							+ act.requisitionName + '</td>' + '<td>'
-							+ act.checkerName + '</td>' + '<td>'
+							+ ( act.checkerName == undefined ? '' : act.checkerName ) + '</td>' + '<td>'
 							+ formatDateTime(act.start_time) + '</td>' + '<td>';
 							if(act.end_time!=null){
 								html+= formatDateTime(act.end_time) + '</td>' + '<td>';

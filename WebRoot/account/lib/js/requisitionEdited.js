@@ -3,8 +3,8 @@ $("#requisitionForm_table_add_tr").click(function(){
 	var tr_num = $("#requisitionForm_table tbody tr").length;
 	var html="";
 	html+='<tr>'
-		+'<td>'+tr_num+'</td>'
-		+'<td></td><td>'
+		+'<td>'+parseInt( tr_num + 1 )+'</td>'
+		+'<td style=""></td><td>'
 		+'<select  tabindex="1" class="materialname_select form-control">'
 		+'<option value=""></option>';
 		for (i in materials) {
@@ -16,7 +16,7 @@ $("#requisitionForm_table_add_tr").click(function(){
 		+'<td></td><td>'
 		+'<input type="text" class="input-small required form-control" name="">'
 		+'</td><td>'
-		+'<select  tabindex="1" class="form-control">'
+		+'<select  tabindex="1" class="unit_selected form-control">'
 		+'<option value=""></option>';
 		for (i in units) {
 			var unit = units[i];
@@ -31,6 +31,8 @@ $("#requisitionForm_table_add_tr").click(function(){
 		+'</tr>';
 	$("#signup_form table tbody").append(html);
 	tr_num++;
+	$(".materialname_select").select2();
+	$(".unit_selected").select2();
 });
 $(function(){
 	
@@ -80,9 +82,12 @@ $( "#requisitionFormSubmit" ).click(function(){
 				listjsonlist.push(json);
 			});
 			listjson["accountRequisitionDetailList"]=listjsonlist;
-			console.log(listjson);
-			
-			$.ajax(IP_config+"accountRequisition/save", {
+			//console.log(listjson);
+			/*if (  ) {
+				
+			}*/
+			$.ajax( {
+				url : IP_config + "accountRequisition/save",
 				dataType: "json",
 				contentType:"application/json;charset=UTF-8",
 				data:JSON.stringify(listjson),
@@ -131,6 +136,90 @@ $( "#requisitionFormSubmit" ).click(function(){
 	});
 	
 });
+
+//保存 经理操做时此按钮隐藏
+$( "#requisitionFormSave" ).click(function(){
+	
+	$( 'body' ).RemindWokenSelect({
+		title : '确定保存？',
+		istrue : function () {
+			/*if ( $( '#requisitionForm_checker' ).val() == null || $( '#requisitionForm_checker' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须选择审核人' );
+				return;
+			}*/
+			var listjson = {};
+			listjson["id"]=$("#id").val();
+			listjson["title"]=$("#title").val();
+			listjson["receivedate"]=$("#receivedate").val();
+			listjson["reason"]=$("#reason").val();
+			listjson["checker"]=$("#requisitionForm_checker").val();
+			var listjsonlist = new Array();
+			
+			$("#requisitionForm_table tbody tr").each(function(){
+				var json={};
+				json["materialcode"]=$(this).children("td").eq(1).text();
+				json["quantitiy"]=$(this).children("td").eq(4).find("input").val();
+				json["units"]=$(this).children("td").eq(5).find("select").val();
+				json["remarks"]=$(this).children("td").eq(6).find("input").val();
+				//alert(json["materialcode"]+json["quantitiy"]+json["units"]);
+				listjsonlist.push(json);
+			});
+			listjson["accountRequisitionDetailList"]=listjsonlist;
+			
+			
+			/*if (  ) {
+				
+			}*/
+			$.ajax( {
+				url : IP_config + "accountRequisition/savenotcommit",
+				dataType: "json",
+				contentType:"application/json;charset=UTF-8",
+				data:JSON.stringify(listjson),
+				xhrFields: {
+					withCredentials: true
+				},
+				type: "POST",
+				success: function(data) {
+					//console.log(data);
+					if ( data.success ) {
+						//提交成功
+						$( 'body' ).RemindWokenSuccess( '操作成功' );
+						$.ajax( {
+							url : IP_config + "accountRequisition/selectView",
+							dataType: "json",
+							type: "POST",
+							data :  {
+								title : $("#pName").val(),
+								checker : userid,
+								procInsId : $( '#procInsId' ).val(),
+								startTime : $( '#startTime' ).val(),
+								endTime : $( '#endTime' ).val(),
+								pageSize : 30,
+								currentPage : 1
+							},
+							async : false,
+							success: function( data1 ) {
+								if ( data1.success ) {
+									var data_total = data1.obj.totalCount;
+									var table_data = data1.obj.list;
+									
+									dataTable( table_data , data_total );
+								} else {
+									$( 'body' ).RemindWokenError( '查询失败' );
+								}
+								
+							}
+						});
+					}else{
+						//提交失败提示
+						$( 'body' ).RemindWokenError( '操作失败' );
+					}
+				}
+			});
+		}
+	});
+	
+});
 //删除
 $( "#requisitionFormDanger" ).click(function(){
 	$( 'body' ).RemindWokenSelect({
@@ -146,7 +235,7 @@ $( "#requisitionFormDanger" ).click(function(){
 				},
 				type: "POST",
 				success: function(data) {
-					//console.log(data);
+				
 					if(data.success){
 						//提交成功
 						$( 'body' ).RemindWokenSuccess( '操作成功' );

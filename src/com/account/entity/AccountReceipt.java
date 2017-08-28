@@ -6,9 +6,10 @@ package com.account.entity;
 public class AccountReceipt {
 
 	private String id;
-	private String suppliernum;// 供应商编号
+	private String suppliernum;// 供应商编码
 	private String supplier; // 供应商名称
 	private String billingdate; // 开票日期
+	private String materialcode; // 物资编码
 	private String materialname; // 物资名称
 	private String size; // 规格型号
 	private Double pricefee; // 含税单价 自动生成（保留两位）
@@ -87,6 +88,20 @@ public class AccountReceipt {
 	 */
 	public void setBillingdate(String billingdate) {
 		this.billingdate = billingdate;
+	}
+
+	/**
+	 * @return the materialcode
+	 */
+	public String getMaterialcode() {
+		return materialcode;
+	}
+
+	/**
+	 * @param materialcode the materialcode to set
+	 */
+	public void setMaterialcode(String materialcode) {
+		this.materialcode = materialcode;
 	}
 
 	/**

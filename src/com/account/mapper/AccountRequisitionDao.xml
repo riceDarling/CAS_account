@@ -73,33 +73,46 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.account.entity.AccountRequisition">
-		INSERT INTO account_requisition(
-			id,
-			ordernum,
-			title,
-			receivedate,
-			reason,
-			office_id,
-			proc_ins_id,
-			checker,
-			create_by,
-			create_date,
-			act_checker,
-			del_flag
-		) VALUES (
-			#{id},
-			#{ordernum},
-			#{title},
-			#{receivedate},
-			#{reason},
-			#{office},
-			#{procInsId},
-			#{checker},
-			#{createBy},
-			#{createDate},
-			#{act_checker},
-			#{delFlag}
-		)
+		INSERT INTO 
+			account_requisition
+		set
+			<if test='id != null and id != ""'>
+				id = #{id}
+			</if>
+			<if test='ordernum != null and ordernum != ""'>
+				,ordernum = #{ordernum}
+			</if>
+			<if test='title != null and title != ""'>
+				,title = #{title}
+			</if>
+			<if test='receivedate != null and receivedate != ""'>
+				,receivedate = #{receivedate}
+			</if>
+			<if test='reason != null and reason != ""'>
+				,reason = #{reason}
+			</if>
+			<if test='office != null and office != ""'>
+				,office_id = #{office}
+			</if>
+			<if test='procInsId != null and procInsId != ""'>
+				,proc_ins_id = #{procInsId}
+			</if>
+			<if test='checker != null and checker != ""'>
+				,checker = #{checker}
+			</if>
+			<if test='createBy != null and createBy != ""'>
+				,create_by = #{createBy}
+			</if>
+			<if test='createDate != null and createDate != ""'>
+				,create_date = #{createDate}
+			</if>
+			<if test='act_checker != null and act_checker != ""'>
+				,act_checker = #{act_checker}
+			</if>
+			<if test='delFlag != null and delFlag != ""'>
+				,del_flag = #{delFlag}
+			</if>
+			;
 	</insert>
 	
 	<update id="update" parameterType="com.account.entity.AccountRequisition">
@@ -152,7 +165,7 @@
 		SELECT ap.title as title FROM account_requisition ap WHERE ap.proc_ins_id='end' and del_flag='0'
 	</select>
 
-<select id="selectView" resultType="com.account.entity.AccountRequisition">
+	<select id="selectView" resultType="com.account.entity.AccountRequisition">
 		SELECT 
 			
 			<include refid="accountRequisitionColumns"/>
@@ -161,16 +174,16 @@
 			account_requisition a,
 			account_requisition_act act
 		where
-			a.del_flag = 0
+			( a.del_flag = 0 or a.del_flag is null )
 			and act.requisition_id = a.id
 			<if test='title != null and title != ""'>
 				and a.title  LIKE concat('%',#{title},'%')
 			</if>
 			<if test='procInsId != null and procInsId != ""'>
 				<if test='procInsId =="1"'>
-					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' or a.proc_ins_id = 'notcommit' )
 					and act.state = 0
-					and a.act_checker = #{checker}
+					and ( a.act_checker = #{checker} or a.act_checker is null )
 				</if>
 				<if test='procInsId =="2"'>
 					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
@@ -184,12 +197,19 @@
 				<if test='procInsId =="4"'>
 					and a.create_by = #{checker}
 				</if>
+				<if test='procInsId =="5"'>
+					and ( a.proc_ins_id = 'rejected' )
+					and ( a.act_checker = #{checker} or a.act_checker is null )
+				</if>
 			</if>
 			<if test='startTime != null and startTime != ""'>
 				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
 			</if>
 			<if test='endTime != null and endTime != ""'>
 				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+			</if>
+			<if test='procInsId != null and procInsId =="1"'>
+				GROUP BY a.id
 			</if>
 			<if test='procInsId != null and procInsId =="2"'>
 				GROUP BY a.id
@@ -198,6 +218,9 @@
 				GROUP BY a.id
 			</if>
 			<if test='procInsId != null and procInsId =="4"'>
+				GROUP BY a.id
+			</if>
+			<if test='procInsId != null and procInsId =="5"'>
 				GROUP BY a.id
 			</if>
 			order by a.create_date desc
@@ -214,16 +237,16 @@
 			account_requisition a,
 			account_requisition_act act
 		where
-			a.del_flag = 0
+			( a.del_flag = 0 or a.del_flag is null )
 			and act.requisition_id = a.id
 			<if test='title != null and title != ""'>
 				and a.title  LIKE concat('%',#{title},'%')
 			</if>
 			<if test='procInsId != null and procInsId != ""'>
 				<if test='procInsId =="1"'>
-					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
+					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' or a.proc_ins_id = 'notcommit' )
 					and act.state = 0
-					and a.act_checker = #{checker}
+					and ( a.act_checker = #{checker} or a.act_checker is null )
 				</if>
 				<if test='procInsId =="2"'>
 					and ( a.proc_ins_id = 'start' or a.proc_ins_id = 'rejected' )
@@ -237,6 +260,10 @@
 				<if test='procInsId =="4"'>
 					and a.create_by = #{checker}
 				</if>
+				<if test='procInsId =="5"'>
+					and ( a.proc_ins_id = 'rejected' )
+					and ( a.act_checker = #{checker} or a.act_checker is null )
+				</if>
 			</if>
 			<if test='startTime != null and startTime != ""'>
 				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>  	
@@ -244,8 +271,6 @@
 			<if test='endTime != null and endTime != ""'>
 				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
 			</if>
-			
-			
 	      	;
 	</select>
 	

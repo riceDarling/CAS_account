@@ -15,6 +15,7 @@
                         <option value="1">待办</option>
                         <option value="2">已办</option>
                         <option value="3">办结</option>
+                        <option value="5">驳回</option>
                         <option value="4">我的流程</option>
                     </select>
                 </div>
@@ -41,6 +42,10 @@
 	</div>
 
 <script>
+
+if ( $.cookie( "menu_0" ) == 1 ) {
+	$( '.flowadd-btn' ).css( 'display' , 'none' );
+}
 
 $(".form_datetime").datetimepicker({
 	language:  'zh-CN', 
@@ -94,6 +99,10 @@ function dataTable( table_data , data_total ){
 			if ( $( '#procInsId' ).val() == 4 ) {
 				tempObj.procInsId = '已办';
 				tempObj.dataopt = '<a name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-success" >查看</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="del_material" class="btn btn-danger selfback-btn-sel">撤回</a>';  
+			}
+			if ( $( '#procInsId' ).val() == 5 ) {
+				tempObj.procInsId = '驳回';
+				tempObj.dataopt = '<a name="'+table_data[ c ].id+'" createBy="'+table_data[ c ].createBy+'" class="btn work-btn-sel btn-info" >办理</a>';  
 			}
 			
 			total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
@@ -354,6 +363,31 @@ $.ajax( {
 
 $( '#sub_search' ).click( function () {
 	
+	$.ajax( {
+		url : IP_config + "accountRequisition/selectView",
+		dataType: "json",
+		type: "POST",
+		data : {
+			title : $("#pName").val(),
+			checker : userid,
+			procInsId : $( '#procInsId' ).val(),
+			startTime : $( '#startTime' ).val(),
+			endTime : $( '#endTime' ).val(),
+			pageSize : 30,
+			currentPage : 1
+		},
+		async : false,
+		success: function( data1 ) {
+			
+			var data_total = data1.obj.totalCount;
+			var table_data = data1.obj.list;
+			
+			dataTable( table_data , data_total );
+		}	
+	});
+} );
+
+$( '#procInsId' ).change( function () {
 	$.ajax( {
 		url : IP_config + "accountRequisition/selectView",
 		dataType: "json",

@@ -4,8 +4,10 @@
 
 	<sql id="accountReceiptColumns">
 		a.id AS "id",
+		a.suppliernum AS "suppliernum",
 		a.supplier AS "supplier",
 		date_format(a.billingdate,'%Y-%c-%d') AS "billingdate",
+		a.materialcode AS "materialcode",
 		a.materialname
 		AS "materialname",
 		a.size AS "size",
@@ -59,8 +61,10 @@
 	<insert id="save" parameterType="com.account.entity.AccountReceipt">
 		INSERT INTO account_receipt(
 		id,
+		suppliernum,
 		supplier,
 		billingdate,
+		materialcode,
 		materialname,
 		size,
 		pricefee,
@@ -80,8 +84,10 @@
 		del_flag
 		) VALUES (
 		#{id},
+		#{suppliernum},
 		#{supplier},
 		#{billingdate},
+		#{materialcode},
 		#{materialname},
 		#{size},
 		#{pricefee},
@@ -104,10 +110,12 @@
 
 	<update id="update" parameterType="com.account.entity.AccountReceipt">
 		UPDATE account_receipt SET
+		suppliernum=#{suppliernum},
 		supplier=#{supplier},
-		materialname =#{materialname},
 		billingdate
 		=#{billingdate},
+		materialcode=#{materialcode},
+		materialname =#{materialname},
 		size=#{size},
 		pricefee=#{pricefee},
 		pricenotfee=#{pricenotfee},

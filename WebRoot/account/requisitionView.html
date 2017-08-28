@@ -1,3 +1,5 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <div class="row">
 	<div class="col-md-12">
 	<div class="panel panel-cascade">
@@ -47,13 +49,13 @@
                             
 							<div class="form-group" style="display:table;background:#eee;width:100%;margin-left:0;margin-right:0;">
 								<label class="col-lg-6 col-md-6 control-label"><h3 style="text-align:left;padding:0;margin:0;font-size:15px;font-weight:bold;">申请物资明细表</h3></label>
-                                <div class="col-lg-12 col-md-12 tablescrol-container" style="height: 155px;">
+                                <div class="col-lg-12 col-md-12 tablescrol-container" style="height: 155px;overflow-y:scroll;">
                                     <div class="panel-body " style="padding-left:0;padding-right:0;">
                                         <table class="table table-striped" id="requisitionView_table">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th style="display:none">物资编码</th>
+                                                    <th style="">物资编码</th>
                                                     <th>物资名称</th>
                                                     <th>规格型号</th>
                                                     <th>申请数量</th>
@@ -66,7 +68,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="panel-body tablescrol-container" style="height:115px;">
+                                <div class="panel-body tablescrol-container" style="height:115px;overflow-y:scroll;">
                                     <table class="table table-striped " id="requisitionView_act_table">
                                         <thead>
                                             <tr>
@@ -100,16 +102,7 @@
 
 
 <script>
-$( '.tablescrol-container' ).niceScroll({
-	styler : "fb" , 
-	cursorcolor : "#f4f4f4" ,
-	cursorwidth : '7' ,
-	cursorborderradius : 0,
-	cursorborder:'1px solid #999',
-	background : '' ,
-	cursoropacitymin  : 0,
-	cursoropacitymax  : 0
-});
+
 
 
 var userid = $.cookie("login_userid");
@@ -130,6 +123,7 @@ var userid = $.cookie("login_userid");
 					}
 				}
 				$( "#checker" ).html( html );
+				$("#checker").select2();
 			}else{
 				$( 'body' ).RemindWoken( data.msg );
 			}
@@ -159,13 +153,13 @@ var userid = $.cookie("login_userid");
 					var html = "";
 					for ( i in data.obj.detailMapList ) {
 						var detail = data.obj.detailMapList[ i ];
-						html += '<tr>' + '<td>' + (i+1) + '</td>' + '<td style="display:none">'
+						html += '<tr>' + '<td>' + (i+1) + '</td>' + '<td >'
 								+ detail.materialNum + '</td>' + '<td>'
 								+ detail.materialName + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
 								+ detail.quantitiy + '</td>' + '<td>'
 								+ detail.name + '</td>' + '<td>'
-								+ detail.remarks + '</td>' + '</tr>';
+								+ ( detail.remarks == undefined ? '' : detail.remarks ) + '</td>' + '</tr>';
 					}
 					$( "#requisitionView_table tbody" ).html( html );
 				}
@@ -201,7 +195,7 @@ var userid = $.cookie("login_userid");
 						var act = data.obj.actList[ i ];
 						html += '<tr><td>'
 								+ act.requisitionName + '</td>' + '<td>'
-								+ act.checkerName + '</td>' + '<td>'
+								+ ( act.checkerName == undefined ? '' : act.checkerName ) + '</td>' + '<td>'
 								+ formatDateTime(act.start_time) + '</td>' + '<td>';
 								if(act.end_time!=null){
 									html+= formatDateTime(act.end_time) + '</td>' + '<td>';

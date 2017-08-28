@@ -7,8 +7,13 @@ import com.account.entity.AccountRequisition;
 import com.account.utils.PageUtil;
 
 public interface AccountRequisitionService {
+	
 	public AccountRequisition get(String id);
+	
 	public void save(AccountRequisition accountRequisition);
+	
+	public void savenotcommit(AccountRequisition accountRequisition);
+	
 	/**
 	 * 获取字表详细数据（关联物资，计量单位）
 	 * @param parentid

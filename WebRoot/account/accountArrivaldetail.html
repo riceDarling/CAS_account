@@ -126,7 +126,7 @@
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td><input type='text' value='"+data.obj[i].num+"' name='num'   onchange='mathnum()' /></td></tr>";
+						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td>" + data.obj[i].unitname + "</td><td>" +  data.obj[i].unitprice + "</td><td>" + data.obj[i].money +"</td><td>" +  data.obj[i].quantity + "</td><td><input type='text' class='form-control' value='"+data.obj[i].num+"' name='num'   onchange='mathnum()' /></td></tr>";
 						}
 					$("#contentTable>tbody").html(html);
 				}

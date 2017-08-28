@@ -4,7 +4,7 @@ $("#requisitionForm_table_add_tr").click(function(){
 	var html="";
 	html+='<tr>'
 		+'<td>'+tr_num+'</td>'
-		+'<td style="display:none"></td><td>'
+		+'<td style=""></td><td>'
 		+'<select  tabindex="1" class="materialname_select form-control">'
 		+'<option value=""></option>';
 		for (i in materials) {
@@ -16,7 +16,7 @@ $("#requisitionForm_table_add_tr").click(function(){
 		+'<td></td><td>'
 		+'<input type="text" class="input-small required form-control" name="">'
 		+'</td><td>'
-		+'<select  tabindex="1" class="form-control">'
+		+'<select  tabindex="1" class="unit_selected form-control">'
 		+'<option value=""></option>';
 		for (i in units) {
 			var unit = units[i];
@@ -31,7 +31,10 @@ $("#requisitionForm_table_add_tr").click(function(){
 		+'</tr>';
 	$("#signup_form table tbody").append(html);
 	tr_num++;
+	$(".materialname_select").select2();
+	$(".unit_selected").select2();
 });
+
 $(function(){
 	
 });

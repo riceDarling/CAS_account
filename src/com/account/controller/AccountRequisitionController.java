@@ -52,6 +52,31 @@ public class AccountRequisitionController {
 				rm.isSuccessMsg("","提交成功");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+			rm.isErrorMsg("失败");
+	
+		}
+		
+		return rm;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "savenotcommit")
+	public ResponseModel<String> savenotcommit(@RequestBody String data){
+		ResponseModel<String> rm = new ResponseModel<String>();
+		try { 
+			AccountRequisition accountRequisition= JSON.parseObject(data, AccountRequisition.class);
+			if("no".equals(accountRequisition.getConclusion())) {
+				////删除申请单(修改页面单独处理，所有此处没有删除逻辑)
+				rm.isSuccessMsg("","删除成功");
+			}else {
+				//保存申请单
+				accountRequisitionService.savenotcommit(accountRequisition);
+				rm.isSuccessMsg("","提交成功");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			rm.isErrorMsg("失败");
 	
 		}

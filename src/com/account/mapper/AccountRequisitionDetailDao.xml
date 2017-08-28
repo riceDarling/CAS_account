@@ -69,23 +69,31 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.account.entity.AccountRequisitionDetail">
-		INSERT INTO account_requisition_detail(
-			id,
-			parent_id,
-			materialcode,
-			quantitiy,
-			remarks,
-			units,
-			del_flag
-		) VALUES (
-			#{id},
-			#{parent.id},
-			#{materialcode},
-			#{quantitiy},
-			#{remarks},
-			#{units},
-			#{delFlag}
-		)
+		INSERT INTO 
+			account_requisition_detail
+		set
+		<if test='id!=null and id!="" '>
+			id = #{id}
+		</if>
+		<if test='parent.id!=null and parent.id!="" '>
+			,parent_id=#{parent.id}
+		</if>
+		<if test='materialcode!=null and materialcode!="" '>
+			,materialcode=#{materialcode}
+		</if>
+		<if test='quantitiy!=null and quantitiy!="" '>
+			,quantitiy=#{quantitiy}
+		</if>
+		<if test='remarks!=null and remarks!="" '>
+			,remarks=#{remarks}
+		</if>
+		<if test='units!=null and units!="" '>
+			,units=#{units}
+		</if>
+		<if test='delFlag!=null and delFlag!="" '>
+			,del_flag=#{delFlag}
+		</if>
+		;
 	</insert>
 	
 	<update id="update" parameterType="com.account.entity.AccountRequisitionDetail">
@@ -115,12 +123,20 @@
 	</update>
 	
 	<select id="getDetailMapByparentid" parameterType="String" resultType="map">
-		SELECT b.materialNum,b.materialName,b.size,a.quantitiy,c.`name`,a.remarks,a.units
-			FROM account_requisition_detail a 
+		SELECT 
+			b.materialNum,
+			b.materialName,
+			b.size,
+			a.quantitiy,
+			c.`name`,
+			a.remarks,
+			a.units
+		FROM account_requisition_detail a 
 			LEFT JOIN account_material b ON a.materialCode=b.materialNum
 			LEFT JOIN account_para_info c ON a.units=c.id
-		WHERE a.parent_Id=#{parentid}
-		AND a.del_flag = 0
+		WHERE 
+				a.parent_Id=#{parentid}
+			AND (a.del_flag = 0 or a.del_flag is null)
 	</select>
 
 	

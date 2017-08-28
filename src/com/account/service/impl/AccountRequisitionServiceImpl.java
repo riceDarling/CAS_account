@@ -63,6 +63,86 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 		return accountRequisition;
 	}
 
+	public void savenotcommit(AccountRequisition accountRequisition) {
+		Subject subject = SecurityUtils.getSubject();
+		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");
+		AccountRequisitionAct now_acts = new AccountRequisitionAct();
+		if (accountRequisition.getId() == null) {
+			accountRequisition.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			// 生成17位单据编号 04-20170203-00001
+			String ordernum = "04-" + FormatDateUtils.dateToString(new Date()) + "-" + RandomUtils.random();
+			accountRequisition.setOrdernum(ordernum);
+			
+			//accountRequisition.setOffice("测试");
+			accountRequisition.setCreateBy(loginAdmin.getId().toString());
+			accountRequisition.setCreateDate(new Date());
+			accountRequisition.setProcInsId("notcommit");
+			accountRequisition.setAct_checker(null);
+			accountRequisitionDao.insert(accountRequisition);
+		} else {
+			AccountRequisitionAct now_act = new AccountRequisitionAct();
+			now_act.setActindex(0);
+
+			now_act.setCheckerName(loginAdmin.getId().toString());
+			now_act.setRequisitionId(accountRequisition.getId());
+			if (accountRequisitionActDao.getbyRequisitionIdAndChecknameAndStates(now_act).size() < 1) {
+				now_act = accountRequisitionActDao.getbyRequisitionIdAndChecknameAndState(now_act);
+			}
+			
+			now_act.setState(0);
+			now_act.setConclusion(0);
+			now_act.setRemarks("保存");
+			now_act.setEndTime(new Date());
+			//accountRequisitionActDao.update(now_act);
+			now_acts = now_act;
+			//accountRequisition.setOffice("测试");
+			accountRequisition.setCreateBy(loginAdmin.getId().toString());
+			accountRequisition.setCreateDate(new Date());
+			accountRequisition.setProcInsId("notcommit");
+			accountRequisition.setAct_checker(null);
+			accountRequisitionDao.update(accountRequisition);
+		}
+		
+
+		accountRequisitionDetailDao.deleteByparentId(accountRequisition.getId());
+		if (accountRequisition.getAccountRequisitionDetailList().size() > 0) {
+			for (AccountRequisitionDetail accountRequisitionDetail : accountRequisition.getAccountRequisitionDetailList()) {
+				accountRequisitionDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+				accountRequisitionDetail.setParent(accountRequisition);
+				accountRequisitionDetailDao.insert(accountRequisitionDetail);
+			}
+		}
+		
+		AccountRequisitionAct act = new AccountRequisitionAct();
+		act.setActindex(0);
+		act.setRequisitionId(accountRequisition.getId());
+
+		act.setRequisitionName(loginAdmin.getId().toString());
+		act.setStartTime(new Date());
+		act.setStep(0);
+		act.setState(0);
+		act.setCheckerName(loginAdmin.getId().toString());
+		if ( accountRequisitionActDao.getbyRequisitionIdAndChecknameAndStates(now_acts).size() < 1 ) {
+			accountRequisitionActDao.insert(act);
+		}
+
+		act.setConclusion(1);
+		act.setRemarks("保存申请");
+		act.setEndTime(new Date());
+		accountRequisition.setAct_checker(null);
+		accountRequisitionActDao.update(act);
+
+		AccountRequisitionAct next_act = new AccountRequisitionAct();
+		next_act.setActindex(0);
+		next_act.setRequisitionId(accountRequisition.getId());
+		next_act.setRequisitionName(loginAdmin.getId().toString());
+		next_act.setStartTime(new Date());
+		next_act.setStep(0);
+		next_act.setState(0);
+		next_act.setCheckerName(accountRequisition.getChecker());
+		accountRequisitionActDao.insert(next_act);
+	}
+	
 	public void save(AccountRequisition accountRequisition) {
 		Subject subject = SecurityUtils.getSubject();
 		Admin loginAdmin = (Admin) subject.getSession().getAttribute("loginAdmin");

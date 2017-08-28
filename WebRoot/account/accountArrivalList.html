@@ -448,31 +448,35 @@
 		} );
 	});
 	
-	$.ajax( {
-		url : IP_config + "accountArrivalController/selectView",
-		type : "post",
-		data : {
-			supplier : $("#supplier").val(),
-			arrivalstatus : $( '#procInsId' ).val(),
-			beginDate : $( '#startTime' ).val(),
-			endDate : $( '#endTime' ).val(),
-			pageSize : 30,
-			currentPage : 1
-		},
-		async : false,
-		success : function ( data1 ) {
-			if ( data1.success ) {
-				//debugger;
-				var data_total = data1.obj.totalCount;
-				var table_data = data1.obj.list;
-			
-				dataTable( table_data , data_total );
-			} else {
-				$( 'body' ).RemindWokenError( '查询失败' );
+	$( '#procInsId' ).change( function () {
+		$.ajax( {
+			url : IP_config + "accountArrivalController/selectView",
+			type : "post",
+			data : {
+				supplier : $("#supplier").val(),
+				arrivalstatus : $( '#procInsId' ).val(),
+				beginDate : $( '#startTime' ).val(),
+				endDate : $( '#endTime' ).val(),
+				pageSize : 30,
+				currentPage : 1
+			},
+			async : false,
+			success : function ( data1 ) {
+				if ( data1.success ) {
+					//debugger;
+					var data_total = data1.obj.totalCount;
+					var table_data = data1.obj.list;
+				
+					dataTable( table_data , data_total );
+				} else {
+					$( 'body' ).RemindWokenError( '查询失败' );
+				}
+				
+				//$( '.paginate_button.active a' ).html( nowpage_in );
 			}
-			
-			//$( '.paginate_button.active a' ).html( nowpage_in );
-		}
+		} );
 	} );
+	
+	
 
 </script>

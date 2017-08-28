@@ -1,4 +1,5 @@
-
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <div class="col-lg-12 col-md-12" >
 	<div class="panel panel-cascade" style="margin-bottom:0;border-radius:0;border:0;">
 		<div class="panel-heading">
@@ -132,7 +133,7 @@
 				}
 				
 				$("#title-purchasenumtitle").html(html);
-
+				$("#title-purchasenumtitle").select2();
 			}
 		});
 	});
@@ -171,8 +172,9 @@
 	}
 	
 	//根据采购标题查询采购数据
-	$("#title-purchasenumtitle").click(function() {
-		var purchasenumtitle = $("#title-purchasenumtitle").val();
+	$(".select2-selection").bind('DOMNodeInserted',function() {
+		var purchasenumtitle = $("#select2-title-purchasenumtitle-container").attr("title");
+		console.log(purchasenumtitle);
 		if (purchasenumtitle != null && purchasenumtitle != "") {
 			//获取采购订货单列表供应商数据列表
 			$.ajax({
@@ -188,6 +190,7 @@
 						html += "<option value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
 					}
 					$("#title-supplier").html(html);
+					$("#title-supplier").select2();
 					
 					$("#purchasenum").val($("#title-supplier").find("option:selected").val());
 					//供应商编号

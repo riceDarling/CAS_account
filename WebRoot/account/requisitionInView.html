@@ -1,3 +1,5 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 <div class="row">
 	<div class="col-md-12">
 	<div class="panel panel-cascade">
@@ -43,7 +45,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th style="display:none">物资编码</th>
+                                                    <th style="">物资编码</th>
                                                     <th>物资名称</th>
                                                     <th>规格型号</th>
                                                     <th>申请数量</th>
@@ -144,7 +146,7 @@ $( '.tablescrol-container' ).niceScroll({
 					var html = "";
 					for ( i in data.obj.detailMapList ) {
 						var detail = data.obj.detailMapList[ i ];
-						html += '<tr>' + '<td>' + i + '</td>' + '<td style="display:none;">'
+						html += '<tr>' + '<td>' + i + '</td>' + '<td style="">'
 								+ detail.materialNum + '</td>' + '<td>'
 								+ detail.materialName + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'

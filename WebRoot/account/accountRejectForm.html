@@ -1,3 +1,5 @@
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
 	<div class="col-md-12">
 		<div class="panel panel-cascade">
 			<!-- <div class="panel-heading">
@@ -10,23 +12,20 @@
 					<h3 class="panel-title">创建退货单</h3>
 				</div>
 				<div class="panel-body ">
-					<label class="col-lg-1 col-md-2 control-label"
-						style="width: 14% !important;">到货单编号：</label>
-					<div class="col-lg-2 col-md-2">
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">到货单编号：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
 						<select name="status" class="form-control" id="inspection_select">
 							<option value="">请选择</option>
 
 						</select>
 					</div>
-					<label class="col-lg-1 col-md-2 control-label"
-						style="width: 14% !important;">供应商名称：</label>
-					<div class="col-lg-2 col-md-2">
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">供应商名称：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
 						<input name="supplier" type="text" htmlEscape="false"
 							class="form-control" id="form_supplier" readonly  suppliernum=""/>
 					</div>
-					<label class="col-lg-1 col-md-2 control-label"
-						style="width: 14% !important;">退货单名称：</label>
-					<div class="col-lg-2 col-md-2">
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">退货单名称：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
 						<input name="" type="text" htmlEscape="false"
 							class="form-control" id="form_title" />
 					</div>
@@ -59,7 +58,8 @@
 		$("#index_content").load($(this).attr("href_1"));
 	}); */
 	
-	$.ajax("../accountInspectionController/getArrivalNum", {
+	$.ajax({
+		url : IP_config+"accountInspectionController/getArrivalNum",
 		dataType: "json",
 		contentType:"application/json;charset=UTF-8",
 		xhrFields: {
@@ -77,9 +77,10 @@
 					html+='<option value="'+obj.arrivalNum+'" supplier="'+obj.supplier+'" supplierNum="'+obj.supplierNum+'" orderNum="'+obj.orderNum+'" requisition_id="'+obj.id+'">'+obj.arrivalNum+'</option>';
 				}
 				$("#inspection_select").html(html);
+				$("#inspection_select").select2();
 			}else{
 				//提交失败提示
-				layer.alert(data.msg);
+				$( 'body' ).RemindWoken( data.msg );
 			}
 		}
 	});
@@ -90,7 +91,8 @@
 		//alert(requisition_id);
 		//alert(supplier);
 		$("#form_supplier").val(supplier);
-		$.ajax("../accountInspectionController/getArrivalDetail", {
+		$.ajax({
+			url : IP_config+"accountInspectionController/getArrivalDetail",
 			dataType: "json",
 			contentType:"application/json;charset=UTF-8",
 			xhrFields: {
@@ -115,7 +117,7 @@
 					$("#accountRejectFormTbody").html(html);
 				}else{
 					//提交失败提示
-					layer.alert(data.msg);
+					$( 'body' ).RemindWoken( data.msg );
 				}
 			}
 		});
@@ -147,7 +149,8 @@
 						listjson.push(json);
 				});
 				data_json["detailList"]=listjson;
-				$.ajax("../accountReject/save", {
+				$.ajax( {
+					url : IP_config+"accountReject/save",
 					dataType: "json",
 					contentType:"application/json;charset=UTF-8",
 					data:JSON.stringify(data_json),

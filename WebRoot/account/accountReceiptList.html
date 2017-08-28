@@ -44,8 +44,10 @@
 		if (table_data.length > 0) {
 			for ( var c in table_data) {
 				var tempObj = new Object();
+				tempObj.suppliernum = table_data[c].suppliernum;
 				tempObj.supplier = table_data[c].supplier;
 				tempObj.billingdate = table_data[c].billingdate;
+				tempObj.materialcode = table_data[c].materialcode;
 				tempObj.materialname = table_data[c].materialname;
 				tempObj.size = table_data[c].size;
 				tempObj.pricefee = table_data[c].pricefee;
@@ -73,6 +75,11 @@
 					"bVisible" : false
 				//此列不显示  
 				}, {
+					"mDataProp" : "suppliernum",
+					"sTitle" : "供应商编码",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
 					"mDataProp" : "supplier",
 					"sTitle" : "供应商名称",
 					"sDefaultContent" : "",
@@ -80,6 +87,11 @@
 				}, {
 					"mDataProp" : "billingdate",
 					"sTitle" : "开票日期",
+					"sDefaultContent" : "",
+					"sClass" : "left"
+				}, {
+					"mDataProp" : "materialcode",
+					"sTitle" : "物资编码",
 					"sDefaultContent" : "",
 					"sClass" : "left"
 				}, {

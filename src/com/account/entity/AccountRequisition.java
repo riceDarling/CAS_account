@@ -30,12 +30,30 @@ public class AccountRequisition extends BaseModel {
 	private String procInsId; // 流程节点状态
 	private String checker; // 审核人
 	private List<AccountRequisitionDetail> accountRequisitionDetailList; // 子表列表
+	private String requisitionDate;// 申购日期
+	private String maker;// 制单人
 
 	private String inquiry;// 询价人
 
 	PageUtil<AccountRequisition> page;
 
 	private String act_checker;// 当前节点办理人
+
+	public String getRequisitionDate() {
+		return requisitionDate;
+	}
+
+	public void setRequisitionDate(String requisitionDate) {
+		this.requisitionDate = requisitionDate;
+	}
+
+	public String getMaker() {
+		return maker;
+	}
+
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
 
 	public String getAct_checker() {
 		return act_checker;

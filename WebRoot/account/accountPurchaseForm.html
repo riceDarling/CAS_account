@@ -1,4 +1,10 @@
- <script src="lib/js/purchaseForm.js"></script>
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
+<script src="lib/js/purchaseForm.js"></script>
+<style>
+	.combo-select{width:133px !important;;}
+	.combo-input.text-input{width:130px;}
+</style>
 <div class="col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
@@ -19,7 +25,7 @@
             </div>
             <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">审核人（必选）：</label>
 			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
-                <select  tabindex="1" name="checker" style="width:100px;padding-left:0;margin-left:0;" id="accountPurchaseForm_checker" class="form-control">
+                <select  tabindex="1" name="checker" style="width:130px;padding-left:0;margin-left:0;" id="accountPurchaseForm_checker" class="form-control">
                      <option value=""></option>
                  </select>	
 			</div>
@@ -91,6 +97,7 @@
 					}
 				}
 				$("#accountPurchaseForm_checker").html(html);
+				$("#accountPurchaseForm_checker").select2();
 			}else{
 				//获取失败提示
 				$( 'body' ).RemindWoken( data.msg );
@@ -116,6 +123,7 @@
 					html+='<option value="'+contract.id+'">'+contract.contractTitle+'</option>';
 				}
 				$("#accountPurchaseForm_contract").html(html);
+				$("#accountPurchaseForm_contract").select2();
 			}else{
 				//获取失败提示
 				$( 'body' ).RemindWoken( data.msg );

@@ -1,4 +1,10 @@
 $(function(){
+	
+	$.cookie("menu_0",null);
+	$.cookie("menu_1",null);
+	$.cookie("menu_2",null);
+	$.cookie("menu_3",null);
+	
 	//登录
 	$("#btn_login").click(function(){
 		$.ajax(IP_config+"admin/login", {
@@ -19,7 +25,7 @@ $(function(){
 		});
 	});
 	//键盘回车事件
-	$(document).keydown(function(event) {
+	$( document ).keydown(function(event) {
 		if (event.keyCode == 13) {
 			$.ajax(IP_config+"admin/login", {
 				dataType: "json",

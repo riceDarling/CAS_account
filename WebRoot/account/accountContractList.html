@@ -467,36 +467,38 @@
 		});
 	} );
 
-
-	$.ajax( {
-		url : IP_config + 'accountContractController/selectView',
-		dataType: "json",
-		type: "POST",
-		data :  {
-			purchasenumtitle : $("#purchasenumtitle").val(),
-			contracttitle : $( '#contracttitle' ).val(),
-			status : $( '#procInsId' ).val(),
-			beginDate : $( '#startTime' ).val(),
-			endDate : $( '#endTime' ).val(),
-			pageSize : 30,
-			currentPage : 1
-		},
-		async : false,
-		success: function( data1 ) {
-		
-			if ( data1.success ) {
-				var data_total = data1.obj.totalCount;
-				var table_data = data1.obj.list;
-				if ( data1.obj.list.length < 2 && data1.obj.list[ 0 ].contractnum == null ) {
-					data_total = 0;
-					table_data = [];
+	$( '#procInsId' ).change( function () {
+		$.ajax( {
+			url : IP_config + 'accountContractController/selectView',
+			dataType: "json",
+			type: "POST",
+			data :  {
+				purchasenumtitle : $("#purchasenumtitle").val(),
+				contracttitle : $( '#contracttitle' ).val(),
+				status : $( '#procInsId' ).val(),
+				beginDate : $( '#startTime' ).val(),
+				endDate : $( '#endTime' ).val(),
+				pageSize : 30,
+				currentPage : 1
+			},
+			async : false,
+			success: function( data1 ) {
+			
+				if ( data1.success ) {
+					var data_total = data1.obj.totalCount;
+					var table_data = data1.obj.list;
+					if ( data1.obj.list.length < 2 && data1.obj.list[ 0 ].contractnum == null ) {
+						data_total = 0;
+						table_data = [];
+					}
+					dataTable( table_data , data_total );
+				} else {
+					$( 'body' ).RemindWoken( '查询失败' );
 				}
-				dataTable( table_data , data_total );
-			} else {
-				$( 'body' ).RemindWoken( '查询失败' );
 			}
-		}
-	});
+		});
+	} );
+	
 	
 	$( '#add-contrack-btn' ).click( function () {
 		$( 'body' ).append( 
