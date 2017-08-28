@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.account.dao.MaterialSizeMapper">
+  <resultMap id="BaseResultMap" type="com.account.entity.MaterialSize">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="materialNum" jdbcType="VARCHAR" property="materialnum" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, materialNum, size
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_material_size
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from account_material_size
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.account.entity.MaterialSize">
+    insert into account_material_size (id, materialNum, size
+      )
+    values (#{id,jdbcType=INTEGER}, #{materialnum,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.account.entity.MaterialSize">
+    insert into account_material_size
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="materialnum != null">
+        materialNum,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materialnum != null">
+        #{materialnum,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.account.entity.MaterialSize">
+    update account_material_size
+    <set>
+      <if test="materialnum != null">
+        materialNum = #{materialnum,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.account.entity.MaterialSize">
+    update account_material_size
+    set materialNum = #{materialnum,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
