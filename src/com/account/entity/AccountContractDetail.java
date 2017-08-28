@@ -7,7 +7,7 @@ public class AccountContractDetail {
 
 	private String id;
 	private String parent_Id; // 主表ID 父类
-	private String materialcode;// 物资编号
+	private String materialcode;// 物资编码
 	private String materialname; // 物资名称
 	private String size; // 规格型号
 	private String unitname; // 计量单位名称

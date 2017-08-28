@@ -31,15 +31,45 @@
 			</div>
 		</div>
 		<div class="panel-body">
+            <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">供应商名称：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" readonly class="form-control" id="" />
+            </div>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 130px;padding-right:0;text-align:right;margin-top:7px;">供应商编码：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" readonly class="form-control" id="" />
+            </div>
+            <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">制单人（必选）：</label>
+			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;"  class="form-control" id="" />
+			</div>
+		</div>
+		<div class="panel-body">
+            <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">纸质合同编号：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" readonly class="form-control" id="" />
+            </div>
+            <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:125px;padding-left: 0;padding-right: 0;text-align:right">合同编号：</label>
+			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" readonly class="form-control" id="" />
+			</div>
+			 <label class="col-lg-1 col-md-2 control-label" style="width: 180px;padding-right:0;text-align:right;margin-top:7px;">制单日期（必填）：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" readonly class="form_datetime form-control" id="" />
+            </div>
+		</div>
+		<div class="panel-body">
 			<table class="table table-bordered table-condensed table-hover">
 				<thead>
 					<tr>
+						<th class="visible-lg">物资编号</th>
 						<th class="visible-lg">物资名称</th>
 						<th class="visible-lg">型号</th>
 						<th class="visible-lg">计量单位</th>
 						<th class="visible-lg">单价</th>
 						<th class="visible-lg">数量</th>
 						<th class="visible-lg">总价</th>
+						<th class="visible-lg">备注</th>
 					</tr>
 				</thead>
 				<tbody id="secondPageTbody">
@@ -74,6 +104,16 @@
 	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
 	}); */
+
+	$(".form_datetime").datetimepicker({
+		language:  'zh-CN', 
+		minView: "month", //选择日期后，不会再跳转去选择时分秒 
+	    format: 'yyyy-mm-dd',
+	    todayBtn:  1,
+	    autoclose: 1
+	});
+	    
+	
 	
 	$.ajax({
 		url : IP_config+"admin/getAdminList",
@@ -120,7 +160,7 @@
 				var html="<option value=''>请选择</option>";
 				for (i in data.obj) {
 					var contract = data.obj[i];
-					html+='<option value="'+contract.id+'">'+contract.contractTitle+'</option>';
+					html+='<option value="'+contract.id+'" supplierNum="'+contract.supplierNum+'" supplier="'+contract.supplier+'">'+contract.contractTitle+'</option>';
 				}
 				$("#accountPurchaseForm_contract").html(html);
 				$("#accountPurchaseForm_contract").select2();
@@ -151,13 +191,15 @@
 					var html="";
 					for (i in data.obj) {
 						var detail = data.obj[i];
-						html+='<tr><td materialcode="'+detail.materialcode+'">';
+						html+='<tr><td>';
+						html+=detail.materialcode+'</td><td>';
 						html+=detail.materialname+'</td><td>';
 						html+=detail.size+'</td><td>';
 						html+=detail.unitname+'</td><td>';
 						html+=detail.unitprice+'</td><td>';
 						html+='<input type="text" class="input-small required form-control money" name="quantity" >'+'</td><td>';
-						html+='<input type="text" class="input-small required form-control" name="totlemoney" readonly>'+'</td></tr>';
+						html+='<input type="text" class="input-small required form-control" name="totlemoney" readonly>'+'</td><td>';
+						html+='<input type="text" class="input-small required form-control" >'+'</td></tr>';
 						//html+='<option value="'+contract.id+'">'+contract.contractTitle+'</option>';
 					}
 					$("#secondPageTbody").html(html);
@@ -171,10 +213,10 @@
 	
 	$("#secondPageTbody").on("change",".money",function(){
 		var	quantity=$(this).val();
-		var unitprice=$(this).parent().parent().children("td").eq(3).text();
+		var unitprice=$(this).parent().parent().children("td").eq(4).text();
 		var totlemoney=quantity*unitprice;
 		if(!isNaN(totlemoney)){
-			$(this).parent().parent().children("td").eq(5).find("input").val(totlemoney.toFixed(2));
+			$(this).parent().parent().children("td").eq(6).find("input").val(totlemoney.toFixed(2));
 		}
 	});
 	

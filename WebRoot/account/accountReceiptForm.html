@@ -1,5 +1,5 @@
 <link href="css/select2.css" rel="stylesheet">
-<script src="js/select2.js"></script>
+<script src="js/select2.js"></script> 
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade" style=" margin-bottom:0; border-radius:0;">
 		<div class="panel-heading">
@@ -144,24 +144,29 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-6">
+					<div class="col-lg-11 col-md-6">
 						<div class="control-group" style="padding:10px 0;">
 							<label class="control-label">备注信息：</label>
 							<div class="controls">
-								<textarea name="remarks" id="remarks" htmlEscape="false" rows="4" maxlength="255" class="form-control" />
+								<textarea name="remarks" id="remarks" htmlEscape="false" rows="4" maxlength="255" style="height:45px;" class="form-control" />
 							</div>
+						</div>
+					</div>
+					<div class="col-lg-1 col-md-6">
+						<div class="control-group" style="padding:35px 0;">
+							<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="panel-footer">
+		<!-- <div class="panel-footer">
 			<div class="row">
 				<div class="col-lg-12 col-sm-6 col-sm-offset-10">
 					<input id="submitbtn" class="btn btn-primary" type="button" value="保 存" />
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<script type="text/javascript">
 			$(".form_datetime").datetimepicker({
 				language : 'zh-CN',
@@ -199,7 +204,7 @@
 				$("#ordernum").val(ordernum);
 				if ($.cookie("accountReceipt_id") != "null") {
 					$.ajax({
-						url : IP_config+"accountReceiptController/getById",
+						url : IP_config + "accountReceiptController/getById",
 						type : "post",
 						dataType : "json",
 						data : {
@@ -207,6 +212,7 @@
 						},
 						success : function(data) {
 							$("#payId").val($.cookie("accountReceipt_id"));
+							$.cookie("accountReceipt_id", null );
 							if (data.success && data.obj != null && data.obj != "") {
 								$("#suppliernum").val(data.obj.suppliernum);
 								$("#supplierform").append("<option value='"+data.obj.supplier+"'>" + data.obj.supplier + "</option>");
@@ -233,7 +239,7 @@
 				}
 				//获取供应商
 				$.ajax({
-					url : IP_config+"supplier/findList",
+					url : IP_config + "supplier/findList",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -252,7 +258,7 @@
 				});
 				//获取物资名称
 				$.ajax({
-					url : IP_config+"material/findList",
+					url : IP_config + "material/findList",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -271,7 +277,7 @@
 				});
 				//获取到货单号
 				$.ajax({
-					url : IP_config+"accountArrivalController/findorderNum",
+					url : IP_config + "accountArrivalController/findorderNum",
 					type : "post",
 					dataType : "json",
 					xhrFields : {
@@ -290,7 +296,7 @@
 				});
 				//计量单位
 				$.ajax({
-					url : IP_config+"paraInfo/getParaInfoList",
+					url : IP_config + "paraInfo/getParaInfoList",
 					dataType : "json",
 					xhrFields : {
 						withCredentials : true
@@ -350,7 +356,7 @@
 						accountReceipt.auditor = $("#auditor").val();
 						accountReceipt.remarks = $("#remarks").val();
 						$.ajax({
-							url : IP_config+"accountReceiptController/save",
+							url : IP_config + "accountReceiptController/save",
 							type : "post",
 							contentType : "application/json;charset=UTF-8",
 							data : JSON.stringify(accountReceipt),
@@ -372,7 +378,6 @@
 								async : false,
 								success : function(data1) {
 									if (data1.success) {
-										//debugger;
 										var data_total = data1.obj.totalCount;
 										var table_data = data1.obj.list;
 
@@ -380,9 +385,11 @@
 									} else {
 										$('body').RemindWokenError('查询失败');
 									}
-
 								}
 							});
+							setTimeout(function(){
+								$(".account-panel").remove();
+							},600)
 						} else {
 							$('body').RemindWokenError('操作失败');
 						}

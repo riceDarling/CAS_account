@@ -15,7 +15,8 @@
 		a.update_by AS "updateBy",
 		a.update_date AS "update",
 		a.del_flag AS "delFlag",
-		a.act_checker AS "act_checker"
+		a.act_checker AS "act_checker",
+		a.make_date AS "makeDate"
 	</sql>
 	
 	<sql id="accountPurchaseJoins">
@@ -23,7 +24,7 @@
     
 	<select id="get" resultType="com.account.entity.AccountPurchase">
 		SELECT 
-			<include refid="accountPurchaseColumns"/>,b.supplierNum,b.caigouname AS 'supplier',b.contractTitle AS 'contracttitle'	
+			<include refid="accountPurchaseColumns"/>,b.supplierNum,b.caigouname AS 'supplier',b.contractTitle AS 'contracttitle',b.papercontract,b.contractnum	
 		FROM account_purchase a
 		LEFT JOIN account_contract b ON a.inquirynum=b.id
 		WHERE a.id = #{id}
@@ -85,7 +86,8 @@
 			update_by,
 			update_date,
 			act_checker,
-			del_flag
+			del_flag,
+			make_date
 		) VALUES (
 			#{id},
 			#{title},
@@ -99,7 +101,8 @@
 			#{updateBy},
 			#{update},
 			#{act_checker},
-			#{delFlag}
+			#{delFlag},
+			#{makeDate}
 		)
 	</insert>
 	

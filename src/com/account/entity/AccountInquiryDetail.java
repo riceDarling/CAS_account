@@ -24,7 +24,10 @@ public class AccountInquiryDetail extends BaseModel {
 	private String inquiryTime; // 询价时间(询价有效期限开始时间)
 	private String suppliercode; // 供应商编号
 	private String brand; // 商标
-
+	private String bankNum;	//银行账号
+	private String bank;	//开户行
+	private String phone;	//联系电话
+	private String address;	//地址
 	private int state;// 是否选中进行审批
 
 	private String remarks;
@@ -184,6 +187,62 @@ public class AccountInquiryDetail extends BaseModel {
 
 	public void setMaker(String maker) {
 		this.maker = maker;
+	}
+
+	/**
+	 * @return the bankNum
+	 */
+	public String getBankNum() {
+		return bankNum;
+	}
+
+	/**
+	 * @param bankNum the bankNum to set
+	 */
+	public void setBankNum(String bankNum) {
+		this.bankNum = bankNum;
+	}
+
+	/**
+	 * @return the bank
+	 */
+	public String getBank() {
+		return bank;
+	}
+
+	/**
+	 * @param bank the bank to set
+	 */
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

@@ -10,13 +10,15 @@
     <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
     <result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
     <result column="aType" jdbcType="BIT" property="atype" />
+     <result column="userrole" jdbcType="VARCHAR" property="userrole" />
      <result column="menu_0" jdbcType="INTEGER" property="menu_0" />
       <result column="menu_1" jdbcType="INTEGER" property="menu_1" />
        <result column="menu_2" jdbcType="INTEGER" property="menu_2" />
         <result column="menu_3" jdbcType="INTEGER" property="menu_3" />
+        <result column="departmentId" jdbcType="VARCHAR" property="d.id" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, pid, username, password, startTime, endTime, loginTime, aType,menu_0,menu_1,menu_2,menu_3
+    id, pid, username, password, startTime, endTime, loginTime, aType,userrole,menu_0,menu_1,menu_2,menu_3,departmentId AS 'd.id'
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -132,14 +134,16 @@
   
   <select id="getAdminByName" parameterType="java.lang.String" resultType="com.account.entity.Admin">
     select 
-    *
-    from admin
+  	 a.id,  a.pid,  a.username,  a.password,  a.startTime,  a.endTime,  a.loginTime,  a.aType, a.userrole, a.menu_0, a.menu_1, a.menu_2, a.menu_3,
+  	  a.departmentId AS 'd.id', b.d_Name AS 'd.dName'
+    from admin a 
+    LEFT JOIN account_department b ON a.departmentId=b.id
     where username = #{username}
   </select>
   
   <select id="findList" resultType="com.account.entity.Admin">
     select 
-    *
+    <include refid="Base_Column_List" />
     from admin ad
     
     where 

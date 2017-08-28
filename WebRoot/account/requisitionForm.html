@@ -28,12 +28,30 @@
 								</div>
 							</div>
 							<div class="form-group" style="float:left;width:60%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:150px;padding:7px 0;">制单人（必填）：</label>
+								<div class="col-lg-4 col-md-3" style="width:395px;">
+									<input type="text" class="form-control" name="" id="maker">
+								</div>
+							</div>
+							<div class="form-group" style="float:left;width:40%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:170px;padding:7px 0;">申购日期（必填）：</label>
+								<div class="col-lg-4 col-md-3" style="width:195px;">
+									<input size="16" type="text" value="" readonly class="form_datetime form-control" id="requisitionDate">
+								</div>
+							</div>	
+							<div class="form-group" style="float:left;width:60%;">
 								<label class="col-lg-2 col-md-3 control-label" style="width:150px;padding:7px 0;">申请原因（必填）：</label>
 								<div class="col-lg-4 col-md-3" style="width:395px;">
 									<input type="text" class="form-control" name="reason" id="reason">
 								</div>
 							</div>
 							<div class="form-group" style="float:left;width:40%;">
+								<label class="col-lg-2 col-md-3 control-label" style="width:170px;padding:7px 0;">采购部门（必填）：</label>
+								<div class="col-lg-4 col-md-3" style="width:195px;">
+									<input size="16" type="text" value=""  class="form-control" id="office">
+								</div>
+							</div>	
+							<div class="form-group" style="float:right;width:46%;">
 								<label class="col-lg-2 col-md-3 control-label" style="width:170px;padding:7px 0;">审核人（必选）：</label>
 								<div class="col-lg-4 col-md-3" style="width:195px;">
 									<select  tabindex="1" name="checker" id="requisitionForm_checker" class="form-control">
@@ -195,6 +213,9 @@ $( '#requisitionFormSubmit-savetalk' ).click( function () {
 				_receivedate = $( '#receivedate' ).val(),
 				_reason = $( '#reason' ).val(),
 				_checker = $( '#requisitionForm_checker' ).val();
+				_maker=$( '#maker' ).val();
+				_requisitionDate=$( '#requisitionDate' ).val();
+				_office=$( '#office' ).val();
 			var _arr = new Array(),
 				table_tr = $( '#requisitionForm_table tbody tr' );
 			for ( var c = 0 ; c < table_tr.length; c++ ) {
@@ -214,6 +235,18 @@ $( '#requisitionFormSubmit-savetalk' ).click( function () {
 				$( 'body' ).RemindWoken( '必须填写标题' );
 				return;
 			}
+			if ( _maker == '' || _maker.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写制单人' );
+				return;
+			}
+			if ( _requisitionDate == '' || _requisitionDate.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写申购时间' );
+				return;
+			}
+			if ( _office == '' || _office.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写申购部门' );
+				return;
+			}
 			
 			
 			var listjson = {};
@@ -221,6 +254,9 @@ $( '#requisitionFormSubmit-savetalk' ).click( function () {
 			listjson["receivedate"]=_receivedate;
 			listjson["reason"]=_reason;
 			listjson["checker"]=_checker;
+			listjson["maker"]=_maker;
+			listjson["requisitionDate"]=_requisitionDate;
+			listjson["office"]=_office;
 			var listjsonlist = _arr;
 			listjson["accountRequisitionDetailList"]=listjsonlist;
 	
@@ -287,6 +323,9 @@ $( '#requisitionFormSubmit-talk' ).click( function () {
 				_receivedate = $( '#receivedate' ).val(),
 				_reason = $( '#reason' ).val(),
 				_checker = $( '#requisitionForm_checker' ).val();
+				_maker=$( '#maker' ).val();
+				_requisitionDate=$( '#requisitionDate' ).val();
+				_office=$( '#office' ).val();
 			var _arr = new Array(),
 				table_tr = $( '#requisitionForm_table tbody tr' );
 			for ( var c = 0 ; c < table_tr.length; c++ ) {
@@ -318,6 +357,18 @@ $( '#requisitionFormSubmit-talk' ).click( function () {
 				$( 'body' ).RemindWoken( '必须选择审核人' );
 				return;
 			}
+			if ( _maker == '' || _maker.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写制单人' );
+				return;
+			}
+			if ( _requisitionDate == '' || _requisitionDate.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写申购时间' );
+				return;
+			}
+			if ( _office == '' || _office.replace( clearspace , '' ) == '' ) {
+				$( 'body' ).RemindWoken( '必须填写申购部门' );
+				return;
+			}
 			if ( _arr.length < 1 ) {
 				$( 'body' ).RemindWoken( '必须填写物资明细表' );
 				return;
@@ -328,6 +379,9 @@ $( '#requisitionFormSubmit-talk' ).click( function () {
 			listjson["receivedate"]=_receivedate;
 			listjson["reason"]=_reason;
 			listjson["checker"]=_checker;
+			listjson["maker"]=_maker;
+			listjson["requisitionDate"]=_requisitionDate;
+			listjson["office"]=_office;
 			var listjsonlist = _arr;
 			listjson["accountRequisitionDetailList"]=listjsonlist;
 	

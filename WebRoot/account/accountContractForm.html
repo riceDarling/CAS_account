@@ -1,6 +1,6 @@
 <link href="css/select2.css" rel="stylesheet">
 <script src="js/select2.js"></script>
-<div class="col-lg-12 col-md-12" >
+<div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade" style="margin-bottom:0;border-radius:0;border:0;">
 		<div class="panel-heading">
 			<h3 class="panel-title">
@@ -10,12 +10,12 @@
 		<div class="panel-body" style="border:0;border-top:1px solid #ccc;">
 			<form action class="form-horizontal row-border">
 				<div class="form-group">
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;">申购单（必选）：</label> 
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;">申购单（必选）：</label>
 					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
 						<select class="form-control" name="purchasenumtitle" id="title-purchasenumtitle">
 						</select>
 					</div>
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 165px !important;padding-right:0;">供应商（必选）：</label> 
+					<label class="col-lg-1 col-sm-3 control-label" style="width: 165px !important;padding-right:0;">供应商（必选）：</label>
 					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
 						<select class="form-control" name="supplier" id="title-supplier">
 							<option value="">请选择</option>
@@ -29,86 +29,115 @@
 <div class="col-lg-12 col-md-12">
 	<div class="panel" style="border:0;border-radius:0;">
 		<div class="panel-body" style="padding:0;padding-bottom:10px;">
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-					<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同编号：</label> 
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="contractnum"  htmlEscape="false" maxlength="32" id="contractnum" class="form-control" readonly style="width:215px !important;display:inline-block;" />
-						<input type="button" class="btn btn-primary" style="padding: 4px 12px;margin-top:-4px;" value="自动生成" id="automatic" />
-					</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同编号：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="contractnum" htmlEscape="false" maxlength="32" id="contractnum" class="form-control" readonly style="width:215px !important;display:inline-block;" /> <input type="button" class="btn btn-primary" style="padding: 4px 12px;margin-top:-4px;" value="自动生成" id="automatic" />
 				</div>
-				<div class="control-group" hidden="true" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">采购单号：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="purchasenum" id="purchasenum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" />
-					</div>
+			</div>
+			<div class="control-group" hidden="true" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">采购单号：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="purchasenum" id="purchasenum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" />
 				</div>
-				<div class="control-group" hidden="true" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">供应商编号：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="supplierNum" id="supplierNum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" />
-					</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">供应商编码：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="supplierNum" id="supplierNum" htmlEscape="false" style="width:305px;" maxlength="32" class="form-control" readonly="true" />
 				</div>
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同名称（必填）：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="contracttitle" id="title-contracttitle" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
-					</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">供应商账号：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="supplieraccount" id="supplieraccount" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" readonly="true" />
 				</div>
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">纸质合同编号：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="papercontract" id="papercontract" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
-					</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">开户行：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="openbank" id="openbank" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" readonly="true" />
 				</div>
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">乙方：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input name="caigouname" id="caigouname" htmlEscape="false" style="width:305px;" maxlength="255" readonly="true" class="form-control" />
-					</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">联系电话：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="phone" id="phone" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" readonly="true" />
 				</div>
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">签订日期（必选）：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<input size="16" type="text" readonly="true" style="width:305px;" class="form_datetime form-control" name="createdate" id="createdate" />
-					</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">地址：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="address" id="address" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" readonly="true" />
 				</div>
-				<!-- <div class="control-group">
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">制单人：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="maker" id="maker" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">制单日期（必选）：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input size="16" type="text" readonly="true" style="width:305px;" class="form_datetime form-control" name="createdate" id="createdate" />
+				</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">合同名称（必填）：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="contracttitle" id="title-contracttitle" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">纸质合同编号：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="papercontract" id="papercontract" htmlEscape="false" style="width:305px;" maxlength="255" class="form-control" />
+				</div>
+			</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">乙方：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<input name="caigouname" id="caigouname" htmlEscape="false" style="width:305px;" maxlength="255" readonly="true" class="form-control" />
+				</div>
+			</div>
+			<!-- <div class="control-group">
 					<label class="control-label">附件上传：</label>
 					<div class="controls">
 						<input name="file" id="file" type="file" htmlEscape="false" maxlength="255" class="form-control" />
 					</div>
 				</div> -->
-				<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
-                	<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">备注信息：</label>
-					<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-						<textarea name="remarks" id="remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
-					</div>
+			<div class="control-group" style="width:50%; float:left;margin-bottom:15px;">
+				<label class="col-lg-1 col-sm-3 control-label" style="width: 150px !important;padding-right:0;text-align:right;margin-top:7px;">备注信息：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:305px;" rows="4" maxlength="255" class="form-control" />
 				</div>
-				<div class="control-group" style="padding-left:15px;float:left;margin-bottom:15px;">
-					<label class="control-label">采购原料：</label>
-					<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
-						<thead>
-							<tr>
-								<th>物资名称</th>
-								<th>规格型号</th>
-								<th>单位</th>
-								<th>采购数量</th>
-								<th>采购单价</th>
-								<th>采购金额</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</div>
-				<div class="form-actions">
-					<input id="submitbtn" style="margin-right:5px;float:right;" class="btn btn-primary" type="button" value="保 存" />
-				</div>
+			</div>
+			<div class="control-group" style="padding-left:15px;float:left;margin-bottom:15px;">
+				<label class="control-label">采购原料：</label>
+				<table id="contentTable" class="table table-striped table-bordered table-condensed" style="width:940px;table-layout:fixed"">
+					<thead>
+						<tr>
+							<th>物资编码</th>
+							<th>物资名称</th>
+							<th>规格型号</th>
+							<th>单位</th>
+							<th>采购数量</th>
+							<th>采购单价</th>
+							<th>采购金额</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="form-actions">
+				<input id="submitbtn" style="margin-right:5px;float:right;" class="btn btn-primary" type="button" value="保 存" />
+			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	
 	$(".form_datetime").datetimepicker({
 		language : 'zh-CN',
 		minView : "month", //选择日期后，不会再跳转去选择时分秒 
@@ -116,7 +145,6 @@
 		todayBtn : 1,
 		autoclose : 1,
 	});
-	//$("#purchasenumtitle").remove();
 	$(function() {
 		//获取采购订货单标题
 		$.ajax({
@@ -124,23 +152,21 @@
 			type : "post",
 			async : false,
 			success : function(data) {
-				
+
 				var html = "<option value=''>请选择</option>";
 				for (i in data.obj) {
-					
+
 					html += "<option value="+data.obj[i].title+">" + data.obj[i].title + "</option>";
-					
+
 				}
-				
+
 				$("#title-purchasenumtitle").html(html);
 				$("#title-purchasenumtitle").select2();
 			}
 		});
 	});
-	
-	
 
-	$( "#automatic" ).click(function() {
+	$("#automatic").click(function() {
 		var ordernum = "30-";
 		var date = new Date();
 		var year = date.getFullYear();
@@ -164,17 +190,16 @@
 	});
 	function money() {
 		var len = $("#contentTable>tbody>tr").length;
-		for(var i = 0;i < len;i++){
-			var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(3) input").val();
-			var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(4) input").val();
-			var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val(quantity*unitprice);
+		for (var i = 0; i < len; i++) {
+			var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+			var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(5) input").val();
+			var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(6) input").val(quantity * unitprice);
 		}
 	}
-	
+
 	//根据采购标题查询采购数据
 	$(".select2-selection").bind('DOMNodeInserted',function() {
 		var purchasenumtitle = $("#select2-title-purchasenumtitle-container").attr("title");
-		console.log(purchasenumtitle);
 		if (purchasenumtitle != null && purchasenumtitle != "") {
 			//获取采购订货单列表供应商数据列表
 			$.ajax({
@@ -187,22 +212,23 @@
 				success : function(data) {
 					var html = "";
 					for (i in data.obj) {
-						html += "<option value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
+						html += "<option supplieraccount='"+data.obj[i].bankNum+"' openbank='"+data.obj[i].bank+"'  phone='"+data.obj[i].phone+"' address='"+data.obj[i].address+"' value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
 					}
 					$("#title-supplier").html(html);
-					$("#title-supplier").select2();
-					
+				    $("#title-supplier").select2();
 					$("#purchasenum").val($("#title-supplier").find("option:selected").val());
-					//供应商编号
-					$("#supplierNum").val($("#title-supplier").find("option:selected").attr("name"))
-					//乙方
+					$("#supplierNum").val($("#title-supplier").find("option:selected").attr("name"));
+					$("#supplieraccount").val($("#title-supplier").find("option:selected").attr("supplieraccount"));
+					$("#openbank").val($("#title-supplier").find("option:selected").attr("openbank"));
+					$("#phone").val($("#title-supplier").find("option:selected").attr("phone"));
+					$("#address").val($("#title-supplier").find("option:selected").attr("address"));
 					$("#caigouname").val($("#title-supplier").find("option:selected").text());
 					var dataline = {};
 					dataline["suppliercode"] = $("#title-supplier").find("option:selected").attr("name");
 					dataline["inquirydetailnum"] = $("#title-supplier").find("option:selected").attr("class");
-					
+
 					//获取采购具体原料列表
-					var creaatedetail_table = function ( dataline_obj ) {
+					var creaatedetail_table = function(dataline_obj) {
 						$.ajax({
 							url : IP_config + "accountInquiry/getAccountSupplierByPurchasenum",
 							type : "post",
@@ -212,35 +238,37 @@
 								$("#contentTable>tbody").empty();
 								var html = "";
 								for (i in data.obj) {
-									 html += '<tr><td  name="'+data.obj[i].materialcode+'">' + data.obj[i].materialname + '</td><td>' + data.obj[i].size + '</td><td>' + data.obj[i].unit_name + '</td><td><input style="width:100%;" type="text" class="form-control"   onchange="money()" /></td><td><input style="width:100%;" type="text"   onchange="money()" class="form-control" /></td><td><input style="width:100%;" class="form-control" type="text" /></td></tr>';
+									html += '<tr><td>' + data.obj[i].materialcode + '</td><td>' + data.obj[i].materialname + '</td><td>' + data.obj[i].size + '</td><td>' + data.obj[i].unit_name + '</td><td><input style="width:100%;" type="text" class="form-control"   onchange="money()" /></td><td><input style="width:100%;" type="text"   onchange="money()" class="form-control" /></td><td><input style="width:100%;" class="form-control" type="text" /></td></tr>';
 								}
 								$("#contentTable>tbody").html(html);
 							}
 						});
 					}
-					creaatedetail_table( dataline );
-					$( '#title-supplier' ).change( function () {
+					creaatedetail_table(dataline);
+					$('#title-supplier').change(function() {
 						dataline["suppliercode"] = $("#title-supplier").find("option:selected").attr("name");
 						dataline["inquirydetailnum"] = $("#title-supplier").find("option:selected").attr("class");
 						//供应商编号
 						$("#supplierNum").val($("#title-supplier").find("option:selected").attr("name"))
+						$("#supplieraccount").val($("#title-supplier").find("option:selected").attr("supplieraccount"));
+						$("#openbank").val($("#title-supplier").find("option:selected").attr("openbank"));
+						$("#phone").val($("#title-supplier").find("option:selected").attr("phone"));
+						$("#address").val($("#title-supplier").find("option:selected").attr("address"));
 						//乙方
 						$("#caigouname").val($("#title-supplier").find("option:selected").text());
-						creaatedetail_table( dataline );
-					} );
-					
+						creaatedetail_table(dataline);
+					});
+
 				}
 			})
 		}
 	});
 
-		
-
 	//提交保存合同
 	$("#submitbtn").click(function() {
-		$( 'body' ).RemindWokenSelect({
+		$('body').RemindWokenSelect({
 			title : '确定提交？',
-			istrue : function () {
+			istrue : function() {
 				if ($("#contractnum").val() != null && $("#contractnum").val() != "") {
 					if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
 						$("#submitbtn").attr("disabled", true);
@@ -248,23 +276,28 @@
 						accountContract.contractnum = $("#contractnum").val();
 						accountContract.papercontract = $("#papercontract").val();
 						accountContract.contracttitle = $("#title-contracttitle").val();
-						accountContract.purchasenum= $("#purchasenum").val();
+						accountContract.purchasenum = $("#purchasenum").val();
 						accountContract.supplierNum = $("#supplierNum").val();
-						accountContract.caigouname= $("#caigouname").val();
-						accountContract.createdate= $("#createdate").val();
+						accountContract.supplieraccount = $("#supplieraccount").val();
+						accountContract.openbank = $("#openbank").val();
+						accountContract.phone = $("#phone").val();
+						accountContract.address = $("#address").val();
+						accountContract.maker = $("#maker").val();
+						accountContract.caigouname = $("#caigouname").val();
+						accountContract.createdate = $("#createdate").val();
 						//accountContract.file = $("#file").val();
 						accountContract.remarks = $("#remarks").val();
 						var len = $("#contentTable>tbody>tr").length;
 						var aiArr = new Array();
-						for(var i = 0;i < len;i++){
+						for (var i = 0; i < len; i++) {
 							var accountContractDetail = {};
-							var materialcode = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").attr("name");
-							var materialname = $("#contentTable>tbody>tr:eq("+i+") td:eq(0)").text();
-							var size = $("#contentTable>tbody>tr:eq("+i+") td:eq(1)").text();
-							var unitname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2)").text();
-							var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(3) input").val();
-							var unitprice = $("#contentTable>tbody>tr:eq("+i+") td:eq(4) input").val();
-							var money = $("#contentTable>tbody>tr:eq("+i+") td:eq(5) input").val();
+							var materialcode = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(0)").text();
+							var materialname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(1)").text();
+							var size = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(2)").text();
+							var unitname = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(3)").text();
+							var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
+							var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(5) input").val();
+							var money = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(6) input").val();
 							accountContractDetail.materialcode = materialcode;
 							accountContractDetail.materialname = materialname;
 							accountContractDetail.size = size;
@@ -274,64 +307,61 @@
 							accountContractDetail.money = money;
 							aiArr.push(accountContractDetail);
 						}
-						accountContract.accountContractDetail=aiArr;
+						accountContract.accountContractDetail = aiArr;
 						$.ajax({
 							url : IP_config + "accountContractController/save",
 							type : "post",
-							contentType:"application/json;charset=UTF-8",
-							data:JSON.stringify(accountContract), 
+							contentType : "application/json;charset=UTF-8",
+							data : JSON.stringify(accountContract),
 							async : false
 						});
 						if (accountContract != null && accountContract != "") {
-							$( 'body' ).RemindWokenSuccess("保存成功");
-							$.ajax( {
+							$('body').RemindWokenSuccess("保存成功");
+							$.ajax({
 								url : IP_config + 'accountContractController/selectView',
-								dataType: "json",
-								type: "POST",
-								data :  {
+								dataType : "json",
+								type : "POST",
+								data : {
 									purchasenumtitle : $("#purchasenumtitle").val(),
-									contracttitle : $( '#contracttitle' ).val(),
-									status : $( '#procInsId' ).val(),
-									beginDate : $( '#startTime' ).val(),
-									endDate : $( '#endTime' ).val(),
+									contracttitle : $('#contracttitle').val(),
+									status : $('#procInsId').val(),
+									beginDate : $('#startTime').val(),
+									endDate : $('#endTime').val(),
 									pageSize : 30,
 									currentPage : 1
 								},
 								async : false,
-								success: function( data1 ) {
-								
-									if ( data1.success ) {
+								success : function(data1) {
+
+									if (data1.success) {
 										var data_total = data1.obj.totalCount;
 										var table_data = data1.obj.list;
-										if ( data1.obj.list.length < 2 && data1.obj.list[ 0 ].contractnum == null ) {
+										if (data1.obj.list.length < 2 && data1.obj.list[0].contractnum == null) {
 											data_total = 0;
 											table_data = [];
 										}
-										dataTable( table_data , data_total );
+										dataTable(table_data, data_total);
 									} else {
-										$( 'body' ).RemindWoken( '查询失败' );
+										$('body').RemindWoken('查询失败');
 									}
-									
+
 								}
 							});
-							setTimeout(function(){
+							setTimeout(function() {
 								$(".account-panel").remove();
-							},600)	
+							}, 600)
 						} else {
-							$( 'body' ).RemindWokenError("保存失败");
-							
+							$('body').RemindWokenError("保存失败");
+
 						}
 					} else {
-						$( 'body' ).RemindWoken("必须填写合同名称");
+						$('body').RemindWoken("必须填写合同名称");
 					}
 				} else {
-					$( 'body' ).RemindWoken("必须填写添写合同编号!");
+					$('body').RemindWoken("必须填写添写合同编号!");
 				}
 			}
 		});
-		
+
 	});
-	
-	
-	
 </script>

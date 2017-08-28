@@ -37,7 +37,37 @@ public class AccountPurchase extends BaseModel {
 
 	private String supplier;// 供应商名称，查询使用
 
-	private String contracttitle;// 合同名称
+	private String contracttitle;// 合同名称，查询使用
+
+	private String papercontract;// 纸质合同编号，查询使用
+
+	private String contractnum;// 合同编号，查询使用
+
+	private String makeDate;// 制单时间
+
+	public String getMakeDate() {
+		return makeDate;
+	}
+
+	public void setMakeDate(String makeDate) {
+		this.makeDate = makeDate;
+	}
+
+	public String getPapercontract() {
+		return papercontract;
+	}
+
+	public void setPapercontract(String papercontract) {
+		this.papercontract = papercontract;
+	}
+
+	public String getContractnum() {
+		return contractnum;
+	}
+
+	public void setContractnum(String contractnum) {
+		this.contractnum = contractnum;
+	}
 
 	public String getContracttitle() {
 		return contracttitle;

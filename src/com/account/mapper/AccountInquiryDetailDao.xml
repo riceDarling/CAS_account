@@ -282,7 +282,8 @@
 	<select id="getAccountSupplierByPurchasenumtitle" parameterType="String"
 		resultType="com.account.entity.AccountInquiryDetail">
 		SELECT a.inquirydetailnum as inquirydetailnum,b.orderNum as ordernum,
-		c.supplier as supplier,c.supplierNum as suppliercode
+		c.supplier as supplier,c.supplierNum as suppliercode,c.bank_num as bankNum,c.bank as bank,
+		c.phone as phone,c.address as address
 		FROM account_inquiry_detail a
 		LEFT JOIN account_inquiry b
 		ON a.inquirydetailnum=b.id

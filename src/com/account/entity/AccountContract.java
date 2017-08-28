@@ -17,13 +17,18 @@ public class AccountContract {
 	private String supplier;		// 供应商名称
 	private String contracttitle;		// 合同名称
 	private String purchasenum;		// 采购单号
-	private String supplierNum;	//供应商编号
+	private String supplierNum;	//供应商编码
+	private String supplieraccount;	//供应商账号
+	private String openbank;	//开户行
+	private String phone;	//联系电话
+	private String address;	//地址
+	private String maker; // 制单人
+	private String createdate;//制单日期
 	private String caigouname;		// 乙方
 	private String file;//附件
 	private Double summoney;//总金额
 	private String status="0";		// 合同状态(0:未完成  1:完成)
 	private String remarks;//备注信息
-	private String createdate;//签订日期
 	private String beginDate;//开始日期
 	private String endDate;//结束日期
 	private String delFlag="0";//是否删除
@@ -232,6 +237,76 @@ public class AccountContract {
 	 */
 	public void setSummoney(Double summoney) {
 		this.summoney = summoney;
+	}
+
+	/**
+	 * @return the supplieraccount
+	 */
+	public String getSupplieraccount() {
+		return supplieraccount;
+	}
+
+	/**
+	 * @param supplieraccount the supplieraccount to set
+	 */
+	public void setSupplieraccount(String supplieraccount) {
+		this.supplieraccount = supplieraccount;
+	}
+
+	/**
+	 * @return the openbank
+	 */
+	public String getOpenbank() {
+		return openbank;
+	}
+
+	/**
+	 * @param openbank the openbank to set
+	 */
+	public void setOpenbank(String openbank) {
+		this.openbank = openbank;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the maker
+	 */
+	public String getMaker() {
+		return maker;
+	}
+
+	/**
+	 * @param maker the maker to set
+	 */
+	public void setMaker(String maker) {
+		this.maker = maker;
 	}
 	
 }

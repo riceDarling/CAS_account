@@ -19,12 +19,14 @@
 			<table class="table table-bordered table-condensed table-hover">
 				<thead>
 					<tr>
+						<th class="visible-lg">物资编号</th>
 						<th class="visible-lg">物资名称</th>
 						<th class="visible-lg">型号</th>
 						<th class="visible-lg">计量单位</th>
 						<th class="visible-lg">单价</th>
 						<th class="visible-lg">数量</th>
 						<th class="visible-lg">总价</th>
+						<th class="visible-lg">备注</th>
 					</tr>
 				</thead>
 				<tbody id="secondPageTbody">
@@ -90,10 +92,10 @@
 	
 	$("#secondPageTbody").on("change",".money",function(){
 		var	quantity=$(this).val();
-		var unitprice=$(this).parent().parent().children("td").eq(3).text();
+		var unitprice=$(this).parent().parent().children("td").eq(4).text();
 		var totlemoney=quantity*unitprice;
 		if(!isNaN(totlemoney)){
-			$(this).parent().parent().children("td").eq(5).find("input").val(totlemoney.toFixed(2));
+			$(this).parent().parent().children("td").eq(6).find("input").val(totlemoney.toFixed(2));
 		}
 	});
 	
@@ -122,13 +124,15 @@
 					var html = "";
 					for (i in data.obj.purchase.accountPurchaseDetailList) {
 						var detail = data.obj.purchase.accountPurchaseDetailList[i];
-						html += '<tr><td materialcode="'+detail.materialcode+'">'
+						html += '<tr><td>'
+								+ detail.materialcode+'</td><td>'
 								+ detail.materialname + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
 								+ detail.units+'</td>' + '<td>'
 								+ detail.unitprice + '</td>' + '<td>';
 								html+='<input type="text"   value="'+detail.quantity+'" class="input-small required form-control money" name="quantity" >'+'</td><td>';
-								html+='<input type="text" value="'+detail.totlemoney+'" class="input-small  required form-control" name="totlemoney" readonly>'+'</td></tr>';
+								html+='<input type="text" value="'+detail.totlemoney+'" class="input-small  required form-control" name="totlemoney" readonly>'+'</td><td>';
+								html+='<input type="text" value="'+detail.remarks+'" class="input-small required form-control" >'+'</td></tr>';
 					}
 					$("#secondPageTbody").html(html);
 				}

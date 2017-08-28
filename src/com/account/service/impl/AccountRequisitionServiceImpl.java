@@ -152,7 +152,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 			String ordernum = "04-" + FormatDateUtils.dateToString(new Date()) + "-" + RandomUtils.random();
 			accountRequisition.setOrdernum(ordernum);
 			
-			accountRequisition.setOffice("测试");
+			//accountRequisition.setOffice("测试");
 			accountRequisition.setCreateBy(loginAdmin.getId().toString());
 			accountRequisition.setCreateDate(new Date());
 			accountRequisition.setProcInsId("start");
@@ -171,7 +171,7 @@ public class AccountRequisitionServiceImpl implements AccountRequisitionService 
 			now_act.setEndTime(new Date());
 			accountRequisitionActDao.update(now_act);
 			
-			accountRequisition.setOffice("测试");
+			//accountRequisition.setOffice("测试");
 			accountRequisition.setCreateBy(loginAdmin.getId().toString());
 			accountRequisition.setCreateDate(new Date());
 			accountRequisition.setProcInsId("start");

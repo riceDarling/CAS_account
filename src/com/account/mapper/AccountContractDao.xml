@@ -10,6 +10,11 @@
 		a.contracttitle AS "contracttitle",
 		a.purchasenum AS "purchasenum",
 		a.supplierNum AS "supplierNum",
+		a.supplieraccount AS "supplieraccount",
+		a.openbank AS "openbank",
+		a.phone AS "phone",
+		a.address AS "address",
+		a.maker AS "maker",
 		a.caigouname AS "caigouname",
 		date_format(a.create_date,'%Y-%c-%d')AS
 		"createdate",
@@ -74,6 +79,11 @@
 		contracttitle,
 		purchasenum,
 		supplierNum,
+		supplieraccount,
+		openbank,
+		phone,
+		address,
+		maker,
 		caigouname,
 		create_date,
 		file,
@@ -87,6 +97,11 @@
 		#{contracttitle},
 		#{purchasenum},
 		#{supplierNum},
+		#{supplieraccount},
+		#{openbank},
+		#{phone},
+		#{address},
+		#{maker},
 		#{caigouname},
 		#{createdate},
 		#{file},
@@ -117,6 +132,11 @@
 		contracttitle = #{contracttitle},
 		purchasenum = #{purchasenum},
 		supplierNum = #{supplierNum},
+		supplieraccount=#{supplieraccount},
+		openbank=#{openbank},
+		phone=#{phone},
+		address=#{address},
+		maker=#{maker},
 		caigouname = #{caigouname},
 		create_date =
 		#{createdate},
@@ -127,8 +147,8 @@
 	</update>
 
 	<select id="findAllTitle" resultType="map">
-		SELECT a.id,a.contractTitle
-		FROM account_contract a
+		SELECT a.id,a.contractTitle,a.supplierNum,a.papercontract,a.contractnum,b.supplier
+		FROM account_contract a LEFT JOIN account_supplier b ON a.supplierNum=b.supplierNum
 	</select>
 
 	<select id="selectView" parameterType="java.lang.String"

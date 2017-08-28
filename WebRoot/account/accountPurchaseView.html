@@ -24,12 +24,14 @@
 			<table class="table table-bordered table-condensed table-hover">
 				<thead>
 					<tr>
+						<th class="visible-lg">物资编号</th>
 						<th class="visible-lg">物资名称</th>
 						<th class="visible-lg">型号</th>
 						<th class="visible-lg">计量单位</th>
 						<th class="visible-lg">单价</th>
 						<th class="visible-lg">数量</th>
 						<th class="visible-lg">总价</th>
+						<th class="visible-lg">备注</th>
 					</tr>
 				</thead>
 				<tbody id="secondPageTbody">
@@ -107,12 +109,14 @@
 					for ( var  i in data.obj.purchase.accountPurchaseDetailList ) {
 						var detail = data.obj.purchase.accountPurchaseDetailList[ i ];
 						html += '<tr><td>'
+								+ detail.materialcode+'</td><td>'
 								+ detail.materialname + '</td>' + '<td>'
 								+ detail.size + '</td>' + '<td>'
 								+ detail.units+'</td>' + '<td>'
 								+ detail.unitprice + '</td>' + '<td>'
 								+ detail.quantity + '</td>' + '<td>'
-								+ detail.totlemoney + '</td>' + '</tr>';
+								+ detail.totlemoney + '</td>' + '<td>'
+								+ detail.remarks+'</td></tr>'
 					}
 					$( "#secondPageTbody" ).html( html );
 				}

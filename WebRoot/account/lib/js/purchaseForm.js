@@ -34,15 +34,17 @@ $("#accountPurchaseSubmit").click(function(){
 			var listjson = new Array();
 			$("#secondPageTbody tr").each(function(){
 				var json={};
-				json["materialcode"]=$(this).children("td").eq(0).attr("materialcode");
-				json["units"]=$(this).children("td").eq(2).text();
-				json["unitprice"]=$(this).children("td").eq(3).text();
-				json["quantity"]=$(this).children("td").eq(4).find("input").val();
-				json["totlemoney"]=$(this).children("td").eq(5).find("input").val();
+				json["materialcode"]=$(this).children("td").eq(0).text();
+				json["units"]=$(this).children("td").eq(3).text();
+				json["unitprice"]=$(this).children("td").eq(4).text();
+				json["quantity"]=$(this).children("td").eq(5).find("input").val();
+				json["totlemoney"]=$(this).children("td").eq(6).find("input").val();
+				json["remarks"]=$(this).children("td").eq(7).find("input").val();
+				
 				listjson.push(json);
 			});
 			data_json["accountPurchaseDetailList"]=listjson;
-			//console.log(data_json);
+			console.log(data_json);
 			
 			
 			$.ajax({
