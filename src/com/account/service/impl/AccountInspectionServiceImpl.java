@@ -95,7 +95,7 @@ public class AccountInspectionServiceImpl implements AccountInspectionService {
 	public List<AccountInspectionDetail> getArrivalDetail(String pid) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("parent_Id", pid);
-		map.put("status", "1");
+		map.put("result", "1");
 		return accountInspectionDetailDao.findList(map);
 	}
 

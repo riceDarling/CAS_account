@@ -13,26 +13,27 @@
 		<result column="update_date" jdbcType="TIMESTAMP" property="update" />
 		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
 		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+		<result column="maker" jdbcType="VARCHAR" property="maker" />
+		<result column="rejectDate" jdbcType="TIMESTAMP" property="rejectDate" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id,title, orderNum, supplierNum, arrivalNum, create_by, create_date, update_by,
 		update_date,
-		remarks, del_flag
+		remarks, del_flag,maker,rejectDate
 	</sql>
 
 	<sql id="my_Base_Column_List">
-		id,title, orderNum, supplierNum, arrivalNum, create_by AS 'createBy',
-		create_date AS 'createDate', update_by AS 'updateBy', update_date AS
-		'update',
-		remarks, del_flag AS 'delFlag'
+		a.id,a.title, a.orderNum, a.supplierNum, a.arrivalNum, a.create_by AS 'createBy',
+		a.create_date AS 'createDate', a.update_by AS 'updateBy', a.update_date AS
+		'update',a.remarks, a.del_flag AS 'delFlag',a.maker,a.rejectDate
 	</sql>
 
-	<select id="selectByPrimaryKey" parameterType="java.lang.String"
-		resultMap="BaseResultMap">
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="com.account.entity.AccountReject" >
 		select
-		<include refid="Base_Column_List" />
-		from account_reject
-		where id = #{id,jdbcType=VARCHAR}
+		<include refid="my_Base_Column_List" />,b.supplier
+		from account_reject  a
+		LEFT JOIN account_supplier b ON a.supplierNum=b.supplierNum
+		where a.id = #{id,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from account_reject
@@ -87,6 +88,12 @@
 			<if test="delFlag != null">
 				del_flag,
 			</if>
+			<if test="maker != null">
+				maker,
+			</if>
+			<if test="rejectDate != null">
+				rejectDate,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -121,6 +128,12 @@
 			</if>
 			<if test="delFlag != null">
 				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="maker != null">
+				#{maker},
+			</if>
+			<if test="rejectDate != null">
+				#{rejectDate},
 			</if>
 		</trim>
 	</insert>
@@ -157,6 +170,12 @@
 			<if test="delFlag != null">
 				del_flag = #{delFlag,jdbcType=CHAR},
 			</if>
+			<if test="maker != null">
+				maker = #{maker},
+			</if>
+			<if test="rejectDate != null">
+				rejectDate = #{rejectDate},
+			</if>
 		</set>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
@@ -171,7 +190,9 @@
 		update_by = #{updateBy,jdbcType=VARCHAR},
 		update_date = #{update,jdbcType=TIMESTAMP},
 		remarks = #{remarks,jdbcType=VARCHAR},
-		del_flag = #{delFlag,jdbcType=CHAR}
+		del_flag = #{delFlag,jdbcType=CHAR},
+		maker = #{maker},
+		rejectDate = #{rejectDate}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 
@@ -179,13 +200,13 @@
 		resultType="com.account.entity.AccountReject">
 		select
 		<include refid="my_Base_Column_List" />
-		from account_reject
-		WHERE del_flag = 0
+		from account_reject a
+		WHERE a.del_flag = 0
 		<if test="title!=null and title!=''">
-			AND title LIKE concat('%',#{title},'%')
+			AND a.title LIKE concat('%',#{title},'%')
 		</if>
 		<if test="suppliernum and suppliernum!=''">
-			AND supplierNum LIKE concat('%',#{suppliernum},'%')
+			AND a.supplierNum LIKE concat('%',#{suppliernum},'%')
 		</if>
 		ORDER BY create_date DESC
 	</select>
@@ -201,21 +222,22 @@
 		resultType="com.account.entity.AccountReject">
 		select
 		<include refid="my_Base_Column_List" />
-		from account_reject
-		WHERE del_flag = 0
+		from account_reject a
+		LEFT JOIN account_supplier b ON a.supplierNum=b.supplierNum
+		WHERE a.del_flag = 0
 		<if test="title!=null and title!=''">
-			AND title LIKE concat('%',#{title},'%')
+			AND a.title LIKE concat('%',#{title},'%')
 		</if>
 		<if test="supplier and supplier!=''">
-			AND supplierNum LIKE concat('%',#{suppliernum},'%')
+			AND b.supplier LIKE concat('%',#{supplier},'%')
 		</if>
 		<if test='startTime != null and startTime != ""'>
-				<![CDATA[and UNIX_TIMESTAMP(create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
 		</if>
 		<if test='endTime != null and endTime != ""'>
-				<![CDATA[and UNIX_TIMESTAMP(create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
 		</if>
-		group by id order by create_date desc
+		group by a.id order by a.create_date desc
 		<if test="paging != null">
 			<include refid="com.account.dao.SqlFragment.paging" />
 		</if>
@@ -226,20 +248,21 @@
 		SELECT count(id) from (
 		select
 		<include refid="my_Base_Column_List" />
-		from account_reject
-		WHERE del_flag = 0
+		from account_reject a
+		LEFT JOIN account_supplier b ON a.supplierNum=b.supplierNum
+		WHERE a.del_flag = 0
 		<if test="title!=null and title!=''">
-			AND title LIKE concat('%',#{title},'%')
+			AND a.title LIKE concat('%',#{title},'%')
 		</if>
 		<if test="supplier and supplier!=''">
-			AND supplierNum LIKE concat('%',#{supplier},'%')
+			AND b.supplier LIKE concat('%',#{supplier},'%')
 		</if>
 		<if test='startTime != null and startTime != ""'>
-				<![CDATA[and UNIX_TIMESTAMP(create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) >= UNIX_TIMESTAMP('${startTime} 00:00:00')]]>
 		</if>
 		<if test='endTime != null and endTime != ""'>
-				<![CDATA[and UNIX_TIMESTAMP(create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
+				<![CDATA[and UNIX_TIMESTAMP(a.create_date) <= UNIX_TIMESTAMP('${endTime} 23:59:59')]]>
 		</if>
-		group by id )as num
+		group by a.id )as num
 	</select>
 </mapper>
