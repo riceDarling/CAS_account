@@ -176,7 +176,7 @@
 		WHERE a.id = #{ordernum}
 	</select>
 	<select id="getAccountPurchaseTitle" resultType="com.account.entity.AccountRequisition">
-		SELECT ap.title as title FROM account_requisition ap WHERE ap.proc_ins_id='end' and del_flag='0'
+		SELECT ap.title as title,ap.ordernum as ordernum FROM account_requisition ap WHERE ap.proc_ins_id='end' and del_flag='0'
 	</select>
 
 	<select id="selectView" resultType="com.account.entity.AccountRequisition">
