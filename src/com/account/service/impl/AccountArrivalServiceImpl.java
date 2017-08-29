@@ -51,6 +51,10 @@ public class AccountArrivalServiceImpl implements AccountArrivalService {
 			{
 				accountArrival.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			}
+			if(accountArrival.getMakeDate()==null||accountArrival.getMakeDate().trim().length()<=0)
+			{
+				accountArrival.setMakeDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountArrivalDao.save(accountArrival);
 		/*	int sumquantity = 0;
 			int sumnum = 0;*/

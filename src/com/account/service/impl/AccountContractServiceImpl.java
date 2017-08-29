@@ -1,5 +1,7 @@
 package com.account.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -38,6 +40,10 @@ public class AccountContractServiceImpl implements AccountContractService {
 			}
 		} else {
 			accountContract.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			if(accountContract.getCreatedate()==null||accountContract.getCreatedate().trim().length()<=0)
+			{
+				accountContract.setCreatedate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountContractDao.save(accountContract);
 			for (int i = 0; i < size; i++) {
 				accountContractDetail = accountContract.getAccountContractDetail().get(i);

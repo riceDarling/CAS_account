@@ -3,24 +3,20 @@
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
-			<h3 class="panel-title">
-				到货添加
-			</h3>
+			<h3 class="panel-title">到货添加</h3>
 		</div>
 		<div class="panel-body">
-			
 			<div class="control-group" style="width:310px;padding:10px 0; float:left;">
 				<label class="control-label">订货单(必选)：</label>
 				<div class="controls" style="">
 					<select class="form-control" style="width:70%; float:left;" name="orderNumtitle" id="orderNumtitle">
-					</select> 
+					</select>
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">到货单号：</label>
 				<div class="controls">
-					<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:60% !important;display:inline-block;margin-top:-6px;" maxlength="32" id="arrivalnum" class="form-control" /> 
-                    <input class="btn btn-info" style=""  type="button" value="自动生成" id="automatic" />
+					<input name="arrivalnum" readonly="true" htmlEscape="false" style="width:60% !important;display:inline-block;margin-top:-6px;" maxlength="32" id="arrivalnum" class="form-control" /> <input class="btn btn-info" style="" type="button" value="自动生成" id="automatic" />
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
@@ -32,29 +28,25 @@
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">供应商名称：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="suppliernumList" /> 
-					<input type="text" readonly="true" style="width:70%;" id="supplierList" class="form-control" /></span>
+					<input type="text" hidden="true" id="suppliernumList" /> <input type="text" readonly="true" style="width:70%;" id="supplierList" class="form-control" /></span>
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">供应商编码：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="" /> 
-					<input type="text" readonly="true" style="width:70%;" id="supplierNum" class="form-control" /></span>
+					<input type="text" hidden="true" id="" /> <input type="text" readonly="true" style="width:70%;" id="supplierNum" class="form-control" /></span>
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">制单人：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="" /> 
-					<input type="text"  style="width:70%;" id="maker" class="form-control" /></span>
+					<input type="text" hidden="true" id="" /> <input type="text" style="width:70%;" id="maker" class="form-control" /></span>
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">制单日期：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="" /> 
-					<input type="text" readonly="true" style="width:70%;" id="makeDate" class="form_datetime form-control" /></span>
+					<input type="text" hidden="true" id="" /> <input type="text" readonly="true" style="width:70%;" id="makeDate" class="form_datetime form-control" /></span>
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
@@ -64,12 +56,12 @@
 				</div>
 			</div>
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
-                <label class="control-label">备注信息：</label>
-                <div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-                	<!--<input size="16" type="text" readonly="true" style="width:70%" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">-->
-                    <textarea name="remarks" id="remarks" htmlEscape="false" style="width:70%" rows="4" maxlength="255" class="form-control" />
-                </div>
-            </div>
+				<label class="control-label">备注信息：</label>
+				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
+					<!--<input size="16" type="text" readonly="true" style="width:70%" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">-->
+					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:70%" rows="4" maxlength="255" class="form-control" />
+				</div>
+			</div>
 			<div class="control-group" style="margin-top:185px;">
 				<table class="table table-bordered table-condensed table-hover" id="contentTable" style="width:100%">
 					<thead>
@@ -206,7 +198,6 @@
 				istrue : function () {
 					if ($("#arrivalnum").val() != null && $("#arrivalnum").val() != "") {
 						if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
-							$("#submitbtn").attr("disabled", true);
 							var accountArrival = {};
 							accountArrival.ordernum = $("#ordernum").val();
 							accountArrival.arrivalnum = $("#arrivalnum").val();
@@ -245,25 +236,48 @@
 								type : "post",
 								contentType:"application/json;charset=UTF-8",
 								data:JSON.stringify(accountArrival), 
-								async : false
-							});
-							if (accountArrival != null && accountArrival != "") {
-								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								setTimeout(function(){
-									$(".account-panel").remove();
-								},600);
-								$("#index_content").load("accountArrivalList.html");
-							} else {
-								$( 'body' ).RemindWokenError( '操作失败' );
-								$("#index_content").load("accountArrivalForm.html");
+								async : false,
+	                            success : function(data) {
+								if (data.success) {
+									$('body').RemindWokenSuccess('操作成功');
+									setTimeout(function() {
+										$(".account-panel").remove();
+									}, 600);
+									$.ajax( {
+										url : IP_config + "accountArrivalController/selectView",
+										type : "post",
+										data : {
+											supplier : $("#supplier").val(),
+											arrivalstatus : $( '#procInsId' ).val(),
+											beginDate : $( '#startTime' ).val(),
+											endDate : $( '#endTime' ).val(),
+											pageSize : 30,
+											currentPage : 1
+										},
+										async : false,
+										success : function ( data1 ) {
+											if ( data1.success ) {
+												var data_total = data1.obj.totalCount;
+												var table_data = data1.obj.list;
+											
+												dataTable( table_data , data_total );
+											} else {
+												$( 'body' ).RemindWokenError( '查询失败' );
+											}
+										}
+									} );
+								} else {
+									$('body').RemindWokenError('操作失败');
+								}
 							}
-						} else {
-							$( 'body' ).RemindWokenError( '请选择订货单号!' );
-						}
+						});
 					} else {
-						$( 'body' ).RemindWokenError( '请添写到货编号!' );
+						$('body').RemindWokenError('请选择订货单号!');
 					}
+				} else {
+					$('body').RemindWokenError('请添写到货编号!');
 				}
+			}
 		})
 	});
-	</script>
+</script>

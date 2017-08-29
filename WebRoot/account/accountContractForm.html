@@ -4,7 +4,8 @@
 	<div class="panel panel-cascade" style="margin-bottom:0;border-radius:0;border:0;">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<!-- <i class="fa fa-pencil-square"></i> -->添加合同单
+				<!-- <i class="fa fa-pencil-square"></i> -->
+				添加合同单
 			</h3>
 		</div>
 		<div class="panel-body" style="border:0;border-top:1px solid #ccc;">
@@ -193,12 +194,12 @@
 		for (var i = 0; i < len; i++) {
 			var quantity = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(4) input").val();
 			var unitprice = $("#contentTable>tbody>tr:eq(" + i + ") td:eq(5) input").val();
-			 $("#contentTable>tbody>tr:eq(" + i + ") td:eq(6) input").val((quantity * unitprice).toFixed(2));
+			$("#contentTable>tbody>tr:eq(" + i + ") td:eq(6) input").val((quantity * unitprice).toFixed(2));
 		}
 	}
 
 	//根据采购标题查询采购数据
-	$(".select2-selection").bind('DOMNodeInserted',function() {
+	$(".select2-selection").bind('DOMNodeInserted', function() {
 		var purchasenumtitle = $("#select2-title-purchasenumtitle-container").attr("title");
 		if (purchasenumtitle != null && purchasenumtitle != "") {
 			//获取采购订货单列表供应商数据列表
@@ -215,7 +216,7 @@
 						html += "<option supplieraccount='"+data.obj[i].bankNum+"' openbank='"+data.obj[i].bank+"'  phone='"+data.obj[i].phone+"' address='"+data.obj[i].address+"' value='"+data.obj[i].ordernum+"' name='"+data.obj[i].suppliercode+"'  class='"+data.obj[i].inquirydetailnum+"'>" + data.obj[i].supplier + "</option>";
 					}
 					$("#title-supplier").html(html);
-				    $("#title-supplier").select2();
+					$("#title-supplier").select2();
 					$("#purchasenum").val($("#title-supplier").find("option:selected").val());
 					$("#supplierNum").val($("#title-supplier").find("option:selected").attr("name"));
 					$("#supplieraccount").val($("#title-supplier").find("option:selected").attr("supplieraccount"));
@@ -271,7 +272,6 @@
 			istrue : function() {
 				if ($("#contractnum").val() != null && $("#contractnum").val() != "") {
 					if ($("#title-contracttitle").val() != null && $("#title-contracttitle").val() != "") {
-						$("#submitbtn").attr("disabled", true);
 						var accountContract = {};
 						accountContract.contractnum = $("#contractnum").val();
 						accountContract.papercontract = $("#papercontract").val();
@@ -313,47 +313,48 @@
 							type : "post",
 							contentType : "application/json;charset=UTF-8",
 							data : JSON.stringify(accountContract),
-							async : false
-						});
-						if (accountContract != null && accountContract != "") {
-							$('body').RemindWokenSuccess("保存成功");
-							$.ajax({
-								url : IP_config + 'accountContractController/selectView',
-								dataType : "json",
-								type : "POST",
-								data : {
-									purchasenumtitle : $("#purchasenumtitle").val(),
-									contracttitle : $('#contracttitle').val(),
-									status : $('#procInsId').val(),
-									beginDate : $('#startTime').val(),
-									endDate : $('#endTime').val(),
-									pageSize : 30,
-									currentPage : 1
-								},
-								async : false,
-								success : function(data1) {
+							async : false,
+							success : function(data) {
+								if (data.success) {
+									$('body').RemindWokenSuccess("保存成功");
+									$.ajax({
+										url : IP_config + 'accountContractController/selectView',
+										dataType : "json",
+										type : "POST",
+										data : {
+											purchasenumtitle : $("#purchasenumtitle").val(),
+											contracttitle : $('#contracttitle').val(),
+											status : $('#procInsId').val(),
+											beginDate : $('#startTime').val(),
+											endDate : $('#endTime').val(),
+											pageSize : 30,
+											currentPage : 1
+										},
+										async : false,
+										success : function(data1) {
+											if (data1.success) {
+												var data_total = data1.obj.totalCount;
+												var table_data = data1.obj.list;
+												if (data1.obj.list.length < 2 && data1.obj.list[0].contractnum == null) {
+													data_total = 0;
+													table_data = [];
+												}
+												dataTable(table_data, data_total);
+											} else {
+												$('body').RemindWoken('查询失败');
+											}
 
-									if (data1.success) {
-										var data_total = data1.obj.totalCount;
-										var table_data = data1.obj.list;
-										if (data1.obj.list.length < 2 && data1.obj.list[0].contractnum == null) {
-											data_total = 0;
-											table_data = [];
 										}
-										dataTable(table_data, data_total);
-									} else {
-										$('body').RemindWoken('查询失败');
-									}
+									});
+									setTimeout(function() {
+										$(".account-panel").remove();
+									}, 600)
 
+								} else {
+									$('body').RemindWokenError("保存失败");
 								}
-							});
-							setTimeout(function() {
-								$(".account-panel").remove();
-							}, 600)
-						} else {
-							$('body').RemindWokenError("保存失败");
-
-						}
+							}
+						});
 					} else {
 						$('body').RemindWoken("必须填写合同名称");
 					}
