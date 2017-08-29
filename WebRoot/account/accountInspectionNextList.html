@@ -22,18 +22,42 @@
 					<input name="status" id="status" htmlEscape="false" style="width:70% !important;" maxlength="32" class="form-control" />
 				</div>
 			</div>
+			<div class="form-group" style="float:left;">
+				<label class="control-label" style="width:84px;margin-top: 9px;padding-left: 0;padding-right: 0;text-align:right;">供应商编码：</label>
+				<div class="controls" >
+					<input type="text" id="suppliernumInsp" style="width:210px;" class="form-control" readonly="true" />
+				</div>
+			</div>
 			<div class="control-group"  style="width:300px;float:left;padding:10px 0;">
 				<label class="control-label">供应商名称：</label>
 				<div class="controls">
-					<input type="text" hidden="true" id="suppliernumInsp" /> <input type="text" id="supplierInsp" readonly="true" style="width:70% !important;" class="form-control" /></span>
+				 <input type="text" id="supplierInsp" readonly="true" style="width:70% !important;" class="form-control" /></span>
 				</div>
 			</div>
-			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
+			<div class="control-group" style="float:left;">
+				<label class="control-label" style="width:58px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检人：</label>
+				<div class="controls">
+					<input type="text" id="inspectionman" style="width:210px;" class="form-control" /></span>
+				</div>
+			</div>
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;margin-left: 90px;">
 				<div class="control-group">
 					<label class="control-label">送检日期：</label>
 					<div class="controls">
-						<input size="16" type="text" readonly style="width:70% !important;" class="form_datetime form-control" name="inspectiondate" id="inspectiondate">
+						<input size="16" type="text" readonly="true" style="width:70% !important;" class="form_datetime form-control" name="inspectiondate" id="inspectiondate">
 					</div>
+				</div>
+			</div>
+			<div class="control-group" style="float:left;">
+				<label class="control-label" style="width:74px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">检验部门：</label>
+				<div class="controls">
+					<input type="text" id="inspectiodep" style="width:210px;" class="form-control" /></span>
+				</div>
+			</div>
+			<div class="control-group" style="width:300px;float:left;padding:10px 0;margin-left: 90px;">
+				<label class="control-label" style="width:72px;padding-left: 0;padding-right: 0;text-align:right;">检验日期：</label>
+				<div class="controls">
+					<input size="16" type="text" readonly="true" style="width:70% !important;" class="form_datetime form-control" name="examinationdate" id="examinationdate">
 				</div>
 			</div>
 			<div class="control-group" style="width:300px;float:left;padding:10px 0;">
@@ -47,13 +71,15 @@
 				<table class="table table-bordered table-condensed table-hover" id="contentTable">
 					<thead>
 						<tr>
+							<th>物资编码</th>
 							<th>物资名称</th>
 							<th>规格型号</th>
 							<th>成分含量</th>
 							<th>粒度</th>
 							<th>外观</th>
-							<th>检验状态</th>
+							<th>检验类型</th>
 							<th>检验方式</th>
+							<th>检验结果</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -82,7 +108,6 @@
 		$(function() {
 			if ($.cookie("accountInspectionNextList_id") != "null") {
 				$("#payId").val($.cookie("accountInspectionNextList_id"));
-				$("#supplierInsp").val($.cookie("accountInspectionNextList_supplier"));
 				$.ajax({
 					url : IP_config + "accountInspectionController/getById",
 					type : "post",
@@ -91,13 +116,18 @@
 						"id" : $.cookie("accountInspectionNextList_id")
 					},
 					success : function(data) {
+						$.cookie("accountInspectionNextList_id", null);
 						if (data.success && data.obj != null && data.obj != "") {
 							$("#ordernum").val(data.obj.ordernum);
 							$("#arrivalnum").val(data.obj.arrivalnum);
-							$("#status").val(data.obj.status);
+							$("#supplierInsp").val(data.obj.supplier);
 							$("#suppliernumInsp").val(data.obj.suppliernum);
+							$("#inspectionman").val(data.obj.inspectionman);
+							$("#inspectiodep").val(data.obj.checker);
 							$("#inspectiondate").val(data.obj.inspectiondate);
+							$("#examinationdate").val(data.obj.examinationdate);
 							$("#remarks").val(data.obj.remarks);
+							$("#status").val(data.obj.status);
 						}
 					}
 				});
@@ -106,38 +136,44 @@
 				url : IP_config + "accountInspectionController/getByInspectionId",
 				type : "post",
 				data : {
-					"id" : $.cookie("accountInspectionNextList_id")
+					"id" : $("#payId").val()
 				},
 				async : false,
 				success : function(data) {
 					$("#contentTable>tbody").empty();
 					var html = "";
 					for (i in data.obj) {
-						html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control' value='"+data.obj[i].ingredient+"'/></td><td><input type='text' class='form-control' value='"+data.obj[i].granularity+"'/></td><td><input type='text' class='form-control' value='"+data.obj[i].appearance+"'/></td>" ;
-						html+="<td> <select name='status'class='form-control' id='status'>";
+						html += "<tr><td>" + data.obj[i].materialcode + "</td><td>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control' style='width: 100px;' value='"+data.obj[i].ingredient+"'/></td><td><input type='text' class='form-control' style='width: 100px;' value='"+data.obj[i].granularity+"'/></td><td><input type='text' class='form-control' style='width: 100px;' value='"+data.obj[i].appearance+"'/></td>" ;
 						if(data.obj[i].status==1){
-							html+="<option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>";	
+							html+="<td name='"+data.obj[i].status+"'>免检</td>";	
 						}
 						else if(data.obj[i].status==2){
-							html+="<option value='2'>合格</option><option value='1'>不合格</option><option value='3'>免检</option></select></td>";	
-						}
-						else if(data.obj[i].status==3){
-							html+="<option value='3'>免检</option><option value='1'>不合格</option><option value='2'>合格</option></select></td>";	
+							html+="<td name='"+data.obj[i].status+"'>必检</td>";	
 						}
 						else {
-							html+="<option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>";	
+							html+="<td name=''></td>";	
 						}
 						if(data.obj[i].inspectionmode==14){
-							html+="<td name='"+data.obj[i].inspectionmode+"'>高温检验</td></tr>";	
+							html+="<td name='"+data.obj[i].inspectionmode+"'>高温检验</td>";	
 						}
 						else if(data.obj[i].inspectionmode==15){
-							html+="<td name='"+data.obj[i].inspectionmode+"'>硬度检验</td></tr>";	
+							html+="<td name='"+data.obj[i].inspectionmode+"'>硬度检验</td>";	
 						}
 						else if(data.obj[i].inspectionmode==16){
-							html+="<td name='"+data.obj[i].inspectionmode+"'>低温检验</td></tr>";	
+							html+="<td name='"+data.obj[i].inspectionmode+"'>低温检验</td>";	
 						}
 						else {
-							html+="<td name=''></td></tr>";	
+							html+="<td name=''></td>";	
+						}
+						html+="<td> <select name='result'class='form-control' id='result'>";
+						if(data.obj[i].result==1){
+							html+="<option value='1'>不合格</option><option value='2'>合格</option></select></td></tr>";	
+						}
+						else if(data.obj[i].result==2){
+							html+="<option value='2'>合格</option><option value='1'>不合格</option></select></td></tr>";	
+						}
+						else {
+							html+="<option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option></select></td></tr>";	
 						}
 							}
 					$("#contentTable>tbody").html(html);
@@ -155,21 +191,28 @@
 							accountInspection.id =$("#payId").val();
 							accountInspection.ordernum = $("#ordernum").val();
 							accountInspection.arrivalnum = $("#arrivalnum").val();
+							accountInspection.supplier = $("#supplierInsp").val();
 							accountInspection.suppliernum = $("#suppliernumInsp").val();
+							accountInspection.inspectionman = $("#inspectionman").val();
+							accountInspection.checker = $("#inspectiodep").val();
 							accountInspection.status= $("#status").val();
 							accountInspection.inspectiondate = $("[name='inspectiondate']").val();
+							accountInspection.examinationdate = $("[name='examinationdate']").val();
 							accountInspection.remarks = $("[name='remarks']").val();
 							var len = $("#contentTable>tbody tr").length;
 							var aiArr = new Array();
 							for (var i = 0; i < len; i++) {
 								var aiDetail = {};
-								var materialname = $("#contentTable>tbody tr:eq(" + i + ") td:eq(0)").text();
-								var size = $("#contentTable>tbody tr:eq(" + i + ") td:eq(1)").text();
-								var ingredient = $("#contentTable>tbody tr:eq(" + i + ") td:eq(2) input").val();
-								var granularity = $("#contentTable>tbody tr:eq(" + i + ") td:eq(3) input").val();
-								var appearance = $("#contentTable>tbody tr:eq(" + i + ") td:eq(4) input").val();
-								var status = $("#contentTable>tbody tr:eq(" + i + ") td:eq(5) option:selected").val();
-								var inspectionmode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(6)").attr("name");
+								var materialcode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(0)").text();
+								var materialname = $("#contentTable>tbody tr:eq(" + i + ") td:eq(1)").text();
+								var size = $("#contentTable>tbody tr:eq(" + i + ") td:eq(2)").text();
+								var ingredient = $("#contentTable>tbody tr:eq(" + i + ") td:eq(3) input").val();
+								var granularity = $("#contentTable>tbody tr:eq(" + i + ") td:eq(4) input").val();
+								var appearance = $("#contentTable>tbody tr:eq(" + i + ") td:eq(5) input").val();
+								var status = $("#contentTable>tbody tr:eq(" + i + ") td:eq(6) option:selected").val();
+								var inspectionmode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(7)").attr("name");
+								var result = $("#contentTable>tbody tr:eq(" + i + ") td:eq(8) option:selected").val();
+								aiDetail.materialcode = materialcode;
 								aiDetail.materialname = materialname;
 								aiDetail.size = size;
 								aiDetail.ingredient = ingredient;
@@ -177,6 +220,7 @@
 								aiDetail.appearance = appearance;
 								aiDetail.status = status;
 								aiDetail.inspectionmode = inspectionmode;
+								aiDetail.result = result;
 								aiArr.push(aiDetail);
 							}
 							accountInspection.accountInspectionDetail = aiArr;
@@ -189,12 +233,11 @@
 								async : false
 							});
 							$.cookie("accountInspectionNextList_id", null);
-							$.cookie("accountInspectionNextList_supplier", null);
 							if (accountInspection != null && accountInspection != "") {
 								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								/*setTimeout(function(){
+								setTimeout(function(){
 									$(".account-panel").remove();
-								},600);*/
+								},300);
 								$.ajax( {
 									url : IP_config + "accountInspectionController/selectView",
 									dataType: "json",

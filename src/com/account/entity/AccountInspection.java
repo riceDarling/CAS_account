@@ -11,13 +11,14 @@ public class AccountInspection {
 	private String ordernum;		// 送检单号
 	private String arrivalnum;		// 到货单编号
 	private String supplier;  //供应商名称
-	private String suppliernum;  //供应商编号
+	private String suppliernum;  //供应商编码
 	private String inspectionman;		// 送检人
-	private String checker;		// 检验人
+	private String checker;		// 检验部门
 	private String inspectiondate;		// 送检日期
+	private String examinationdate;		// 检验日期
 	private String beginDate;//开始日期 查询使用
 	private String endDate;//结束日期 查询使用
-	private String status="0";	//送检状态 0:未完成 1:完成
+	private String status="0";	//入库状态 0:未入库 1:已入库
 	private String remarks;//备注
 	private String delFlag="0";//是否删除
 	List<AccountInspectionDetail> accountInspectionDetail;
@@ -116,6 +117,19 @@ public class AccountInspection {
 	 */
 	public void setInspectiondate(String inspectiondate) {
 		this.inspectiondate = inspectiondate;
+	}
+	
+	/**
+	 * @return the examinationdate
+	 */
+	public String getExaminationdate() {
+		return examinationdate;
+	}
+	/**
+	 * @param examinationdate the examinationdate to set
+	 */
+	public void setExaminationdate(String examinationdate) {
+		this.examinationdate = examinationdate;
 	}
 	public String getBeginDate() {
 		return beginDate;

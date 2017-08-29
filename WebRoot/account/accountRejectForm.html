@@ -1,12 +1,10 @@
 <link href="css/select2.css" rel="stylesheet">
 <script src="js/select2.js"></script>
+<style>
+	.panel-cascade > .panel-body{border:none;}
+</style>
 	<div class="col-md-12">
 		<div class="panel panel-cascade">
-			<!-- <div class="panel-heading">
-				<h3 class="panel-title">
-					<i class="fa fa-pencil-square"></i> 退货单添加
-				</h3>
-			</div> -->
 			<div class="panel panel-cascade">
 				<div class="panel-heading">
 					<h3 class="panel-title">创建退货单</h3>
@@ -24,12 +22,39 @@
 						<input name="supplier" type="text" htmlEscape="false"
 							class="form-control" id="form_supplier" readonly  suppliernum=""/>
 					</div>
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">供应商编码：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
+						<input name="" type="text" htmlEscape="false" class="form-control" id="" readonly  suppliernum=""/>
+					</div>
+				</div>
+				
+				<div class="panel-body ">
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">制单人：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
+						<input name="" type="text" htmlEscape="false" class="form-control" id=""   suppliernum=""/>
+					</div>
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">采购部门：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
+						<input name="" type="text" htmlEscape="false"
+							class="form-control" id="" readonly  suppliernum=""/>
+					</div>
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">合同编码：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
+						<input name="" type="text" htmlEscape="false" class="form-control" id="" readonly  suppliernum=""/>
+					</div>
+				</div>
+				<div class="panel-body ">
 					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">退货单名称：</label>
 					<div class="col-lg-2 col-md-2" style="padding-left:0;">
 						<input name="" type="text" htmlEscape="false"
 							class="form-control" id="form_title" />
 					</div>
+					<label class="col-lg-1 col-md-2 control-label" style="width: 14%; text-align:right; margin-top:7px;">退货日期：</label>
+					<div class="col-lg-2 col-md-2" style="padding-left:0;">
+						<input name="" type="text" htmlEscape="false" readonly class="form_datetime form-control" id="" />
+					</div>
 				</div>
+				
 				<div class="panel-body">
 					<div class="col-lg-12 col-md-6">
 						<table class="table table-striped table-bordered table-condensed">
@@ -57,6 +82,14 @@
 	/* $("[href_1]").click(function() {
 		$("#index_content").load($(this).attr("href_1"));
 	}); */
+	
+	$(".form_datetime").datetimepicker({
+		language:  'zh-CN', 
+		minView: "month", 
+		format: 'yyyy-mm-dd',
+		todayBtn:  1,
+		autoclose: 1
+	});
 	
 	$.ajax({
 		url : IP_config+"accountInspectionController/getArrivalNum",

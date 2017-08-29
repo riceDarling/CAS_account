@@ -1,21 +1,52 @@
- <script src="lib/js/purchaseForm.js"></script>
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
+<script src="lib/js/purchaseForm.js"></script>
 <div class="col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-pencil-square"></i>订货单修改</h3>
+			<h3 class="panel-title"><!-- <i class="fa fa-pencil-square"></i> -->订货单修改</h3>
 		</div>
 		<div class="panel-body">
-            <label class="col-lg-1 col-md-2 control-label" style="width: 100px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">订货单名称：</label>
-            <div class="col-lg-2 col-md-2" style="width:155px;padding-left:0;">
-                <input name="supplier" type="text" htmlEscape="false" class="form-control" id="title" style="padding-left:0;width:155px;" purchase_id="" readonly="readonly"/>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 114px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">订货单名称：</label>
+            <div class="col-lg-6 col-md-2" style="width:155px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" class="form-control" id="title" style="padding-left:8px;width:155px;" purchase_id="" readonly="readonly"/>
             </div>
-            <label class="col-lg-2 col-md-3 control-label" style="width: 160px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">审核人(必选)：</label>
-			<div class="col-lg-4 col-md-3">
-			<select  tabindex="1" name="checker" style="width:100px;" id="accountPurchaseForm_checker" class="form-control">
+            <label class="col-lg-2 col-md-3 control-label" style="width: 130px;padding-left: 0;padding-right: 0;text-align:right;margin-top:7px;">审核人(必选)：</label>
+			<div class="col-lg-6 col-md-3">
+			<select  tabindex="1" name="checker" style="width:180px;" id="accountPurchaseForm_checker" class="form-control">
 				 <option value=""></option>       						
 			</select>	
 		</div>
-		<div class="panel-body" style="margin-top:35px;">
+		<div class="panel-body">
+	            <label class="col-lg-1 col-md-2 control-label" style="width: 99px;padding-left: 0;padding-right:0;text-align:right;margin-top: 15px;">供应商名称：</label>
+	            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+	                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;margin: 10px 0;" readonly class="form-control" id="supplier" />
+	            </div>
+	            <label class="col-lg-1 col-md-2 control-label" style="width: 148px;padding-right:0;text-align:right;margin-top: 15px;">供应商编码：</label>
+	            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+	                <input name="supplier" type="text" htmlEscape="false" style="width:180px;padding-left:8px;margin-left:0;margin: 10px 0;" readonly class="form-control" id="supplierNum" />
+	            </div>
+	            <label class="col-lg-1 col-md-3 control-label" style="width:150px;padding-left: 0;padding-right: 0;text-align:right;margin-top: 15px;">制单人：</label>
+				<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+	               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;margin: 10px 0;"  class="form-control" id="maker" />
+				</div>
+			</div>
+			<div class="panel-body">
+	            <label class="col-lg-1 col-md-2 control-label" style="width: 100px;padding-left: 0;padding-right:0;text-align:right;margin-top: -15px;">纸质合同编号：</label>
+	            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+	                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;margin-top: -22px;" readonly class="form-control" id="papercontract" />
+	            </div>
+	            <label class="col-lg-1 col-md-3 control-label" style="width:138px;padding-left: 0;padding-right: 0;text-align:right;margin-top: -15px;">合同编号：</label>
+				<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+	               <input name="supplier" type="text" htmlEscape="false" style="width:180px;padding-left:8px;margin-left:0;margin-top: -22px;" readonly class="form-control" id="contractnum" />
+				</div>
+				 <label class="col-lg-1 col-md-2 control-label" style="width: 180px;padding-right:0;text-align:right;margin-top: -15px;">制单日期：</label>
+	            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+	                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;margin-top: -22px;" readonly class="form_datetime form-control" id="makeDate" />
+				</div>
+			</div>
+		
+		<div class="panel-body">
 			<table class="table table-bordered table-condensed table-hover">
 				<thead>
 					<tr>
@@ -35,7 +66,7 @@
 			</table>
 			
 		</div>
-		<div class="panel-body" style="margin-top:35px;">
+		<div class="panel-body">
 			<table class="table table-striped" id="requisitionAudit_act_table">
 				<thead>
                     <tr>
@@ -119,6 +150,13 @@
 					var ap= data.obj.purchase;
 					$("#title").attr("purchase_id",ap.id);
 					$("#title").val(ap.title);
+					
+					$("#supplier").val(ap.supplier);
+					$("#supplierNum").val(ap.supplierNum);
+					$("#maker").val(ap.maker);
+					$("#papercontract").val(ap.papercontract);
+					$("#contractnum").val(ap.contractnum);
+					$("#makeDate").val(ap.makeDate);
 				}
 				if (data.obj.purchase.accountPurchaseDetailList.length > 0) {
 					var html = "";

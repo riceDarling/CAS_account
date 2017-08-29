@@ -7,7 +7,7 @@ public class BaseModel {
 	private Date createDate;// 创建时间
 	private String updateBy;// 更新人
 	private Date update;// 更新时间
-	private int delFlag = 0;// 删除标记
+	private Integer delFlag = 0;// 删除标记
 
 	public String getCreateBy() {
 		return createBy;
@@ -41,11 +41,11 @@ public class BaseModel {
 		this.update = update;
 	}
 
-	public int getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 
-	public void setDelFlag(int delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 

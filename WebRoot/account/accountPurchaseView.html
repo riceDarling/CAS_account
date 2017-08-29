@@ -1,4 +1,7 @@
- <script src="lib/js/purchaseForm.js"></script>
+<script src="lib/js/purchaseForm.js"></script>
+<style>
+	.panel-cascade > .panel-body{border:none;}
+</style>
 <div class="col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
@@ -9,16 +12,44 @@
 		<div class="panel-body">
             <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">订货单标题：</label>
             <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
-                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:0;margin-left:0;" class="form-control" id="title" readonly="readonly" />
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" class="form-control" id="title" readonly="readonly" />
             </div>
             <label class="col-lg-1 col-md-2 control-label" style="width: 135px;padding-right:0;text-align:right;margin-top:7px;">合同：</label>
             <div class="col-lg-2 col-md-2" style="margin-left:0;width:155px;padding-left:0;">
-                <input name="status" class="form-control" style="width:155px;padding-left:0;margin-left:0;" id="accountPurchaseForm_contract" readonly="readonly" />
+                <input name="status" class="form-control" style="width:155px;padding-left:8px;margin-left:0;" id="accountPurchaseForm_contract" readonly="readonly" />
             </div>
             <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">审核人：</label>
 			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
-                <input  tabindex="1" name="checker" style="width:100px;padding-left:0;margin-left:0;" id="accountPurchaseForm_checker" class="form-control" readonly="readonly">	
+                <input  tabindex="1" name="checker" style="width:100px;padding-left:8px;margin-left:0;" id="accountPurchaseForm_checker" class="form-control" readonly="readonly">	
 			</div>
+		</div>
+		<div class="panel-body">
+            <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">供应商名称：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form-control" id="supplier" />
+            </div>
+            <label class="col-lg-1 col-md-2 control-label" style="width: 130px;padding-right:0;text-align:right;margin-top:7px;">供应商编码：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:162px;padding-left:8px;margin-left:0;" readonly class="form-control" id="supplierNum" />
+            </div>
+            <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">制单人：</label>
+			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form-control" id="maker" />
+			</div>
+		</div>
+		<div class="panel-body">
+            <label class="col-lg-1 col-md-2 control-label" style="width: 170px;padding-right:0;text-align:right;margin-top:7px;">纸质合同编号：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form-control" id="papercontract" />
+            </div>
+            <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:125px;padding-left: 0;padding-right: 0;text-align:right">合同编号：</label>
+			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+               <input name="supplier" type="text" htmlEscape="false" style="width:165px;padding-left:8px;margin-left:0;" readonly class="form-control" id="contractnum" />
+			</div>
+			 <label class="col-lg-1 col-md-2 control-label" style="width: 180px;padding-right:0;text-align:right;margin-top:7px;">制单日期：</label>
+            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form_datetime form-control" id="makeDate" />
+            </div>
 		</div>
 		<div class="panel-body">
 			<table class="table table-bordered table-condensed table-hover">
@@ -80,6 +111,13 @@
 					var aq = data.obj.purchase;
 					$("#title").val( aq.title );
 					$("#accountPurchaseForm_contract").val(aq.contracttitle);
+					
+					$("#supplier").val(aq.supplier);
+					$("#supplierNum").val(aq.supplierNum);
+					$("#maker").val(aq.maker);
+					$("#papercontract").val(aq.papercontract);
+					$("#contractnum").val(aq.contractnum);
+					$("#makeDate").val(aq.makeDate);
 					//$("#receivedate").val( aq.receivedate );
 					//$("#reason").val( aq.reason );
 					//$("#checker").val(  );

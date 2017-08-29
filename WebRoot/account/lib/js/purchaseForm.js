@@ -10,16 +10,28 @@ $("#accountPurchaseSubmit").click(function(){
 				$( 'body' ).RemindWoken( '必须选择审核人' );
 				return;
 			}
+			if ( $( '#maker' ).val() == null || $( '#maker' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须填写制单人' );
+				return;
+			}
+			if ( $( '#makeDate' ).val() == null || $( '#makeDate' ).val() == '' ) {
+				$( 'body' ).RemindWoken( '必须填写制单日期' );
+				return;
+			}
 			
 			var data_json={};
 			var inquirynum=$("#accountPurchaseForm_contract").val();
 			var title=$("#title").val();
 			var checker=$("#accountPurchaseForm_checker").val();
 			var purchase_id=$("#title").attr("purchase_id");
+			var maker=$("#maker").val();
+			var makeDate=$("#makeDate").val();
 			data_json["id"]=purchase_id;
 			data_json["inquirynum"]=inquirynum;
 			data_json["title"]=title;
 			data_json["checker"]=checker;
+			data_json["maker"]=maker;
+			data_json["makeDate"]=makeDate;
 			
 			/*if ( inquirynum == '' ) {
 				$( 'body' ).RemindWoken( '必须选择合同名称' );

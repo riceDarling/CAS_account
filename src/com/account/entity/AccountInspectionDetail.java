@@ -9,13 +9,15 @@ public class AccountInspectionDetail {
 	
 	private String id;
 	private String parent_Id;		// 主表ID 父类
+	private String materialcode;//物资编码
 	private String materialname;		// 物资名称
-	private String inspectionmode;		// 检验方式
+	private String size;			//规格型号
 	private String ingredient;		// 成分含量
 	private String granularity;		// 粒度
 	private String appearance;		// 外观
-	private String size;			//规格型号
-	private String status;			//检验状态  1:不合格2:合格3:免检
+	private String status;			//检验类型（1.免检 2.必检）
+	private String inspectionmode;		// 检验方式
+	private String result;//检验结果（1不合格 2.合格）
 	private String remarks;	
 	private String delFlag="0";//是否删除
 	public String getStatus() {
@@ -136,6 +138,34 @@ public class AccountInspectionDetail {
 	 */
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	/**
+	 * @return the materialcode
+	 */
+	public String getMaterialcode() {
+		return materialcode;
+	}
+
+	/**
+	 * @param materialcode the materialcode to set
+	 */
+	public void setMaterialcode(String materialcode) {
+		this.materialcode = materialcode;
+	}
+
+	/**
+	 * @return the result
+	 */
+	public String getResult() {
+		return result;
+	}
+
+	/**
+	 * @param result the result to set
+	 */
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 }

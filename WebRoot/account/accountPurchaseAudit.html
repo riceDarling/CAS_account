@@ -3,7 +3,7 @@
 		<div class="panel panel-cascade">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-						<i class="fa fa-pencil-square"></i>订货单审核
+						<!-- <i class="fa fa-pencil-square"></i> -->订货单审核
 				</h3>
 			</div>
 			<div class="panel-body ">
@@ -14,17 +14,46 @@
 							novalidate="novalidate">
 							<div class="form-group">
 								<label class="col-lg-2 col-md-3 control-label">订货单标题：</label>
-								<div class="col-lg-4 col-md-3" id="requisitionAudit_title"></div>
+								<div class="col-lg-4 col-md-3" id="requisitionAudit_title" style="margin-top:8px;"></div>
 							</div>
 						
-							<div class="form-group"   style="display:none" id="checker_div">
+							<div class="form-group"   style="" id="checker_div">
 								<label class="col-lg-2 col-md-3 control-label" id="requisitionAudit_checker_label">审核人：</label>
-								<div class="col-lg-4 col-md-3" >
+								<div class="col-lg-4 col-md-3" style="width: 182px;">
 									<select  tabindex="1" name="checker" id="requisitionAudit_checker" class="form-control">
 										 <option value=""></option>
                    						
 									 </select>	
 								</div>
+							</div>
+							
+							<div class="panel-body">
+					            <label class="col-lg-1 col-md-2 control-label" style="width: 145px;padding-right:0;text-align:right;">供应商名称：</label>
+					            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+					                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form-control" id="supplier" />
+					            </div>
+					            <label class="col-lg-1 col-md-2 control-label" style="width: 130px;padding-right:0;text-align:right;">供应商编码：</label>
+					            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+					                <input name="supplier" type="text" htmlEscape="false" style="width:162px;padding-left:8px;margin-left:0;" readonly class="form-control" id="supplierNum" />
+					            </div>
+					            <label class="col-lg-1 col-md-3 control-label" style="width:150px;padding-left: 0;padding-right: 0;text-align:right">制单人：</label>
+								<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+					               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;"  class="form-control" id="maker" />
+								</div>
+							</div>
+							<div class="panel-body">
+					            <label class="col-lg-1 col-md-2 control-label" style="width: 145px;padding-right:0;text-align:right;">纸质合同编号：</label>
+					            <div class="col-lg-2 col-md-2" style="margin-left:0;width:160px;padding-left:0;">
+					                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form-control" id="papercontract" />
+					            </div>
+					            <label class="col-lg-1 col-md-3 control-label" style="width:120px;padding-left: 0;padding-right: 0;text-align:right">合同编号：</label>
+								<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
+					               <input name="supplier" type="text" htmlEscape="false" style="width:165px;padding-left:8px;margin-left:0;" readonly class="form-control" id="contractnum" />
+								</div>
+								 <label class="col-lg-1 col-md-2 control-label" style="width: 180px;padding-right:0;text-align:right;">制单日期：</label>
+					            <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
+					                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form_datetime form-control" id="makeDate" />
+					            </div>
 							</div>
 							
 							<div class="form-group">
@@ -139,6 +168,13 @@ $("#requisitionAudit_end").click(function(){
 				if (data.obj.purchase != null) {
 					var ap= data.obj.purchase;
 					$("#requisitionAudit_title").text(ap.title);
+					
+					$("#supplier").val(ap.supplier);
+					$("#supplierNum").val(ap.supplierNum);
+					$("#maker").val(ap.maker);
+					$("#papercontract").val(ap.papercontract);
+					$("#contractnum").val(ap.contractnum);
+					$("#makeDate").val(ap.makeDate);
 				}
 				if (data.obj.purchase.accountPurchaseDetailList.length > 0) {
 					var html = "";

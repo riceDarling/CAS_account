@@ -13,7 +13,9 @@
 		a.remarks AS
 		"remarks",
 		a.arrivalstatus as "arrivalstatus",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.maker AS 'maker',
+		a.make_date AS 'makeDate'
 	</sql>
 	<select id="getById" parameterType="java.lang.String"
 		resultType="com.account.entity.AccountArrival">
@@ -61,7 +63,9 @@
 		arrival_date,
 		remarks,
 		arrivalstatus,
-		del_flag
+		del_flag,
+		maker,
+		make_date
 		) VALUES (
 		#{id},
 		#{ordernum},
@@ -71,7 +75,9 @@
 		#{arrivalDate},
 		#{remarks},
 		#{arrivalstatus},
-		#{delFlag}
+		#{delFlag},
+		#{maker},
+		#{makeDate}
 		)
 	</insert>
 
@@ -86,7 +92,9 @@
 		#{arrivalDate},
 		remarks = #{remarks},
 		arrivalstatus=#{arrivalstatus},
-		del_flag=#{delFlag}
+		del_flag=#{delFlag},
+		maker=#{maker},
+		make_date=#{makeDate}
 		WHERE id = #{id}
 	</update>
 	<update id="updateStatus" parameterType="java.lang.String">

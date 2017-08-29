@@ -45,6 +45,10 @@ public class AccountInspectionServiceImpl implements AccountInspectionService {
 			{
 				accountInspection.setInspectiondate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			}
+			if(accountInspection.getExaminationdate()==null||accountInspection.getExaminationdate().trim().length()<=0)
+			{
+				accountInspection.setExaminationdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}
 			accountInspectionDao.save(accountInspection);
 			accountInspectionDao.updateArrivalStatus(accountInspection.getArrivalnum());
 			for (int i = 0; i < size; i++) {

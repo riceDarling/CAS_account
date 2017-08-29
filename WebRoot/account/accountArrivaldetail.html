@@ -26,6 +26,27 @@
 					<input type="text" readonly="true" id="supplierDetail" style="width:70%  !important;"  class="form-control"  /></span>
 				</div>
 			</div>
+			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
+				<label class="control-label">供应商编码：</label>
+				<div class="controls">
+					<input type="text" hidden="true" id="" /> 
+					<input type="text" readonly="true" style="width:70%;" id="supplierNum" class="form-control" /></span>
+				</div>
+			</div>
+			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
+				<label class="control-label">制单人：</label>
+				<div class="controls">
+					<input type="text" hidden="true" id="" /> 
+					<input type="text"  style="width:70%;" id="maker" class="form-control" /></span>
+				</div>
+			</div>
+			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
+				<label class="control-label">制单日期：</label>
+				<div class="controls">
+					<input type="text" hidden="true" id="" /> 
+					<input type="text" readonly="true" style="width:70%;" id="makeDate" class="form_datetime form-control" /></span>
+				</div>
+			</div>
 			<div class="control-group" hidden="true" style="width:310px;padding:10px 0; float:left;">
 					<label class="control-label">到货状态：</label>
 					<div class="controls">
@@ -111,6 +132,11 @@
 							$("#arrivalDate").val(data.obj.arrivalDate);
 							$("#arrivalstatus").val(data.obj.arrivalstatus);
 							$("#remarks").val(data.obj.remarks);
+							
+							$("#supplierNum").val(data.obj.suppliernum);
+							$("#maker").val(data.obj.maker);
+							$("#makeDate").val(data.obj.makeDate);
+							
 						}
 					}
 				});

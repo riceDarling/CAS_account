@@ -3,68 +3,85 @@
 <div class="col-lg-12 col-md-12">
 	<div class="panel panel-cascade">
 		<div class="panel-heading">
-			<h3 class="panel-title">
-				添加送检单
-			</h3>
+			<h3 class="panel-title">添加送检单</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0; text-align:right;">到货单(必选)：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0; text-align:right;">到货单(必选)：</label>
 				<div class="col-lg-3 col-md-6" style=" width:355px;">
 					<select class="form-control" name="orderNumtitle" style="width:325px;" id="orderNumtitleName">
 					</select>
 				</div>
 			</div>
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0;text-align:right;">送检单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 11px;padding-left: 0;padding-right: 0;text-align:right;">送检单号：</label>
 				<div class="col-lg-5 col-md-6" style=" width:355px;">
-					<input name="ordernum" readonly="true" htmlEscape="false"  style="width:210px !important;margin-top: 2px;display: inline-block;"maxlength="32" id="ordernum" class="form-control" /> 
-					<input type="button" class="btn btn-info" value="自动生成" id="automatic" />
+					<input name="ordernum" readonly="true" htmlEscape="false" style="width:210px !important;margin-top: 2px;display: inline-block;" maxlength="32" id="ordernum" class="form-control" /> <input type="button" class="btn btn-info" value="自动生成" id="automatic" />
 				</div>
 			</div>
-			
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">到货单号：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">到货单号：</label>
 				<div class="col-lg-4 col-md-6" style=" width:355px;">
-					<input name="arrivalnum" id="arrivalnumInsp" style="margin-top: 5px;" readonly="true"  htmlEscape="false" maxlength="32" class="form-control" />
+					<input name="arrivalnum" id="arrivalnumInsp" style="margin-top: 5px;" readonly="true" htmlEscape="false" maxlength="32" class="form-control" />
 				</div>
 			</div>
-			
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">供应商名称：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">供应商编码：</label>
 				<div class="col-lg-5 col-md-6" style=" width:355px;">
-					<input type="text" hidden="true" id="suppliernumInsp" /> 
-					<input type="text"  id="supplierInsp" style="margin-top: 5px;"  class="form-control" /></span>
+					<input type="text" id="suppliernumInsp" style="margin-top: 5px;" class="form-control" readonly="true" />
 				</div>
 			</div>
-			
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检日期：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">供应商名称：</label>
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
+					<input type="text" id="supplierInsp" style="margin-top: 5px;" class="form-control" readonly="true" /></span>
+				</div>
+			</div>
+			<div class="form-group" style="float:left; width:50%;">
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检人：</label>
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
+					<input type="text" id="inspectionman" style="margin-top: 5px;" class="form-control" /></span>
+				</div>
+			</div>
+			<div class="form-group" style="float:left; width:50%;">
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">送检日期：</label>
 				<div class="col-lg-4 col-md-6" style=" width:355px;">
-					<input size="16" type="text" readonly  style="margin-top: 5px;" class="form_datetime form-control" name="inspectiondate">
+					<input size="16" type="text" readonly style="margin-top: 5px;" class="form_datetime form-control" name="inspectiondate">
 				</div>
 			</div>
 			<div class="form-group" style="float:left; width:50%;">
-				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">备注信息：</label> 
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">检验部门：</label>
 				<div class="col-lg-5 col-md-6" style=" width:355px;">
-					<textarea name="remarks" htmlEscape="false"  style="margin-top: 5px;" class="form-control" />
+					<input type="text" id="inspectiodep" style="margin-top: 5px;" class="form-control" /></span>
 				</div>
 			</div>
-			
-			<br/>
+			<div class="form-group" style="float:left; width:50%;">
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">检验日期：</label>
+				<div class="col-lg-4 col-md-6" style=" width:355px;">
+					<input size="16" type="text" readonly style="margin-top: 5px;" class="form_datetime form-control" name="examinationdate">
+				</div>
+			</div>
+			<div class="form-group" style="float:left; width:50%;">
+				<label class="col-lg-1 col-md-6 control-label" style="width:110px;margin-top: 13px;padding-left: 0;padding-right: 0;text-align:right;">备注信息：</label>
+				<div class="col-lg-5 col-md-6" style=" width:355px;">
+					<textarea name="remarks" htmlEscape="false" style="margin-top: 5px;" class="form-control" />
+				</div>
+			</div>
+			<br />
 			<div class="control-group">
-				<label class="control-label" >送检原料：</label>
-				<table class="table table-bordered table-condensed table-hover" id="contentTable" >
+				<label class="control-label">送检原料：</label>
+				<table class="table table-bordered table-condensed table-hover" id="contentTable">
 					<thead>
 						<tr>
+							<th>物资编码</th>
 							<th>物资名称</th>
 							<th>规格型号</th>
-						<!-- 	<th>到货数量</th> -->
 							<th>成分含量</th>
 							<th>粒度</th>
 							<th>外观</th>
-							<th>检验状态</th>
+							<th>检验类型</th>
 							<th>检验方式</th>
+							<th>检验结果</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,39 +98,16 @@
 		</div>
 	</div>
 </div>
-	<script type="text/javascript">
-		//日期插件
-		$(".form_datetime").datetimepicker({
-			language : 'zh-CN',
-			minView : "month", //选择日期后，不会再跳转去选择时分秒 
-			format : 'yyyy-mm-dd',
-			todayBtn : 1,
-			autoclose : 1,
-		});
-		$("#automatic").click(function() {
-			var ordernum = "30-";
-			var date = new Date();
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var day = date.getDate();
-			if (month < 10) {
-				month = "0" + month;
-			}
-			if (day < 10) {
-				day = "0" + day;
-			}
-			ordernum = ordernum + year + month + day + "-";
-			var ordernumRandom = "";
-			for (var i = 0; i < 5; ++i) {
-				var num = Math.random();
-				num = parseInt(num * 10);
-				ordernumRandom += num;
-			}
-			ordernum += ordernumRandom;
-			$("#ordernum").val(ordernum);
-		});
-		
-		//生成送检单号
+<script type="text/javascript">
+	//日期插件
+	$(".form_datetime").datetimepicker({
+		language : 'zh-CN',
+		minView : "month", //选择日期后，不会再跳转去选择时分秒 
+		format : 'yyyy-mm-dd',
+		todayBtn : 1,
+		autoclose : 1,
+	});
+	$("#automatic").click(function() {
 		var ordernum = "30-";
 		var date = new Date();
 		var year = date.getFullYear();
@@ -134,171 +128,202 @@
 		}
 		ordernum += ordernumRandom;
 		$("#ordernum").val(ordernum);
-		
-		$(function() {
-			//获取到货单号 
-			$.ajax({
-				url : IP_config + "accountArrivalController/findAllorderNum",
-				type : "post",
-				success : function(data) {
-					var html = "<option value=''>请选择</option>";
-					for (i in data.obj) {
-						html += "<option value='"+data.obj[i].arrivalnum+"' class='"+data.obj[i].id+"'>" + data.obj[i].title + "</option>";
-					}
-					$("#orderNumtitleName").html(html);
-					$("#orderNumtitleName").select2();
-				}
-			});
-		});
-		//选择到货单号获取详细数据
-		$("#orderNumtitleName").change(function() {
-			//到货单号
-			$("#arrivalnumInsp").val($("#orderNumtitleName").find("option:selected").val());
-			//获取数据
-			$.ajax({
-				url : IP_config + "accountArrivalController/getById",
-				type : "post",
-				data : {
-					"id" : $("#orderNumtitleName").find("option:selected").attr("class")
-				},
-				async : false,
-				success : function(data) {
-					console.log(data);
-					$("#suppliernumInsp").val(data.obj.suppliernum);
-					$("#supplierInsp").val(data.obj.supplier);
-					$("#contentTable>tbody").empty();
+	});
 
-					$.ajax({
-						url : IP_config + "accountArrivalController/getByArrivalId",
-						type : "post",
-						data : {
-							"id" : data.obj.id
-						},
-						async : false,
-						success : function(data) {
-							var html = "";
-							for (i in data.obj) {
-								html += "<tr><td  value='"+data.obj[i].materialcode+"'>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td><td><input type='text' class='form-control'/></td>" + "<td> <select class='form-control' name='status' id='status'><option value=''>请选择</option><option value='1'>不合格</option><option value='2'>合格</option><option value='3'>免检</option></select></td>" + "<td><select name='inspectionmode'class='form-control' id='inspectionmode'></select></td></tr>";
-							}
-							$("#contentTable>tbody").html(html);
-						}
-					})
-					//计量单位
-					$.ajax({
-						url : IP_config + "paraInfo/getParaInfoList",
-						dataType : "json",
-						xhrFields : {
-							withCredentials : true
-						},
-						data : {
-							"pId" : 7
-						},
-						type : "POST",
-						success : function(data) {
-							if (data.success) {
-								//获取成功
-								var html = "<option value=''>请选择</option>";
-								for (i in data.obj) {
-									html += "<option value='"+data.obj[i].id +"'>" + data.obj[i].name + "</option>";
-								}
-								var len = $("#contentTable>tbody>tr").length;
-								for(var i = 0;i < len;i++){
-									$("#contentTable>tbody>tr:eq("+i+") td:eq(6) select").html(html);
-								}
-							} else {
-								//获取失败提示
-								$( 'body' ).RemindWokenError( data.msg );
-							}
-						}
-					});
+	//生成送检单号
+	var ordernum = "30-";
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	if (month < 10) {
+		month = "0" + month;
+	}
+	if (day < 10) {
+		day = "0" + day;
+	}
+	ordernum = ordernum + year + month + day + "-";
+	var ordernumRandom = "";
+	for (var i = 0; i < 5; ++i) {
+		var num = Math.random();
+		num = parseInt(num * 10);
+		ordernumRandom += num;
+	}
+	ordernum += ordernumRandom;
+	$("#ordernum").val(ordernum);
+
+	$(function() {
+		//获取到货单号 
+		$.ajax({
+			url : IP_config + "accountArrivalController/findAllorderNum",
+			type : "post",
+			success : function(data) {
+				var html = "<option value=''>请选择</option>";
+				for (i in data.obj) {
+					html += "<option value='"+data.obj[i].arrivalnum+"' class='"+data.obj[i].id+"'>" + data.obj[i].title + "</option>";
 				}
-			})
-		})
-		$("#submitbtn").click(function() {
-			$( 'body' ).RemindWokenSelect({
-				title : '确定提交？',
-				istrue : function () {
-					if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
-						if ($("#orderNumtitleName").val() != null && $("#orderNumtitleName").val() != "") {
-							$("#submitbtn").attr("disabled", true);
-							var accountInspection = {};
-							accountInspection.ordernum = $("#ordernum").val();
-							accountInspection.arrivalnum = $("#arrivalnumInsp").val();
-							accountInspection.suppliernum = $("#suppliernumInsp").val();
-							accountInspection.inspectiondate = $("[name='inspectiondate']").val();
-							accountInspection.remarks = $("[name='remarks']").val();
-							var len = $("#contentTable>tbody tr").length;
-							var aiArr = new Array();
-							for (var i = 0; i < len; i++) {
-								var aiDetail = {};
-								var materialname = $("#contentTable>tbody tr:eq(" + i + ") td:eq(0)").text();
-								var size = $("#contentTable>tbody tr:eq(" + i + ") td:eq(1)").text();
-								var ingredient = $("#contentTable>tbody tr:eq(" + i + ") td:eq(2) input").val();
-								var granularity = $("#contentTable>tbody tr:eq(" + i + ") td:eq(3) input").val();
-								var appearance = $("#contentTable>tbody tr:eq(" + i + ") td:eq(4) input").val();
-								var status = $("#contentTable>tbody tr:eq(" + i + ") td:eq(5) option:selected").val();
-								var inspectionmode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(6) option:selected").val();
-								aiDetail.materialname = materialname;
-								aiDetail.size = size;
-								aiDetail.ingredient = ingredient;
-								aiDetail.granularity = granularity;
-								aiDetail.appearance = appearance;
-								aiDetail.status = status;
-								aiDetail.inspectionmode = inspectionmode;
-								aiArr.push(aiDetail);
+				$("#orderNumtitleName").html(html);
+				$("#orderNumtitleName").select2();
+			}
+		});
+	});
+	//选择到货单号获取详细数据
+	$("#orderNumtitleName").change(function() {
+		//到货单号
+		$("#arrivalnumInsp").val($("#orderNumtitleName").find("option:selected").val());
+		//获取数据
+		$.ajax({
+			url : IP_config + "accountArrivalController/getById",
+			type : "post",
+			data : {
+				"id" : $("#orderNumtitleName").find("option:selected").attr("class")
+			},
+			async : false,
+			success : function(data) {
+				console.log(data);
+				$("#suppliernumInsp").val(data.obj.suppliernum);
+				$("#supplierInsp").val(data.obj.supplier);
+				$("#contentTable>tbody").empty();
+
+				$.ajax({
+					url : IP_config + "accountArrivalController/getByArrivalId",
+					type : "post",
+					data : {
+						"id" : data.obj.id
+					},
+					async : false,
+					success : function(data) {
+						var html = "";
+						for (i in data.obj) {
+							html += "<tr><td>" + data.obj[i].materialcode + "</td><td>" + data.obj[i].materialname + "</td><td>" + data.obj[i].size + "</td><td><input type='text' class='form-control' style='width:100px;'/></td><td><input type='text' class='form-control' style='width:100px;'/></td><td><input type='text' class='form-control' style='width:100px;'/></td>" + "<td> <select class='form-control' name='status' id='status'><option value=''>请选择</option><option value='1'>免检</option><option value='2'>必检</option></select></td>" + "<td><select name='inspectionmode'class='form-control' id='inspectionmode'></select></td>" + "<td> <select class='form-control' name='result' id='result'><option value=''>请选择</option><option value='1'>合格</option><option value='2'>不合格</option></select></td></tr>";
+						}
+						$("#contentTable>tbody").html(html);
+					}
+				})
+				//计量单位
+				$.ajax({
+					url : IP_config + "paraInfo/getParaInfoList",
+					dataType : "json",
+					xhrFields : {
+						withCredentials : true
+					},
+					data : {
+						"pId" : 7
+					},
+					type : "POST",
+					success : function(data) {
+						if (data.success) {
+							//获取成功
+							var html = "<option value=''>请选择</option>";
+							for (i in data.obj) {
+								html += "<option value='"+data.obj[i].id +"'>" + data.obj[i].name + "</option>";
 							}
-							accountInspection.accountInspectionDetail = aiArr;
-		
-							$.ajax({
-								url : IP_config + "accountInspectionController/save",
-								type : "post",
-								contentType : "application/json;charset=UTF-8",
-								data : JSON.stringify(accountInspection),
-								async : false
-							});
-							if (aiArr != null && aiArr != "") {
-								$( 'body' ).RemindWokenSuccess( '操作成功' );
-								/*setTimeout(function(){
-									$(".account-panel").remove();
-								},600);*/
-								$.ajax( {
-									url : IP_config + "accountInspectionController/selectView",
-									dataType: "json",
-									type: "POST",
-									data :  {
-										supplier : $("#supplier").val(),
-										status:$("#status").val(),
-										startTime : $( '#startTime' ).val(),
-										endTime : $( '#endTime' ).val(),
-										pageSize : 30,
-										currentPage : 1
-									},
-									async : false,
-									success: function( data1 ) {
-										if ( data1.success ) {
-											var data_total = data1.obj.totalCount;
-											
-											var table_data = data1.obj.list;
-											
-											dataTable( table_data , data_total );
-										} else {
-											$( 'body' ).RemindWokenError( '查询失败' );
-										}
-										
-									}
-									
-								});
-							} else {
-								$( 'body' ).RemindWoken( '查询失败' );
-								
+							var len = $("#contentTable>tbody>tr").length;
+							for (var i = 0; i < len; i++) {
+								$("#contentTable>tbody>tr:eq(" + i + ") td:eq(7) select").html(html);
 							}
 						} else {
-							$( 'body' ).RemindWokenError( '请选择到货单号!' );
+							//获取失败提示
+							$('body').RemindWokenError(data.msg);
+						}
+					}
+				});
+			}
+		})
+	})
+	$("#submitbtn").click(function() {
+		$('body').RemindWokenSelect({
+			title : '确定提交？',
+			istrue : function() {
+				if ($("#ordernum").val() != null && $("#ordernum").val() != "") {
+					if ($("#orderNumtitleName").val() != null && $("#orderNumtitleName").val() != "") {
+						$("#submitbtn").attr("disabled", true);
+						var accountInspection = {};
+						accountInspection.ordernum = $("#ordernum").val();
+						accountInspection.arrivalnum = $("#arrivalnumInsp").val();
+						accountInspection.supplier = $("#supplierInsp").val();
+						accountInspection.suppliernum = $("#suppliernumInsp").val();
+						accountInspection.inspectionman = $("#inspectionman").val();
+						accountInspection.checker = $("#inspectiodep").val();
+						accountInspection.inspectiondate = $("[name='inspectiondate']").val();
+						accountInspection.examinationdate = $("[name='examinationdate']").val();
+						accountInspection.remarks = $("[name='remarks']").val();
+						var len = $("#contentTable>tbody tr").length;
+						var aiArr = new Array();
+						for (var i = 0; i < len; i++) {
+							var aiDetail = {};
+							var materialcode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(0)").text();
+							var materialname = $("#contentTable>tbody tr:eq(" + i + ") td:eq(1)").text();
+							var size = $("#contentTable>tbody tr:eq(" + i + ") td:eq(2)").text();
+							var ingredient = $("#contentTable>tbody tr:eq(" + i + ") td:eq(3) input").val();
+							var granularity = $("#contentTable>tbody tr:eq(" + i + ") td:eq(4) input").val();
+							var appearance = $("#contentTable>tbody tr:eq(" + i + ") td:eq(5) input").val();
+							var status = $("#contentTable>tbody tr:eq(" + i + ") td:eq(6) option:selected").val();
+							var inspectionmode = $("#contentTable>tbody tr:eq(" + i + ") td:eq(7) option:selected").val();
+							var result = $("#contentTable>tbody tr:eq(" + i + ") td:eq(8) option:selected").val();
+							aiDetail.materialcode = materialcode;
+							aiDetail.materialname = materialname;
+							aiDetail.size = size;
+							aiDetail.ingredient = ingredient;
+							aiDetail.granularity = granularity;
+							aiDetail.appearance = appearance;
+							aiDetail.status = status;
+							aiDetail.inspectionmode = inspectionmode;
+							aiDetail.result = result;
+							aiArr.push(aiDetail);
+						}
+						accountInspection.accountInspectionDetail = aiArr;
+
+						$.ajax({
+							url : IP_config + "accountInspectionController/save",
+							type : "post",
+							contentType : "application/json;charset=UTF-8",
+							data : JSON.stringify(accountInspection),
+							async : false
+						});
+						if (aiArr != null && aiArr != "") {
+							$('body').RemindWokenSuccess('操作成功');
+							setTimeout(function() {
+								$(".account-panel").remove();
+							}, 300);
+							$.ajax({
+								url : IP_config + "accountInspectionController/selectView",
+								dataType : "json",
+								type : "POST",
+								data : {
+									supplier : $("#supplier").val(),
+									status : $("#status").val(),
+									startTime : $('#startTime').val(),
+									endTime : $('#endTime').val(),
+									pageSize : 30,
+									currentPage : 1
+								},
+								async : false,
+								success : function(data1) {
+									if (data1.success) {
+										var data_total = data1.obj.totalCount;
+
+										var table_data = data1.obj.list;
+
+										dataTable(table_data, data_total);
+									} else {
+										$('body').RemindWokenError('查询失败');
+									}
+
+								}
+
+							});
+						} else {
+							$('body').RemindWoken('查询失败');
+
 						}
 					} else {
-						$( 'body' ).RemindWokenError( '请添写送检单号!' );
+						$('body').RemindWokenError('请选择到货单号!');
 					}
+				} else {
+					$('body').RemindWokenError('请添写送检单号!');
 				}
-			});
+			}
 		});
-	</script>
+	});
+</script>

@@ -42,7 +42,7 @@
             </div>
             <label class="col-lg-1 col-md-3 control-label" style="margin-top: 7px;width:150px;padding-left: 0;padding-right: 0;text-align:right">制单人（必选）：</label>
 			<div class="col-lg-3 col-md-3" style="margin-left:0;padding-left:0;width:130px;">
-               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;"  class="form-control" id="" />
+               <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;"  class="form-control" id="maker" />
 			</div>
 		</div>
 		<div class="panel-body">
@@ -56,7 +56,7 @@
 			</div>
 			 <label class="col-lg-1 col-md-2 control-label" style="width: 180px;padding-right:0;text-align:right;margin-top:7px;">制单日期（必填）：</label>
             <div class="col-lg-2 col-md-2" style="margin-left:0;padding-left:0;">
-                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form_datetime form-control" id="" />
+                <input name="supplier" type="text" htmlEscape="false" style="width:155px;padding-left:8px;margin-left:0;" readonly class="form_datetime form-control" id="makeDate" />
             </div>
 		</div>
 		<div class="panel-body">
@@ -172,12 +172,13 @@
 		}
 	});
 	$("#accountPurchaseForm_contract").change(function(){
+		
+		//获取供应商名称、供应商编码、纸质合同编号、合同编号
 		var oSupplier = $(this).children('option:selected').attr("supplier");
 		var oSupplierNum = $(this).children('option:selected').attr("supplierNum");
 		var oPapercontract = $(this).children('option:selected').attr("papercontract");
 		var oContractnum = $(this).children('option:selected').attr("contractnum");
-		
-		
+		//赋值
 		$("#supplier ").val(oSupplier);
 		$("#supplierNum").val(oSupplierNum);
 		$("#papercontract").val(oPapercontract);

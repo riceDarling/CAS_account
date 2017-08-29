@@ -2,11 +2,11 @@
 	<div class="panel panel-cascade">
 		<div class="panel-heading" style="padding:10px 0;letter-spacing:2px;">
 			<h3 class="panel-title">
-				<i class="fa fa-pencil-square"></i>送检单列表 
-				</h3>
+				<i class="fa fa-pencil-square"></i>送检单列表
+			</h3>
 		</div>
 		<div class="panel-body">
-			<div class="form-group" >
+			<div class="form-group">
 				<label class="col-lg-1 col-md-2 control-label" style="width:88px; !important;top:6px;padding-right:0px;">供应商：</label>
 				<div class="col-lg-2 col-md-6" style="width:185px;">
 					<input name="supplier" id="supplier" type="text" htmlEscape="false" class="form-control " style="width:150px;padding-left:0;padding-right:0;" />
@@ -15,28 +15,28 @@
 				<div class="col-lg-2 col-md-6" style="width:165px;">
 					<select name="status" id="status" class="form-control" style="width:110px;">
 						<option value="">请选择</option>
-						<option value="0">未完成</option>
-						<option value="1">已完成</option>
+						<option value="0">未入库</option>
+						<option value="1">已入库</option>
 					</select>
 				</div>
 				<div class="col-lg-2 col-md-3" style="width:140px;padding-right:5px;">
-                        <input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" name="beginDate" id="startTime" readonly="">
-                    </div>
+					<input size="16" type="text" value="" placeholder="开始时间" class="form_datetime form-control" name="beginDate" id="startTime" readonly="true">
+				</div>
 				<div style="float:left;line-height:33px;">-</div>
 				<div class="col-lg-1 col-md-3" style="width:140px;padding-left:5px;">
-                     <input size="16" type="text" value="" placeholder="结束时间" class="form_datetime form-control" name="endDate" id="endTime" readonly="">
-                </div>
+					<input size="16" type="text" value="" placeholder="结束时间" class="form_datetime form-control" name="endDate" id="endTime" readonly="true">
+				</div>
 			</div>
 			<div class="col-lg-1 col-sm-6" style="width:100px;">
 				<input id="btnCancel" class="btn btn-info" style="margin-top:-20px;" type="button" value="查询" />
 			</div>
 			<input class="btn btn-info btn-animate-demo flowadd-btn" style="margin-top: -19px !important;" type="button" value="添加送检单">
 		</div>
-		 <div class="panel">
-            <div class="panel-body table-wrap-t" style="padding-left:0;padding-right:0;">
-                <table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
-            </div>
-        </div>
+		<div class="panel">
+			<div class="panel-body table-wrap-t" style="padding-left:0;padding-right:0;">
+				<table class="table table-bordered table-condensed table-hover table-container" style="table-layout:fixed"></table>
+			</div>
+		</div>
 	</div>
 </div>
 <script>
@@ -91,12 +91,12 @@
 				tempObj.inspectiondate = table_data[ c ].inspectiondate;  
 				
 				if ( table_data[ c ].status == 0 ) {
-					tempObj.status = '未完成';
-					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn work-btn-sel btn-info" >修改</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="'+table_data[ c ].id+'" class="btn btn-danger selfback-btn-sel">删除</a>';  
+					tempObj.status = '未入库';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"   class="btn work-btn-sel btn-info" >修改</a><a style="margin-left:6px;" del_id="'+table_data[ c ].id+'" name="'+table_data[ c ].id+'" class="btn btn-danger selfback-btn-sel">删除</a>';  
 				}
 				else if ( table_data[ c ].status == 1 ) {
-					tempObj.status = '已完成';
-					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  supName="'+table_data[ c ].supplier +'" class="btn watch-btn-sel btn-success" >查看</a>';  
+					tempObj.status = '已入库';
+					tempObj.dataopt = '<a name="'+table_data[ c ].id+'"  class="btn watch-btn-sel btn-success" >查看</a>';  
 				}
 				
 				total_arr.push( JSON.parse(JSON.stringify( tempObj )) );
@@ -332,7 +332,6 @@
 				$( this ).parent().parent().remove();
 			} );
 			$.cookie( "accountInspectionNextList_id" , $(this).attr("name") );
-			$.cookie( "accountInspectionNextList_supplier" ,$(this).attr("supName") );
 			$(".account-panel-content").load( 'accountInspectionNextList.html' );
 		} );
 			$( '.watch-btn-sel' ).click( function () {
@@ -348,7 +347,6 @@
 					$( this ).parent().parent().remove();
 				} );
 				$.cookie( "accountInspectionNextList_id2" , $(this).attr("name") );
-				$.cookie( "accountInspectionNextList_supplier2" ,$(this).attr("supName") );
 				$(".account-panel-content").load( 'accountInspectionNextList2.html' );
 				
 			} );

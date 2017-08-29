@@ -70,7 +70,7 @@ public class AccountPurchaseServiceImpl implements AccountPurchaseService {
 			accountPurchase.setOrdernum(ordernum);
 			
 			accountPurchase.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-			accountPurchase.setMaker(loginAdmin.getId().toString());
+			//accountPurchase.setMaker(loginAdmin.getId().toString());
 			accountPurchase.setProcInsId("start");
 			accountPurchase.setCreateBy(loginAdmin.getId().toString());
 			accountPurchase.setCreateDate(new Date());
