@@ -104,8 +104,8 @@
 		function mathnum() {
 			var len = $("#contentTable>tbody>tr").length;
 			for(var i = 0;i < len;i++){
-				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
-				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
+				var quantity = parseInt($("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text());
+				var num = parseInt($("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val());
 				if(num>quantity||num<0){
 					$( 'body' ).RemindWokenError( '到货数量输入有误,请重新输入!' );
 					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val("");
@@ -237,10 +237,8 @@
 								/*setTimeout(function(){
 									$(".account-panel").remove();
 								},600);*/
-								//$("#index_content").load("accountArrivalList.html");
 							} else {
 								$( 'body' ).RemindWokenError( '保存失败' );
-								//$("#index_content").load("accountArrivalForm.html");
 							}
 						} else {
 							$( 'body' ).RemindWokenError( '请选择订货单!' );

@@ -130,27 +130,6 @@
 		$("#ordernum").val(ordernum);
 	});
 
-	//生成送检单号
-	var ordernum = "30-";
-	var date = new Date();
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-	var day = date.getDate();
-	if (month < 10) {
-		month = "0" + month;
-	}
-	if (day < 10) {
-		day = "0" + day;
-	}
-	ordernum = ordernum + year + month + day + "-";
-	var ordernumRandom = "";
-	for (var i = 0; i < 5; ++i) {
-		var num = Math.random();
-		num = parseInt(num * 10);
-		ordernumRandom += num;
-	}
-	ordernum += ordernumRandom;
-	$("#ordernum").val(ordernum);
 
 	$(function() {
 		//获取到货单号 

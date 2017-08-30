@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.account.entity.AccountSupplier;
 import com.account.entity.Warehouse;
 import com.account.service.WarehouseService;
 import com.account.utils.PageBean;

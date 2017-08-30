@@ -12,10 +12,16 @@ public class AccountInput {
 	
 	private String id;
 	private String inputnum;		// 入库单号
+	private String arrivalnum;// 到货单号
+	private String supplier;  //供应商名称
+	private String suppliernum;  //供应商编码
 	private String inputdate;		// 入库日期
-	private String category="无";		// 入库类别
-	private String inspectionnum;		//送检单号
-	private String contracttitle;		// 合同名称
+	private String makeDate;//制单日期
+	private String category;		// 入库类别
+	private String maker;//制单人
+	private String sumquantity;// 到货数量(总) 查询使用
+	private String sumnum;// 入库数量(总) 查询使用
+	private String summoney;// 总价(总) 查询使用
 	private String beginDate;//开始日期
 	private String endDate;//结束日期
 	private String remarks;//备注信息
@@ -82,23 +88,95 @@ public class AccountInput {
 		this.category = category;
 	}
 	
-	
 
-	public String getInspectionnum() {
-		return inspectionnum;
+	/**
+	 * @return the arrivalnum
+	 */
+	public String getArrivalnum() {
+		return arrivalnum;
 	}
 
-	public void setInspectionnum(String inspectionnum) {
-		this.inspectionnum = inspectionnum;
+
+
+	/**
+	 * @param arrivalnum the arrivalnum to set
+	 */
+	public void setArrivalnum(String arrivalnum) {
+		this.arrivalnum = arrivalnum;
 	}
 
-	public String getContracttitle() {
-		return contracttitle;
+
+
+	/**
+	 * @return the supplier
+	 */
+	public String getSupplier() {
+		return supplier;
 	}
 
-	public void setContracttitle(String contracttitle) {
-		this.contracttitle = contracttitle;
+
+	/**
+	 * @param supplier the supplier to set
+	 */
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
 	}
+
+
+
+	/**
+	 * @return the suppliernum
+	 */
+	public String getSuppliernum() {
+		return suppliernum;
+	}
+
+
+
+	/**
+	 * @param suppliernum the suppliernum to set
+	 */
+	public void setSuppliernum(String suppliernum) {
+		this.suppliernum = suppliernum;
+	}
+
+
+
+	/**
+	 * @return the makeDate
+	 */
+	public String getMakeDate() {
+		return makeDate;
+	}
+
+
+
+	/**
+	 * @param makeDate the makeDate to set
+	 */
+	public void setMakeDate(String makeDate) {
+		this.makeDate = makeDate;
+	}
+
+
+
+	/**
+	 * @return the maker
+	 */
+	public String getMaker() {
+		return maker;
+	}
+
+
+
+	/**
+	 * @param maker the maker to set
+	 */
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
+
+
 
 	public String getBeginDate() {
 		return beginDate;
@@ -172,6 +250,60 @@ public class AccountInput {
 	 */
 	public void setDelFlag(String delFlag) {
 		this.delFlag = delFlag;
+	}
+
+
+
+	/**
+	 * @return the sumquantity
+	 */
+	public String getSumquantity() {
+		return sumquantity;
+	}
+
+
+
+	/**
+	 * @param sumquantity the sumquantity to set
+	 */
+	public void setSumquantity(String sumquantity) {
+		this.sumquantity = sumquantity;
+	}
+
+
+
+	/**
+	 * @return the sumnum
+	 */
+	public String getSumnum() {
+		return sumnum;
+	}
+
+
+
+	/**
+	 * @param sumnum the sumnum to set
+	 */
+	public void setSumnum(String sumnum) {
+		this.sumnum = sumnum;
+	}
+
+
+
+	/**
+	 * @return the summoney
+	 */
+	public String getSummoney() {
+		return summoney;
+	}
+
+
+
+	/**
+	 * @param summoney the summoney to set
+	 */
+	public void setSummoney(String summoney) {
+		this.summoney = summoney;
 	}
 
 	

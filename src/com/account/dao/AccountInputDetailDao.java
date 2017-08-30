@@ -1,7 +1,6 @@
 package com.account.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.account.entity.AccountInputDetail;
 
@@ -11,12 +10,6 @@ import com.account.entity.AccountInputDetail;
  */
 public interface AccountInputDetailDao {
 	void save(AccountInputDetail accountInputDetail);
-
-	void delete(String id);
-
-	void update(Map<String, Object> map);
-
-	List<AccountInputDetail> findList();
-
-	AccountInputDetail getById(String id);
+    void delete(String id);
+	List<AccountInputDetail> getByInputId(String id);
 }

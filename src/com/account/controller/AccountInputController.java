@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.account.entity.AccountInput;
-import com.account.entity.AccountInputInfo;
+import com.account.entity.AccountInputDetail;
 import com.account.service.AccountInputService;
+import com.account.utils.PageUtil;
 import com.account.utils.ResponseModel;
 
 /**
@@ -40,24 +41,10 @@ public class AccountInputController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "getAccountInputListInfoBy")
-	public ResponseModel<List<AccountInputInfo>> getAccountInputListInfoBy(HttpServletRequest req) {
-		ResponseModel<List<AccountInputInfo>> rm = new ResponseModel<List<AccountInputInfo>>();
-		try {
-			String id = req.getParameter("id");
-			List<AccountInputInfo> li = accountInputService.getAccountInputListInfoBy(id);
-			rm.isSuccessMsg(li, "成功");
-		} catch (Exception e) {
-			rm.isErrorMsg("失败");
-		}
-		return rm;
-	}
-
-	@ResponseBody
 	@RequestMapping(value = "findList")
 	public ResponseModel<List<AccountInput>> findList(HttpServletRequest req) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("contracttitle", req.getParameter("contracttitle"));
+		map.put("supplier", req.getParameter("supplier"));
 		map.put("beginDate", req.getParameter("beginDate"));
 		map.put("endDate", req.getParameter("endDate"));
 		ResponseModel<List<AccountInput>> rm = new ResponseModel<List<AccountInput>>();
@@ -70,13 +57,40 @@ public class AccountInputController {
 		return rm;
 	}
 
+	/**
+	 * 查询入库主表详细信息
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value = "form")
-	public ResponseModel<List<AccountInputInfo>> form() {
-		ResponseModel<List<AccountInputInfo>> rm = new ResponseModel<List<AccountInputInfo>>();
+	@RequestMapping(value = "getById")
+	public ResponseModel<AccountInput> getById(HttpServletRequest req) {
+		ResponseModel<AccountInput> rm = new ResponseModel<AccountInput>();
 		try {
-			List<AccountInputInfo> accountInputInfo = accountInputService.getAccountInputInfo();
-			rm.isSuccessMsg(accountInputInfo, "成功");
+			String id = req.getParameter("id");
+			AccountInput accountInput = accountInputService.getById(id);
+			rm.isSuccessMsg(accountInput, "成功");
+		} catch (Exception e) {
+			rm.isErrorMsg("失败");
+		}
+		return rm;
+	}
+
+	/**
+	 * 查询入库子表物资信息
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getByInputId")
+	public ResponseModel<List<AccountInputDetail>> getByInputId(HttpServletRequest req) {
+		ResponseModel<List<AccountInputDetail>> rm = new ResponseModel<List<AccountInputDetail>>();
+		try {
+			String id = req.getParameter("id");
+			List<AccountInputDetail> accountInputDetail = accountInputService.getByInputId(id);
+			rm.isSuccessMsg(accountInputDetail, "成功");
 		} catch (Exception e) {
 			rm.isErrorMsg("失败");
 		}
@@ -96,4 +110,22 @@ public class AccountInputController {
 		}
 		return rm;
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "selectView")
+	public ResponseModel<PageUtil> selectView(String supplier, PageUtil paging, String beginDate, String endDate) {
+		ResponseModel<PageUtil> rm = new ResponseModel<PageUtil>();
+		try {
+			List<AccountInput> list = accountInputService.selectView(supplier, paging, beginDate, endDate);
+			int total = accountInputService.selectViewCount(supplier, beginDate, endDate);
+			paging.setList(list);
+			paging.setTotalCount(total);
+			rm.setSuccessMessage("操作成功", paging);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rm.isErrorMsg("查询失败");
+		}
+		return rm;
+	}
+
 }

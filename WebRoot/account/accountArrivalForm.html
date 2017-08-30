@@ -58,7 +58,6 @@
 			<div class="control-group" style="width:310px;padding:10px 0;float:left;">
 				<label class="control-label">备注信息：</label>
 				<div class="col-lg-3 col-md-6" style="width:320px;padding-left:0;">
-					<!--<input size="16" type="text" readonly="true" style="width:70%" class="form_datetime form-control" name="arrivalDate" id="arrivalDate">-->
 					<textarea name="remarks" id="remarks" htmlEscape="false" style="width:70%" rows="4" maxlength="255" class="form-control" />
 				</div>
 			</div>
@@ -113,30 +112,7 @@
 			ordernum += ordernumRandom;
 			$("#arrivalnum").val(ordernum);
 		});
-		
-		//生成到货单号
-		var ordernum = "30-";
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = date.getMonth() + 1;
-		var day = date.getDate();
-		if (month < 10) {
-			month = "0" + month;
-		}
-		if (day < 10) {
-			day = "0" + day;
-		}
-		ordernum = ordernum + year + month + day + "-";
-		var ordernumRandom = "";
-		for (var i = 0; i < 5; ++i) {
-			var num = Math.random();
-			num = parseInt(num * 10);
-			ordernumRandom += num;
-		}
-		ordernum += ordernumRandom;
-		$("#arrivalnum").val(ordernum);
 			
-		
 		$(function() {
 			//获取订货单号 
 			$.ajax({
@@ -156,8 +132,8 @@
 		function mathnum() {
 			var len = $("#contentTable>tbody>tr").length;
 			for(var i = 0;i < len;i++){
-				var quantity = $("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text();
-				var num = $("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val();
+				var quantity = parseInt($("#contentTable>tbody>tr:eq("+i+") td:eq(5)").text());
+				var num = parseInt($("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val());
 				if(num>quantity||num<0){
 					$( 'body' ).RemindWokenError( '到货数量输入有误,请重新输入!' );
 					$("#contentTable>tbody>tr:eq("+i+") td:eq(6) input").val("");

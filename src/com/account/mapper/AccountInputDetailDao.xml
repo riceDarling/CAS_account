@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.account.dao.AccountInputDetailDao">
-    
- <sql id="accountInputDetailColumns">
+
+	<sql id="accountInputDetailColumns">
 		a.id AS "id",
-		a.parent_id AS "parent_id",
-		a.warehouse AS "warehouse",
-		a.materialname AS "materialname",
+		a.parent_Id AS "parent_id",
+		a.warehouse AS
+		"warehouse",
 		a.location AS "location",
+		a.materialcode AS "materialcode",
+		a.materialname AS "materialname",
 		a.size AS "size",
+		a.unitname AS
+		"unitname",
+		a.unitprice AS "unitprice",
+		a.money AS "money",
 		a.quantity AS "quantity",
+		a.num AS "num",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS
+		"delFlag"
 	</sql>
-	<select id="getById"  parameterType="java.lang.String" resultType="com.account.entity.AccountInputDetail">
-		SELECT 
-			<include refid="accountInputDetailColumns"/>
+	<select id="getByInputId" parameterType="java.lang.String"
+		resultType="com.account.entity.AccountInputDetail">
+		SELECT
+		<include refid="accountInputDetailColumns" />
 		FROM account_input_detail a
-		WHERE a.id = #{id}
+		WHERE a.parent_Id = #{id}
 	</select>
-	
-	<select id="findList" resultType="com.account.entity.AccountInputDetail">
-		SELECT 
-			<include refid="accountInputDetailColumns"/>
-		FROM account_input_detail a
-		where  a.del_flag = '0' ORDER BY a.update_date DESC
-	</select>
-	
+
+
 	<insert id="save" parameterType="com.account.entity.AccountInputDetail">
-		INSERT INTO account_input_detail(
-			id,
-			parent_id,
-			warehouse,
-			materialname,
-			location,
-			size,
-			quantity,
-			remarks,
-			del_flag
+		INSERT INTO
+		account_input_detail(
+		id,
+		parent_Id,
+		warehouse,
+		location,
+		materialcode,
+		materialname,
+		size,
+		unitname,
+		unitprice,
+		money,
+		quantity,
+		num,
+		remarks,
+		del_flag
 		) VALUES (
-			#{id},
-			#{parent_id},
-			#{warehouse},
-			#{materialname},
-			#{location},
-			#{size},
-			#{quantity},
-			#{remarks},
-			#{delFlag}
+		#{id},
+		#{parent_id},
+		#{warehouse},
+		#{location},
+		#{materialcode},
+		#{materialname},
+		#{size},
+		#{unitname},
+		#{unitprice},
+		#{money},
+		#{quantity},
+		#{num},
+		#{remarks},
+		#{delFlag}
 		)
 	</insert>
-	
-	<update id="update" parameterType="java.util.Map">
-		UPDATE account_input_detail SET 	
-			parent_id = #{parent_id},
-			warehouse = #{warehouse},
-			materialname = #{materialname},
-			location = #{location},
-			size = #{size},
-			quantity = #{quantity},
-			remarks = #{remarks}
-		WHERE id = #{id}
+<update id="delete" parameterType="java.lang.String">
+		DELETE from account_input_detail
+		WHERE parent_Id = #{id}
 	</update>
-	
-	<update id="delete" parameterType="java.lang.String">
-		UPDATE account_input_detail SET 
-			del_flag = '1'
-		WHERE id = #{id}
-	</update>
-	
 </mapper>

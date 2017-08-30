@@ -5,74 +5,89 @@
 	<sql id="accountInputColumns">
 		a.id AS "id",
 		a.inputnum AS "inputnum",
+		a.arrivalnum AS
+		"arrivalnum",
+		a.supplier AS "supplier",
+		a.suppliernum AS "suppliernum",
 		date_format(a.inputdate,'%Y-%c-%d') AS "inputdate",
-		a.category AS "category",
-		a.inspectionnum AS "inspectionnum",
+		date_format(a.makeDate,'%Y-%c-%d') AS "makeDate",
+		a.category AS
+		"category",
+		a.maker AS "maker",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS
+		"delFlag"
 	</sql>
 
 	<select id="getById" parameterType="java.lang.String"
 		resultType="com.account.entity.AccountInput">
 		SELECT
 		<include refid="accountInputColumns" />
-		FROM account_input a,account_input_detail b
-     WHERE a.inputNum=b.parent_Id 
-		and a.id = #{id}
+		FROM account_input a
+		WHERE a.id = #{id}
 	</select>
 
 	<select id="findList" parameterType="java.util.Map"
 		resultType="com.account.entity.AccountInput">
 		SELECT
 		<include refid="accountInputColumns" />
-		,d.contractTitle as contracttitle
-		FROM account_input
-		a,account_inspection b,account_arrival c,account_contract d
-		where 
-			a.inspectionnum=b.id AND b.arrivalNum=c.id AND c.contract_id=d.id and
-			a.del_flag = '0'
-			<if test="contracttitle != null and contracttitle != ''">
-				AND d.contracttitle LIKE CONCAT('%',#{contracttitle},'%'
-				)
-			</if>
-			<if test="beginDate != null and beginDate != ''">
-				AND a.inputdate &gt;= #{beginDate}
-			</if>
+		FROM account_input a
+		where a.del_flag = '0'
+		<if test="supplier != null and supplier != ''">
+			AND a.supplier LIKE CONCAT('%',#{supplier},'%'
+			)
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+			AND a.inputdate &gt;= #{beginDate}
+		</if>
 
-			<if test="endDate != null and endDate != ''">
-				AND a.inputdate &lt;= #{endDate}
-			</if>
-			GROUP BY contracttitle ORDER BY a.inputdate DESC
+		<if test="endDate != null and endDate != ''">
+			AND a.inputdate &lt;= #{endDate}
+		</if>
+		GROUP BY a.id ORDER BY a.inputdate DESC
 	</select>
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.account.entity.AccountInput">
+	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.account.entity.AccountInput">
 		INSERT INTO account_input(
 		id,
 		inputnum,
+		arrivalnum,
+		supplier,
+		suppliernum,
 		inputdate,
+		makeDate,
 		category,
-		inspectionnum,
+		maker,
 		remarks,
 		del_flag
 		) VALUES (
 		#{id},
 		#{inputnum},
+		#{arrivalnum},
+		#{supplier},
+		#{suppliernum},
 		#{inputdate},
+		#{makeDate},
 		#{category},
-		#{inspectionnum},
+		#{maker},
 		#{remarks},
 		#{delFlag}
 		)
 	</insert>
 
-	<update id="update" parameterType="java.lang.String">
+	<update id="update" parameterType="com.account.entity.AccountInput">
 		UPDATE account_input SET
 		inputnum = #{inputnum},
+		arrivalnum=#{arrivalnum},
+		supplier=#{supplier},
+		suppliernum=#{suppliernum},
 		inputdate = #{inputdate},
-		category =
-		#{category},
-		inspectionnum = #{inspectionnum},
-		remarks = #{remarks}
+		makeDate=#{makeDate},
+		category = #{category},
+		maker = #{maker},
+		remarks =
+		#{remarks}
 		WHERE id = #{id}
 	</update>
 
@@ -81,47 +96,58 @@
 		del_flag = '1'
 		WHERE id = #{id}
 	</update>
-	<select id="getAccountInputInfo" resultType="com.account.entity.AccountInputInfo">
+	<select id="selectView" parameterType="java.lang.String"
+		resultType="com.account.entity.AccountInput">
 		SELECT
-		c.materialName as materialname,c.size as size, d.arrival_num as
-		receivedquantity
-		,c.remarks as inputremarks,b.id as inspectionnum
+		<include refid="accountInputColumns" />
+		,sum(b.quantity) as sumquantity,sum(b.num) as sumnum,sum(b.money) as
+		summoney
 		FROM
-		account_inspection b,account_inspection_detail c
-		,account_arrival d
-		WHERE b.id=c.parent_Id AND b.arrivalNum=d.id
-		AND (c.`status`='2'or
-		c.`status`='3')
-		ORDER BY b.inspectionDate DESC
+		account_input a ,account_input_detail b
+		WHERE
+		a.id=b.parent_Id
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.inputdate) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.inputdate) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		GROUP BY a.id
+		ORDER BY a.inputdate DESC
+		<if test="paging != null">
+			<include refid="com.account.dao.SqlFragment.paging" />
+		</if>
+		;
 	</select>
-	<select id="getAccountInput" parameterType="java.lang.String"
-		resultType="int">
-		SELECT COUNT(a.inspectionnum) FROM account_input a WHERE
-		del_flag ='0' and
-		a.inspectionnum=#{inspectionnum}
-	</select>
-	<select id="getAccountInputListInfoBy" parameterType="java.lang.String"
-		resultType="com.account.entity.AccountInputInfo">
-		SELECT a.inputNum as inputnum,b.materialname as materialname,b.size as size,
-		b.quantity as
-		quantity,b.warehouse as warehouse,
-		b.location as
-		location,b.remarks as inputremarks ,date_format(a.inputdate,'%Y-%c-%d') AS 
-		inputdate,a.remarks
-		as remarks
-		FROM account_input a,account_input_detail b WHERE
-		a.inputNum=b.parent_Id
-		AND a.id=#{id} 
-	</select>
-	<update id="updateStatus" parameterType="java.lang.String">
-		UPDATE
-		account_inspection_detail a SET a.`status`='4' WHERE
-		a.parent_Id=#{ordernum}
-	</update>
-	<update id="updateInspectionStatus" parameterType="java.lang.String">
-		UPDATE
-		account_inspection_detail a SET a.`status`='2' WHERE
-		a.parent_Id=#{ordernum}
-	</update>
 
+	<select id="selectViewCount" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(id) from (
+		SELECT
+		<include refid="accountInputColumns" />
+		,sum(b.quantity) as sumquantity,sum(b.num) as sumnum,sum(b.money) as
+		summoney
+		FROM
+		account_input a ,account_input_detail b
+		WHERE
+		a.id=b.parent_Id
+		and
+		a.del_flag='0'
+		<if test="supplier != null and supplier != ''">
+			and a.supplier like CONCAT(CONCAT('%',#{supplier}),'%')
+		</if>
+		<if test='beginDate != null and beginDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.inputdate) >= UNIX_TIMESTAMP('${beginDate} 00:00:00')]]>
+		</if>
+		<if test='endDate != null and endDate != ""'>
+			<![CDATA[and UNIX_TIMESTAMP(a.inputdate) <= UNIX_TIMESTAMP('${endDate} 23:59:59')]]>
+		</if>
+		GROUP BY a.id
+		)as num
+	</select>
 </mapper>
