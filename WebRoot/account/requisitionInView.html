@@ -171,7 +171,7 @@ $( '.tablescrol-container' ).niceScroll({
 								+ detail.size + '</td>' + '<td>'
 								+ detail.quantitiy + '</td>' + '<td>'
 								+ detail.name + '</td>' + '<td>'
-								+ detail.remarks + '</td>' + '</tr>';
+								+ ( detail.remarks == undefined ? '' : detail.remarks )+ '</td>' + '</tr>';
 					}
 					$( "#requisitionView_table tbody" ).html( html );
 				}

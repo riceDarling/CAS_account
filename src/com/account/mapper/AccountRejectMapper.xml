@@ -221,7 +221,7 @@
 	<select id="selectView" parameterType="string"
 		resultType="com.account.entity.AccountReject">
 		select
-		<include refid="my_Base_Column_List" />
+		<include refid="my_Base_Column_List" />,b.supplier
 		from account_reject a
 		LEFT JOIN account_supplier b ON a.supplierNum=b.supplierNum
 		WHERE a.del_flag = 0

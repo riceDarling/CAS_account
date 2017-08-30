@@ -104,8 +104,10 @@ $(".form_datetime").datetimepicker({
 		if ( table_data.length > 0 ) {
 			for ( var c in table_data ) {
 				var tempObj = new Object();
+				tempObj.ordernum = table_data[ c ].ordernum; 
+				tempObj.arrivalnum = table_data[ c ].arrivalnum; 
 				tempObj.title = table_data[ c ].title; 
-				tempObj.suppliernum = table_data[ c ].suppliernum; 
+				tempObj.supplier = table_data[ c ].supplier; 
 				tempObj.createDate = new Date( table_data[ c ].createDate ).format( 'yyyy-MM-dd' ); 
 			
 					tempObj.dataopt = '<a style="margin-right:6px;" name="'+table_data[ c ].id+'" class="btn watch-btn-sel btn-info"  >修改</a><a name="'+table_data[ c ].id+'" class="btn selfback-btn-del btn-danger" >删除</a>';  
@@ -127,13 +129,25 @@ $(".form_datetime").datetimepicker({
 						"bVisible" : false //此列不显示  
 					},
 					{  
+						"mDataProp" : "ordernum",  
+						"sTitle" : "退货单编号",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
+						"mDataProp" : "arrivalnum",  
+						"sTitle" : "到货单编号",  
+						"sDefaultContent" : "",  
+						"sClass" : "left"  
+					},
+					{  
 						"mDataProp" : "title",  
 						"sTitle" : "退货单标题",  
 						"sDefaultContent" : "",  
 						"sClass" : "left"  
 					},
 					{  
-						"mDataProp" : "suppliernum",  
+						"mDataProp" : "supplier",  
 						"sTitle" : "供应商名称",  
 						"sDefaultContent" : "",  
 						"sClass" : "left"  
